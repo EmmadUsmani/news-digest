@@ -884,5 +884,105 @@
       "evidence": "Exact reference URL is present in immutable final editor prompt with award-result excerpt; ID absent from selected stories. All four selected posts inspected: regional GTA censorship, launch revenue forecast, in-game meme and NYC games employment; none reports TIGA awards.",
       "motivation": "unknown; do not infer editorial reason from selection alone"
     }
-  ]
+  ],
+  "savedGroupingAudit": {
+    "iteration": 2946,
+    "source": "Read-only llm_cache snapshot; existing scheduled grouping response, no provider invocation.",
+    "cacheKey": "9f9dcb713fafdd82b15c5a9ad4a7bef64ded273c019c83b549f17b5f99d9c7cd",
+    "createdAt": "2026-11-19T15:01:18.512Z",
+    "responseSha256": "8b2fdaf2d216f6b33c5cbb9cfbb8003680a87257c0d669c7b688825f221b259e",
+    "groups": [
+      [
+        "74a11d4a-2f40-4f94-bcc8-9285bb4951c3",
+        "9bf51397-245d-4324-8cea-03285ebcfdc8",
+        "df1f35f4-e974-4547-ab8e-86ad4036666b",
+        "1468155d-ed23-4904-beae-d235a9c9082d"
+      ],
+      [
+        "c872b24e-762b-4c47-af90-f2f7adc23041",
+        "247ed43b-b255-4505-8b6c-86df6b5211e8",
+        "ac9cb8d5-c8a5-4443-b94e-3ab1cbf4cb99",
+        "bebc8ef5-1010-44ad-99b1-1b32edfbe303"
+      ],
+      [
+        "c0ab1091-5710-4304-bee8-76a2eb2bc569",
+        "70c7c5bf-9ed4-4109-9e57-7c9bf7986ca2"
+      ],
+      [
+        "0a476a22-d6b7-42e2-a16e-915e440d906f",
+        "2d75df69-c697-431b-a2c9-9385147208e3"
+      ],
+      [
+        "1e99fefc-bfb5-46b8-9c84-c3bcf2984039",
+        "453b4d3e-28e7-4908-8d4b-b0a7005794a9"
+      ],
+      [
+        "bcff1a6d-d61d-4602-9ff5-f6aa4fc2792e",
+        "7a9db526-8494-4c60-8b07-6251cf03b941"
+      ],
+      [
+        "5d32a4f1-7922-429e-ac5e-91f58b46dd15",
+        "4c292142-fe00-4f45-be73-a663558b1a94",
+        "800fd379-badf-44e0-8ee5-56bb02916c30",
+        "b40ed230-aea4-49a4-881a-9f2eabe11ec4"
+      ]
+    ],
+    "selectedReferenceChecks": [
+      {
+        "url": "https://www.gamesindustry.biz/rockstar-and-iwgb-members-issue-closing-arguments-following-conclusion-of-employment-tribunal",
+        "candidateId": "9bf51397-245d-4324-8cea-03285ebcfdc8",
+        "selectedClusterIds": ["df1f35f4-e974-4547-ab8e-86ad4036666b"]
+      },
+      {
+        "url": "https://www.eurogamer.net/gta-6-discless-release-code-in-a-box-gamestop-ceo",
+        "candidateId": "ac9cb8d5-c8a5-4443-b94e-3ab1cbf4cb99",
+        "selectedClusterIds": ["c872b24e-762b-4c47-af90-f2f7adc23041"]
+      },
+      {
+        "url": "https://www.gamesindustry.biz/call-of-duty-modern-warfare-4-debuts-as-top-selling-game-in-us-for-october-2026",
+        "candidateId": "4c292142-fe00-4f45-be73-a663558b1a94",
+        "selectedClusterIds": ["5d32a4f1-7922-429e-ac5e-91f58b46dd15"]
+      },
+      {
+        "url": "https://www.eurogamer.net/call-of-duty-modern-warfare-4-october-top-seller",
+        "candidateId": "800fd379-badf-44e0-8ee5-56bb02916c30",
+        "selectedClusterIds": ["5d32a4f1-7922-429e-ac5e-91f58b46dd15"]
+      },
+      {
+        "url": "https://www.eurogamer.net/gta-6-rockstar-tribunal-awaits-verdict",
+        "candidateId": "df1f35f4-e974-4547-ab8e-86ad4036666b",
+        "selectedClusterIds": ["df1f35f4-e974-4547-ab8e-86ad4036666b"]
+      }
+    ],
+    "unrepresentedCandidateChecks": [
+      {
+        "id": "f54bd57c-d206-49be-8b86-4082d6f1852b",
+        "url": "https://www.gamesindustry.biz/us-senate-hearing-examines-child-safety-on-roblox-considers-bipartisan-bill-to-bypass-forced-arbitration",
+        "title": "US Senate hearing examines child safety on Roblox, considers bipartisan bill to bypass forced arbitration",
+        "inReturnedMerge": false,
+        "inFinalRepresentativeList": false,
+        "inSelectedCoverage": false,
+        "interpretation": "Previously established Roblox omission; no returned merge routes it into another representative."
+      },
+      {
+        "id": "7234d33b-c12c-475b-ae91-f15cb7244d8a",
+        "url": "https://www.eurogamer.net/gta-6-rockstar-developers-layoffs-worries",
+        "title": "GTA 6 developers at Rockstar are worried about being laid off after shipping \"the biggest game of all time\"",
+        "inReturnedMerge": false,
+        "inFinalRepresentativeList": false,
+        "inSelectedCoverage": false,
+        "interpretation": "No explicit saved merge routes this article into a selected cluster or editor representative. Related launch/labor semantic coverage remains unresolved; not an additional confirmed event miss."
+      },
+      {
+        "id": "fb1fe8f9-5787-46ae-b812-4878b2fff972",
+        "url": "https://www.eurogamer.net/gta-6-grand-theft-auto-6-launch-day-live-blog",
+        "title": "Grand Theft Auto 6 launch day live - news and reaction as GTA 6 arrives around the world",
+        "inReturnedMerge": false,
+        "inFinalRepresentativeList": false,
+        "inSelectedCoverage": false,
+        "interpretation": "No explicit saved merge routes this article into a selected cluster or editor representative. Related launch/labor semantic coverage remains unresolved; not an additional confirmed event miss."
+      }
+    ],
+    "limits": "Cache row records returned multi-article merges, not singleton inputs or a complete reference matching pass. Five selected reference URLs map to three distinct saved clusters. No cross-URL inference for absent candidates, new omission count or event recall."
+  }
 }

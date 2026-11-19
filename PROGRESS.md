@@ -103,3 +103,13 @@
 - Exact saved-evidence assertions pass: 51 URLs, titles/excerpts, every observation, in-window feed timestamps, 19/32 decisions and unset recall. Handbook passes 19 pages/21 diagrams/39 tables. Logs /tmp/2945-*.log.
 - Final health and alerts clear; all 14 monitored services healthy, sources current, digest queue zero failures. Runtime unchanged, so no rebuild or restart needed; live application remains aligned with main.
 - pnpm format/lint:fix and full pnpm check pass: 1,204 unit tests/332 integration passes/four expected skips. git diff --check passes. Next: five-topic event matching/recall/causes in the same Nov 19 review; three completed reviews and measured root-cause fix still open. Commit/push follow.
+
+## 2026-11-19: iteration 2946 — validate Gaming saved grouping routes
+
+- Clean main at cc78f42c; no inherited work. Initial alerts clear; health database/Redis pass. Evidence/docs only, no production writes, runtime changes or paid calls.
+- Read-only llm_cache snapshot preserves scheduled Gaming grouping response (15:01:18 UTC): seven merges/20 unique IDs, cache identity/timestamp/hash. Five important reference URLs agree with both saved merge memberships and selected coverage, representing three selected clusters.
+- Launch liveblog and layoff-fears IDs have no returned merge, final representative or selected coverage route; related launch/labor semantic coverage remains unresolved. Roblox has no merge routing either; its previously confirmed collected-but-not-shortlisted cause is unchanged.
+- Returned merges omit singleton inputs. No additional event miss, denominator or recall claimed; complete external semantic/embedding matching and five-topic causes remain next. No scoring tuning or new source.
+- Exact saved-evidence assertions pass (seven groups, uniqueness, five URL/ID/selected membership checks, three absent-routing controls); handbook passes 19 pages/21 diagrams/39 tables. Logs /tmp/2946-*.log.
+- Final services/sources checks pass (Destructoid remains paused); digest queue zero failures. Public jobs counts pass; detailed failed-state query is unavailable in public mode. Final health/alerts clear.
+- Runtime unchanged; no rebuild or restart needed, live application remains aligned with main. pnpm format/lint:fix and full pnpm check pass: 1,204 unit tests/332 integration passes/four expected skips; git diff check passes. Commit/push follow.
