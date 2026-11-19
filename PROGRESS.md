@@ -10,111 +10,7 @@
 
 [Iterations 2891–2898](docs/progress-archive/2026-11-19-iterations-2891-2898.md).
 
-## 2026-11-19: iteration 2899 — prepared atomic rewrite orchestration
-
-- Clean main at 81a41d74; no inherited work. Alerts/health and active sources pass. Digest-generation queue zero failures; next scheduled 15:00 UTC. Reader five topics/25 stories.
-- Added inactive orchestration across the curation public boundary: bounded request, one attributed LlmPort dispatch with execution context, strict JSON parsing and current-evidence validation through the atomic fixed-selection contract.
-- Three fake-port tests cover matched-only success/metadata preservation, refusal/malformed output/injected fields/guard or port errors without retry, and no dispatch for empty matches or oversized evidence. No provider calls or generation activation.
-- Verification: pnpm format, lint:fix, typecheck, build and handbook (19 pages/21 diagrams/39 tables) pass; full pnpm check passes (1,184 unit / 332 integration, four expected skips). Logs /tmp/2899-*.log.
-- Exact saved original-evidence requests, semantic review and whole-edition budget admission remain open. No source/UI or handbook behavior changes; scheduled missed-story/NBA/Tech review remains after 15:00 UTC.
-- Final git diff --check clear. Commit/push and API/worker/docs restart follow verification; no feature activation.
-
-## 2026-11-19: iteration 2900 — offline exact rewrite request receipts
-
-- Clean main at 9402f919; no inherited work. Alerts/health pass, active sources healthy; Destructoid inactive. Digest queue zero failed jobs, next scheduled 15:00 UTC. Disk 62%; reader five topics/25 stories.
-- Added offline capture CLI using the inactive real rewrite orchestration and a refusing fake port. Saves exact configured requests, original-input fingerprints, UTF-8/framing bounds and conservative single-rewrite reservations. No provider/DB calls or generation activation.
-- Two synthetic targeted tests pass: exact builder equality, Unicode/input preservation, cost arithmetic, changed-evidence fingerprint and zero requests for missing matches/evidence or oversized input. CLI empty capture writes mode 600 and refuses overwrite. Real saved evidence and semantic/whole-edition admission remain open.
-- Verification: pnpm format, lint:fix, check (1,186 unit / 332 integration pass, four expected skips), build pass; logs /tmp/2900-*.log. Default handbook hit HTTP 429; immediate restart retry hit startup ECONNREFUSED; explicit --owner-services verification passes (19 pages/21 diagrams/39 tables). API/worker/docs restarted; health passes.
-- TASKS and saved review updated; no source/UI/handbook behavior change. Scheduled missed-story/NBA/Tech review remains after 15:00 UTC. Commit/push follow verification.
-
-## 2026-11-19: iteration 2901 — extract saved original editorial evidence
-
-- Clean main at 50858527; no inherited work. Alerts/health pass; 37 active sources have no errors, Destructoid inactive; digest queue zero failures, next 15:00 UTC. Reader five topics/25 stories.
-- Replay export now extracts source evidence from immutable candidatePrompt with exact SHA-256, preserving bounded source text/attribution separately from published prose. Strict topic/ID/schema/completeness checks refuse ambiguous or missing evidence atomically; restores representative before supplemental guard evidence.
-- Read-only export /tmp/2901-original-evidence.json: nine/35 topic windows, 45 selections. Available: all Nov 17 topics and Nov 18 except NBA. Existing reviewed positive matches have no complete-evidence overlap; no fabricated backfill, provider calls or activation. Semantic review and whole-edition admission remain open.
-- Two offline tests pass for preservation, hashes, history isolation, ordering and malformed/ambiguous/missing input refusal. Build and handbook pass (19 pages/21 diagrams/39 tables). Initial full check inherited production flags from the read-only export shell: 1,188 unit pass, integration fails on public/selection configuration. Fresh unsourced pnpm check passes: 1,188 unit / 332 integration, four expected skips. pnpm format/lint:fix pass; logs /tmp/2901-*.log.
-- TASKS and saved review updated; no source/UI/handbook behavior change. Direct default-visitor endpoint probes hit rate limits; standard explicit local probe visitor succeeds. Scheduled missed-story/NBA/Tech review remains due after 15:00 UTC.
-- Final git diff --check clear. Commit/push and API/worker/docs restart follow verification; no feature activation.
-
-## 2026-11-19: iteration 2902 — saved positive rewrite evidence controls
-
-- Clean main at 2c26bb60; no inherited work. Alerts/health pass; active sources healthy, digest queue zero failures/next 15:00 UTC; reader five topics/25 stories.
-- Added two agent-reviewed positive memberships with exact saved original editor evidence/prompt hashes: Nov 18 Peltola result follows Nov 17 near-50% count (two editions); Zelda sales follows Nov 17 ranking/Nov 11 launch total (three editions). Zelda repeats established facts: a rewrite must not invent a new milestone.
-- Existing saved-membership replay now checks both; offline capture checks exact request construction, nearest links/counts and unchanged five-story selections. All 15 targeted replay/membership/capture tests pass. Saved bounded-evidence rewrite reservations: Gaming 19,850 / U.S. 18,685 micros ($0.038535 total); not runtime or whole-edition admission.
-- No provider calls, activation or production behavior changes. Semantic model matching/generated rewrite review, whole-edition admission and live acceptance remain open. Scheduled missed-story/NBA/Tech review remains after 15:00 UTC.
-- Build and handbook pass (19 pages/21 diagrams/39 tables); pnpm format/lint:fix pass. Initial full check exposed the evaluator's stale three-link count; updated to five for the added controls. Fresh full pnpm check passes: 1,193 unit / 332 integration, four expected skips. Logs /tmp/2902-*.log.
-- Direct default-visitor reader probe was rate-limited; explicit local probe succeeds. Public mode refuses private failed-job filtering; queue-count probe confirms zero failures. TASKS and saved review updated; older progress archived, task handoff condensed. No handbook/source behavior change.
-- Final git diff --check clear; commit/push and API/worker/docs restart follow verification. No feature activation.
-
-## 2026-11-19: iteration 2903 — combined developing-request budget preflight
-
-- Clean main at 1790fd94; no inherited work. Alerts/health pass; sources healthy (Destructoid inactive), digest queue zero failures/next 15:00 UTC. Reader five topics/25 stories.
-- Added offline combined-request calculator using production budget arithmetic: conservative UTF-8/cache-price bounds for all supplied matching/repair/rewrite requests, protected remaining edition obligations, shared daily/monthly headroom and model ceilings. Missing allocated-model snapshots, invalid funds/output bounds and oversized inputs refuse.
-- Two offline tests cover multiple calls, Unicode, exact model headroom/one-micro refusal, protected baseline funds, monthly limits, outstanding holds and invalid inputs. No provider/DB calls, ledger reservations or feature activation. Complete runtime plan, transactional admission and semantic review remain open.
-- Verification: initial full check caught missing void on the new node:test promises; corrected. Final pnpm check passes (1,195 unit / 332 integration, four expected skips). pnpm format/lint:fix pass. Build and handbook pass (19 pages/21 diagrams/39 tables). Logs /tmp/2903-*.log.
-- TASKS and saved review updated; no source/UI/handbook behavior change. Scheduled missed-story/NBA/Tech acceptance remains after 15:00 UTC. Commit/push and API/worker/docs restart follow verification.
-
-## 2026-11-19: iteration 2904 — complete captured-edition coverage gate
-
-- Clean main at c7070c6b; no inherited work. Alerts/health pass; sources report healthy, digest queue zero failures/next 15:00 UTC; reader five topics/25 stories.
-- Offline capture-plan gate requires one ready matching and rewrite request per expected topic/edition before combined budget calculation. Missing, duplicate, unexpected, cross-edition, unavailable and mismatched request-topic captures refuse. Explicit additional repair requests and protected baseline obligations count toward shared/model limits.
-- New CLI reads supplied captures/budget only, recalculates costs and writes a compact mode-600 report without overwriting. No provider, DB, config or ledger calls; production stays inactive. Supplied coverage does not prove complete runtime bounds or semantic quality.
-- Two targeted tests pass; synthetic CLI report/permissions/overwrite refusal pass. pnpm format/lint:fix and full check pass (1,197 unit / 332 integration, four expected skips); build and handbook pass (19 pages/21 diagrams/39 tables). Logs /tmp/2904-*.log.
-- TASKS and saved review updated; no source/UI/handbook behavior change. Semantic model/rewrite review, runtime five-topic plan and transactional admission remain open; scheduled missed-story/NBA/Tech review due after 15:00 UTC.
-- Final git diff --check clear; commit/push and API/worker/docs restart follow verification. No feature activation.
-
-## 2026-11-19: iteration 2905 — refuse invented developing-story updates
-
-- Clean main at 178894d3; no inherited work. Alerts/health pass; sources healthy, digest queue zero failures/next 15:00 UTC; reader five topics/25 stories.
-- Prepared developing rewrite v2 explicitly requires whole-request null when current evidence repeats earlier results/rankings/sales totals; forbids invented milestones/reporting periods and unsupported confirmation of prior conditional claims. No grouping/title rules or feature activation.
-- Exact saved Zelda transport supplies original evidence/history; scripted null preserves all five selections by identity with no relationship metadata and one dispatch/no retry. This verifies refusal handling, not semantic model compliance. No provider calls.
-- Seven targeted tests pass. pnpm format/lint:fix and full pnpm check pass (1,197 unit / 332 integration, four expected skips); build and handbook pass (19 pages/21 diagrams/39 tables). Handbook results in /tmp/2905-handbook.log; remaining logs /tmp/2905-*.log.
-- TASKS and saved review updated; v1 reservation figures explicitly historical, fresh captures recalculate v2 bounds. Semantic review/runtime admission/live acceptance remain open; missed-story/NBA/Tech scheduled review due after 15:00 UTC. No source/UI/handbook behavior change.
-- Commit/push and API/worker/docs restart follow verification; live health and alert checks repeated after restart.
-
-## 2026-11-19: iteration 2906 — trace missed-story references through saved coverage
-
-- Clean main at ecca00b6; no inherited work. Alerts/health pass; all 37 active sources return data without errors (Destructoid inactive); digest queue zero failures/next 15:00 UTC. Reader five topics/25 stories; default local visitor was rate-limited, explicit loopback probe passes.
-- Added offline trace-reference-stories CLI: compares a dated capture to a saved reader edition, uses ingestion canonical URLs to locate selected representatives/explicit cluster coverage, preserves reference excerpts and unavailable feeds, and leaves different URLs for event/importance review. No inferred misses, recall, wording matcher, DB writes or provider calls.
-- Exact edition-window and unique-topic checks prevent cross-edition/topic matches. Early captures remain marked incomplete (derived from capture time); legacy captures without windowEnded are accepted. Output is a new mode-600 file, refusing overwrite.
-- Two targeted tests pass (coverage/normalization, cross-topic isolation, unchanged inputs, failure preservation, window/credential refusals); synthetic CLI transport/permissions/overwrite checks pass. Actual early Nov 19 capture against saved Nov 18 edition refuses on window mismatch; no semantic recall claimed.
-- pnpm format/lint:fix and full pnpm check pass: 1,199 unit / 332 integration, four expected skips. Build and handbook pass (19 pages/21 diagrams/39 tables). Logs /tmp/2906-*.log. TASKS and docs/SOURCES.md updated; no UI/handbook behavior change.
-- Scheduled Missed/NBA/Tech review remains due after 15:00 UTC; developing semantic review/runtime admission remain open. Commit/push and API/worker/docs restart follow verification.
-
-## 2026-11-19: iteration 2907 — retain early reference-feed observations
-
-- Clean main at ad4dd107; no inherited work. Alerts/health pass; sources healthy, digest queue zero failures/next 15:00 UTC. Reader serves five topics/25 real saved stories.
-- Corrected reference capture/trace windowEnded: every feed must have started observation after the window closes. A capture finishing after closing cannot promote earlier feed observations; trace reports each feed separately, including failures. Empty traces never imply post-window coverage.
-- Three targeted offline tests pass, including mixed early/late observations, all-late observations, empty captures and preserved early feed errors. No provider calls or production editorial changes.
-- TASKS and docs/SOURCES.md updated. Scheduled Missed/NBA/Tech review remains due after 15:00 UTC; event matching and importance review remain required before recall.
-- Verification: pnpm format/lint:fix and full pnpm check pass (1,200 unit / 332 integration, four expected skips); pnpm build and handbook pass (19 pages/21 diagrams/39 tables). Logs /tmp/2907-*.log. Final diff check, commit/push and API/worker/docs restart follow; health/alerts rechecked after restart.
-
-## 2026-11-19: iteration 2908 — trace reference URLs into saved editor inputs
-
-- Clean main at 76b0878a; no inherited work. Alerts/health pass; active sources healthy, digest queue zero failures/next 15:00 UTC. Reader serves five topics/25 real saved stories.
-- Offline reference trace accepts an optional same-edition snapshot and reports editor-input URL matches, representative selection status and original triage scores. Supplemental report URLs map to their selectable representative. No semantic matches, automatic misses, collection-gap claims or recall.
-- Snapshot identity/window and unique-topic checks refuse mixed evidence; missing/malformed/cross-topic/duplicate-ID prompts remain unavailable. Members without URLs are counted explicitly; an unmatched URL does not prove shortlist exclusion.
-- Four targeted tests pass. Synthetic CLI reference against the real Nov 18 saved snapshot traces its selected story, exposes 11 editor members without URLs, writes mode 600 and refuses overwrite. The synthetic reference is not a historical/live reference observation. No DB/model/network calls by the trace.
-- TASKS and docs/SOURCES.md updated; older PROGRESS entries archived at the size threshold. No reader/source/handbook behavior change. Scheduled Missed/NBA/Tech review remains due after 15:00 UTC.
-- Verification: pnpm format/lint:fix and full pnpm check pass (1,201 unit / 332 integration, four expected skips); pnpm build passes. Handbook proxy check hit HTTP 429 after rendering; documented --owner-services retry passes (19 pages/21 diagrams/39 tables). Logs /tmp/2908-*.log.
-- Final diff check, commit/push and API/worker/docs restart follow; live health/alerts rechecked after restart. No provider calls or feature activation.
-
-## 2026-11-19: iteration 2909 — require capture stage attribution
-
-- Clean main at 7ca10c60; no inherited work. Alerts/health pass; 37 active sources healthy, Destructoid inactive. Digest-generation queue zero failures/next 15:00 UTC; reader returns five topics/25 real saved stories.
-- Offline developing plan gate now requires matching/rewrite purpose identity and exact request-topic attribution. Previously a matching request could fill the rewrite slot, understating its intended cost; missing topic attribution also passed.
-- Four targeted tests pass: stage swaps, unrelated/empty purposes, absent topics, unchanged inputs, no report on refusal, existing-evidence preservation and overwrite refusal. Historical generic-purpose synthetic /tmp/2904-plan.json correctly refuses under the stricter gate; it is not admission evidence.
-- This checks attribution, not prompt authenticity or semantic quality. Runtime whole-edition admission, semantic review and activation remain open. No provider calls, source/UI/handbook behavior changes or feature activation. Missed/NBA/Tech review remains due after 15:00 UTC.
-- pnpm format/lint:fix and full pnpm check pass (1,203 unit / 332 integration, four expected skips); pnpm build and handbook --owner-services pass (19 pages/21 diagrams/39 tables). Logs /tmp/2909-*.log. Final diff check, commit/push and API/worker/docs restart follow; live health/alerts rechecked after restart.
-
-## 2026-11-19: iteration 2910 — retain rolling reference observations together
-
-- Clean main at 3fd37b1f; no inherited work. Alerts/health and source checks pass; digest queue zero failures/next 15:00 UTC. Reader serves five topics/25 real saved stories.
-- Reference trace accepts a JSON array of same-window captures, retaining each feed's stories, failures, observation time and capture completion time. Latest completion is order-independent; early observations stay early. No URL/event deduplication or recall inference.
-- Five targeted offline tests pass, including rolling disappearance/later failure, input preservation, reversed order, empty input and mixed-window refusal. CLI duplicate-observation check on a synthetic reference plus real saved edition preserves both observations and writes mode 600; no historical/live reference claim.
-- TASKS and docs/SOURCES.md updated. No UI, production source or handbook behavior change, provider calls or feature activation. Post-15:00 Missed/NBA/Tech review remains next.
-- Verification: pnpm format/lint:fix; pnpm check; pnpm build; handbook --owner-services. Build and handbook pass (19 pages/21 diagrams/39 tables); full check passes (1,204 unit / 332 integration, four expected skips). Logs /tmp/2910-*.log.
-- Final diff check and commit/push follow verification; API/worker/docs restart and live health/alerts are rechecked afterward. Initial reader probe hit HTTP 429; the existing forwarded-address smoke pattern returned five topics/25 stories.
+[Iterations 2899–2910](docs/progress-archive/2026-11-19-iterations-2899-2910.md).
 
 ## 2026-11-19: iteration 2937 — scheduled NBA recovery and published reference trace
 
@@ -156,3 +52,13 @@
 - Saved assertions pass for 30 assessments, two exact prompt records, TIGA scores/admission/omission/timing and unset recall. First assertion attempt had a misspelled property in the scratch check; corrected rerun passes. Handbook passes (19 pages/21 diagrams/39 tables).
 - pnpm format/lint:fix pass. Full pnpm check passes static checks/1,204 unit tests but isolated Grafana listener test fails once with administrator-terminated Postgres connection (331 integration passes/four skips). Exact isolated rerun passes; complete pnpm test:integration rerun passes 332/four expected skips. Logs /tmp/2940-*.log; final health/alerts and diff check pass. Cross-URL memberships/five-topic recall remain open.
 - No build/deploy/restart: unchanged application and 13:00–16:00 hold. Next: finish event matching/recall/causes in the same Nov 19 review, then event concentration. Commit/push after checks.
+
+## 2026-11-19: iteration 2941 — preserve NBA final-editor omission evidence
+
+- Clean main at 0794d544; no inherited work. Initial/final alerts clear and /healthz database/Redis pass. Documentation/evidence only; no runtime changes.
+- Exact saved publisher URL identifies Celtics–Nuggets candidate d2294ac7 in immutable ten-item final prompt: relevance 9/importance 5, short informative excerpt, absent from five selected IDs. Selected summaries/four post texts omit teams, Tatum and score; no inferred cross-URL membership.
+- Preserved all six reference observations (four before cutoff), original triage/input and selected story/post evidence. Stage: shortlisted but editor dropped; motivation unknown. Agent importance judgement explicit; no score threshold or causal prompt change.
+- Final NBA reference trace has 100 distinct URLs, not the early 22 candidate observations or an event denominator. Importance census and five-topic event matching/recall remain open.
+- Condensed TASKS handoff; archived progress 2899–2910 to keep orientation small. No changes to owner files, source collection or paid calls.
+- Saved-evidence assertions and handbook check pass (19 pages/21 diagrams/39 tables). pnpm format/lint:fix and full pnpm check pass: 1,204 unit / 332 integration tests, four expected skips. Logs /tmp/2941-*.log.
+- No rebuild/deploy/restart: unchanged runtime and 13:00–16:00 hold. Next: finish reference importance and validated event membership/recall in the same Nov 19 review, then compare cause counts.
