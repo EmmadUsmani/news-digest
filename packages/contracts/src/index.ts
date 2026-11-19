@@ -113,6 +113,15 @@ export const publisherSchema = z.object({
   url: z.string().url().nullable(),
 });
 
+// Copied into an edition; resolving earlier coverage never mutates old snapshots.
+export const developingStorySchema = z.object({
+  previousEditionId: z.string().uuid(),
+  previousStoryId: z.string().uuid(),
+  previousHeadline: z.string().min(1),
+  previousSummary: z.string().nullable(),
+  editionCount: z.number().int().min(2).max(8),
+});
+
 export const rankedStorySchema = z.object({
   id: z.string().uuid(),
   title: z.string(),
@@ -132,6 +141,7 @@ export const rankedStorySchema = z.object({
       }),
     )
     .optional(),
+  developing: developingStorySchema.optional(),
   summary: z.string().optional(),
   whyItMatters: z.string().optional(),
   imageUrl: z

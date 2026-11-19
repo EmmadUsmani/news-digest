@@ -46,3 +46,15 @@ relationship to the later resignation; it is not labelled a match.
   Offline transport/validation controls pass both routes; these do not establish
   model writing quality. Existing callers supply no context yet.
 - No provider calls, production matching, snapshot changes or reader changes.
+
+## Snapshot preparation — iteration 2882
+
+- Selected stories can retain an optional developing link: previous edition/story
+  UUIDs, copied headline/summary and an edition count of 2–8. Old snapshots remain
+  valid without the field; the existing JSON snapshot needs no table migration.
+- An opt-in assembly helper validates all links before returning copied stories;
+  unknown selections, duplicates and invalid identifiers/counts reject the assembly.
+- The three saved manual-membership controls retain their exact link through JSON
+  serialization and the story contract. Later link mutation leaves the copy intact.
+- Production generation does not call the helper yet. No stored edition changes,
+  semantic provider calls or public reader changes; matching acceptance stays open.

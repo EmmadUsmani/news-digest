@@ -2,7 +2,10 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 
+import { rankedStorySchema } from '@digest/contracts';
+
 import { matchDevelopingStories } from '../src/modules/digests/application/match-developing-stories';
+import { snapshotDevelopingStories } from '../src/modules/digests/application/snapshot-developing-stories';
 import type { developingHistory } from '../src/modules/digests/domain/developing-history';
 import { developingEvidence } from '../src/modules/digests/domain/developing-links';
 
@@ -67,6 +70,54 @@ for (const item of fixture.cases) {
       item.stories,
       item.history,
     );
+    const originals = structuredClone(item.stories);
+    const saved = snapshotDevelopingStories(item.stories, links);
+    // Exercise the contract boundary used for full edition snapshots and JSON storage.
+    const roundTrip = saved.map((story) =>
+      rankedStorySchema.parse(
+        JSON.parse(
+          JSON.stringify({
+            ...story,
+            summary: story.summary ?? undefined,
+            url: 'https://example.com/saved-report',
+            excerpt: '',
+            sources: [],
+            publishedAt: item.windowEnd,
+            score: 0,
+            reasons: [],
+          }),
+        ),
+      ),
+    );
+    assert.deepEqual(item.stories, originals);
+    const matched = roundTrip.find(
+      (story) => story.id === item.reviewedStoryId,
+    )!;
+    assert.deepEqual(
+      matched.developing,
+      links.length
+        ? {
+            previousEditionId: links[0].previousEditionId,
+            previousStoryId: links[0].previousStoryId,
+            previousHeadline: links[0].previousHeadline,
+            previousSummary: links[0].previousSummary,
+            editionCount: links[0].editionCount,
+          }
+        : undefined,
+    );
+    if (links.length) {
+      links[0].previousHeadline = 'Changed after snapshot assembly';
+      assert.notEqual(
+        saved.find((story) => story.id === item.reviewedStoryId)!.developing!
+          .previousHeadline,
+        links[0].previousHeadline,
+      );
+      assert.notEqual(
+        matched.developing!.previousHeadline,
+        links[0].previousHeadline,
+      );
+      links[0].previousHeadline = previous[0].story.title;
+    }
     assert.equal(
       calls,
       1,
@@ -89,3 +140,26 @@ for (const item of fixture.cases) {
     );
   });
 }
+
+void test('snapshot assembly rejects ambiguous and invalid links without changing selected stories', () => {
+  const stories = [{ id: 'selected', title: 'Current' }];
+  const link = {
+    storyId: 'selected',
+    previousEditionId: '00000000-0000-4000-8000-000000000001',
+    previousStoryId: '00000000-0000-4000-8000-000000000002',
+    previousHeadline: 'Earlier',
+    previousSummary: null,
+    editionCount: 2,
+  };
+  for (const links of [
+    [link, link],
+    [{ ...link, storyId: 'unknown' }],
+    [{ ...link, editionCount: 1 }],
+    [{ ...link, editionCount: 9 }],
+    [{ ...link, previousEditionId: 'invalid' }],
+  ]) {
+    assert.throws(() => snapshotDevelopingStories(stories, links));
+    assert.deepEqual(stories, [{ id: 'selected', title: 'Current' }]);
+  }
+  assert.deepEqual(snapshotDevelopingStories(stories, []), stories);
+});

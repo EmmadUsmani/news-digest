@@ -75,3 +75,13 @@
 - No paid calls, production context wiring, snapshot/reader/source changes or affected handbook architecture. Semantic matching review, immutable persistence, production wiring and reader label remain open. TASKS and saved review updated; Destructoid remains blocked.
 - Verification: editor tests 49/49; pnpm format, pnpm lint:fix, full pnpm check (1,152 unit / 330 integration passes, four expected skips), pnpm build and git diff --check pass. Handbook initially hit tool API HTTP 429; retry after service restart passes 19 pages/21 diagrams/39 tables. Logs /tmp/2881-*.log.
 - Web assets published atomically; API/worker/docs restarted healthy. Final restart follows commit/push so services match main. Next: semantic acceptance/integration; Nov 19 missed-story recall/causes and NBA/Tech acceptance after 15:00 UTC.
+
+## 2026-11-19: iteration 2882 — prepare immutable developing-story snapshot links
+
+- Clean main at 6305490c; no inherited work. Alerts/health clear, 38 monitored sources healthy, digest queue zero failures; next publication 15:00 UTC. Scheduled review waits; today's item 69 evaluation already used.
+- Continued item 70 with optional validated developing link fields on selected-story snapshots: previous edition/story UUIDs, copied headline/summary and 2–8 edition count. Old snapshots remain valid; no migration needed for existing JSON storage.
+- Added opt-in snapshot assembly that validates all links before returning copied stories; unknown selections, duplicates and invalid links reject assembly. Exact saved positive/negative manual-membership controls survive JSON/contract round-trip; later link mutation cannot change assembled context.
+- No live provider calls, production generation/persistence wiring, existing edition writes, public reader or source changes. These are storage preparation controls, not semantic acceptance or DB persistence integration. No affected handbook architecture; TASKS and saved review updated.
+- Verification: targeted tests 4/4, pnpm format, pnpm lint:fix, pnpm build (atomic web publication), handbook check (19 pages/21 diagrams/39 tables), git diff --check pass. Full pnpm check passes (1,153 unit / 330 integration, four expected skips); logs /tmp/2882-*.log.
+- API/worker/docs restart after commit/push so services match main; final health check required.
+- Next: semantic acceptance and production integration, then reader label and real-edition acceptance; Nov 19 missed-story/NBA/Tech scheduled review after 15:00 UTC. Destructoid remains blocked.
