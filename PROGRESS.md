@@ -114,3 +114,13 @@
 - No provider calls, live edition/source changes or reader changes. Semantic matching acceptance, generation/editor wiring and reader label remain open. TASKS and saved review updated; no affected handbook architecture.
 - Verification: pnpm format, pnpm lint:fix, pnpm check (1,157 unit / 332 integration passes, four expected skips), pnpm build, handbook (19 pages/21 diagrams/39 tables) and git diff --check pass. Logs /tmp/2885-*.log. Public-mode job state filter refused as designed; unfiltered queue-count check passes.
 - Next: semantic matching review and production integration; Nov 19 missed-story/NBA/Tech review after 15:00 UTC. Destructoid remains blocked. Commit/push and API/worker/docs restart follow checks.
+
+## 2026-11-19: iteration 2886 — developing-story reader presentation
+
+- Clean main at 3d4ca19e; no inherited work. Alerts/health clear, all 38 monitored sources healthy; digest queue zero failures, next run 15:00 UTC. Today's item 69 evaluation already used.
+- Reader allowlist now retains validated saved developing links, stripping extra nested fields. Conditional cards show edition count and earlier-story destination; projection test proves snapshot immutability and old-edition compatibility.
+- Added GET-only browser smoke with explicitly synthetic link/destination interception, no DB writes: 320/390/1440px light/dark pass keyboard activation, exact route, earlier-card scroll position, unchanged prose/source and legacy absence. Six screenshots saved; narrow light PNG inspected.
+- Initial typecheck caught the missing reader allowlist field; corrected. Initial local browser fetch hit shared loopback rate limiting; used existing documented test-address convention. Replaced incorrect focus expectation with the reader's actual deep-link scroll behavior. Handbook overlength corrected; source-excerpt description brought current.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (1,158 unit / 332 integration passes, four expected skips), pnpm build, targeted reader projection tests, final changed-file ESLint, handbook (19 pages/one affected diagram/39 tables), browser six cases and git diff --check pass. Logs /tmp/2886-*.log.
+- TASKS, saved review and affected handbook updated; no source changes or provider calls. Production matching/editor/persistence wiring and real-edition acceptance remain open; synthetic screenshots are not semantic acceptance. Destructoid remains blocked.
+- Next: semantic review and generation integration; Nov 19 missed-story/NBA/Tech review after 15:00 UTC. Commit/push and API/worker/docs restart follow checks.

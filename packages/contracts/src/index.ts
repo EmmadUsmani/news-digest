@@ -416,6 +416,7 @@ export const readerStorySchema = rankedStorySchema
     publishedAt: true,
     sources: true,
     coverage: true,
+    developing: true,
   })
   .extend({
     summaryKind: z.literal('source-excerpt').optional(),

@@ -100,3 +100,19 @@ relationship to the later resignation; it is not labelled a match.
 - Inserts are explicit test setup, not generation/publication orchestration.
   Production generation still does not assemble links. No live data, provider
   calls or reader changes; semantic matching and activation remain open.
+
+## Conditional reader presentation — iteration 2886
+
+- Reader allowlist retains validated saved developing links; extra nested fields
+  are stripped. Editions without a link render as before. Projection tests verify
+  saved destinations, earlier prose, edition count and snapshot immutability.
+- Linked cards show “Developing · N editions” and “Earlier coverage” opening
+  `/editions/<previousEditionId>#story-<previousStoryId>` in the same tab.
+- Browser interception adds one explicitly synthetic link to a real saved edition
+  and serves a synthetic earlier destination. No database writes or model calls.
+  All six 320/390/1440px light/dark checks pass: keyboard activation, exact route,
+  earlier-card scroll position, unchanged current prose/source and legacy absence.
+- Screenshots: `docs/screenshots/ui/developing-synthetic-*.png`; narrow light
+  layout inspected. These show synthetic presentation, not live semantic matches.
+- Production matching/editor/persistence wiring and real-edition acceptance remain
+  open; the feature is not complete and no item 70 completion ack is claimed.

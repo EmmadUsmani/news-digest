@@ -104,6 +104,29 @@ void test('reader projection keeps content and excludes nested operational field
   assert.deepEqual(readerEdition(historical).topics[0].brief, []);
 });
 
+void test('reader retains saved developing destinations without exposing extra link fields or changing history', () => {
+  const saved = structuredClone(snapshot);
+  const developing = {
+    previousEditionId: '00000000-0000-4000-8000-000000002885',
+    previousStoryId: '00000000-0000-4000-8000-000000002884',
+    previousHeadline: 'Earlier launch',
+    previousSummary: 'Earlier reporting.',
+    editionCount: 3,
+  };
+  saved.topics[0].stories[0].developing = {
+    ...developing,
+    ...{ internalScore: 99 },
+  };
+  const before = JSON.stringify(saved);
+  const result = readerEdition(saved);
+  assert.deepEqual(result.topics[0].stories[0].developing, developing);
+  assert.equal(JSON.stringify(saved), before);
+  assert.equal(
+    readerEdition(snapshot).topics[0].stories[0].developing,
+    undefined,
+  );
+});
+
 void test('reader reports include editorial citations outside the selected coverage group', () => {
   const saved = structuredClone(snapshot);
   const story = saved.topics[0].stories[0];

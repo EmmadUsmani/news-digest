@@ -292,6 +292,21 @@ export function DigestPreview() {
                             {story.title}
                           </a>
                         </h3>
+                        {story.developing && (
+                          <div className="mt-[12px] flex flex-wrap items-center gap-x-[12px] text-xs text-[var(--secondary)]">
+                            <span>
+                              Developing · {story.developing.editionCount}{' '}
+                              editions
+                            </span>
+                            <a
+                              href={`/editions/${story.developing.previousEditionId}#story-${story.developing.previousStoryId}`}
+                              aria-label={`Earlier coverage: ${story.developing.previousHeadline}`}
+                              className="inline-flex min-h-[44px] items-center rounded-md text-[var(--accent)] underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+                            >
+                              Earlier coverage
+                            </a>
+                          </div>
+                        )}
                         {story.summaryKind === 'source-excerpt' && (
                           <p className="mt-[12px] mb-0 text-xs text-[var(--secondary)]">
                             Source excerpt

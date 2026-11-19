@@ -55,16 +55,13 @@ article-template, AsciiDoc document bodies or MediaWiki prose for submissions wi
   excluded topic phrases. Missing required phrases still reach AI, which can
   recover relevant news. Candidate totals and quality omissions retain all inputs;
   triage coverage describes only the candidates admitted for scoring.
-- **Caching:** triage results are cached per item and prompt, so
-  regenerating an edition only pays for new items.
-- **Triage throughput:** article and social scoring use batches of up to 50
-  candidates and request short event labels and factual explanations. Output
-  reservations grow with batch and identifier size. This limits reserved spend;
-  actual provider speed and cost are measured from scheduled editions.
+- **Caching:** triage results are cached per item and prompt.
+- **Triage throughput:** scoring batches contain up to 50 candidates. Output
+  reservations grow with batch and identifier size.
 - **Graceful degradation:** if triage can't finish within the budget, that
   topic uses non-AI ranking. The edition still publishes, and the snapshot
   records why. Reader stories show the saved article text when no AI summary
-  exists, with no mode label. New fallback excerpts stop at a word boundary
+  exists, labelled “Source excerpt”. New fallback excerpts stop at a word boundary
   within 600 characters and mark omitted text with an ellipsis; reader excerpts prefer complete sentences.
   The reader hides a terminal “The post … appeared first on …” credit matching the story title; saved text stays intact.
 - **Tech story evidence:** each editor candidate includes its representative and up to
@@ -102,6 +99,9 @@ article-template, AsciiDoc document bodies or MediaWiki prose for submissions wi
   allowances and explains when a paid option is disabled on the server.
 - **History:** every edition is kept. The UI can browse and reopen any past
   edition by its id.
+- **Developing stories:** saved links show “Developing”, the edition count and
+  “Earlier coverage” to the previous story. Matching is still in offline review;
+  scheduled generation does not yet save these links.
 
 > [!NOTE]
 > Production enabled `LLM_STORY_GROUPING_ENABLED=1` on Nov 4 for the Nov 5
