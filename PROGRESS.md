@@ -95,3 +95,13 @@
 - Verification: pnpm format/lint:fix, pnpm check unit 1,153/1,153 plus typecheck/lint/format/boundaries; final isolated integration rerun 331 passes/four expected skips. pnpm build passes; handbook 19 pages/21 diagrams/39 tables passes; logs /tmp/2883-*.log.
 - TASKS and saved review updated; no affected handbook architecture or source changes. Semantic acceptance, generation/editor/persistence wiring and reader label remain open; Destructoid remains blocked.
 - Final source/queue checks: 38 sources healthy; digest queue zero failures, next run 15:00 UTC. API/worker/docs restart and final health follow commit/push.
+
+## 2026-11-19: iteration 2884 — recorded developing-story replay gate
+
+- Clean main at 3c9b4d45; no inherited work. Alerts clear, health passes, 38 monitored sources healthy; digest-generation queue zero failures and next publication 15:00 UTC. Today's item 69 evaluation already used.
+- Added offline recorded-membership evaluator using the application matcher. SHA-256 fingerprints bind results to exact saved evidence/order/publication times; duplicate/orphan records reject and missing/stale/invalid/unavailable cases fail controls.
+- Reports every linked predecessor plus expected/actual reviewed memberships. Exact full historical membership is checked, so a correct nearest link cannot conceal a wrong older member. Unreviewed cases never pass the gate.
+- Four offline tests cover the three saved manual controls and wrong/missing/stale/invalid/duplicate/orphan/unreviewed results. These verify evaluation transport, not model precision; reports always mark semantic acceptance unestablished.
+- No provider calls, production wiring, published-edition/source changes or affected handbook architecture. TASKS and saved review updated; Destructoid remains blocked.
+- Verification: pnpm format/lint:fix, final pnpm check (1,157 unit / 331 integration passes, four expected skips), pnpm build, handbook (19 pages/21 diagrams/39 tables), targeted 4/4 and git diff --check pass. CLI manual replay passes three controls and reports semantic acceptance unestablished; logs /tmp/2884-*.log. Initial lint async-method error corrected; final checks use final files.
+- Next: obtain/review semantic outputs before activation, production integration and reader label; scheduled missed-story/NBA/Tech review after 15:00 UTC. Commit/push and API/worker/docs restart follow checks.

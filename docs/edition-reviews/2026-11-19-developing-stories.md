@@ -69,3 +69,21 @@ relationship to the later resignation; it is not labelled a match.
   verifies exact saved prose, ordering, empty history and invalid cutoff rejection.
 - Generation does not call this loader yet. Semantic matching acceptance and
   production integration remain open; no live provider or published-edition writes.
+
+## Recorded-membership replay — iteration 2884
+
+- `pnpm exec tsx apps/api/scripts/evaluate-developing-stories.ts inputs.json recorded-groups.json`
+  replays saved memberships through the actual application matcher and prints
+  every resolved predecessor, including copied earlier prose and edition count.
+- Inputs use the replay export's `cases` array. Each recorded result has
+  `editionId`, `topicId`, `inputSha256` (from exported `replayFingerprint(case)`)
+  and `groups` of occurrence references. Fingerprints bind memberships to exact
+  current/history prose, order and publication times; review labels are excluded.
+- Missing, stale, invalid, oversized and unreviewed cases cannot pass the control
+  gate. Duplicate/orphan results reject. Valid empty groups remain distinct from
+  unavailable results, so a failed matcher cannot pass a negative control.
+- The three manual saved controls pass; deliberately wrong, missing, stale and
+  malformed results fail. These verify the evaluator, not semantic precision.
+  The report always marks semantic acceptance unestablished; recorded provenance
+  and all unlabelled stories still need review before production activation.
+- No provider calls, new semantic outputs, production wiring or edition writes.
