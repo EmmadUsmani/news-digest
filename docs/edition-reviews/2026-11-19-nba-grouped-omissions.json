@@ -1,0 +1,188 @@
+{
+  "iteration": 2957,
+  "editionId": "7a747d9c-3f5c-4e11-8200-2f19e8effc95",
+  "topic": "NBA",
+  "windowStart": "2026-11-18T15:00:00.000Z",
+  "windowEnd": "2026-11-19T15:00:00.000Z",
+  "method": "Exact canonical publisher URL to collected immutable ID, then existing saved semantic grouping membership to final editor candidate IDs. No title matching, new grouping, provider calls or production writes. Importance and absence from selected prose are agent editorial review.",
+  "limits": "Two additional confirmed omitted events, not an event denominator or recall estimate. Saved group membership establishes pipeline routing; omission motives are unknown. Social prose reviewed separately: none reports Harper status or Warriors-Mavericks result. Bulls-Nets reference is not counted as wholly absent because the selected Bulls post may cover part of that game.",
+  "sources": [
+    {
+      "file": "2026-11-19-nba-reference-evidence.json",
+      "sha256": "3cfcda7a3ac4f54d56c58a535a83aa4c61424e2807d9fef2ba7ae30a4589e706"
+    },
+    {
+      "file": "2026-11-19-reference-collection.json",
+      "sha256": "380fe3a5433bccae0f8ba0f042dacf48ede0700437d1de7d66b30c8544c48590"
+    },
+    {
+      "file": "2026-11-19-selected-reference-routes.json",
+      "sha256": "7648e3aec5cde2643ff2a815b51044a325d7406bf400131964f95e9be29178a8"
+    }
+  ],
+  "snapshotSha256": "5187cac3ce9650a192aa0aa4710c020a95b73e0ebab16f9965d677eeb50c9cd6",
+  "finalInputIds": [
+    "d2294ac7-9171-452a-8ce8-19f62e46ed54",
+    "f5329c68-2406-4877-ad2f-89eafa1c1672",
+    "b28b4c83-b549-49ef-852e-64618b528f3f",
+    "9ef82ab7-b05b-4e8d-9a63-11b2faca5312",
+    "83cc5ecd-fb1a-4970-aa21-30abe79b2b44",
+    "5f5b55df-6e6e-463e-8694-203a279a08f5",
+    "f84d185c-1fc6-42ec-bca2-99edbb44e8b1",
+    "e9237b40-f4cc-407e-b952-2f42e81cfd95",
+    "7c029d86-a725-4e2c-baf3-9ef884b1d72b",
+    "102c7ff4-adf7-4d5b-8687-da567bfdbbac"
+  ],
+  "selectedStories": [
+    {
+      "id": "83cc5ecd-fb1a-4970-aa21-30abe79b2b44",
+      "title": "Rockets beat Pacers 119-104 as Alperen Sengun leaves with eye and face injury",
+      "summary": "SB Nation reports Kevin Durant scored 21 points and Reed Sheppard hit six three-pointers off the bench for 20 as the Rockets beat the Pacers 119-104. Sengun was poked in the eye and hit in the face and did not return, and Houston head coach Ime Udoka said he’s not sure how much time Sengun will miss. Pacers coach Rick Carlisle was ejected, and Marcus Smart exchanged words with a fan."
+    },
+    {
+      "id": "5f5b55df-6e6e-463e-8694-203a279a08f5",
+      "title": "Giannis Antetokounmpo scores 27 as Heat beat Bucks 137-130",
+      "summary": "Giannis Antetokounmpo had 27 points, 14 rebounds and nine assists in the Miami Heat's 137-130 win over the Milwaukee Bucks, and said the game \"was as special as every other night.\" Heat coach Erik Spoelstra said Antetokounmpo is \"really allowing our offense to grow.\" Bam Adebayo added 26 points."
+    },
+    {
+      "id": "e9237b40-f4cc-407e-b952-2f42e81cfd95",
+      "title": "Kings rookie Darius Acuff Jr. scores 36 points, joining Oscar Robertson in NBA history",
+      "summary": "Kings rookie Darius Acuff Jr. scored 36 points in a performance that, per the Yardbarker headline, joins him with Oscar Robertson in NBA history. The Kings continue struggling to find victories."
+    },
+    {
+      "id": "b28b4c83-b549-49ef-852e-64618b528f3f",
+      "title": "Luka Doncic takes blame after Lakers' loss to Jazz",
+      "summary": "Luka Doncic shouldered blame after the Lakers' loss to the Jazz, saying \"This is unacceptable from my part.\" It was the Lakers' first loss in November and just the third of the season."
+    },
+    {
+      "id": "9ef82ab7-b05b-4e8d-9a63-11b2faca5312",
+      "title": "Wizards end eight-game losing streak with win over depleted Raptors",
+      "summary": "SB Nation reports the Wizards ended their losing streak at eight by beating the Toronto Raptors in Canada, with Dybantsa and Davis powering the win. Toronto was missing its three best players and lost another member of its top six four minutes into the game."
+    }
+  ],
+  "selectedPosts": [
+    {
+      "url": "https://x.com/i/web/status/2123212667737477416",
+      "platform": "x",
+      "text": "Kawhi Leonard has been dealing with patellar tendinopathy, per sources — the same recurring condition that the Raptors managed in 2019. On why the team is being cautious and when he could return: pic.twitter.com/GHBPliQs3X"
+    },
+    {
+      "url": "https://x.com/i/web/status/2123231529132306923",
+      "platform": "x",
+      "text": "THE BULLS HIT 15 THREES IN THE FIRST HALF 🔥 THEIR MOST IN ANY HALF IN THE PLAY-BY-PLAY ERA. pic.twitter.com/zrfmJxmZhC"
+    },
+    {
+      "url": "https://x.com/i/web/status/2123247515940061487",
+      "platform": "x",
+      "text": "Let’s hope LeBron is ok after this scary looking injury he only felt after firing up an airball pic.twitter.com/UkiYed4wAY"
+    },
+    {
+      "url": "https://bsky.app/profile/did%3Aplc%3Akhkkkhl5yezvfymz4g4tnukt/post/3n2lw6jn2cs2c",
+      "platform": "bluesky",
+      "text": "Spurs w/ Wembanyama on/off for the season...\n\nOn: +28.1 per 100 possessions\n\nOff: -16.7 per 100 possessions\n\nDiff. 44.8 per 100 possessions\n\nThe biggest diff. in the last 20 seasons was 26.1 - Draymond Green in '15-16."
+    }
+  ],
+  "omissions": [
+    {
+      "referenceUrl": "https://sports.yahoo.com/articles/dylan-harper-ruled-against-clippers-232719827.html",
+      "referenceTitle": "Dylan Harper ruled out against Clippers with “soreness”, more to come tomorrow",
+      "referenceContentId": "0621f38e-e99f-4c2d-ae62-861e0464d124",
+      "assessment": "important",
+      "editorJudgement": "A newly confirmed absence for a starting guard averaging 18.4 points, 5.4 rebounds and 4.5 assists is consequential availability news; this is the new out status, not another count of the original fall.",
+      "firstReferenceObservation": "2026-11-19T04:26:02.279Z",
+      "storedItem": {
+        "id": "0621f38e-e99f-4c2d-ae62-861e0464d124",
+        "canonical_url": "https://sports.yahoo.com/articles/dylan-harper-ruled-against-clippers-232719827.html",
+        "published_at": "2026-11-18T23:27:19.000Z",
+        "fetched_at": "2026-11-19T02:11:28.965Z"
+      },
+      "savedSemanticMembership": {
+        "cacheKey": "feefd4746946bb53ff7cb7b8ad3ea3ae1b2d40123286b5a109006c0c67cf7a96",
+        "createdAt": "2026-11-19T15:01:07.451Z",
+        "members": [
+          "facc148b-3884-4b47-a143-31a5fdb3864e",
+          "0621f38e-e99f-4c2d-ae62-861e0464d124",
+          "f84d185c-1fc6-42ec-bca2-99edbb44e8b1"
+        ]
+      },
+      "savedTriage": [
+        {
+          "id": "f84d185c-1fc6-42ec-bca2-99edbb44e8b1",
+          "event": "Harper out vs Clippers",
+          "rationale": "Spurs guard out with hip soreness",
+          "relevance": 9,
+          "importance": 5
+        },
+        {
+          "id": "0621f38e-e99f-4c2d-ae62-861e0464d124",
+          "event": "Harper out with hip soreness",
+          "rationale": "Spurs guard ruled out vs Clippers after fall",
+          "relevance": 9,
+          "importance": 4
+        },
+        {
+          "id": "facc148b-3884-4b47-a143-31a5fdb3864e",
+          "event": "Dylan Harper groin injury vs Pistons",
+          "rationale": "Spurs guard leaves game; injury concern",
+          "relevance": 9,
+          "importance": 6
+        }
+      ],
+      "finalEditorCandidates": [
+        {
+          "id": "f84d185c-1fc6-42ec-bca2-99edbb44e8b1",
+          "title": "Dylan Harper Out Thursday With Left Hip Soreness",
+          "excerpt": "Dylan Harper is set to miss the San Antonio Spurs' home game against the Los Angeles Clippers on Thursday with left hip soreness. Harper suffered the injury during Tuesday's 105-93 loss to the Pistons after slipping on the court late in the game. Harper is averaging 18.4 points, 5.4 rebounds, and 4.5 assists on the year.",
+          "url": "https://basketball.realgm.com/wiretap/288178/Dylan-Harper-Out-Thursday-With-Left-Hip-Soreness",
+          "sources": ["RealGM Basketball", "Yahoo Sports NBA"]
+        }
+      ],
+      "selectedMemberIds": [],
+      "cause": "shortlisted but dropped by editor",
+      "reasonForExclusion": null
+    },
+    {
+      "referenceUrl": "https://sports.yahoo.com/articles/learned-warriors-3-point-struggles-194136627.html",
+      "referenceTitle": "What we learned as Warriors' 3-point struggles continue in loss to Mavericks",
+      "referenceContentId": "35f9f300-72af-4030-a3b1-b3ffe8414096",
+      "assessment": "important",
+      "editorJudgement": "A completed 116-94 result extending Golden State's losing streak to four games while Curry is absent is substantial game reporting, comparable to other selected results.",
+      "firstReferenceObservation": "2026-11-19T04:26:02.279Z",
+      "storedItem": {
+        "id": "35f9f300-72af-4030-a3b1-b3ffe8414096",
+        "canonical_url": "https://sports.yahoo.com/articles/learned-warriors-3-point-struggles-194136627.html",
+        "published_at": "2026-11-18T19:41:36.000Z",
+        "fetched_at": "2026-11-19T04:11:29.176Z"
+      },
+      "savedSemanticMembership": {
+        "cacheKey": "feefd4746946bb53ff7cb7b8ad3ea3ae1b2d40123286b5a109006c0c67cf7a96",
+        "createdAt": "2026-11-19T15:01:07.451Z",
+        "members": [
+          "6dac9479-4476-424d-bbd6-438810af37e9",
+          "35f9f300-72af-4030-a3b1-b3ffe8414096"
+        ]
+      },
+      "savedTriage": [
+        {
+          "id": "6dac9479-4476-424d-bbd6-438810af37e9",
+          "event": "Warriors losing streak amid Curry absence",
+          "rationale": "Fourth straight loss; major salary-injury toll",
+          "relevance": 9,
+          "importance": 6
+        },
+        {
+          "id": "35f9f300-72af-4030-a3b1-b3ffe8414096",
+          "event": "Mavericks beat Warriors 116-94",
+          "rationale": "Warriors loss recap; 3-point struggles",
+          "relevance": 9,
+          "importance": 4
+        }
+      ],
+      "finalEditorCandidates": [],
+      "selectedMemberIds": [],
+      "cause": "collected but not shortlisted",
+      "reasonForExclusion": null
+    }
+  ],
+  "recall": null
+}

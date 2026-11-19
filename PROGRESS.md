@@ -124,3 +124,14 @@
 - Live 7a747d9c retains five topics/25 real stories; private ownership absent. Initial localhost reader probe returned 429; the established explicit local visitor probe succeeds. No UI or diagrams changed.
 - Updated TASKS, daily review and affected handbook. Historical memberships/five-topic event recall remain unresolved; next use scheduled evidence, complete three reviews and measure the root-cause fix. Older progress entries archived to stay below 25 KB.
 - Final diff check passes; commit/push and API/worker restart follow.
+
+## 2026-11-19: iteration 2957 — resolve two NBA misses through saved groups
+
+- Clean main at 1cdc8914; no inherited work. Alerts/health clear; all 38 sources and 14 monitored services healthy; digest queue zero failures.
+- Existing semantic groups resolve two additional Nov 19 important omissions by exact immutable publisher IDs: Harper's newly confirmed absence reaches final representative f84d185c then is dropped; Warriors–Mavericks reaches a two-member group but neither member reaches the editor.
+- Preserved group cache keys/members, collection timestamps, triage, final inputs, selected story summaries/post texts and source hashes in the daily review's linked evidence. Both references observed before cutoff; no provider calls or production writes.
+- Reviewed all five selected NBA stories/four posts: neither event covered. Nets–Bulls has potentially related Bulls record-post coverage, so no additional wholly absent event claimed. Editorial motives and five-topic event denominators/recall remain unknown.
+- Evidence verification: python3 /tmp/2957-work/review.py checks snapshot/source hashes, exact URL/ID routes, unique saved membership, pre-cutoff observation/collection and final admission/selection assertions; passes after correcting the extraction's post identity field.
+- pnpm format/lint:fix, full pnpm check and pnpm build pass: 1,212 unit tests/332 integration passes/four expected skips. Independent persisted-evidence checks pass; final diff check passes. Logs /tmp/2957-*.log. No app/UI/schema behavior changed; handbook and SOURCES unchanged.
+- Live latest remains 7a747d9c, five topics/25 real stories; private grouping/ownership absent. Commit/push and API/worker restart follow.
+- Updated TASKS and the same Nov 19 review. Next: finish remaining event memberships and three daily recall reviews before selecting and measuring a root-cause fix.
