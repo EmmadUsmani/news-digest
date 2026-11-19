@@ -1,0 +1,87 @@
+{
+  "iteration": 2949,
+  "editionId": "7a747d9c-3f5c-4e11-8200-2f19e8effc95",
+  "source": "https://www.techmeme.com/feed.xml",
+  "observedAt": "2026-11-19T17:25:21.908928+00:00",
+  "feedSha256": "5fb847cfcbf653b2d6aec9b948ab0039f3791034ba9e96d0769a3983c0d8f009",
+  "feedItemCount": 15,
+  "method": "Publisher identity extracted from the RSS bold headline anchor; exact canonical URL trace against the saved reader/snapshot. No title matching or provider invocation.",
+  "limits": "Later observation resolves publisher identity for five previously observed references only; it does not backdate publisher links or establish semantic equivalence, collection absence, event counts or recall. None of these five publisher URLs reaches selected coverage or saved editor-input URLs; missing URLs in old editor evidence remain unresolved.",
+  "stories": [
+    {
+      "title": "Sources: Anthropic's IPO left 50%+ of bidding institutional investors with zero shares; allocations heavily favored US investors, shutting out foreign orders (Bloomberg)",
+      "excerpt": "Bloomberg: Sources: Anthropic's IPO left 50%+ of bidding institutional investors with zero shares; allocations heavily favored US investors, shutting out foreign orders \u2014 Anthropic PBC's initial public offering left more than half of the institutional investors bidding for stock without any shares, according to people familiar with the matter.",
+      "url": "https://www.techmeme.com/261119/p33",
+      "publisherUrl": "https://www.bloomberg.com/news/articles/2026-11-19/anthropic-ipo-said-to-give-nothing-to-most-institutional-buyers",
+      "publishedAt": "2026-11-19T14:50:03.000Z",
+      "selectedClusters": [],
+      "editorInput": {
+        "available": true,
+        "membersWithoutUrl": 4,
+        "matchingCandidates": []
+      },
+      "status": "needs-event-review",
+      "rssHeadlineMarkup": "<A HREF=\"https://www.bloomberg.com/news/articles/2026-11-19/anthropic-ipo-said-to-give-nothing-to-most-institutional-buyers\"><IMG VSPACE=\"4\" HSPACE=\"4\" BORDER=\"0\" ALIGN=\"RIGHT\" SRC=\"http://www.techmeme.com/261119/i33.jpg\"></A>\n<P><A HREF=\"https://www.techmeme.com/261119/p33#a261119p33\" TITLE=\"Techmeme permalink\"><IMG WIDTH=11 HEIGHT=12 SRC=\"http://www.techmeme.com/img/pml.png\" STYLE=\"border:none;padding:0;margin:0;\"></A> <A HREF=\"https://www.bloomberg.com/\">Bloomberg</A>:<BR>\n<SPAN STYLE=\"font-size:1.3em;\"><B><A HREF=\"https://www.bloomberg.com/news/articles/2026-11-19/anthropic-ipo-said-to-give-nothing-to-most-institutional-buyers\">Sources: Anthropic's IPO left 50%+ of bidding institutional investors with zero shares; allocations heavily favored US investors, shutting out foreign orders</A></B></SPAN>&nbsp; &mdash;&nbsp; Anthropic PBC's initial public offering left more than half of the institutional investors bidding for stock without any shares, according to people familiar with the matter.</P>\n"
+    },
+    {
+      "title": "The European Commission confirms a cyberattack that disrupted systems for 10+ days; CERT-EU says international hackers used AI penetration testing tool ARTEX (Gerardo Fortuna/Politico)",
+      "excerpt": "Gerardo Fortuna / Politico: The European Commission confirms a cyberattack that disrupted systems for 10+ days; CERT-EU says international hackers used AI penetration testing tool ARTEX \u2014 Presented by European Commission's Directorate-General for Education, Youth, Sport and Culture \u2014 with MAX GRIERA \u2014 CIAO THERE.",
+      "url": "https://www.techmeme.com/261119/p32",
+      "publisherUrl": "https://www.politico.eu/newsletter/brussels-playbook/cyberattack-hits-the-commission/",
+      "publishedAt": "2026-11-19T14:35:01.000Z",
+      "selectedClusters": [],
+      "editorInput": {
+        "available": true,
+        "membersWithoutUrl": 4,
+        "matchingCandidates": []
+      },
+      "status": "needs-event-review",
+      "rssHeadlineMarkup": "<P><A HREF=\"https://www.techmeme.com/261119/p32#a261119p32\" TITLE=\"Techmeme permalink\"><IMG WIDTH=11 HEIGHT=12 SRC=\"http://www.techmeme.com/img/pml.png\" STYLE=\"border:none;padding:0;margin:0;\"></A> Gerardo Fortuna / <A HREF=\"http://www.politico.com/\">Politico</A>:<BR>\n<SPAN STYLE=\"font-size:1.3em;\"><B><A HREF=\"https://www.politico.eu/newsletter/brussels-playbook/cyberattack-hits-the-commission/\">The European Commission confirms a cyberattack that disrupted systems for 10+ days; CERT-EU says international hackers used AI penetration testing tool ARTEX</A></B></SPAN>&nbsp; &mdash;&nbsp; Presented by European Commission's Directorate-General for Education, Youth, Sport and Culture&nbsp; &mdash;&nbsp; with MAX GRIERA&nbsp; &mdash;&nbsp; CIAO THERE.</P>\n"
+    },
+    {
+      "title": "A UK tribunal rules against the UK Home Office, saying it must acknowledge issuing a secret \"technical capability notice\" to Apple to bypass its encryption (Tim Bradshaw/Financial Times)",
+      "excerpt": "Tim Bradshaw / Financial Times: A UK tribunal rules against the UK Home Office, saying it must acknowledge issuing a secret \u201ctechnical capability notice\u201d to Apple to bypass its encryption \u2014 Privacy rights campaigners laud a \u2018big win for accountability, transparency and online security\u2019",
+      "url": "https://www.techmeme.com/261119/p31",
+      "publisherUrl": "https://www.ft.com/content/46a5cf3c-a827-477f-b72f-e7415565e729",
+      "publishedAt": "2026-11-19T14:15:04.000Z",
+      "selectedClusters": [],
+      "editorInput": {
+        "available": true,
+        "membersWithoutUrl": 4,
+        "matchingCandidates": []
+      },
+      "status": "needs-event-review",
+      "rssHeadlineMarkup": "<A HREF=\"https://www.ft.com/content/46a5cf3c-a827-477f-b72f-e7415565e729\"><IMG VSPACE=\"4\" HSPACE=\"4\" BORDER=\"0\" ALIGN=\"RIGHT\" SRC=\"http://www.techmeme.com/261119/i31.jpg\"></A>\n<P><A HREF=\"https://www.techmeme.com/261119/p31#a261119p31\" TITLE=\"Techmeme permalink\"><IMG WIDTH=11 HEIGHT=12 SRC=\"http://www.techmeme.com/img/pml.png\" STYLE=\"border:none;padding:0;margin:0;\"></A> Tim Bradshaw / <A HREF=\"https://www.ft.com/\">Financial Times</A>:<BR>\n<SPAN STYLE=\"font-size:1.3em;\"><B><A HREF=\"https://www.ft.com/content/46a5cf3c-a827-477f-b72f-e7415565e729\">A UK tribunal rules against the UK Home Office, saying it must acknowledge issuing a secret &ldquo;technical capability notice&rdquo; to Apple to bypass its encryption</A></B></SPAN>&nbsp; &mdash;&nbsp; Privacy rights campaigners laud a &lsquo;big win for accountability, transparency and online security&rsquo;</P>\n"
+    },
+    {
+      "title": "Google partners with Jeff Bezos' Blue Origin to launch TPU-powered AI server satellites aboard the New Glenn rocket in Q1 2029, as part of Project Suncatcher (Emma Roth/The Verge)",
+      "excerpt": "Emma Roth / The Verge: Google partners with Jeff Bezos' Blue Origin to launch TPU-powered AI server satellites aboard the New Glenn rocket in Q1 2029, as part of Project Suncatcher \u2014 It will be the first dedicated heavy lift launch for Google's Project Suncatcher. \u2026 Google is teaming up with Jeff Bezos' Blue Origin to launch its AI server satellites.",
+      "url": "https://www.techmeme.com/261119/p30",
+      "publisherUrl": "https://www.theverge.com/tech/1037535/google-blue-origin-project-suncatcher-2029",
+      "publishedAt": "2026-11-19T14:00:52.000Z",
+      "selectedClusters": [],
+      "editorInput": {
+        "available": true,
+        "membersWithoutUrl": 4,
+        "matchingCandidates": []
+      },
+      "status": "needs-event-review",
+      "rssHeadlineMarkup": "<A HREF=\"https://www.theverge.com/tech/1037535/google-blue-origin-project-suncatcher-2029\"><IMG VSPACE=\"4\" HSPACE=\"4\" BORDER=\"0\" ALIGN=\"RIGHT\" SRC=\"http://www.techmeme.com/261119/i30.jpg\"></A>\n<P><A HREF=\"https://www.techmeme.com/261119/p30#a261119p30\" TITLE=\"Techmeme permalink\"><IMG WIDTH=11 HEIGHT=12 SRC=\"http://www.techmeme.com/img/pml.png\" STYLE=\"border:none;padding:0;margin:0;\"></A> Emma Roth / <A HREF=\"https://www.theverge.com/\">The Verge</A>:<BR>\n<SPAN STYLE=\"font-size:1.3em;\"><B><A HREF=\"https://www.theverge.com/tech/1037535/google-blue-origin-project-suncatcher-2029\">Google partners with Jeff Bezos' Blue Origin to launch TPU-powered AI server satellites aboard the New Glenn rocket in Q1 2029, as part of Project Suncatcher</A></B></SPAN>&nbsp; &mdash;&nbsp; It will be the first dedicated heavy lift launch for Google's Project Suncatcher. &hellip; Google is teaming up with Jeff Bezos' Blue Origin to launch its AI server satellites.</P>\n"
+    },
+    {
+      "title": "Anthropic-backed pro-AI safety nonprofit Public First Action's PACs spent $25M+ in 12 states to help elect eight of the 13 House and Senate candidates it backed (Clara Ence Morse/Washington Post)",
+      "excerpt": "Clara Ence Morse / Washington Post: Anthropic-backed pro-AI safety nonprofit Public First Action's PACs spent $25M+ in 12 states to help elect eight of the 13 House and Senate candidates it backed \u2014 As discussions of AI regulations accelerate, Anthropic spent the past year pouring money into groups that spent big on the U.S. midterm elections.",
+      "url": "https://www.techmeme.com/261119/p29",
+      "publisherUrl": "https://www.washingtonpost.com/technology/2026/11/19/anthropic-gave-40m-an-ai-safety-group-most-candidates-it-backed-won/",
+      "publishedAt": "2026-11-19T13:50:01.000Z",
+      "selectedClusters": [],
+      "editorInput": {
+        "available": true,
+        "membersWithoutUrl": 4,
+        "matchingCandidates": []
+      },
+      "status": "needs-event-review",
+      "rssHeadlineMarkup": "<A HREF=\"https://www.washingtonpost.com/technology/2026/11/19/anthropic-gave-40m-an-ai-safety-group-most-candidates-it-backed-won/\"><IMG VSPACE=\"4\" HSPACE=\"4\" BORDER=\"0\" ALIGN=\"RIGHT\" SRC=\"http://www.techmeme.com/261119/i29.jpg\"></A>\n<P><A HREF=\"https://www.techmeme.com/261119/p29#a261119p29\" TITLE=\"Techmeme permalink\"><IMG WIDTH=11 HEIGHT=12 SRC=\"http://www.techmeme.com/img/pml.png\" STYLE=\"border:none;padding:0;margin:0;\"></A> Clara Ence Morse / <A HREF=\"https://www.washingtonpost.com/\">Washington Post</A>:<BR>\n<SPAN STYLE=\"font-size:1.3em;\"><B><A HREF=\"https://www.washingtonpost.com/technology/2026/11/19/anthropic-gave-40m-an-ai-safety-group-most-candidates-it-backed-won/\">Anthropic-backed pro-AI safety nonprofit Public First Action's PACs spent $25M+ in 12 states to help elect eight of the 13 House and Senate candidates it backed</A></B></SPAN>&nbsp; &mdash;&nbsp; As discussions of AI regulations accelerate, Anthropic spent the past year pouring money into groups that spent big on the U.S. midterm elections.</P>\n"
+    }
+  ]
+}

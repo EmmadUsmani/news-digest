@@ -25,6 +25,7 @@ const captureSchema = z.object({
             title: z.string(),
             excerpt: z.string().nullable().optional(),
             url: z.string().url(),
+            publisherUrl: z.string().url().optional(),
             publishedAt: z.string().datetime({ offset: true }),
           }),
         )
@@ -166,12 +167,20 @@ export function traceReferenceStories(
             throw new Error('Reference outside edition window');
           const url = canonicalUrl(reference.url);
           if (!url) throw new Error('Invalid reference URL');
+          const identityUrls = [url];
+          if (reference.publisherUrl) {
+            const publisherUrl = canonicalUrl(reference.publisherUrl);
+            if (!publisherUrl) throw new Error('Invalid publisher URL');
+            identityUrls.push(publisherUrl);
+          }
           const selectedClusters = (topic?.stories ?? [])
             .filter((story) =>
               [
                 story.url,
                 ...(story.coverage ?? []).map((member) => member.url),
-              ].some((candidate) => canonicalUrl(candidate) === url),
+              ].some((candidate) =>
+                identityUrls.includes(canonicalUrl(candidate) ?? ''),
+              ),
             )
             .map((story) => ({ id: story.id, title: story.title }));
           return {
@@ -199,7 +208,10 @@ export function traceReferenceStories(
                       .filter((candidate) =>
                         [candidate, ...(candidate.clusterEvidence ?? [])].some(
                           (member) =>
-                            member.url && canonicalUrl(member.url) === url,
+                            member.url &&
+                            identityUrls.includes(
+                              canonicalUrl(member.url) ?? '',
+                            ),
                         ),
                       )
                       .map((candidate) => ({

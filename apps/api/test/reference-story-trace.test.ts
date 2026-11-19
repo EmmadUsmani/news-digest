@@ -11,6 +11,30 @@ const reference = (url: string) => ({
   url,
   publishedAt: date,
 });
+
+void test('feed publisher identity reaches saved selected coverage without title inference', () => {
+  const report = traceReferenceStories(
+    {
+      ...capture,
+      feeds: [
+        {
+          ...capture.feeds[0],
+          stories: [
+            {
+              ...reference('https://www.techmeme.com/261119/p32'),
+              publisherUrl: 'https://example.com/lead',
+            },
+          ],
+        },
+      ],
+    },
+    edition,
+  );
+  const story = report.feeds[0].stories![0];
+  assert.equal(story.url, 'https://www.techmeme.com/261119/p32');
+  assert.equal(story.publisherUrl, 'https://example.com/lead');
+  assert.deepEqual(story.selectedClusters, [{ id, title: 'Selected event' }]);
+});
 const edition = {
   id,
   createdAt: date,
@@ -275,6 +299,27 @@ void test('optional saved snapshot traces editor admission without inferring col
     ],
   });
   assert.equal(stories[0].editorInput!.matchingCandidates[0].selected, true);
+  const publisherCapture = {
+    ...capture,
+    feeds: [
+      {
+        ...capture.feeds[0],
+        stories: [
+          {
+            ...reference('https://www.techmeme.com/261119/p32'),
+            publisherUrl: capture.feeds[0].stories[2].url,
+          },
+        ],
+      },
+    ],
+  };
+  const publisherStory = traceReferenceStories(
+    publisherCapture,
+    edition,
+    snapshot,
+  ).feeds[0].stories![0];
+  assert.deepEqual(publisherStory.editorInput, stories[2].editorInput);
+  assert.equal(publisherStory.status, 'needs-event-review');
   assert.equal(stories[1].editorInput!.matchingCandidates.length, 0);
   assert.equal(JSON.stringify({ capture, edition, snapshot }), before);
   assert.throws(

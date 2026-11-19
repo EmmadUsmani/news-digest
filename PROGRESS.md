@@ -132,3 +132,13 @@
 - Exact assertions pass for every route, cache membership, source snapshot membership, distinct counts and edition identity. Cross-URL event membership, denominators, recall and causes remain next; no new miss claimed.
 - pnpm format/lint:fix and full pnpm check pass: 1,204 unit tests/332 integration passes/four expected skips. Handbook delayed retry passes 19 pages/21 diagrams/39 tables after initial HTTP 429; logs /tmp/2948-*.log. Final health/alerts clear; git diff check passes. Commit/push follow.
 - All 14 services healthy, sources healthy/current and digest queue zero failures; health database/Redis pass. Runtime unchanged, so no rebuild/restart required; live app remains aligned with main.
+
+## 2026-11-19: iteration 2949 — preserve aggregator publisher identity
+
+- Clean main at 1154bc64; no inherited work. Initial alerts/health clear; no provider calls, paid replay or production selection changes.
+- Reference capture now retains Techmeme publisher URLs from the RSS bold headline anchor, ignoring image/permalink/homepage links; offline selected/editor-input trace checks wrapper and publisher identities.
+- Preserve five important Nov 19 reference publisher links from a later approved-feed observation with markup/hash/time. None matches saved selected/input URLs; no backdated observation, new miss or event recall claimed. Earlier feed entries have rolled out.
+- Recorded three-entry RSS fixture and exact selected/shortlisted alias controls pass: eight targeted tests. Live capture: all ten feeds healthy, five in-window Techmeme stories/five publisher links. Evidence assertions pass.
+- pnpm format/lint:fix and full pnpm check pass: 1,207 unit tests/332 integration passes/four expected skips. pnpm build and handbook pass (19 pages/21 diagrams/39 tables); git diff check passes. Logs /tmp/2949-*.log.
+- API/worker rebuilt and restarted; health database/Redis pass, final alerts clear. Production selection unchanged; live app aligned with this change. Commit/push follow.
+- Sources healthy, all 14 monitored services healthy, digest queue zero failures. Next: resolve remaining event memberships, five-topic recall/causes, then three reviews and measured root-cause fix.

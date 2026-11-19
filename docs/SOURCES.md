@@ -25,6 +25,12 @@ again immediately after publication to reduce loss from rolling feeds.
 the trace also marks each feed separately, so a capture crossing the closing time
 keeps its early observations visible. Failed feeds remain unavailable evidence.
 
+Techmeme observations also retain `publisherUrl` from the RSS headline link
+when present. Image links, publisher home pages and related links are ignored.
+The offline trace checks both the aggregator and publisher URL against saved
+coverage and editor inputs. Existing captures without publisher links remain
+usable; a later observation cannot supply a pre-cutoff observation time.
+
 Trace the saved reader edition with `pnpm exec tsx apps/api/scripts/trace-reference-stories.ts capture.json reader.json output.json`.
 The windows must match. This offline report locates reference URLs in the topic’s
 selected representatives and saved cluster coverage, using ingestion’s URL

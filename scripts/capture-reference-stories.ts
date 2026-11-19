@@ -2,8 +2,8 @@
 // No database writes, queue operations, embeddings or model calls.
 import { writeFileSync } from 'node:fs';
 
+import { parseReferenceFeed } from '../apps/api/scripts/reference-feed';
 import { SharedHttpClient } from '../apps/api/src/libs/ports/http.client';
-import { parseFeed } from '../apps/api/src/modules/ingestion/adapters/feed.adapter';
 
 const references = [
   ['Tech & AI', 'Techmeme', 'https://www.techmeme.com/feed.xml'],
@@ -56,14 +56,17 @@ async function main() {
   for (const [topic, name, url] of references) {
     const observedAt = new Date().toISOString();
     try {
-      const items = parseFeed(await http.get(url));
+      const items = parseReferenceFeed(await http.get(url), url);
       if (!items.length) throw new Error('No dated feed entries');
       const stories = items
-        .map(({ title, url, publishedAt, excerpt }) => ({
-          title,
-          url,
-          publishedAt,
-          excerpt,
+        .map((item) => ({
+          title: item.title,
+          url: item.url,
+          publishedAt: item.publishedAt,
+          excerpt: item.excerpt,
+          ...('publisherUrl' in item
+            ? { publisherUrl: item.publisherUrl }
+            : {}),
         }))
         .filter(({ publishedAt }) => {
           const date = Date.parse(publishedAt);
