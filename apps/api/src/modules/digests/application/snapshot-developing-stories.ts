@@ -18,7 +18,13 @@ export function snapshotDevelopingStories<T extends { id: string }>(
     byStory.set(storyId, developingStorySchema.parse(link));
   }
   return stories.map((story) => {
+    // The editor's prose is trusted only for editorial fields. Relationship
+    // metadata must come from this run's validated matches, including when
+    // matching is unavailable or returns no link.
+    const { developing: _untrusted, ...editorial } = story as T & {
+      developing?: unknown;
+    };
     const developing = byStory.get(story.id);
-    return developing ? { ...story, developing } : { ...story };
+    return developing ? { ...editorial, developing } : editorial;
   });
 }

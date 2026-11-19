@@ -91,6 +91,14 @@ for (const item of fixture.cases) {
                 id: x.id,
                 headline: 'Editor result',
                 summary: 'Current supported prose',
+                // Even a plausible editor-supplied relationship is not evidence.
+                developing: {
+                  previousEditionId: item.history[0].editionId,
+                  previousStoryId: '00000000-0000-4000-8000-000000000099',
+                  previousHeadline: 'Unvalidated editor relationship',
+                  previousSummary: null,
+                  editionCount: 8,
+                },
               })),
           };
         },
@@ -99,6 +107,7 @@ for (const item of fixture.cases) {
       for (const story of result.stories) {
         assert.equal(story.summary, 'Current supported prose');
         assert.equal(Boolean(story.developing), retain && previous.length > 0);
+        if (story.developing) assert.notEqual(story.developing.editionCount, 8);
         if (story.developing)
           assert.equal(
             story.developing.previousHeadline,
@@ -201,4 +210,37 @@ void test('ambiguous candidate IDs reject before matching or editing can spend b
     );
     assert.equal(calls, 0);
   }
+});
+
+void test('editor cannot publish its own earlier-coverage relationship when matching is unavailable', async () => {
+  const developing = {
+    previousEditionId: '00000000-0000-4000-8000-000000000001',
+    previousStoryId: '00000000-0000-4000-8000-000000000002',
+    previousHeadline: 'Unvalidated earlier coverage',
+    previousSummary: null,
+    editionCount: 2,
+  };
+  const editorStory = {
+    id: 'current',
+    headline: 'Current reporting',
+    developing,
+  };
+  const before = structuredClone(editorStory);
+  const result = await editDevelopingStories({
+    grouping: null,
+    target: {
+      topicId: 'tech',
+      publishedAt: '2026-11-19T12:00:00Z',
+      runId: 'offline',
+    },
+    candidates: [{ id: 'current', title: 'Current reporting' }],
+    history: [],
+    async edit() {
+      return { stories: [editorStory] };
+    },
+  });
+  assert.deepEqual(result, {
+    stories: [{ id: 'current', headline: 'Current reporting' }],
+  });
+  assert.deepEqual(editorStory, before);
 });

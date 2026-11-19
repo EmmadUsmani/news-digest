@@ -184,3 +184,15 @@ relationship to the later resignation; it is not labelled a match.
   saved controls still pass. IDs reused across historical editions remain valid.
 - No provider calls, production activation or semantic acceptance. Production
   pool/budget admission and full semantic review remain open.
+
+## Snapshot relationship provenance — iteration 2891
+
+- Snapshot assembly discards any editor-returned `developing` field before
+  attaching the current run’s validated match. With no match, no relationship
+  survives; a valid match replaces any editor-supplied relationship.
+- All five saved controls now return deliberately incorrect relationship
+  metadata from the offline editor. Retained matches use validated predecessors;
+  unmatched stories remain unlinked. An unavailable-matcher control verifies
+  ordinary prose survives and the editor result is not mutated.
+- No provider calls, production activation, saved-edition changes or semantic
+  acceptance. Full semantic review and production pool/budget admission remain.

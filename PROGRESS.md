@@ -100,3 +100,12 @@
 - Verification: targeted editor tests 7/7; pnpm format, lint:fix and check pass (1,169 unit / 332 integration, four expected skips). Handbook 19 pages/21 diagrams/39 tables passes. Latest reader returns five topics/25 stories. Logs `/tmp/2890-*.log`.
 - TASKS and saved review updated; no source, handbook architecture or UI change. Initial `sources:check` console invocation was invalid; corrected to `pnpm obs sources --check`.
 - Full pnpm build and git diff --check pass. Commit/push and API/worker/docs restart follow verification; next scheduled missed-story/NBA/Tech review after 15:00 UTC.
+
+## 2026-11-19: iteration 2891 — developing-link snapshot provenance
+
+- Clean main at 6c576c61; no inherited work. Alerts/health clear; 38 monitored sources pass, Destructoid inactive; digest-generation zero failed jobs, next scheduled 15:00 UTC. Invalid `obs queue` corrected to `obs jobs --queue digest-generation --check`.
+- Snapshot assembly now removes editor-supplied developing metadata and attaches only current validated matches. Unavailable or empty matching cannot retain an unsupported earlier-coverage relationship; editorial prose and input objects are preserved.
+- All five saved editor controls inject incorrect metadata: valid links replace it, unmatched stories discard it. Separate unavailable-matcher control verifies no unsupported link is published. No provider calls, live writes, UI changes or activation.
+- Verification: targeted tests 14/14; pnpm format/lint:fix, build and handbook (19 pages/21 diagrams/39 tables) pass. Full pnpm check passes (1,170 unit / 332 integration, four expected skips). Logs `/tmp/2891-*.log`; git diff --check clear.
+- Latest reader returns five topics/25 stories. TASKS and saved review updated; no source or handbook system change. Full semantic review, production pool/budget admission and generation wiring remain open.
+- Next: continue developing-story admission; scheduled missed-story/NBA/Tech review after 15:00 UTC. Commit/push and API/worker/docs restart follow verification.
