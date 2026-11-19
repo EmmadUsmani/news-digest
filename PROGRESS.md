@@ -135,3 +135,12 @@
 - pnpm format/lint:fix, full pnpm check and pnpm build pass: 1,212 unit tests/332 integration passes/four expected skips. Independent persisted-evidence checks pass; final diff check passes. Logs /tmp/2957-*.log. No app/UI/schema behavior changed; handbook and SOURCES unchanged.
 - Live latest remains 7a747d9c, five topics/25 real stories; private grouping/ownership absent. Commit/push and API/worker restart follow.
 - Updated TASKS and the same Nov 19 review. Next: finish remaining event memberships and three daily recall reviews before selecting and measuring a root-cause fix.
+
+## 2026-11-19: iteration 2958 — exhaust saved important-article routes
+
+- Clean main at 8b47c3f7; no inherited work. Alerts clear and health database/Redis pass. No provider calls, production writes or selection changes.
+- Reconciled all 153 important reference articles against collected immutable IDs, every preserved semantic merge, final editor representatives and published story/coverage IDs. Saved complete routes, merge memberships and source/snapshot hashes.
+- Partitions: 23 published memberships, eight admitted/unselected, one grouped/not admitted, one selected-evidence-only World liveblog, 120 unresolved. Selected evidence is separate from published membership; earlier 23 selected article routes reproduce exactly.
+- Missing merges cannot establish singleton membership/non-admission. Counts are articles, not events or recall; Nets/Bulls post distinction and Tech wrapper limitations retained. Existing saved merge search exhausted; remaining semantic evidence/next scheduled snapshots needed.
+- Verification: python3 /tmp/2958-work/reconcile.py checks all 153 identities, unique memberships, routing partitions and snapshot/source hashes. Persisted evidence rechecked independently. pnpm format/lint:fix, full pnpm check and pnpm build pass: 1,212 unit tests, 332 integration passes and four expected skips.
+- Updated TASKS and same Nov 19 review; no app/UI/schema behavior changed, so handbook/SOURCES unchanged. Live latest 7a747d9c retains five topics/25 real stories; all 38 sources/14 monitored services healthy and digest failures zero. Logs /tmp/2958-*.log. Commit/push and API/worker restart follow. Next: complete event memberships and three recall reviews before selecting a measured root-cause fix.

@@ -1,0 +1,1934 @@
+{
+  "iteration": 2958,
+  "editionId": "7a747d9c-3f5c-4e11-8200-2f19e8effc95",
+  "snapshotSha256": "5187cac3ce9650a192aa0aa4710c020a95b73e0ebab16f9965d677eeb50c9cd6",
+  "method": "Complete important-article census joined by stored immutable IDs to existing saved semantic groups, final editor representative IDs and published story/coverage/evidence IDs. No new semantic matching.",
+  "limits": "Article pipeline routes, not distinct events, recall or automatic omissions. Missing saved groups do not establish singleton membership or non-admission. Published membership may lack semantic cache confirmation. Social prose and editorial importance are not inferred by ID routing. No historical backfill or provider calls.",
+  "sources": [
+    {
+      "file": "2026-11-19-reference-collection.json",
+      "sha256": "380fe3a5433bccae0f8ba0f042dacf48ede0700437d1de7d66b30c8544c48590"
+    },
+    {
+      "file": "2026-11-19-selected-reference-routes.json",
+      "sha256": "7648e3aec5cde2643ff2a815b51044a325d7406bf400131964f95e9be29178a8"
+    }
+  ],
+  "groups": [
+    {
+      "cacheKey": "feefd4746946bb53ff7cb7b8ad3ea3ae1b2d40123286b5a109006c0c67cf7a96",
+      "members": [
+        "01457ec2-1341-4c1b-a8e4-6efee44b9a14",
+        "7d436315-7b24-4469-bfbe-a63488da8655",
+        "ce691c35-cea3-4e7a-8d7c-36d0d69d3886"
+      ]
+    },
+    {
+      "cacheKey": "feefd4746946bb53ff7cb7b8ad3ea3ae1b2d40123286b5a109006c0c67cf7a96",
+      "members": [
+        "facc148b-3884-4b47-a143-31a5fdb3864e",
+        "0621f38e-e99f-4c2d-ae62-861e0464d124",
+        "f84d185c-1fc6-42ec-bca2-99edbb44e8b1"
+      ]
+    },
+    {
+      "cacheKey": "feefd4746946bb53ff7cb7b8ad3ea3ae1b2d40123286b5a109006c0c67cf7a96",
+      "members": [
+        "6dac9479-4476-424d-bbd6-438810af37e9",
+        "35f9f300-72af-4030-a3b1-b3ffe8414096"
+      ]
+    },
+    {
+      "cacheKey": "feefd4746946bb53ff7cb7b8ad3ea3ae1b2d40123286b5a109006c0c67cf7a96",
+      "members": [
+        "1a696e79-c5f0-4806-8f77-dc3299b34abc",
+        "68c6d883-c75f-411d-aaf0-557d4e9adf08",
+        "cc63fd43-69cc-4074-b3db-feb26fa476a1",
+        "b28b4c83-b549-49ef-852e-64618b528f3f",
+        "d3ff7f7f-2c57-4b21-ac7a-7f61360a9a22",
+        "23f67f70-012f-4a1e-bfe5-9bbd57ca811c",
+        "5d7d6032-9bab-4dcb-8983-ad9c4b93ba39"
+      ]
+    },
+    {
+      "cacheKey": "feefd4746946bb53ff7cb7b8ad3ea3ae1b2d40123286b5a109006c0c67cf7a96",
+      "members": [
+        "24a8e43b-e43d-4c10-a682-ad51b21a8405",
+        "d2294ac7-9171-452a-8ce8-19f62e46ed54",
+        "de0feaf0-f5fe-4b0d-a98c-b420d43ac533"
+      ]
+    },
+    {
+      "cacheKey": "feefd4746946bb53ff7cb7b8ad3ea3ae1b2d40123286b5a109006c0c67cf7a96",
+      "members": [
+        "60f9e755-eef6-438c-ad81-2628e345900e",
+        "5f5b55df-6e6e-463e-8694-203a279a08f5"
+      ]
+    },
+    {
+      "cacheKey": "feefd4746946bb53ff7cb7b8ad3ea3ae1b2d40123286b5a109006c0c67cf7a96",
+      "members": [
+        "f5329c68-2406-4877-ad2f-89eafa1c1672",
+        "02431947-0596-4798-b246-811be3b7dba2",
+        "740b9e14-edd6-4555-b694-e20fb98581d6"
+      ]
+    },
+    {
+      "cacheKey": "feefd4746946bb53ff7cb7b8ad3ea3ae1b2d40123286b5a109006c0c67cf7a96",
+      "members": [
+        "e9237b40-f4cc-407e-b952-2f42e81cfd95",
+        "ecf33d21-9f58-4e2e-a14d-2a216980b432"
+      ]
+    },
+    {
+      "cacheKey": "3476373e95d3c8d70d5dde1ab97c55cad9772d4c17cabbcdd53c73a1e8a1b404",
+      "members": [
+        "584e909c-aa9c-4a42-9263-c05fd87593b3",
+        "dfd9e116-8e69-4887-a4e1-e68783d5416e",
+        "f4dbb142-ed25-490e-8dfc-d6e5a66c090b",
+        "2047cf10-e9d6-449a-a15b-b7dcc594687f"
+      ]
+    },
+    {
+      "cacheKey": "3476373e95d3c8d70d5dde1ab97c55cad9772d4c17cabbcdd53c73a1e8a1b404",
+      "members": [
+        "3aa5f25f-2f98-42e9-ba8f-22c0e87cf46f",
+        "4a6869f9-4743-42ad-a841-11c5a5327b4c",
+        "768ac42b-2b26-4f49-8fc0-e6a66355c450",
+        "77474889-5353-4822-9f34-15d1010b0f02",
+        "cf6cf4a0-4dea-400d-b05d-3e5003aea30a",
+        "ffe61f58-6871-4305-af2d-285d8ae169ce",
+        "1f33dbd5-7ae9-4089-b7f1-9856443e5380",
+        "3be97958-979a-4c58-95bc-d24f8802b757",
+        "9d51dce5-0949-4995-82bd-eeb43849f8cd",
+        "831b6104-da53-4315-8f15-3fc44bb66145",
+        "2eb9d8d1-5452-45da-aa1b-709839b4b709",
+        "0f76e14a-9601-43d5-8423-bc37572959bc",
+        "19d75c73-2aad-4df5-91db-c0948aea66d8",
+        "3d0e60f4-1b2b-4748-a175-19bf81096aa1",
+        "604aa8ee-6b95-4640-be61-536025b83878",
+        "91dcc2de-f76a-4b1a-a7a8-98fc07db5273",
+        "b8256d1e-bf28-47b7-be89-2c4eb1ac0c3f"
+      ]
+    },
+    {
+      "cacheKey": "3476373e95d3c8d70d5dde1ab97c55cad9772d4c17cabbcdd53c73a1e8a1b404",
+      "members": [
+        "71560bc5-34b3-403b-9016-b41823615f90",
+        "c176a37d-c875-4a88-837c-3f6682daafff"
+      ]
+    },
+    {
+      "cacheKey": "3476373e95d3c8d70d5dde1ab97c55cad9772d4c17cabbcdd53c73a1e8a1b404",
+      "members": [
+        "0a1b2ee1-9b64-4a62-896c-df408e792ae8",
+        "1ef6ade7-7a0d-479b-9d2e-02cb0f08e37c",
+        "26a62707-cd0d-44d6-8f69-59860bfaad96",
+        "79697010-4236-40f6-a65f-d29e1bded1f4",
+        "8244f809-fd90-45f8-afba-5d3e585449d0",
+        "8e7d4a23-4ce3-4349-860c-0f8786ce954b",
+        "95b70f6f-9569-4442-a33b-18b9aaf9c15c",
+        "b5c949c8-e275-4dc5-8a0e-7f5ffc865346",
+        "bf67151c-3632-4ad4-87f3-1a2b1e54e41d",
+        "c583de54-caf1-4771-b4ac-087a910488f6",
+        "d842fa17-223d-4618-b2f6-69784d4d08cf",
+        "e123373d-70c5-4c2d-829e-eb447b11d491"
+      ]
+    },
+    {
+      "cacheKey": "9f9dcb713fafdd82b15c5a9ad4a7bef64ded273c019c83b549f17b5f99d9c7cd",
+      "members": [
+        "74a11d4a-2f40-4f94-bcc8-9285bb4951c3",
+        "9bf51397-245d-4324-8cea-03285ebcfdc8",
+        "df1f35f4-e974-4547-ab8e-86ad4036666b",
+        "1468155d-ed23-4904-beae-d235a9c9082d"
+      ]
+    },
+    {
+      "cacheKey": "9f9dcb713fafdd82b15c5a9ad4a7bef64ded273c019c83b549f17b5f99d9c7cd",
+      "members": [
+        "c872b24e-762b-4c47-af90-f2f7adc23041",
+        "247ed43b-b255-4505-8b6c-86df6b5211e8",
+        "ac9cb8d5-c8a5-4443-b94e-3ab1cbf4cb99",
+        "bebc8ef5-1010-44ad-99b1-1b32edfbe303"
+      ]
+    },
+    {
+      "cacheKey": "9f9dcb713fafdd82b15c5a9ad4a7bef64ded273c019c83b549f17b5f99d9c7cd",
+      "members": [
+        "c0ab1091-5710-4304-bee8-76a2eb2bc569",
+        "70c7c5bf-9ed4-4109-9e57-7c9bf7986ca2"
+      ]
+    },
+    {
+      "cacheKey": "9f9dcb713fafdd82b15c5a9ad4a7bef64ded273c019c83b549f17b5f99d9c7cd",
+      "members": [
+        "0a476a22-d6b7-42e2-a16e-915e440d906f",
+        "2d75df69-c697-431b-a2c9-9385147208e3"
+      ]
+    },
+    {
+      "cacheKey": "9f9dcb713fafdd82b15c5a9ad4a7bef64ded273c019c83b549f17b5f99d9c7cd",
+      "members": [
+        "1e99fefc-bfb5-46b8-9c84-c3bcf2984039",
+        "453b4d3e-28e7-4908-8d4b-b0a7005794a9"
+      ]
+    },
+    {
+      "cacheKey": "9f9dcb713fafdd82b15c5a9ad4a7bef64ded273c019c83b549f17b5f99d9c7cd",
+      "members": [
+        "bcff1a6d-d61d-4602-9ff5-f6aa4fc2792e",
+        "7a9db526-8494-4c60-8b07-6251cf03b941"
+      ]
+    },
+    {
+      "cacheKey": "9f9dcb713fafdd82b15c5a9ad4a7bef64ded273c019c83b549f17b5f99d9c7cd",
+      "members": [
+        "5d32a4f1-7922-429e-ac5e-91f58b46dd15",
+        "4c292142-fe00-4f45-be73-a663558b1a94",
+        "800fd379-badf-44e0-8ee5-56bb02916c30",
+        "b40ed230-aea4-49a4-881a-9f2eabe11ec4"
+      ]
+    }
+  ],
+  "topics": [
+    {
+      "topic": "Gaming",
+      "importantArticles": 12,
+      "routeCounts": {
+        "editor-admitted": 1,
+        "published-coverage": 5,
+        "unresolved": 6
+      },
+      "articles": [
+        {
+          "url": "https://www.gamesindustry.biz/gta-6-arrives-to-record-review-scores-and-streaming-audiences",
+          "contentId": "6689274b-49fd-4ead-a41c-c7f5f358636f",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.eurogamer.net/ps5-pro-not-powerful-enough-gta-6-60fps",
+          "contentId": "b4a98fdc-5c24-4b72-b903-d4e2ff4369f8",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.eurogamer.net/grand-theft-auto-6-streaming-record-broken",
+          "contentId": "15cab3b5-b204-401c-9adb-3a73476c18e9",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.gamesindustry.biz/us-senate-hearing-examines-child-safety-on-roblox-considers-bipartisan-bill-to-bypass-forced-arbitration",
+          "contentId": "f54bd57c-d206-49be-8b86-4082d6f1852b",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.gamesindustry.biz/rockstar-and-iwgb-members-issue-closing-arguments-following-conclusion-of-employment-tribunal",
+          "contentId": "9bf51397-245d-4324-8cea-03285ebcfdc8",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": 12,
+          "directSelectedIds": ["df1f35f4-e974-4547-ab8e-86ad4036666b"],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": ["df1f35f4-e974-4547-ab8e-86ad4036666b"],
+          "editorCandidateIds": ["df1f35f4-e974-4547-ab8e-86ad4036666b"],
+          "route": "published-coverage"
+        },
+        {
+          "url": "https://www.eurogamer.net/gta-6-rockstar-developers-layoffs-worries",
+          "contentId": "7234d33b-c12c-475b-ae91-f15cb7244d8a",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.eurogamer.net/gta-6-grand-theft-auto-6-launch-day-live-blog",
+          "contentId": "fb1fe8f9-5787-46ae-b812-4878b2fff972",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.eurogamer.net/gta-6-discless-release-code-in-a-box-gamestop-ceo",
+          "contentId": "ac9cb8d5-c8a5-4443-b94e-3ab1cbf4cb99",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": 13,
+          "directSelectedIds": ["c872b24e-762b-4c47-af90-f2f7adc23041"],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": ["c872b24e-762b-4c47-af90-f2f7adc23041"],
+          "editorCandidateIds": ["c872b24e-762b-4c47-af90-f2f7adc23041"],
+          "route": "published-coverage"
+        },
+        {
+          "url": "https://www.gamesindustry.biz/call-of-duty-modern-warfare-4-debuts-as-top-selling-game-in-us-for-october-2026",
+          "contentId": "4c292142-fe00-4f45-be73-a663558b1a94",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": 18,
+          "directSelectedIds": ["5d32a4f1-7922-429e-ac5e-91f58b46dd15"],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": ["5d32a4f1-7922-429e-ac5e-91f58b46dd15"],
+          "editorCandidateIds": ["5d32a4f1-7922-429e-ac5e-91f58b46dd15"],
+          "route": "published-coverage"
+        },
+        {
+          "url": "https://www.eurogamer.net/call-of-duty-modern-warfare-4-october-top-seller",
+          "contentId": "800fd379-badf-44e0-8ee5-56bb02916c30",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": 18,
+          "directSelectedIds": ["5d32a4f1-7922-429e-ac5e-91f58b46dd15"],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": ["5d32a4f1-7922-429e-ac5e-91f58b46dd15"],
+          "editorCandidateIds": ["5d32a4f1-7922-429e-ac5e-91f58b46dd15"],
+          "route": "published-coverage"
+        },
+        {
+          "url": "https://www.eurogamer.net/gta-6-rockstar-tribunal-awaits-verdict",
+          "contentId": "df1f35f4-e974-4547-ab8e-86ad4036666b",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": 12,
+          "directSelectedIds": ["df1f35f4-e974-4547-ab8e-86ad4036666b"],
+          "selectedEvidenceIds": ["df1f35f4-e974-4547-ab8e-86ad4036666b"],
+          "groupSelectedIds": ["df1f35f4-e974-4547-ab8e-86ad4036666b"],
+          "editorCandidateIds": ["df1f35f4-e974-4547-ab8e-86ad4036666b"],
+          "route": "published-coverage"
+        },
+        {
+          "url": "https://www.gamesindustry.biz/007-first-light-wins-goty-at-2026-tiga-awards-dovetail-games-takes-home-four-accolades-including-best-publisher",
+          "contentId": "9270bc8d-a8d4-46bf-8b93-e3497f0c8ff8",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": ["9270bc8d-a8d4-46bf-8b93-e3497f0c8ff8"],
+          "route": "editor-admitted"
+        }
+      ]
+    },
+    {
+      "topic": "NBA",
+      "importantArticles": 47,
+      "routeCounts": {
+        "editor-admitted": 6,
+        "published-coverage": 9,
+        "saved-group-not-admitted": 1,
+        "unresolved": 31
+      },
+      "articles": [
+        {
+          "url": "https://sports.yahoo.com/articles/cavs-react-sam-merrill-tough-035235621.html",
+          "contentId": "b2d2b6b8-7256-4168-ba65-0ba1e6f24898",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/nets-rocked-lowly-bulls-ugly-034221251.html",
+          "contentId": "8257ac77-e6ca-48b9-9b68-019a6153bb05",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/player-grades-cavs-vs-grizzlies-034008328.html",
+          "contentId": "bf887a9f-c90e-4c87-95b7-a263c46408ea",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://sports.yahoo.com/nba/breaking-news/article/heats-giannis-antetokounmpo-sniffs-triple-double-in-first-game-vs-bucks-tyler-herro-booed-while-bam-adebayo-stars-in-win-030545435.html",
+          "contentId": "60f9e755-eef6-438c-ad81-2628e345900e",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": 5,
+          "directSelectedIds": ["5f5b55df-6e6e-463e-8694-203a279a08f5"],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": ["5f5b55df-6e6e-463e-8694-203a279a08f5"],
+          "editorCandidateIds": ["5f5b55df-6e6e-463e-8694-203a279a08f5"],
+          "route": "published-coverage"
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/cavs-lose-124-121-grizzlies-023239186.html",
+          "contentId": "a3fe2c28-5cb6-46da-abc4-fd3f87cef3d3",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/warriors-vs-mavericks-injury-report-004432177.html",
+          "contentId": "51f3922f-b7ae-45ac-8015-aeac42f2ecc5",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/nba-europe-appears-headed-soft-233744763.html",
+          "contentId": "c560aa16-0f26-41bb-8157-3cfe7171362e",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/tyrese-maxey-scratch-vs-magic-233352020.html",
+          "contentId": "55474669-3b7d-4c43-a518-7357b65a7df0",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/dylan-harper-ruled-against-clippers-232719827.html",
+          "contentId": "0621f38e-e99f-4c2d-ae62-861e0464d124",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": 1,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": ["f84d185c-1fc6-42ec-bca2-99edbb44e8b1"],
+          "route": "editor-admitted"
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/vice-city-rout-heat-defeat-220036436.html",
+          "contentId": "b15576c8-e69a-4246-8bb0-6a3f38fe3b65",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/austin-reaves-remains-vs-jazz-212232223.html",
+          "contentId": "a9d90286-432b-46f6-9a93-0fdf106f0262",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/injured-warriors-guard-making-good-201301368.html",
+          "contentId": "1412549d-d460-49c3-ba6c-9102826a0573",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/learned-warriors-3-point-struggles-194136627.html",
+          "contentId": "35f9f300-72af-4030-a3b1-b3ffe8414096",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": 2,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "saved-group-not-admitted"
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/brandon-williams-hamstring-strain-lingers-192956474.html",
+          "contentId": "87ae2c50-7fa5-406f-812a-22e3dc578a43",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/vice-city-rout-heat-defeat-190036397.html",
+          "contentId": "39daa8f0-5bf6-42d1-aa9b-19345acdc0cd",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/sixers-smart-jaylen-brown-hamstring-180000373.html",
+          "contentId": "621a3897-2366-4bf0-978f-1b6a57b56031",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/observations-sixers-come-back-strong-170700167.html",
+          "contentId": "7c9de402-b74e-402e-a3e9-99cda3990a50",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/vice-city-rout-heat-defeat-220036890.html",
+          "contentId": "c23d252b-ebab-4e73-87c3-4799dea584ed",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/sixers-rule-brown-hamstring-injury-165845297.html",
+          "contentId": "e5d31d8b-6790-46cb-9a6c-98ee2461342d",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/attrition-finally-gets-best-lakers-065527537.html",
+          "contentId": "cc63fd43-69cc-4074-b3db-feb26fa476a1",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": 3,
+          "directSelectedIds": ["b28b4c83-b549-49ef-852e-64618b528f3f"],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": ["b28b4c83-b549-49ef-852e-64618b528f3f"],
+          "editorCandidateIds": ["b28b4c83-b549-49ef-852e-64618b528f3f"],
+          "route": "published-coverage"
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/utah-jazz-vs-los-angeles-064313292.html",
+          "contentId": "1a696e79-c5f0-4806-8f77-dc3299b34abc",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": 3,
+          "directSelectedIds": ["b28b4c83-b549-49ef-852e-64618b528f3f"],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": ["b28b4c83-b549-49ef-852e-64618b528f3f"],
+          "editorCandidateIds": ["b28b4c83-b549-49ef-852e-64618b528f3f"],
+          "route": "published-coverage"
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/player-grades-lakers-vs-jazz-063154573.html",
+          "contentId": "6e256718-3763-4e7d-b467-83a6bc85d312",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/suns-beat-kings-128-107-060802341.html",
+          "contentId": "f1823a2c-c0da-470f-9381-8eef15a902bf",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/lakers-nine-game-winning-streak-060323188.html",
+          "contentId": "68c6d883-c75f-411d-aaf0-557d4e9adf08",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": 3,
+          "directSelectedIds": ["b28b4c83-b549-49ef-852e-64618b528f3f"],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": ["b28b4c83-b549-49ef-852e-64618b528f3f"],
+          "editorCandidateIds": ["b28b4c83-b549-49ef-852e-64618b528f3f"],
+          "route": "published-coverage"
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/tired-looking-lakers-cant-shots-055623578.html",
+          "contentId": "5d7d6032-9bab-4dcb-8983-ad9c4b93ba39",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": 3,
+          "directSelectedIds": ["b28b4c83-b549-49ef-852e-64618b528f3f"],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": ["b28b4c83-b549-49ef-852e-64618b528f3f"],
+          "editorCandidateIds": ["b28b4c83-b549-49ef-852e-64618b528f3f"],
+          "route": "published-coverage"
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/lakers-win-streak-snapped-offense-053458832.html",
+          "contentId": "23f67f70-012f-4a1e-bfe5-9bbd57ca811c",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": 3,
+          "directSelectedIds": ["b28b4c83-b549-49ef-852e-64618b528f3f"],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": ["b28b4c83-b549-49ef-852e-64618b528f3f"],
+          "editorCandidateIds": ["b28b4c83-b549-49ef-852e-64618b528f3f"],
+          "route": "published-coverage"
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/celtics-blow-17-point-lead-053427693.html",
+          "contentId": "24a8e43b-e43d-4c10-a682-ad51b21a8405",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": 4,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": ["d2294ac7-9171-452a-8ce8-19f62e46ed54"],
+          "route": "editor-admitted"
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/warriors-vs-mavericks-player-grades-053321899.html",
+          "contentId": "dfa7bb22-70bb-4e44-8fb9-81cdeee799e0",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://sports.yahoo.com/nba/breaking-news/article/celtics-star-jayson-tatum-called-for-technical-after-throwing-ball-toward-official-late-in-loss-to-nuggets-053023894.html",
+          "contentId": "b5730acc-894c-460d-8c6b-de519447d1ad",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/diving-deeper-cavs-last-second-052457927.html",
+          "contentId": "7c029d86-a725-4e2c-baf3-9ef884b1d72b",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": ["7c029d86-a725-4e2c-baf3-9ef884b1d72b"],
+          "route": "editor-admitted"
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/nets-embarrass-themselves-front-franchise-052301883.html",
+          "contentId": "740b9e14-edd6-4555-b694-e20fb98581d6",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": 6,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": ["f5329c68-2406-4877-ad2f-89eafa1c1672"],
+          "route": "editor-admitted"
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/stats-rundown-4-numbers-know-043000888.html",
+          "contentId": "7e1d0161-61d0-4273-88c9-96b8c2e32836",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/cooper-flagg-good-warriors-starters-040739887.html",
+          "contentId": "cbe250e8-c89c-4900-9dc9-562f3d2f616d",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/rapid-recap-heat-137-bucks-035844721.html",
+          "contentId": "148b859e-8ff6-4d3a-b85b-7717f25cc4f6",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/recap-wizards-mercifully-win-103-035830692.html",
+          "contentId": "11178b1b-3cec-42c7-995c-56e0bc569924",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/gta-6-comes-raptors-break-035409636.html",
+          "contentId": "5d98faa8-0642-472e-b077-9fc354d6d4db",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/sixers-bell-ringer-philly-continues-034931965.html",
+          "contentId": "a4a2820c-3d69-472d-8c46-2b08718b29a9",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/3-things-led-mavericks-cathartic-034132950.html",
+          "contentId": "aa75e197-3deb-4f28-a318-65c6a8b725fb",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/pistons-pelicans-final-score-no-033534083.html",
+          "contentId": "07d21b30-d37a-480c-8f84-9093f8620e28",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/nets-put-dud-vs-bulls-030223595.html",
+          "contentId": "b2af9604-372c-4fb0-b89e-a10a9785c2c8",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/no-maxey-brown-sixers-overcome-023641870.html",
+          "contentId": "54760785-e3d3-4154-9aba-015f1ad9f46b",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/lakers-finally-broke-luka-doncic-130946127.html",
+          "contentId": "d3ff7f7f-2c57-4b21-ac7a-7f61360a9a22",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": 3,
+          "directSelectedIds": ["b28b4c83-b549-49ef-852e-64618b528f3f"],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": ["b28b4c83-b549-49ef-852e-64618b528f3f"],
+          "editorCandidateIds": ["b28b4c83-b549-49ef-852e-64618b528f3f"],
+          "route": "published-coverage"
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/rockets-back-winning-119-104-103634845.html",
+          "contentId": "83cc5ecd-fb1a-4970-aa21-30abe79b2b44",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": ["83cc5ecd-fb1a-4970-aa21-30abe79b2b44"],
+          "selectedEvidenceIds": ["83cc5ecd-fb1a-4970-aa21-30abe79b2b44"],
+          "groupSelectedIds": [],
+          "editorCandidateIds": ["83cc5ecd-fb1a-4970-aa21-30abe79b2b44"],
+          "route": "published-coverage"
+        },
+        {
+          "url": "https://www.cbssports.com/nba/news/jayson-tatum-technical-celtics-nuggets/",
+          "contentId": "d2294ac7-9171-452a-8ce8-19f62e46ed54",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": 4,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": ["d2294ac7-9171-452a-8ce8-19f62e46ed54"],
+          "route": "editor-admitted"
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/eight-enough-dybantsa-davis-power-120000022.html",
+          "contentId": "9ef82ab7-b05b-4e8d-9a63-11b2faca5312",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": ["9ef82ab7-b05b-4e8d-9a63-11b2faca5312"],
+          "selectedEvidenceIds": ["9ef82ab7-b05b-4e8d-9a63-11b2faca5312"],
+          "groupSelectedIds": [],
+          "editorCandidateIds": ["9ef82ab7-b05b-4e8d-9a63-11b2faca5312"],
+          "route": "published-coverage"
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/takeaways-coming-off-mile-high-120000983.html",
+          "contentId": "de0feaf0-f5fe-4b0d-a98c-b420d43ac533",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": 4,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": ["d2294ac7-9171-452a-8ce8-19f62e46ed54"],
+          "route": "editor-admitted"
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/suns-avoided-trap-found-offensive-120000271.html",
+          "contentId": "3274975e-273a-4505-b8af-07932c5d7c4e",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        }
+      ]
+    },
+    {
+      "topic": "Tech & AI",
+      "importantArticles": 40,
+      "routeCounts": {
+        "unresolved": 40
+      },
+      "articles": [
+        {
+          "url": "https://www.techmeme.com/261118/p61",
+          "contentId": null,
+          "collectionStatus": "exact-url-absent",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.techmeme.com/261118/p60",
+          "contentId": null,
+          "collectionStatus": "exact-url-absent",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.techmeme.com/261118/p59",
+          "contentId": null,
+          "collectionStatus": "exact-url-absent",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.techmeme.com/261118/p58",
+          "contentId": null,
+          "collectionStatus": "exact-url-absent",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.techmeme.com/261118/p57",
+          "contentId": null,
+          "collectionStatus": "exact-url-absent",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.techmeme.com/261118/p56",
+          "contentId": null,
+          "collectionStatus": "exact-url-absent",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.techmeme.com/261118/p55",
+          "contentId": null,
+          "collectionStatus": "exact-url-absent",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.techmeme.com/261118/p54",
+          "contentId": null,
+          "collectionStatus": "exact-url-absent",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.techmeme.com/261118/p52",
+          "contentId": null,
+          "collectionStatus": "exact-url-absent",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.techmeme.com/261118/p51",
+          "contentId": null,
+          "collectionStatus": "exact-url-absent",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.techmeme.com/261118/p49",
+          "contentId": null,
+          "collectionStatus": "exact-url-absent",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.techmeme.com/261118/p48",
+          "contentId": null,
+          "collectionStatus": "exact-url-absent",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.techmeme.com/261118/p47",
+          "contentId": null,
+          "collectionStatus": "exact-url-absent",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.theverge.com/tech/1037448/elon-musk-ukraine-starlink-starshield-nyt-dealbook",
+          "contentId": "c08298c8-995b-4fa8-a0e3-e11192224d51",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1037151/school-districts-ditching-google",
+          "contentId": "f84d91b7-cac1-4d59-86e4-1ba24e3d6548",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.theverge.com/policy/1037134/democrats-boycott-fcc-nomination-vote-danielle-thumann-severs",
+          "contentId": "2cc4958f-8d15-42a1-a0a0-e0c224c67ee0",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.theverge.com/policy/1036749/trump-ai-chip-data-center-us-philippines-pax-silica",
+          "contentId": "852f5f02-b1d2-4d27-bcf9-1765b6398d72",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.theverge.com/policy/1036935/congress-forced-arbitration-deepfakes-defiance-act",
+          "contentId": "ed162331-c245-45c4-af2e-dc8e3210c5e0",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.techmeme.com/261119/p21",
+          "contentId": null,
+          "collectionStatus": "exact-url-absent",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.techmeme.com/261119/p20",
+          "contentId": null,
+          "collectionStatus": "exact-url-absent",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.techmeme.com/261119/p19",
+          "contentId": null,
+          "collectionStatus": "exact-url-absent",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.techmeme.com/261119/p17",
+          "contentId": null,
+          "collectionStatus": "exact-url-absent",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.techmeme.com/261119/p15",
+          "contentId": null,
+          "collectionStatus": "exact-url-absent",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.techmeme.com/261119/p14",
+          "contentId": null,
+          "collectionStatus": "exact-url-absent",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.techmeme.com/261119/p12",
+          "contentId": null,
+          "collectionStatus": "exact-url-absent",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.techmeme.com/261119/p11",
+          "contentId": null,
+          "collectionStatus": "exact-url-absent",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.techmeme.com/261119/p9",
+          "contentId": null,
+          "collectionStatus": "exact-url-absent",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.techmeme.com/261119/p8",
+          "contentId": null,
+          "collectionStatus": "exact-url-absent",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.techmeme.com/261119/p29",
+          "contentId": null,
+          "collectionStatus": "exact-url-absent",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.techmeme.com/261119/p27",
+          "contentId": null,
+          "collectionStatus": "exact-url-absent",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.techmeme.com/261119/p26",
+          "contentId": null,
+          "collectionStatus": "exact-url-absent",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.techmeme.com/261119/p25",
+          "contentId": null,
+          "collectionStatus": "exact-url-absent",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.techmeme.com/261119/p24",
+          "contentId": null,
+          "collectionStatus": "exact-url-absent",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1037126/canva-ai-features-off-button",
+          "contentId": "14055b80-5853-478d-b003-6830c291de42",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.techmeme.com/261119/p30",
+          "contentId": null,
+          "collectionStatus": "exact-url-absent",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.theverge.com/tech/1037535/google-blue-origin-project-suncatcher-2029",
+          "contentId": "b7916dbc-1f2f-4d9e-85b9-48c7169520cf",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.techmeme.com/261119/p31",
+          "contentId": null,
+          "collectionStatus": "exact-url-absent",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.techmeme.com/261119/p32",
+          "contentId": null,
+          "collectionStatus": "exact-url-absent",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1037459/anthropic-ipo-safe-ai-reputation-power-structure",
+          "contentId": "db6a2b28-9e2c-4759-8fdd-7310dd5f7211",
+          "collectionStatus": "first-collected-after-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.techmeme.com/261119/p33",
+          "contentId": null,
+          "collectionStatus": "exact-url-absent",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        }
+      ]
+    },
+    {
+      "topic": "U.S. news & politics",
+      "importantArticles": 19,
+      "routeCounts": {
+        "editor-admitted": 1,
+        "published-coverage": 3,
+        "unresolved": 15
+      },
+      "articles": [
+        {
+          "url": "https://www.npr.org/2026/11/18/nx-s1-6043185/democrats-nominate-jeffries-for-speaker-prep-investigations-into-trumps-orbit",
+          "contentId": "9ecac277-ff80-4c06-9462-a70d7af67e91",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": ["1ccd82b2-4f8b-4633-9010-af0254c567cf"],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "published-coverage"
+        },
+        {
+          "url": "https://www.npr.org/2026/11/18/nx-s1-6044209/drug-deaths-overdose-drop-trump-biden-fentanyl",
+          "contentId": "36973b2e-eb4f-4ab4-9a0a-119ff4aed7bf",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.npr.org/2026/11/18/nx-s1-6043183/hakeem-jeffries-house-democrats-leadership-votes",
+          "contentId": "002a3b7d-da6c-483e-9302-299b088cd273",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.npr.org/2026/11/18/g-s1-154147/robert-garcia-house-democrats-investigations-trump-administration",
+          "contentId": "f739a9d6-5ef7-4c4d-a95a-3d67f9c86eba",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.theguardian.com/us-news/live/2026/nov/18/donald-trump-mary-peltola-alaska-hakeem-jeffries-democrats-republicans-congress-house-senate-midterms-latest-news-updates",
+          "contentId": "e931fea9-f7c9-4a0a-8640-5c56a4e3c20c",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.theguardian.com/us-news/2026/nov/18/california-atmospheric-river-flooding",
+          "contentId": "c6b32eb5-0ee0-4f63-81b1-5af78195aa3b",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": ["c6b32eb5-0ee0-4f63-81b1-5af78195aa3b"],
+          "selectedEvidenceIds": ["c6b32eb5-0ee0-4f63-81b1-5af78195aa3b"],
+          "groupSelectedIds": [],
+          "editorCandidateIds": ["c6b32eb5-0ee0-4f63-81b1-5af78195aa3b"],
+          "route": "published-coverage"
+        },
+        {
+          "url": "https://www.theguardian.com/us-news/2026/nov/18/fergie-chambers-extradition-request-translation",
+          "contentId": "115c4cd9-be28-4443-b29d-8d5a2bfa3232",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.theguardian.com/us-news/2026/nov/18/trump-national-science-foundation-nominee",
+          "contentId": "54030182-2e94-454d-8cc4-d9282a5371c3",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.theguardian.com/us-news/2026/nov/18/jay-clayton-ai-tech-outages-infrastructure",
+          "contentId": "c86d82f6-0ff6-4605-b5ef-6be6ebb36e99",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.theguardian.com/us-news/2026/nov/18/hakeem-jeffries-house-speaker-nomination",
+          "contentId": "85166d17-1f49-4f4b-996f-de7be0071807",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.theguardian.com/us-news/2026/nov/18/robert-garcia-trump-records-investigations",
+          "contentId": "a79c5634-0ff3-4d57-b5a9-fce5b738728d",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.theguardian.com/us-news/2026/nov/18/howard-lutnick-nvidia-cantor-fitzgerald",
+          "contentId": "f69d74a3-123a-41ba-a43f-4835d6df1bf7",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.theguardian.com/technology/2026/nov/18/senate-democrats-nudify-apps-apple-google",
+          "contentId": "90cea3a5-7983-4db4-8c1d-7484e950f16a",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.theguardian.com/us-news/video/2026/nov/18/markwayne-mullin-defends-taking-government-plane-to-college-football-game-amid-nationwide-grounding-video",
+          "contentId": "adc67afe-e937-4e62-8511-8088c35d0683",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.theguardian.com/us-news/live/2026/nov/19/hakeem-jeffries-us-politics-demicrats-republicans-latest-news-updates",
+          "contentId": "1ccd82b2-4f8b-4633-9010-af0254c567cf",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": ["1ccd82b2-4f8b-4633-9010-af0254c567cf"],
+          "selectedEvidenceIds": ["1ccd82b2-4f8b-4633-9010-af0254c567cf"],
+          "groupSelectedIds": [],
+          "editorCandidateIds": ["1ccd82b2-4f8b-4633-9010-af0254c567cf"],
+          "route": "published-coverage"
+        },
+        {
+          "url": "https://www.theguardian.com/us-news/2026/nov/19/childrens-health-defense-meta-rfk-jr",
+          "contentId": "8aaf7b2b-d9ef-4b6e-a011-c393fc707639",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.theguardian.com/us-news/2026/nov/18/rfk-jr-childrens-health-defense-meta",
+          "contentId": "661cc527-f3bb-4209-909d-806135920126",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.npr.org/2026/11/19/g-s1-154344/up-first-newsletter-house-democrats-trump-xi-putin-anthropic",
+          "contentId": "8e0a10aa-d86c-424b-a0f2-695ff28a9cd7",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.theguardian.com/us-news/2026/nov/19/kristine-blanche-health-website",
+          "contentId": "ac03d1db-1468-4499-9320-41584b8e569d",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": ["ac03d1db-1468-4499-9320-41584b8e569d"],
+          "route": "editor-admitted"
+        }
+      ]
+    },
+    {
+      "topic": "World news & politics",
+      "importantArticles": 35,
+      "routeCounts": {
+        "published-coverage": 6,
+        "selected-evidence-only": 1,
+        "unresolved": 28
+      },
+      "articles": [
+        {
+          "url": "https://www.bbc.co.uk/news/videos/c8p3vw4q6nzzo?at_campaign=rss&at_medium=RSS",
+          "contentId": "dee89117-b5f1-4711-9d4f-103d5a80e3cd",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.bbc.co.uk/news/articles/c32l507ev4v4o?at_campaign=rss&at_medium=RSS",
+          "contentId": "ef4c0052-236a-4f0f-8917-4d62e184964f",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.bbc.co.uk/news/articles/cm879dqn3e1jo?at_campaign=rss&at_medium=RSS",
+          "contentId": "81636d62-05ae-4e53-9bf1-23d9e1ead656",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.bbc.co.uk/news/articles/cw8r7510degno?at_campaign=rss&at_medium=RSS",
+          "contentId": "5bb6fedb-9559-4944-bcdc-e94d25351787",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": ["205376d4-0d90-4c18-b308-48a111e3fc70"],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "published-coverage"
+        },
+        {
+          "url": "https://www.bbc.co.uk/news/articles/cq20xg80ly47o?at_campaign=rss&at_medium=RSS",
+          "contentId": "d43a0dd6-7595-48f4-8a7e-064b39a8a29a",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.bbc.co.uk/news/videos/ckvg28jy77z5o?at_campaign=rss&at_medium=RSS",
+          "contentId": "4f83968c-f455-46bf-a1de-fe2fa904bbef",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.theguardian.com/global-development/2026/nov/19/women-girls-rights-rape-sexual-violence-africa-marriage-unfpa",
+          "contentId": "02dc0118-046c-4b01-8821-fa316c7d9535",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.theguardian.com/us-news/2026/nov/18/florida-pastor-guilty-haiti-president-assassination",
+          "contentId": "ea6d4d37-9337-466f-9c4f-7833c7636109",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.theguardian.com/world/2026/nov/18/pete-hegseth-venezuela-nicolas-maduro-military",
+          "contentId": "a30b3cf2-516b-445f-9e56-a32f433c7534",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": ["5b3b315a-9179-49e1-be6c-5f1a29f15233"],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "published-coverage"
+        },
+        {
+          "url": "https://www.theguardian.com/world/live/2026/nov/18/apec-summit-live-updates-xi-putin-trump-world-leaders-gather-in-china",
+          "contentId": "58de135a-b537-4b57-abf5-e9d732d7fbaa",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.theguardian.com/business/2026/nov/19/unemployment-rate-jumps-highest-level-five-years-job-figures",
+          "contentId": "ea0c2824-adf9-4f1a-b7e1-24caeca6d5c3",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.theguardian.com/world/2026/nov/19/mike-lynch-superyacht-bayesian-vulnerability-to-high-winds-report",
+          "contentId": "1d21ba90-eea0-424c-b24f-0b44f5e841e0",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.theguardian.com/world/2026/nov/19/kerch-bridge-crimea-russia-attacked-again-ukraine",
+          "contentId": "ec99ead7-dd2a-4167-bc9f-7206b3cd2844",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.theguardian.com/world/2026/nov/18/eu-loan-ukraine-cash-crisis-defences-von-der-leyen-kyiv",
+          "contentId": "fa8f8e79-fb0c-47af-8b1e-0f5424d69692",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.theguardian.com/politics/2026/nov/18/eu-uk-reset-summit-talks-burnham-brexit",
+          "contentId": "26523521-378d-4241-afe6-e59c996b2620",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.theguardian.com/world/2026/nov/18/israeli-tanks-cross-yellow-line-boundary-into-hamas-controlled-central-gaza",
+          "contentId": "205376d4-0d90-4c18-b308-48a111e3fc70",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": ["205376d4-0d90-4c18-b308-48a111e3fc70"],
+          "selectedEvidenceIds": ["205376d4-0d90-4c18-b308-48a111e3fc70"],
+          "groupSelectedIds": [],
+          "editorCandidateIds": ["205376d4-0d90-4c18-b308-48a111e3fc70"],
+          "route": "published-coverage"
+        },
+        {
+          "url": "https://www.theguardian.com/society/2026/nov/18/leaseholders-in-england-and-wales-to-have-ground-rent-capped-in-2028",
+          "contentId": "36bed4ac-d17e-46d4-99a7-c4f23abaf33d",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.bbc.co.uk/news/articles/c58j484089ewo?at_campaign=rss&at_medium=RSS",
+          "contentId": "0620a0d9-2268-4a24-b090-db9c406db1c4",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.bbc.co.uk/news/articles/c920xgxp5785o?at_campaign=rss&at_medium=RSS",
+          "contentId": "e5b7d67b-bf0f-43ee-95fc-a93aafd19178",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.theguardian.com/world/2026/nov/19/datacentres-to-create-70-more-carbon-emissions-by-2030-iea-report-warns",
+          "contentId": "a60aa27c-7dec-4ef8-8781-cab3f8d02b41",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.theguardian.com/world/live/2026/nov/19/russia-ukraine-war-coalition-of-the-willing-europe-latest-news-updates",
+          "contentId": "f31cd2fb-c778-4427-8057-d9861bc7532d",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": ["8e2e622a-7c4b-41a0-ac6e-9b0bb5fe6a4c"],
+          "groupSelectedIds": [],
+          "editorCandidateIds": ["f31cd2fb-c778-4427-8057-d9861bc7532d"],
+          "route": "selected-evidence-only"
+        },
+        {
+          "url": "https://www.theguardian.com/world/2026/nov/19/genocide-rohingya-international-court-of-justice-ruling-myanmar",
+          "contentId": "2a106d79-8643-4af6-8537-209787055a54",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": ["570f83ef-0128-4434-a275-273fdf04ce04"],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "published-coverage"
+        },
+        {
+          "url": "https://www.theguardian.com/world/2026/nov/19/bangladesh-violent-protest-sheikh-hasina-planned-return",
+          "contentId": "23c75f5a-c7aa-47b1-a9a0-30d04c4e1914",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.theguardian.com/uk-news/2026/nov/19/covid-inquiry-uk-report-lack-of-early-border-controls-virus-spread",
+          "contentId": "f01b9f46-35ef-4b66-9721-4dc9c2a22360",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.bbc.co.uk/news/articles/cmwy8pyqlq5vo?at_campaign=rss&at_medium=RSS",
+          "contentId": "5b3b315a-9179-49e1-be6c-5f1a29f15233",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": ["5b3b315a-9179-49e1-be6c-5f1a29f15233"],
+          "selectedEvidenceIds": ["5b3b315a-9179-49e1-be6c-5f1a29f15233"],
+          "groupSelectedIds": [],
+          "editorCandidateIds": ["5b3b315a-9179-49e1-be6c-5f1a29f15233"],
+          "route": "published-coverage"
+        },
+        {
+          "url": "https://www.bbc.co.uk/news/articles/cm9q84gp0gr3o?at_campaign=rss&at_medium=RSS",
+          "contentId": "28993160-00f5-4f4a-b70a-0f7415b508d2",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.theguardian.com/world/2026/nov/19/danish-mps-approve-greenland-security-pact-us",
+          "contentId": "9175888b-9b4b-4b13-a70a-03a52e31e83c",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.theguardian.com/world/2026/nov/19/car-rams-into-palestinian-residents-four-times-in-israeli-city-kafr-qasim",
+          "contentId": "c3c105bb-b7bc-4640-95da-7c0cf864a856",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.theguardian.com/uk-news/2026/nov/19/lawyers-urgent-review-lucy-letby-convictions-after-expert-witness-revelations",
+          "contentId": "47e1ef9d-e495-4b97-baeb-17d7de13d197",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.theguardian.com/world/2026/nov/19/imf-head-warns-ai-demand-push-up-interest-rates-apec",
+          "contentId": "cec121b3-858b-4191-956c-ec02ab8f7b95",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.theguardian.com/us-news/2026/nov/19/first-thing-trump-xi-and-putin-hold-historic-trilateral-meeting-in-china",
+          "contentId": "e573f5a9-c4c7-48ae-894f-9b380499794a",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": ["8e2e622a-7c4b-41a0-ac6e-9b0bb5fe6a4c"],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "published-coverage"
+        },
+        {
+          "url": "https://www.theguardian.com/uk-news/2026/nov/19/un-warns-misuse-security-laws-uk-palestine-action-ban",
+          "contentId": "887073f3-a31f-4d00-9103-9331711c647f",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.theguardian.com/australia-news/2026/nov/20/australian-music-industry-rejects-proposal-to-give-musicians-exemption-ai-scraping",
+          "contentId": "26d72da6-d3d6-4c3b-bef6-c88cb9a0a287",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.theguardian.com/world/2026/nov/19/five-takeaways-from-putin-trump-xi-apec-shenzhen-summit",
+          "contentId": "35e355e9-7779-4886-92c9-38d5927d0814",
+          "collectionStatus": "first-collected-after-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        },
+        {
+          "url": "https://www.bbc.co.uk/news/articles/cm702q0lg50po?at_campaign=rss&at_medium=RSS",
+          "contentId": "be9333de-36ce-4789-9fa0-7046a39afc56",
+          "collectionStatus": "collected-before-cutoff",
+          "groupIndex": null,
+          "directSelectedIds": [],
+          "selectedEvidenceIds": [],
+          "groupSelectedIds": [],
+          "editorCandidateIds": [],
+          "route": "unresolved"
+        }
+      ]
+    }
+  ],
+  "recall": null
+}
