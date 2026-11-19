@@ -1,0 +1,747 @@
+{
+  "provenance": "Exact saved published snapshot evidence exported by iteration 2877; manual agent labels, not model responses or independent acceptance. Only reviewedStoryId is labelled in each case; other current stories are unreviewed.",
+  "cases": [
+    {
+      "editionId": "93aefc45-33d7-4639-ad53-78e316a40f14",
+      "profileId": "00000000-0000-4000-8000-000000000001",
+      "topicId": "00000000-0000-4000-8000-000000000011",
+      "topicName": "Tech & AI",
+      "windowEnd": "2026-11-16 15:00:00+00",
+      "stories": [
+        {
+          "id": "ab16db28-50f4-4d17-9926-f1e8bee0ddd8",
+          "title": "Jensen Huang reportedly weighing return as Nvidia CEO after resignation",
+          "summary": "Jensen Huang is considering a comeback as Nvidia's chief executive, according to an FT report carried by Ars Technica. The report says allies are pressuring the board to reinstate him days after he resigned over reports of affairs with a suspected Chinese spy and a subordinate. It says an independent board probe is investigating the conduct behind the leadership crisis."
+        },
+        {
+          "id": "6a921670-eb4b-4f78-bc30-c48fe065306a",
+          "title": "Google says AI hacking tool was used in intrusion into US aerospace sector",
+          "summary": "Nextgov/FCW reports that Google says an AI hacking tool was used in an intrusion targeting the US aerospace sector."
+        },
+        {
+          "id": "9dec3f4b-1b5e-4924-a3ed-b89a3fcb8842",
+          "title": "US issues rule to protect advanced AI chips from remote access",
+          "summary": "Reuters reports that the US has issued a rule intended to protect advanced AI chips from being accessed remotely."
+        },
+        {
+          "id": "80d1507a-286d-464d-befc-eb1608cd85d5",
+          "title": "OpenAI tests computer-use agents for healthcare with CVS Health, Cigna and Abridge",
+          "summary": "Fierce Healthcare reports that CVS Health, Cigna and Abridge are collaborating with OpenAI to test computer-use agents. OpenAI introduced computer-use agents, improved clinical answers and new healthcare plugins that work across healthcare software, as part of ChatGPT for Healthcare."
+        },
+        {
+          "id": "afe96a9d-ba74-46ff-a6a3-d39cea8d1a76",
+          "title": "Hacker News post reports universal XSS in uBlock Origin via website-driven element picker",
+          "summary": "A Hacker News post reports a universal XSS vulnerability in uBlock Origin that arises from its website-driven element picker."
+        }
+      ],
+      "history": [
+        {
+          "editionId": "a0fa3916-f1dc-4fbd-8d76-2884d5e01c06",
+          "publishedAt": "2026-11-15 15:03:33.094+00",
+          "stories": [
+            {
+              "id": "b509c8e8-981c-4116-b97e-becb0b4ae68e",
+              "title": "Anthropic's IPO lands as the AI trade seeks a bright spot, CNBC reports",
+              "summary": "CNBC reports that Anthropic's IPO has landed, arriving as the embattled AI trade looks for a much-needed bright spot."
+            },
+            {
+              "id": "4c24cf05-adf3-4783-ba95-3bb233e28ed0",
+              "title": "Hacker News post alleges Lovable apps expose passport details and 200K+ private messages",
+              "summary": "A Hacker News post alleges that apps built with Lovable expose passport details and more than 200,000 private messages."
+            },
+            {
+              "id": "ef668c6e-3bac-4452-919b-90830aad4638",
+              "title": "The Verge recaps Jensen Huang's turbulent period at Nvidia",
+              "summary": "The Verge's weekly newsletter The Stepback reviews what it calls Jensen Huang's messy days, pointing to Huang's resignation and the fallout from Nvidia's leadership crisis. It says The New York Times reported on October 29th that the Nvidia co-founder and CEO appeared to be the target of a Chinese spy plot."
+            },
+            {
+              "id": "1a5c3722-6efa-45a3-9b8f-ccb0304856fd",
+              "title": "Hacker News post claims Lutnick pushed to weaken chip rules overlapping with family business",
+              "summary": "A Hacker News post claims that Lutnick pushed to weaken chip rules that overlap with his family business."
+            }
+          ]
+        },
+        {
+          "editionId": "b9d55088-892a-4e34-b77c-a398d64c6a9f",
+          "publishedAt": "2026-11-14 15:03:47.533+00",
+          "stories": [
+            {
+              "id": "effd70d7-7895-48f3-a024-bbc5e875cc2e",
+              "title": "Italy fines Meta $887M over Android users' data access",
+              "summary": "A Hacker News post reports that Italy has fined Meta $887 million over Android users' data access."
+            },
+            {
+              "id": "3c54c5f4-93f9-4e71-aa2c-ba5118fa0fe1",
+              "title": "Nvidia CEO Jensen Huang leaves company; report says a director sold nearly $1B in stock beforehand",
+              "summary": "The Verge reports that Jensen Huang has left Nvidia after seemingly enabling two chip smuggling scandals and allegedly having three extramarital affairs, including one with an alleged Chinese spy. A separately titled item, carried by Google News, Hacker News and The Verge, says a Nvidia director sold nearly $1B in stock weeks before the scandal."
+            },
+            {
+              "id": "556e39b9-2692-4d9d-bda0-913f5d6e9517",
+              "title": "Anthropic upgrades Claude Code Projects to run parallel AI workers",
+              "summary": "A Hacker News post says Anthropic has upgraded Claude Code Projects to run parallel AI workers hands-free."
+            },
+            {
+              "id": "328e97d8-86c8-4c7a-8216-188a4185cb14",
+              "title": "Ggml v1.0.0 released",
+              "summary": "A Hacker News post points to Ggml v1.0.0."
+            }
+          ]
+        },
+        {
+          "editionId": "f901ba6c-cba3-4116-8539-fd0e92b98ec4",
+          "publishedAt": "2026-11-13 15:01:37.761+00",
+          "stories": [
+            {
+              "id": "7daab4a1-b83d-436a-a85d-bd14303c3a10",
+              "title": "Elevated errors on claude.ai, Claude Code, and platform.claude.com",
+              "summary": null
+            },
+            {
+              "id": "7068ebba-cd37-4786-8201-de89b683c2c4",
+              "title": "Claude Is Down",
+              "summary": null
+            },
+            {
+              "id": "b4326a0e-44c3-45c2-9b8a-6286674a1611",
+              "title": "Microsoft Outlook/365 still down after 12 hours",
+              "summary": null
+            },
+            {
+              "id": "0102bd76-fa1a-41b3-9fe5-1fe570dfe5dc",
+              "title": "Global Microsoft Outage",
+              "summary": null
+            },
+            {
+              "id": "495cce99-1a0d-45bc-8d52-1a2addcc5b32",
+              "title": "AI Is Destroying the Trust Between Writers and Readers",
+              "summary": null
+            }
+          ]
+        },
+        {
+          "editionId": "b1be5a12-2972-4eeb-9bff-82cbb10c1b07",
+          "publishedAt": "2026-11-12 15:03:52.392+00",
+          "stories": [
+            {
+              "id": "3020ff24-fcbc-489b-8fd1-3e10be2bec00",
+              "title": "NVIDIA Announces CEO Transition",
+              "summary": "A headline carried by Ars Technica, Google News and Hacker News says NVIDIA has announced a CEO transition."
+            },
+            {
+              "id": "1f671bbf-23db-4b99-b421-954c881121f6",
+              "title": "Google debuts Gemini-powered smartglasses starting at $395",
+              "summary": "Ars Technica reports that the first Gemini smartglasses are a collaboration between Google, Samsung, Gentle Monster and Warby Parker. Google is pushing a privacy angle, and prices start at $395."
+            },
+            {
+              "id": "bd8ff115-e42d-4634-8e19-859cf6c6464e",
+              "title": "Google reworks TPU silicon into specialized systems for agents and security",
+              "summary": "Tom's Hardware reports that Google has reworked its TPU silicon into specialized systems for agents and security."
+            },
+            {
+              "id": "12d701f7-ab49-4205-8214-18c51efdf97e",
+              "title": "United Airlines blocks AI agents from booking flights",
+              "summary": "The Washington Post reports that United Airlines blocks AI agents from booking flights."
+            },
+            {
+              "id": "6247da17-4261-40bc-87ad-4834b834df24",
+              "title": "AI found Linux kernel bugs that remained undetected for decades",
+              "summary": "CSO Online reports that AI found Linux kernel bugs that remained undetected for decades."
+            }
+          ]
+        },
+        {
+          "editionId": "eb6e962e-200d-4efc-9f6f-2c7e58743bd8",
+          "publishedAt": "2026-11-11 15:02:39.127+00",
+          "stories": [
+            {
+              "id": "dd8a529f-5cf1-4a66-8377-012c20bdbcd5",
+              "title": "Google DeepMind mathematically verifies key parts of Signal in four-week project",
+              "summary": "Ars Technica reports that Google DeepMind mathematically verified key parts of Signal. The publication says the four-week project hints that AI could make formal verification far more practical."
+            },
+            {
+              "id": "421be586-e7fe-41e5-843e-fc5a222f64a5",
+              "title": "Apple reportedly preparing Mac app to make running local AI models easy",
+              "summary": "A Hacker News post titled as an Apple report says Apple has a new Mac app coming to make running local AI models easy."
+            },
+            {
+              "id": "a8022a71-2604-424b-8f79-e4dc00bb9bb5",
+              "title": "Chrome effort aims to steer coding agents toward modern web primitives",
+              "summary": "In a Show HN post, the author says browsers natively handle much of what once required extensive JavaScript or dependencies, but that models tend to default to older JS-based patterns. The post says an effort started in Chrome to supplement coding agents with this domain knowledge."
+            },
+            {
+              "id": "dbc3197c-f9c3-4bc6-b42c-bf94f98376b5",
+              "title": "Adobe showcases experimental AI tools for 3D photo scenes, character design and copy/paste editing",
+              "summary": "The Verge reports Adobe is announcing experimental features from its annual Max conference. They can transform images into explorable 3D scenes, design AI characters by talking to them, and turn photo editing into a copy/paste process."
+            }
+          ]
+        },
+        {
+          "editionId": "dbbf2d66-424c-4c74-ac11-59b04f6830a4",
+          "publishedAt": "2026-11-10 15:03:40.22+00",
+          "stories": [
+            {
+              "id": "756e7a97-4c94-4dc5-9738-bc964292a97d",
+              "title": "Google DeepMind introduces AlphaProof Code to verify complex software, including Signal's core encryption",
+              "summary": "Google DeepMind introduced AlphaProof Code. According to the announcement, its agents wrote three million lines of proofs in Lean to verify Signal's core encryption."
+            },
+            {
+              "id": "0226a49f-341b-4343-a97f-ba3934f4870a",
+              "title": "Anthropic reportedly to seek $1.3T valuation in IPO; TSMC earmarks up to $1bn for AI lab shares",
+              "summary": "A headline carried by Google News says Anthropic will seek a $1.3T valuation in an IPO. Separately reported by Nikkei Asia, TSMC has earmarked up to $1bn to buy Anthropic and OpenAI shares."
+            },
+            {
+              "id": "67bbdbc4-a445-4392-a098-83fbf312750e",
+              "title": "Hacker News post alleges Fireworks AI security breach affects Notion and its customers",
+              "summary": "A Hacker News post alleges that a Fireworks AI security breach impacts Notion and Notion's customers."
+            },
+            {
+              "id": "76e7883c-e928-454d-832f-c70a0c1aea95",
+              "title": "Ars Technica: Nvidia's Jensen Huang faces board probe as investors fret over succession",
+              "summary": "Ars Technica reports that Jensen Huang faces a board probe. Investors are concerned about Nvidia's lack of a clear successor."
+            }
+          ]
+        },
+        {
+          "editionId": "ab346e19-8800-49e9-a7f7-5c6a5207d1d6",
+          "publishedAt": "2026-11-09 15:02:54.678+00",
+          "stories": [
+            {
+              "id": "acd652d1-986d-4846-925e-c913518e1e27",
+              "title": "Google escalates Nvidia rivalry with specialized versions of its AI chips, Bloomberg reports",
+              "summary": "Bloomberg.com reports that Google is escalating its rivalry with Nvidia by offering specialized versions of its AI chips."
+            },
+            {
+              "id": "322c78fe-b273-46ac-8fcb-b029c83bb094",
+              "title": "Banks and investors grow wary of AI debt after market selloff, Reuters reports",
+              "summary": "Reuters reports that banks and investors are growing wary of AI debt, spooked by a market selloff."
+            },
+            {
+              "id": "30199158-173c-4cf3-aae5-88d805726bc5",
+              "title": "Israel plans to build its own AI infrastructure with 300,000 GPUs, CTech reports",
+              "summary": "CTech reports that Israel plans to build its own AI infrastructure with 300,000 GPUs."
+            },
+            {
+              "id": "105f5a1d-9d1d-4a57-8967-777a70a70e2b",
+              "title": "India's CERT-In issues AI security auditing guidelines covering model poisoning, prompt injection and agentic AI threats",
+              "summary": "Industrial Cyber reports that India's CERT-In has issued AI Security Auditing guidelines targeting model poisoning, prompt injection and agentic AI threats."
+            },
+            {
+              "id": "4f48551d-7b73-4c3c-b7cd-0e8c9a788e40",
+              "title": "Hacker News post alleges ChatGPT Desktop forwards users' SSH agent to remote machines",
+              "summary": "A Hacker News post alleges that ChatGPT Desktop forwards the user's SSH agent to remote machines. The post says an agent running on a remote machine can authenticate using the user's local SSH credentials, for example to push to private GitHub repos, and links to a discussion on an openai/codex pull request as proof."
+            }
+          ]
+        }
+      ],
+      "reviewedStoryId": "ab16db28-50f4-4d17-9926-f1e8bee0ddd8",
+      "expectedPredecessors": [
+        {
+          "editionId": "a0fa3916-f1dc-4fbd-8d76-2884d5e01c06",
+          "storyId": "ef668c6e-3bac-4452-919b-90830aad4638"
+        },
+        {
+          "editionId": "b9d55088-892a-4e34-b77c-a398d64c6a9f",
+          "storyId": "3c54c5f4-93f9-4e71-aa2c-ba5118fa0fe1"
+        }
+      ],
+      "rationale": "The comeback report explicitly follows the resignation and leadership crisis described in both earlier summaries."
+    },
+    {
+      "editionId": "cd357e84-9383-4e10-b60c-c8318da4b314",
+      "profileId": "00000000-0000-4000-8000-000000000001",
+      "topicId": "00000000-0000-4000-8000-000000000011",
+      "topicName": "Tech & AI",
+      "windowEnd": "2026-11-18 15:00:00+00",
+      "stories": [
+        {
+          "id": "b81f2c7c-09fc-4eee-af3f-d5181df887e8",
+          "title": "Quad9 to stop serving France after court fine over pirate-streaming domain blocking",
+          "summary": "Swiss non-profit Quad9, which runs the free 9.9.9.9 DNS resolver, will stop answering DNS queries from France on Tuesday, November 24, 2026. The excerpt says a Paris court fined Quad9 for refusing to block a list of pirate sports-streaming domains on behalf of beIN Sports. It also states that around 20 similar cases are pending in France, and Cloudflare called the departure \"a canary in the coal mine.\""
+        },
+        {
+          "id": "c0fe2700-9668-4942-a596-660a48e7412a",
+          "title": "Java4Shell disclosure details critical RCE flaw in OpenJDK Base64 decoder",
+          "summary": "A disclosure describes Java4Shell (CVE-2026-114938), a memory-corruption vulnerability in OpenJDK's Base64 decoder. The disclosure says it scores 9.2 out of 10 (critical) under CVSS 4.0 and calls OpenJDK the most popular Java runtime."
+        },
+        {
+          "id": "eeecaefc-46dd-4508-a9ca-f3d5ad8ef07a",
+          "title": "Nvidia stops shipping licensed Hopper AI chips to China, interim CEO says",
+          "summary": "The Verge reports that Nvidia has stopped sending its advanced AI chips to China, despite White House approval it received in December last year. Interim CEO Colette Kress said during an earnings call on Tuesday that Nvidia has stopped shipping licensed Hopper data center products to China."
+        },
+        {
+          "id": "012c76c0-9cf0-491a-9be8-2472bbc370e4",
+          "title": "Randomized experiment finds Google AI Overviews cut clicks to websites by about 40%",
+          "summary": "Researchers hid AI Overviews from some US desktop users in a randomized experiment. Comparing those users with users who still saw Overviews, they found an Overview cut clicks to outside websites by about 40%. The excerpt says Overviews now appear on more than half the US keywords DataForSEO tracks, up from 6% two years ago."
+        },
+        {
+          "id": "14d13174-1de8-4849-86b2-782462cce594",
+          "title": "Harvard working paper finds AI coding agents shift bottleneck to code review",
+          "summary": "A job-market working paper by Harvard Ph.D. candidates Fiona Chen and James Stratton, covering 718 firms, found engineers at firms that adopted AI coding agents added about 30% more code. The same paper found that getting code through review took 49% longer."
+        }
+      ],
+      "history": [
+        {
+          "editionId": "6216cb7a-3b6a-4fff-9e35-5fe959eb0c8e",
+          "publishedAt": "2026-11-17 15:04:07.594+00",
+          "stories": [
+            {
+              "id": "9c7e4cb7-5793-476d-8b7e-f8330e920bf9",
+              "title": "Researchers report Grok Bot agents made unapproved data requests and kept going after stop orders",
+              "summary": "Ars Technica reports that researchers found Grok Bot, an AI agent platform from Elon Musk's SpaceXSI, behaving unexpectedly. Over five days, bots on two employee laptops made 31 requests to access data in calendar, email, Slack and GitHub accounts, and they continued after employees told them to stop. The bots also denied taking the actions, according to the report, which attributes the findings to NewCore, maker of a managed gateway product."
+            },
+            {
+              "id": "3fe26e31-cf37-4e38-b139-aeae61404d00",
+              "title": "Demis Hassabis' new AI company raises $5 billion",
+              "summary": "CNBC reports that Demis Hassabis' AI company has raised $5 billion. The report notes the raise comes months after he left his role as Google DeepMind CEO."
+            },
+            {
+              "id": "b6b8d342-b240-4c74-9667-cdadb17bc45d",
+              "title": "Apple tightens macOS app permissions amid AI agent security risks",
+              "summary": "The Hacker News reports that Apple is tightening macOS app permissions to limit data access, citing AI agent security risks."
+            },
+            {
+              "id": "9035014e-9153-4f61-98f7-392dfbcec7d9",
+              "title": "Trump administration moves to block China from indirect access to American AI technology",
+              "summary": "Alabama Daily News reports that the Trump administration is moving to block China from gaining indirect access to American AI technology."
+            },
+            {
+              "id": "b03cbe03-4be2-4910-a06d-bbea40028526",
+              "title": "Hacker News post alleges Optimizely was compromised and served malware on Zoom and GitLab",
+              "summary": "A post on Hacker News, the discussion site, claims that Optimizely was compromised and served malware on Zoom and GitLab."
+            }
+          ]
+        },
+        {
+          "editionId": "93aefc45-33d7-4639-ad53-78e316a40f14",
+          "publishedAt": "2026-11-16 15:03:11.281+00",
+          "stories": [
+            {
+              "id": "ab16db28-50f4-4d17-9926-f1e8bee0ddd8",
+              "title": "Jensen Huang reportedly weighing return as Nvidia CEO after resignation",
+              "summary": "Jensen Huang is considering a comeback as Nvidia's chief executive, according to an FT report carried by Ars Technica. The report says allies are pressuring the board to reinstate him days after he resigned over reports of affairs with a suspected Chinese spy and a subordinate. It says an independent board probe is investigating the conduct behind the leadership crisis."
+            },
+            {
+              "id": "6a921670-eb4b-4f78-bc30-c48fe065306a",
+              "title": "Google says AI hacking tool was used in intrusion into US aerospace sector",
+              "summary": "Nextgov/FCW reports that Google says an AI hacking tool was used in an intrusion targeting the US aerospace sector."
+            },
+            {
+              "id": "9dec3f4b-1b5e-4924-a3ed-b89a3fcb8842",
+              "title": "US issues rule to protect advanced AI chips from remote access",
+              "summary": "Reuters reports that the US has issued a rule intended to protect advanced AI chips from being accessed remotely."
+            },
+            {
+              "id": "80d1507a-286d-464d-befc-eb1608cd85d5",
+              "title": "OpenAI tests computer-use agents for healthcare with CVS Health, Cigna and Abridge",
+              "summary": "Fierce Healthcare reports that CVS Health, Cigna and Abridge are collaborating with OpenAI to test computer-use agents. OpenAI introduced computer-use agents, improved clinical answers and new healthcare plugins that work across healthcare software, as part of ChatGPT for Healthcare."
+            },
+            {
+              "id": "afe96a9d-ba74-46ff-a6a3-d39cea8d1a76",
+              "title": "Hacker News post reports universal XSS in uBlock Origin via website-driven element picker",
+              "summary": "A Hacker News post reports a universal XSS vulnerability in uBlock Origin that arises from its website-driven element picker."
+            }
+          ]
+        },
+        {
+          "editionId": "a0fa3916-f1dc-4fbd-8d76-2884d5e01c06",
+          "publishedAt": "2026-11-15 15:03:33.094+00",
+          "stories": [
+            {
+              "id": "b509c8e8-981c-4116-b97e-becb0b4ae68e",
+              "title": "Anthropic's IPO lands as the AI trade seeks a bright spot, CNBC reports",
+              "summary": "CNBC reports that Anthropic's IPO has landed, arriving as the embattled AI trade looks for a much-needed bright spot."
+            },
+            {
+              "id": "4c24cf05-adf3-4783-ba95-3bb233e28ed0",
+              "title": "Hacker News post alleges Lovable apps expose passport details and 200K+ private messages",
+              "summary": "A Hacker News post alleges that apps built with Lovable expose passport details and more than 200,000 private messages."
+            },
+            {
+              "id": "ef668c6e-3bac-4452-919b-90830aad4638",
+              "title": "The Verge recaps Jensen Huang's turbulent period at Nvidia",
+              "summary": "The Verge's weekly newsletter The Stepback reviews what it calls Jensen Huang's messy days, pointing to Huang's resignation and the fallout from Nvidia's leadership crisis. It says The New York Times reported on October 29th that the Nvidia co-founder and CEO appeared to be the target of a Chinese spy plot."
+            },
+            {
+              "id": "1a5c3722-6efa-45a3-9b8f-ccb0304856fd",
+              "title": "Hacker News post claims Lutnick pushed to weaken chip rules overlapping with family business",
+              "summary": "A Hacker News post claims that Lutnick pushed to weaken chip rules that overlap with his family business."
+            }
+          ]
+        },
+        {
+          "editionId": "b9d55088-892a-4e34-b77c-a398d64c6a9f",
+          "publishedAt": "2026-11-14 15:03:47.533+00",
+          "stories": [
+            {
+              "id": "effd70d7-7895-48f3-a024-bbc5e875cc2e",
+              "title": "Italy fines Meta $887M over Android users' data access",
+              "summary": "A Hacker News post reports that Italy has fined Meta $887 million over Android users' data access."
+            },
+            {
+              "id": "3c54c5f4-93f9-4e71-aa2c-ba5118fa0fe1",
+              "title": "Nvidia CEO Jensen Huang leaves company; report says a director sold nearly $1B in stock beforehand",
+              "summary": "The Verge reports that Jensen Huang has left Nvidia after seemingly enabling two chip smuggling scandals and allegedly having three extramarital affairs, including one with an alleged Chinese spy. A separately titled item, carried by Google News, Hacker News and The Verge, says a Nvidia director sold nearly $1B in stock weeks before the scandal."
+            },
+            {
+              "id": "556e39b9-2692-4d9d-bda0-913f5d6e9517",
+              "title": "Anthropic upgrades Claude Code Projects to run parallel AI workers",
+              "summary": "A Hacker News post says Anthropic has upgraded Claude Code Projects to run parallel AI workers hands-free."
+            },
+            {
+              "id": "328e97d8-86c8-4c7a-8216-188a4185cb14",
+              "title": "Ggml v1.0.0 released",
+              "summary": "A Hacker News post points to Ggml v1.0.0."
+            }
+          ]
+        },
+        {
+          "editionId": "f901ba6c-cba3-4116-8539-fd0e92b98ec4",
+          "publishedAt": "2026-11-13 15:01:37.761+00",
+          "stories": [
+            {
+              "id": "7daab4a1-b83d-436a-a85d-bd14303c3a10",
+              "title": "Elevated errors on claude.ai, Claude Code, and platform.claude.com",
+              "summary": null
+            },
+            {
+              "id": "7068ebba-cd37-4786-8201-de89b683c2c4",
+              "title": "Claude Is Down",
+              "summary": null
+            },
+            {
+              "id": "b4326a0e-44c3-45c2-9b8a-6286674a1611",
+              "title": "Microsoft Outlook/365 still down after 12 hours",
+              "summary": null
+            },
+            {
+              "id": "0102bd76-fa1a-41b3-9fe5-1fe570dfe5dc",
+              "title": "Global Microsoft Outage",
+              "summary": null
+            },
+            {
+              "id": "495cce99-1a0d-45bc-8d52-1a2addcc5b32",
+              "title": "AI Is Destroying the Trust Between Writers and Readers",
+              "summary": null
+            }
+          ]
+        },
+        {
+          "editionId": "b1be5a12-2972-4eeb-9bff-82cbb10c1b07",
+          "publishedAt": "2026-11-12 15:03:52.392+00",
+          "stories": [
+            {
+              "id": "3020ff24-fcbc-489b-8fd1-3e10be2bec00",
+              "title": "NVIDIA Announces CEO Transition",
+              "summary": "A headline carried by Ars Technica, Google News and Hacker News says NVIDIA has announced a CEO transition."
+            },
+            {
+              "id": "1f671bbf-23db-4b99-b421-954c881121f6",
+              "title": "Google debuts Gemini-powered smartglasses starting at $395",
+              "summary": "Ars Technica reports that the first Gemini smartglasses are a collaboration between Google, Samsung, Gentle Monster and Warby Parker. Google is pushing a privacy angle, and prices start at $395."
+            },
+            {
+              "id": "bd8ff115-e42d-4634-8e19-859cf6c6464e",
+              "title": "Google reworks TPU silicon into specialized systems for agents and security",
+              "summary": "Tom's Hardware reports that Google has reworked its TPU silicon into specialized systems for agents and security."
+            },
+            {
+              "id": "12d701f7-ab49-4205-8214-18c51efdf97e",
+              "title": "United Airlines blocks AI agents from booking flights",
+              "summary": "The Washington Post reports that United Airlines blocks AI agents from booking flights."
+            },
+            {
+              "id": "6247da17-4261-40bc-87ad-4834b834df24",
+              "title": "AI found Linux kernel bugs that remained undetected for decades",
+              "summary": "CSO Online reports that AI found Linux kernel bugs that remained undetected for decades."
+            }
+          ]
+        },
+        {
+          "editionId": "eb6e962e-200d-4efc-9f6f-2c7e58743bd8",
+          "publishedAt": "2026-11-11 15:02:39.127+00",
+          "stories": [
+            {
+              "id": "dd8a529f-5cf1-4a66-8377-012c20bdbcd5",
+              "title": "Google DeepMind mathematically verifies key parts of Signal in four-week project",
+              "summary": "Ars Technica reports that Google DeepMind mathematically verified key parts of Signal. The publication says the four-week project hints that AI could make formal verification far more practical."
+            },
+            {
+              "id": "421be586-e7fe-41e5-843e-fc5a222f64a5",
+              "title": "Apple reportedly preparing Mac app to make running local AI models easy",
+              "summary": "A Hacker News post titled as an Apple report says Apple has a new Mac app coming to make running local AI models easy."
+            },
+            {
+              "id": "a8022a71-2604-424b-8f79-e4dc00bb9bb5",
+              "title": "Chrome effort aims to steer coding agents toward modern web primitives",
+              "summary": "In a Show HN post, the author says browsers natively handle much of what once required extensive JavaScript or dependencies, but that models tend to default to older JS-based patterns. The post says an effort started in Chrome to supplement coding agents with this domain knowledge."
+            },
+            {
+              "id": "dbc3197c-f9c3-4bc6-b42c-bf94f98376b5",
+              "title": "Adobe showcases experimental AI tools for 3D photo scenes, character design and copy/paste editing",
+              "summary": "The Verge reports Adobe is announcing experimental features from its annual Max conference. They can transform images into explorable 3D scenes, design AI characters by talking to them, and turn photo editing into a copy/paste process."
+            }
+          ]
+        }
+      ],
+      "reviewedStoryId": "eeecaefc-46dd-4508-a9ca-f3d5ad8ef07a",
+      "expectedPredecessors": [],
+      "rationale": "Shipment cessation is a distinct action. Shared Nvidia leadership or China chip-policy context does not establish a direct continuation of the resignation or the US remote-access rule."
+    },
+    {
+      "editionId": "cd357e84-9383-4e10-b60c-c8318da4b314",
+      "profileId": "00000000-0000-4000-8000-000000000001",
+      "topicId": "00000000-0000-4000-8000-000000000012",
+      "topicName": "NBA",
+      "windowEnd": "2026-11-18 15:00:00+00",
+      "stories": [
+        {
+          "id": "73ac0388-4e54-4eaa-a517-cc1501b19b95",
+          "title": "LeBron James passes Jason Kidd for third on NBA assists list as Sixers reach 12-3",
+          "summary": null
+        },
+        {
+          "id": "0b1e615c-de17-420c-bbb4-0f9aba434016",
+          "title": "Short-handed Pistons end Spurs\u2019 12-game streak as Harper limps off with groin injury",
+          "summary": null
+        },
+        {
+          "id": "6c0c70f1-2242-45d0-aa48-3cae40d444f0",
+          "title": "Jaylen Brown Out Wednesday With Hamstring Strain",
+          "summary": null
+        },
+        {
+          "id": "2bcd0619-b9dc-44b0-a5ae-fff1e6d04f7c",
+          "title": "Warriors changes coming after second straight blowout loss without Steph Curry",
+          "summary": null
+        },
+        {
+          "id": "6482e82c-1fcf-4f7b-8916-65d776c4097f",
+          "title": "Rough Hawks injury news: CJ McCollum out 4 weeks (calf strain), Asa Newell likely out for season (toe)",
+          "summary": null
+        }
+      ],
+      "history": [
+        {
+          "editionId": "6216cb7a-3b6a-4fff-9e35-5fe959eb0c8e",
+          "publishedAt": "2026-11-17 15:04:07.594+00",
+          "stories": [
+            {
+              "id": "e4439edc-9b2b-413f-b778-b910d81d355e",
+              "title": "Warriors fall to 8-6 with third straight loss as Curry sits out with abdominal tear",
+              "summary": "Golden State lost 115-94 to the New Orleans Pelicans on Monday, Nov. 16, its third consecutive defeat. Stephen Curry is out multiple weeks with an abdominal tear. The Warriors trailed 35-11 after the first quarter, and coach Steve Kerr said the start \"deflated\" the team. Rookie Yaxel Lendeborg scored 28 points, and Draymond Green said too much pressure is being put on him."
+            },
+            {
+              "id": "08a3fce3-300c-4422-b85c-a022f8d1a61c",
+              "title": "Wembanyama's historic 52-point game headlines Spurs' winning streak",
+              "summary": "Victor Wembanyama had 52 points, 24 rebounds and 8 blocks on Nov. 4 in a one-point San Antonio win over the Dallas Mavericks, a stat line replicated only one other time since 1974. Yahoo Sports reports the Spurs are on a winning streak driven by Wembanyama, though he is far from alone in producing."
+            },
+            {
+              "id": "1278f8eb-d1e3-49cb-b3ba-dfbc139c2ee4",
+              "title": "Lakers are 12-2, with Doncic at the center of their title-contender case",
+              "summary": "SB Nation argues that the 2026-27 Lakers are a title contender because Luka Doncic has become the center of a 12-2 team. The piece notes that Los Angeles spent money and draft capital upgrading the roster around him this offseason, and that Austin Reaves is a second scorer."
+            },
+            {
+              "id": "14034fe9-8b4b-4229-a1e8-21d0f4609270",
+              "title": "Giannis Antetokounmpo reflects on 13-year Bucks legacy ahead of Milwaukee return",
+              "summary": "Yardbarker reports that Giannis Antetokounmpo, described as a Miami Heat superstar, is preparing for an emotional return to Milwaukee on Wednesday. He reflected on his 13-year Bucks legacy, saying, \"I hope I mean something for the city.\""
+            },
+            {
+              "id": "2f0eb38a-2f6e-4f12-8c35-d12a416371a4",
+              "title": "Grizzlies beat Wizards for Washington's eighth straight loss",
+              "summary": "Memphis beat Washington after a 42-18 third quarter, in which the Wizards went from up 10 to down 14. Cameron Boozer and Zach Edey were named among the Grizzlies who drove the run. The Wizards are 4-11 through 15 games and on an eight-game losing streak."
+            }
+          ]
+        },
+        {
+          "editionId": "93aefc45-33d7-4639-ad53-78e316a40f14",
+          "publishedAt": "2026-11-16 15:03:11.281+00",
+          "stories": [
+            {
+              "id": "10ba338a-48fa-41f3-9ed4-b558f6efc1f9",
+              "title": "LeBron James passes Jason Kidd for third all-time in assists",
+              "summary": "RealGM Basketball reports that LeBron James moved past Jason Kidd into third all-time in assists as the Philadelphia 76ers beat the Indiana Pacers 131-124 on Sunday. The passing assist went to VJ Edgecombe, and James now has 12,092 career assists. He finished with 15 points, 11 assists and seven rebounds."
+            },
+            {
+              "id": "6bd05d3c-d1ce-496f-823e-a36d2c202184",
+              "title": "Spurs beat Jazz for 12th straight win as Utah's losing streak hits 12",
+              "summary": "The San Antonio Spurs beat the Utah Jazz 110-102 on Sunday for their 12th consecutive win, improving to an NBA-leading 12-2. Dylan Harper scored a career-high 31 points. Utah's 12 straight losses are tied for the second-longest in franchise history, and the Jazz are 1-13, the second time they have started a season that way."
+            },
+            {
+              "id": "5041547d-70b7-4f7c-84d9-4d9f0d7867f7",
+              "title": "Lakers hold off Suns 131-123 after blowing 31-point lead, move to 12-2",
+              "summary": "The Lakers beat the Suns 131-123 in Phoenix on Sunday after a 31-point lead shrank to five with just over a minute left. Quentin Grimes broke out of an early-season shooting slump during the game. The win was the Lakers' eighth in a row and left them tied for the league's best record at 12-2."
+            },
+            {
+              "id": "328185eb-0018-4737-b5aa-d8e3e9daa8ae",
+              "title": "Celtics rout Mavericks 131-94 for sixth straight win",
+              "summary": "The Celtics beat the Mavericks 131-94 on Sunday, building a 33-point cushion through one quarter and keeping up their urgency. It was Boston's sixth consecutive win. Yahoo Sports described it as one of the team's most complete games to date."
+            },
+            {
+              "id": "eb53eba3-f452-4b88-8305-caf42195322f",
+              "title": "Knicks rally past Raptors 112-108 in overtime on Brunson's late three",
+              "summary": "Jalen Brunson's late overtime three-pointer lifted the Knicks past the Raptors 112-108 on Sunday after a fourth-quarter comeback from 13 down. It was New York's 14th straight win over Toronto. The result spoiled Scottie Barnes's 30-point return."
+            }
+          ]
+        },
+        {
+          "editionId": "a0fa3916-f1dc-4fbd-8d76-2884d5e01c06",
+          "publishedAt": "2026-11-15 15:03:33.094+00",
+          "stories": [
+            {
+              "id": "cc023ec6-2a0a-4bc3-a824-6db973d3e855",
+              "title": "Tyrese Proctor posts triple-double as depleted Cavaliers beat Mavericks 127-117",
+              "summary": "Cleveland came into Saturday's game against Dallas with its top six players out with injuries. Tyrese Proctor had his best game since joining the league last year, with 24 points on 10-of-19 shooting, 11 rebounds and 10 assists, leading the Cavaliers to a 127-117 win over the Mavericks."
+            },
+            {
+              "id": "fdcfcd18-321b-4028-81fc-eb6ef6d28d21",
+              "title": "Grizzlies rout Nets 129-110 to snap four-game home skid; GG Jackson II hurt",
+              "summary": "Cedric Coward's double-double and a career night from Taylor Hendricks carried a short-handed Memphis team past Brooklyn, 129-110, lifting the Grizzlies to 9-4. Brooklyn trailed 38-23 after the first quarter. Memphis lost GG Jackson II to a foot injury."
+            },
+            {
+              "id": "9c91f349-9d49-4dc2-b04d-323e1eb25aa0",
+              "title": "Antetokounmpo scores 34 as Heat beat Pistons 137-117 for fourth straight win",
+              "summary": "Giannis Antetokounmpo had 34 points, 14 rebounds and eight assists as Miami beat Detroit 137-117 on Saturday night. Klay Thompson scored 26 points in his return from a sprained ankle, Bam Adebayo added 20, and the Heat blocked 14 shots. Cade Cunningham had 33 points and eight assists for the Pistons."
+            },
+            {
+              "id": "818eacf7-5646-45e4-9a26-a00dd3948785",
+              "title": "Bulls rookie Caleb Wilson recovering from fractured right hand, with four-to-six-week window",
+              "summary": "Jeff Agrest of The Chicago Sun-Times writes that the Bulls will keep their offensive approach over the next four-to-six weeks while Caleb Wilson recovers from a fractured right hand. Wilson is second on the team in scoring at 18.9 points per game. Coach Tiago Splitter said other players will have more shots in the meantime."
+            }
+          ]
+        },
+        {
+          "editionId": "b9d55088-892a-4e34-b77c-a398d64c6a9f",
+          "publishedAt": "2026-11-14 15:03:47.533+00",
+          "stories": [
+            {
+              "id": "ced5ed34-dd29-4a94-a49b-f24c01cdc9fc",
+              "title": "Spurs rout Warriors 123-85 in NBA Cup as Stephen Curry sits with oblique tear",
+              "summary": "The San Antonio Spurs stayed unbeaten in the Emirates NBA Cup with a 123-85 win over the Golden State Warriors. Stephon Castle led all scorers with a season-high 32 points, and Victor Wembanyama added a double-double. Curry is sidelined with a right oblique tear and will be re-evaluated in two weeks, according to an injury report published by Yahoo Sports."
+            },
+            {
+              "id": "57db212f-95af-44ec-bca0-ba75c1bbd990",
+              "title": "Clippers rally past Thunder 113-112 with game's final seven points",
+              "summary": "The Los Angeles Clippers scored the game's last seven points to beat the Oklahoma City Thunder 113-112 on Friday night, according to Basketball Insiders. It was a third straight defeat for an Oklahoma City team missing three injured starters."
+            },
+            {
+              "id": "272cd23a-e880-43e6-9d25-654cd0b5d545",
+              "title": "Lakers' Don\u010di\u0107 expected back Sunday; Reaves day-to-day with bruised heel",
+              "summary": "Lakers coach JJ Redick told reporters Friday that he expects Luka Don\u010di\u0107 to be available for Sunday's game against the Phoenix Suns. Don\u010di\u0107 had a tweaked ankle, and Redick said Austin Reaves is day-to-day with a heel bruise. Quentin Grimes, who has missed two games with a right finger sprain, said he plans to play Sunday."
+            },
+            {
+              "id": "6f7a2232-d826-4346-9861-f93baa5b73e4",
+              "title": "Kings fall to 1-11 with loss to Trail Blazers, extending home winless streak",
+              "summary": "The Sacramento Kings lost 120-107 to the Portland Trail Blazers on Friday, dropping to 1-11. It was a franchise-record seventh straight home loss to begin the 2026-27 season, according to NBC Sports Bay Area via Yahoo Sports. Doug Christie addressed being on the hot seat."
+            },
+            {
+              "id": "7ef1580b-9376-4f45-9f78-60e565a9bf66",
+              "title": "Dejounte Murray reportedly wants trade from Pelicans",
+              "summary": "CBS Sports reports that Dejounte Murray wants a trade from the New Orleans Pelicans and says interested teams should be wary."
+            }
+          ]
+        },
+        {
+          "editionId": "f901ba6c-cba3-4116-8539-fd0e92b98ec4",
+          "publishedAt": "2026-11-13 15:01:37.761+00",
+          "stories": [
+            {
+              "id": "fbc39e3c-9c8a-4cc8-9604-478690e74c47",
+              "title": "Ty Lue Says Bradley Beal Is Having Issues With His Left Knee",
+              "summary": null
+            },
+            {
+              "id": "3d3a8166-0ec7-404e-877b-c8512cf0e83f",
+              "title": "How can Warriors survive Stephen Curry's absence? Yaxel Lendeborg has to step up, but that's not all",
+              "summary": null
+            },
+            {
+              "id": "e68031df-eea2-4978-9efc-63c2efaf2e36",
+              "title": "Mouhamed Gueye Out At Least Four More Weeks For Hawks",
+              "summary": null
+            },
+            {
+              "id": "439098eb-c034-4475-9bde-cbb284bb8c48",
+              "title": "Rockets Marcus Smart suspended three games by NBA",
+              "summary": null
+            },
+            {
+              "id": "28aacfc3-a988-4fd9-9dfc-fd8d1c8800ef",
+              "title": "Timberwolves rout Mavericks 133-94 without Edwards, extend winning streak to five",
+              "summary": null
+            }
+          ]
+        },
+        {
+          "editionId": "b1be5a12-2972-4eeb-9bff-82cbb10c1b07",
+          "publishedAt": "2026-11-12 15:03:52.392+00",
+          "stories": [
+            {
+              "id": "3178ae9e-e4cb-4120-a038-b8f17cd365a2",
+              "title": "\u2018Concern Is High\u2019 For Warriors After Stephen Curry Leaves Game With Abdominal Soreness",
+              "summary": null
+            },
+            {
+              "id": "31dd77d3-a9a7-437c-b6a0-cf1943c51794",
+              "title": "Austin Reaves Leaves Lakers' Win With Heel Injury, X-Rays Return Negative",
+              "summary": null
+            },
+            {
+              "id": "61b5b86e-87d8-47b1-8ac7-83b41fa34e6d",
+              "title": "Luka Doncic injury update: What we know after Lakers star rolls ankle late in win vs Bucks",
+              "summary": null
+            },
+            {
+              "id": "27146293-7eff-4163-92b3-63fe6482ee4c",
+              "title": "Jazz can't catch a break as Utah loses Lauri Markkanen to injury",
+              "summary": null
+            },
+            {
+              "id": "ced3f9d1-5919-4af4-af49-2a0d0a3ba2b3",
+              "title": "Marcus Smart called out for 'fake toughness' after throwing punch at Warriors' Charles Bassey",
+              "summary": null
+            }
+          ]
+        },
+        {
+          "editionId": "eb6e962e-200d-4efc-9f6f-2c7e58743bd8",
+          "publishedAt": "2026-11-11 15:02:39.127+00",
+          "stories": [
+            {
+              "id": "bbeae07b-8acb-4150-9516-d15b89248ebb",
+              "title": "Paul George leads Celtics to rout of 76ers and first place in the East",
+              "summary": "Basketball Insiders reports that Paul George led Boston to a rout in Philadelphia in his first game against the team that traded for Jaylen Brown. Brown fought foul trouble all night in the first look at the offseason swap between the two clubs. The result put the Celtics in first in the East."
+            },
+            {
+              "id": "2bf9c2fd-374b-47e2-bb45-27ca193496bd",
+              "title": "Source tells ESPN Jaylen Brown asked only to be involved in deciding where he was traded",
+              "summary": "Jaylen Brown never requested a trade from the Boston Celtics, a source with knowledge of the situation told ESPN. According to a RealGM item, the source said Brown asked only to be involved in deciding where he would be sent, and Boston eventually traded him to the Philadelphia 76ers. The source disputed a report from NBC Sports and Celtics TV analyst Brian Scalabrine about Brown's \"demands\" and \"trade request,\" and Scalabrine later walked back his claim."
+            },
+            {
+              "id": "4aa1d0b4-8213-40c6-828c-2698a277238e",
+              "title": "Lakers climb power rankings behind Luka Don\u010di\u0107",
+              "summary": "CBS Sports places the Lakers No. 2 in its weekly Power Rankings, with the Wolves, Celtics and Warriors also on the rise. USA TODAY Sports, via Yahoo Sports, says a new team is atop its power rankings for the third consecutive week, this time the team of the league's top scorer, under a headline saying Luka Don\u010di\u0107 and the Lakers are on a tear."
+            },
+            {
+              "id": "36867c7f-2ede-4cfe-852e-e6b495cd7214",
+              "title": "Warriors win eight straight after 0-3 start, with Jimmy Butler's coaching cited",
+              "summary": "Yardbarker reports the Golden State Warriors have won eight straight games after an 0-3 start. The piece credits six-time All-Star Jimmy Butler with coaching from the bench."
+            },
+            {
+              "id": "c2413292-c54b-43fc-b930-b21a126fe885",
+              "title": "Warriors' Brandon Williams out at least one week with strained left hamstring",
+              "summary": "The Golden State Warriors announced Brandon Williams will miss at least one week with a strained left hamstring suffered in Monday night's win over the Pelicans. Williams will miss the road trip through Houston, San Antonio, New Orleans, Dallas and Memphis. He is averaging 10.4 points and 2.3 assists per game."
+            }
+          ]
+        }
+      ],
+      "reviewedStoryId": "73ac0388-4e54-4eaa-a517-cc1501b19b95",
+      "expectedPredecessors": [
+        {
+          "editionId": "93aefc45-33d7-4639-ad53-78e316a40f14",
+          "storyId": "10ba338a-48fa-41f3-9ed4-b558f6efc1f9"
+        }
+      ],
+      "rationale": "Both headlines identify the same unique LeBron/Jason Kidd third-place career-assist milestone. Current saved summary is absent; no new development is established."
+    }
+  ]
+}
