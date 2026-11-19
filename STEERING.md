@@ -21,19 +21,25 @@ details, budgets and rules stay in the items. Every new item goes on this list.
    Also includes the hung Grafana
    (item 44), the leaked test folders (item 51) and NBA editing (items 54, 59).
    The review after each scheduled edition is a fixed daily task.
-2. Public access (item 50) is done and the site is shared. Reader accounts
+2. Missed stories (item 68): measure what each edition misses and fix the
+   biggest cause. Owner ranks it just below breakages (Nov 19).
+3. Public access (item 50) is done and the site is shared. Reader accounts
    follow `docs/public-access-plan.md`; later phases need the owner.
-3. U.S. news & politics acceptance (items 56, 57) continues in the daily
+4. U.S. news & politics acceptance (items 56, 57) continues in the daily
    edition review.
-4. U.S. Bluesky posts (item 59): item 50 is done and nothing here waits on the
+5. U.S. Bluesky posts (item 59): item 50 is done and nothing here waits on the
    owner. The Nov 18 edition had two U.S. Bluesky posts; keep watching it in the
    daily edition review.
-5. Then X search and Bluesky tuning (items 39, 34, 40, 41).
-6. Tech summary depth runs alongside line 1 (items 66, 67): one cause table
+6. Then X search and Bluesky tuning (items 39, 34, 40, 41).
+7. Tech summary depth runs alongside line 1 (items 66, 67): one cause table
    and one general excerpt fix, no more per-publisher recovery commits.
    Routine metrics checkpoint commits stop.
-7. Then item 38's list for choosing meaningful work. Item 42 says what to do
-   first. Item 43 says what not to do.
+8. Use waiting time for evaluation, and count stories and posts per event
+   (item 69).
+9. Reader features: developing stories, why picked, week in review (item 70,
+   owner-approved Nov 19).
+10. Then item 38's list for choosing meaningful work. Item 42 says what to do
+    first. Item 43 says what not to do.
 
 ## 2. LOWER PRIORITY: real DB verification, then an ORM (2026-11-01)
 
@@ -1527,6 +1533,8 @@ ack: 2026-11-06 item 41: deployed both durable scheduled-edition Bluesky alerts.
 
 ## 42. While items wait on a time: read the edition as a reader (2026-11-06)
 
+> **Nov 19:** item 69 adds waiting-time evaluation, and the item 70 features are owner-approved.
+
 **Why:** tonight several items wait on a time or on evidence: the meaning-based
 X test (after 21:00 UTC on Nov 6), the Nov 6 edition review (item 36) and the
 first scheduled Bluesky edition (items 40, 41). The last edition I looked at
@@ -1731,6 +1739,8 @@ ack: 2026-11-14 item 42/43 — iteration 2309: saving discovery-linked stories n
 ack: 2026-11-16 item 42 — iteration 2459: mobile edition headers now show the full News Digest title at 320px; Topics moved beside Saved items and Account. Public GET-only browser checks pass at 320/390/1440px, with all five topic controls available; no paid calls or generation changes.
 
 ## 43. NOW: put X search and the UI rebuild first, stop scoping new features (2026-11-06)
+
+> **Nov 19:** the item 70 features are owner-approved, so "no new features" doesn't cover them.
 
 > **Superseded in part (Nov 7):** item 50 is owner-approved feature work and ranks
 > above X search. "Stop scoping new features" still applies to anything else.
@@ -3127,3 +3137,104 @@ scheduled Tech section is checked once in the daily review.
 morning edition.
 
 ack: 2026-11-18 (2770) — item 67 one-time [cause table](docs/edition-reviews/2026-11-18-tech-blank-causes.md): 261 saved Tech candidates/74 blanks over three days; HTTP error/block 20, unsupported body 25, currently extractable/unknown historic cause 18, policy exclusions 6, format/size 2, JS shell 2, paywall 1, confirmed never-fetched 0. Largest non-block cause unsupported body 25/74 (33.78%). General description fallback and HN social-fetch guards are in the same commit as this ack ("Recover blank Tech excerpts through general page descriptions"). One bounded blank-only backfill filled 34 (18 existing body/16 descriptions); blanks 74/261 (28.35%) → 40/261 (15.33%), exact reread of all 261 passes. No paid calls/budget changes; stop recovery and check next scheduled Tech section once.
+
+## 68. NOW: measure the stories we miss (2026-11-19)
+
+**Why:** the mission's test is "nothing important is missing, and nothing is
+filler". Every edition review judges what was picked. Nothing checks for
+important stories that never made the edition. The owner ranks this just below
+breakages (Nov 19).
+
+**Priority:** Current order line 2. It goes above everything except breakages
+and protecting the morning edition.
+
+**What to do:**
+
+1. For each topic, choose one to three free reference lists of the day's top
+   stories, using feeds and APIs already in `docs/SOURCES.md` where you can
+   (Hacker News top stories, Google News RSS top and section feeds, Techmeme,
+   Memeorandum, publisher top-stories RSS). Record the choice in `SOURCES.md`.
+2. After each scheduled edition, take the reference stories that fall in the
+   edition window and are on the topic. Match them to the edition's selected
+   stories with the existing clustering or embedding similarity, not wording
+   rules. Read the unmatched ones as an editor: a story that isn't important for
+   the topic isn't a miss.
+3. For each real miss, record the cause, worked out from saved data: never
+   collected; collected but not shortlisted; shortlisted but dropped by the
+   editor; or withheld or merged by mistake.
+4. Add a short "Missed" section to the daily edition review: recall per topic
+   (matched important references divided by all important references), plus
+   each miss and its cause. It's part of the same review commit, not a separate
+   one.
+5. After three editions, fix the most common cause at its root (collection,
+   scoring or editor input). Measure the fix on the saved pools before
+   deploying.
+
+**What not to do:** no scraping, no new paid source and no paid replays. Don't
+tune scoring to these references, because they are a check, not the target.
+Don't add a separate commit per day.
+
+**Done when:** three daily reviews carry the Missed section and one root-cause
+fix is deployed. The ack gives recall per topic before and after the fix.
+
+**Limits:** no new spend or vendors. No deploys between 13:00 and 16:00 UTC.
+Protect the morning edition.
+
+## 69. Use waiting time for evaluation; count stories and posts per event (2026-11-19)
+
+**Why:** after its last commit at 20:12 UTC on Nov 18, the agent ran more than
+80 iterations with no commits while it waited for the next edition. On Nov 18,
+NBA spent three slots on one Lakers game. Stories and posts are chosen
+separately, so nothing limits how much of a topic one event takes.
+
+**Priority:** Current order line 8, after Tech summary depth.
+
+**What to do:**
+
+1. **While waiting** (nothing ranked higher is available), grow the labelled
+   event set in `docs/RANKING.md`. Label the obvious top events for past
+   windows, per topic, and replay the saved candidate pools through the current
+   selection code. Report the event recall and missed events with the
+   existing evaluator. These labels are still the agent's own judgement, so
+   don't tune against them until the owner has reviewed some.
+2. **One event budget per topic:** when the editor picks posts, give it the
+   stories already selected. It should prefer a post that adds a different
+   event or a materially new fact. Build on the offline event-breadth
+   comparisons (`efdb38e0`, `70bb3506`). Measure the share of a topic's slots
+   that go to its single largest event on saved editions from Nov 12 to 18,
+   before and after. Ship it if that share drops and no labelled event is lost.
+
+**What not to do:** item 66 still holds. Waiting-time evaluation gets at most
+one commit a day, and only when it adds labels or changes a decision. No
+wording rules for grouping. Each replay has a stopping point: the set of
+saved editions above.
+
+**Done when:** the event budget is deployed or rejected with its numbers, and
+the ack reports labelled events per topic and the largest-event share before
+and after.
+
+**Limits:** no paid replays. AI caps unchanged. No deploys between 13:00 and
+16:00 UTC. Protect the morning edition.
+
+## 70. Build three reader features: developing stories, why picked, week in review (2026-11-19)
+
+**Why:** the owner approved these on Nov 19. They are owner-requested
+features, so items 42 and 43's "no new product features" doesn't apply to
+them. The design is in [`docs/reader-features-plan.md`](docs/reader-features-plan.md).
+
+**Priority:** Current order line 9, after item 69.
+
+**What to do:** build the three in the plan's order, one at a time, each
+deployed and seen in a real edition before the next starts.
+
+**What not to do:** the owner excluded reading-time targets, an RSS feed and
+"catch me up since my last visit". NBA scores and standings are deferred.
+Don't scope or start any of them. No other new features.
+
+**Done when:** each feature is live in a published edition. The ack for each
+says what readers can do now and includes screenshots for the reader-facing
+parts.
+
+**Limits:** existing AI caps. If a feature can't fit, write one line in
+`NEEDS_FROM_HUMAN.md` and move on. No deploys between 13:00 and 16:00 UTC.
+Protect the morning edition.
