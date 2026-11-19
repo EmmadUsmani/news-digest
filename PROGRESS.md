@@ -98,3 +98,11 @@
 - TASKS and docs/SOURCES.md updated; older PROGRESS entries archived at the size threshold. No reader/source/handbook behavior change. Scheduled Missed/NBA/Tech review remains due after 15:00 UTC.
 - Verification: pnpm format/lint:fix and full pnpm check pass (1,201 unit / 332 integration, four expected skips); pnpm build passes. Handbook proxy check hit HTTP 429 after rendering; documented --owner-services retry passes (19 pages/21 diagrams/39 tables). Logs /tmp/2908-*.log.
 - Final diff check, commit/push and API/worker/docs restart follow; live health/alerts rechecked after restart. No provider calls or feature activation.
+
+## 2026-11-19: iteration 2909 — require capture stage attribution
+
+- Clean main at 7ca10c60; no inherited work. Alerts/health pass; 37 active sources healthy, Destructoid inactive. Digest-generation queue zero failures/next 15:00 UTC; reader returns five topics/25 real saved stories.
+- Offline developing plan gate now requires matching/rewrite purpose identity and exact request-topic attribution. Previously a matching request could fill the rewrite slot, understating its intended cost; missing topic attribution also passed.
+- Four targeted tests pass: stage swaps, unrelated/empty purposes, absent topics, unchanged inputs, no report on refusal, existing-evidence preservation and overwrite refusal. Historical generic-purpose synthetic /tmp/2904-plan.json correctly refuses under the stricter gate; it is not admission evidence.
+- This checks attribution, not prompt authenticity or semantic quality. Runtime whole-edition admission, semantic review and activation remain open. No provider calls, source/UI/handbook behavior changes or feature activation. Missed/NBA/Tech review remains due after 15:00 UTC.
+- pnpm format/lint:fix and full pnpm check pass (1,203 unit / 332 integration, four expected skips); pnpm build and handbook --owner-services pass (19 pages/21 diagrams/39 tables). Logs /tmp/2909-*.log. Final diff check, commit/push and API/worker/docs restart follow; live health/alerts rechecked after restart.

@@ -28,7 +28,10 @@ export function developingCapturedPlan(input: {
   )
     throw new Error('Invalid expected edition coverage');
   const requests: LlmRequest[] = [];
-  for (const captures of [input.matching, input.rewrites]) {
+  for (const [purpose, captures] of [
+    ['story-grouping-v3', input.matching],
+    ['developing-rewrite', input.rewrites],
+  ] as const) {
     const seen = new Set<string>();
     for (const capture of captures) {
       if (
@@ -40,11 +43,10 @@ export function developingCapturedPlan(input: {
       seen.add(capture.topicId);
       if (capture.status !== 'request-ready' || !capture.request)
         throw new Error('Incomplete edition request capture');
-      if (
-        capture.request.topicId !== undefined &&
-        capture.request.topicId !== capture.topicId
-      )
+      if (capture.request.topicId !== capture.topicId)
         throw new Error('Request topic differs from capture');
+      if (capture.request.purpose !== purpose)
+        throw new Error('Request purpose differs from capture stage');
       requests.push(capture.request);
     }
     if (seen.size !== topics.size)
