@@ -1,0 +1,524 @@
+{
+  "editionId": "7a747d9c-3f5c-4e11-8200-2f19e8effc95",
+  "iteration": 2948,
+  "method": "Exact reference URL into selected coverage, then existing saved semantic grouping membership by immutable content IDs. No lexical inference, provider calls or automatic misses.",
+  "limits": "Counts describe articles and saved routes, not event recall. Missing returned merges do not establish singleton input or rejection. Techmeme wrapper URLs remain unresolved without publisher identity.",
+  "cacheRows": [
+    {
+      "cache_key": "feefd4746946bb53ff7cb7b8ad3ea3ae1b2d40123286b5a109006c0c67cf7a96",
+      "response": {
+        "groups": [
+          [
+            "01457ec2-1341-4c1b-a8e4-6efee44b9a14",
+            "7d436315-7b24-4469-bfbe-a63488da8655",
+            "ce691c35-cea3-4e7a-8d7c-36d0d69d3886"
+          ],
+          [
+            "facc148b-3884-4b47-a143-31a5fdb3864e",
+            "0621f38e-e99f-4c2d-ae62-861e0464d124",
+            "f84d185c-1fc6-42ec-bca2-99edbb44e8b1"
+          ],
+          [
+            "6dac9479-4476-424d-bbd6-438810af37e9",
+            "35f9f300-72af-4030-a3b1-b3ffe8414096"
+          ],
+          [
+            "1a696e79-c5f0-4806-8f77-dc3299b34abc",
+            "68c6d883-c75f-411d-aaf0-557d4e9adf08",
+            "cc63fd43-69cc-4074-b3db-feb26fa476a1",
+            "b28b4c83-b549-49ef-852e-64618b528f3f",
+            "d3ff7f7f-2c57-4b21-ac7a-7f61360a9a22",
+            "23f67f70-012f-4a1e-bfe5-9bbd57ca811c",
+            "5d7d6032-9bab-4dcb-8983-ad9c4b93ba39"
+          ],
+          [
+            "24a8e43b-e43d-4c10-a682-ad51b21a8405",
+            "d2294ac7-9171-452a-8ce8-19f62e46ed54",
+            "de0feaf0-f5fe-4b0d-a98c-b420d43ac533"
+          ],
+          [
+            "60f9e755-eef6-438c-ad81-2628e345900e",
+            "5f5b55df-6e6e-463e-8694-203a279a08f5"
+          ],
+          [
+            "f5329c68-2406-4877-ad2f-89eafa1c1672",
+            "02431947-0596-4798-b246-811be3b7dba2",
+            "740b9e14-edd6-4555-b694-e20fb98581d6"
+          ],
+          [
+            "e9237b40-f4cc-407e-b952-2f42e81cfd95",
+            "ecf33d21-9f58-4e2e-a14d-2a216980b432"
+          ]
+        ]
+      },
+      "created_at": "2026-11-19T15:01:07.451Z"
+    },
+    {
+      "cache_key": "3476373e95d3c8d70d5dde1ab97c55cad9772d4c17cabbcdd53c73a1e8a1b404",
+      "response": {
+        "groups": [
+          [
+            "584e909c-aa9c-4a42-9263-c05fd87593b3",
+            "dfd9e116-8e69-4887-a4e1-e68783d5416e",
+            "f4dbb142-ed25-490e-8dfc-d6e5a66c090b",
+            "2047cf10-e9d6-449a-a15b-b7dcc594687f"
+          ],
+          [
+            "3aa5f25f-2f98-42e9-ba8f-22c0e87cf46f",
+            "4a6869f9-4743-42ad-a841-11c5a5327b4c",
+            "768ac42b-2b26-4f49-8fc0-e6a66355c450",
+            "77474889-5353-4822-9f34-15d1010b0f02",
+            "cf6cf4a0-4dea-400d-b05d-3e5003aea30a",
+            "ffe61f58-6871-4305-af2d-285d8ae169ce",
+            "1f33dbd5-7ae9-4089-b7f1-9856443e5380",
+            "3be97958-979a-4c58-95bc-d24f8802b757",
+            "9d51dce5-0949-4995-82bd-eeb43849f8cd",
+            "831b6104-da53-4315-8f15-3fc44bb66145",
+            "2eb9d8d1-5452-45da-aa1b-709839b4b709",
+            "0f76e14a-9601-43d5-8423-bc37572959bc",
+            "19d75c73-2aad-4df5-91db-c0948aea66d8",
+            "3d0e60f4-1b2b-4748-a175-19bf81096aa1",
+            "604aa8ee-6b95-4640-be61-536025b83878",
+            "91dcc2de-f76a-4b1a-a7a8-98fc07db5273",
+            "b8256d1e-bf28-47b7-be89-2c4eb1ac0c3f"
+          ],
+          [
+            "71560bc5-34b3-403b-9016-b41823615f90",
+            "c176a37d-c875-4a88-837c-3f6682daafff"
+          ],
+          [
+            "0a1b2ee1-9b64-4a62-896c-df408e792ae8",
+            "1ef6ade7-7a0d-479b-9d2e-02cb0f08e37c",
+            "26a62707-cd0d-44d6-8f69-59860bfaad96",
+            "79697010-4236-40f6-a65f-d29e1bded1f4",
+            "8244f809-fd90-45f8-afba-5d3e585449d0",
+            "8e7d4a23-4ce3-4349-860c-0f8786ce954b",
+            "95b70f6f-9569-4442-a33b-18b9aaf9c15c",
+            "b5c949c8-e275-4dc5-8a0e-7f5ffc865346",
+            "bf67151c-3632-4ad4-87f3-1a2b1e54e41d",
+            "c583de54-caf1-4771-b4ac-087a910488f6",
+            "d842fa17-223d-4618-b2f6-69784d4d08cf",
+            "e123373d-70c5-4c2d-829e-eb447b11d491"
+          ]
+        ]
+      },
+      "created_at": "2026-11-19T15:01:12.260Z"
+    },
+    {
+      "cache_key": "9f9dcb713fafdd82b15c5a9ad4a7bef64ded273c019c83b549f17b5f99d9c7cd",
+      "response": {
+        "groups": [
+          [
+            "74a11d4a-2f40-4f94-bcc8-9285bb4951c3",
+            "9bf51397-245d-4324-8cea-03285ebcfdc8",
+            "df1f35f4-e974-4547-ab8e-86ad4036666b",
+            "1468155d-ed23-4904-beae-d235a9c9082d"
+          ],
+          [
+            "c872b24e-762b-4c47-af90-f2f7adc23041",
+            "247ed43b-b255-4505-8b6c-86df6b5211e8",
+            "ac9cb8d5-c8a5-4443-b94e-3ab1cbf4cb99",
+            "bebc8ef5-1010-44ad-99b1-1b32edfbe303"
+          ],
+          [
+            "c0ab1091-5710-4304-bee8-76a2eb2bc569",
+            "70c7c5bf-9ed4-4109-9e57-7c9bf7986ca2"
+          ],
+          [
+            "0a476a22-d6b7-42e2-a16e-915e440d906f",
+            "2d75df69-c697-431b-a2c9-9385147208e3"
+          ],
+          [
+            "1e99fefc-bfb5-46b8-9c84-c3bcf2984039",
+            "453b4d3e-28e7-4908-8d4b-b0a7005794a9"
+          ],
+          [
+            "bcff1a6d-d61d-4602-9ff5-f6aa4fc2792e",
+            "7a9db526-8494-4c60-8b07-6251cf03b941"
+          ],
+          [
+            "5d32a4f1-7922-429e-ac5e-91f58b46dd15",
+            "4c292142-fe00-4f45-be73-a663558b1a94",
+            "800fd379-badf-44e0-8ee5-56bb02916c30",
+            "b40ed230-aea4-49a4-881a-9f2eabe11ec4"
+          ]
+        ]
+      },
+      "created_at": "2026-11-19T15:01:18.512Z"
+    }
+  ],
+  "topics": [
+    {
+      "topic": "Tech & AI",
+      "importantArticles": 40,
+      "matchedArticles": 0,
+      "selectedClustersWithReference": 0,
+      "routes": []
+    },
+    {
+      "topic": "NBA",
+      "importantArticles": 47,
+      "matchedArticles": 9,
+      "selectedClustersWithReference": 4,
+      "routes": [
+        {
+          "referenceUrl": "https://sports.yahoo.com/nba/breaking-news/article/heats-giannis-antetokounmpo-sniffs-triple-double-in-first-game-vs-bucks-tyler-herro-booed-while-bam-adebayo-stars-in-win-030545435.html",
+          "referenceTitle": "Heat's Giannis Antetokounmpo sniffs triple-double in first game vs. Bucks; Tyler Herro booed while Bam Adebayo stars in win",
+          "candidateId": "60f9e755-eef6-438c-ad81-2628e345900e",
+          "selectedClusterId": "5f5b55df-6e6e-463e-8694-203a279a08f5",
+          "selectedTitle": "Giannis Antetokounmpo scores 27 as Heat beat Bucks 137-130",
+          "route": "saved semantic merge",
+          "returnedMerge": {
+            "cacheKey": "feefd4746946bb53ff7cb7b8ad3ea3ae1b2d40123286b5a109006c0c67cf7a96",
+            "createdAt": "2026-11-19T15:01:07.451Z",
+            "ids": [
+              "60f9e755-eef6-438c-ad81-2628e345900e",
+              "5f5b55df-6e6e-463e-8694-203a279a08f5"
+            ]
+          }
+        },
+        {
+          "referenceUrl": "https://sports.yahoo.com/articles/attrition-finally-gets-best-lakers-065527537.html",
+          "referenceTitle": "Attrition finally gets best of Lakers in loss to Jazz",
+          "candidateId": "cc63fd43-69cc-4074-b3db-feb26fa476a1",
+          "selectedClusterId": "b28b4c83-b549-49ef-852e-64618b528f3f",
+          "selectedTitle": "Luka Doncic takes blame after Lakers' loss to Jazz",
+          "route": "saved semantic merge",
+          "returnedMerge": {
+            "cacheKey": "feefd4746946bb53ff7cb7b8ad3ea3ae1b2d40123286b5a109006c0c67cf7a96",
+            "createdAt": "2026-11-19T15:01:07.451Z",
+            "ids": [
+              "1a696e79-c5f0-4806-8f77-dc3299b34abc",
+              "68c6d883-c75f-411d-aaf0-557d4e9adf08",
+              "cc63fd43-69cc-4074-b3db-feb26fa476a1",
+              "b28b4c83-b549-49ef-852e-64618b528f3f",
+              "d3ff7f7f-2c57-4b21-ac7a-7f61360a9a22",
+              "23f67f70-012f-4a1e-bfe5-9bbd57ca811c",
+              "5d7d6032-9bab-4dcb-8983-ad9c4b93ba39"
+            ]
+          }
+        },
+        {
+          "referenceUrl": "https://sports.yahoo.com/articles/utah-jazz-vs-los-angeles-064313292.html",
+          "referenceTitle": "Utah Jazz vs. Los Angeles Lakers: Recap and Final Score",
+          "candidateId": "1a696e79-c5f0-4806-8f77-dc3299b34abc",
+          "selectedClusterId": "b28b4c83-b549-49ef-852e-64618b528f3f",
+          "selectedTitle": "Luka Doncic takes blame after Lakers' loss to Jazz",
+          "route": "saved semantic merge",
+          "returnedMerge": {
+            "cacheKey": "feefd4746946bb53ff7cb7b8ad3ea3ae1b2d40123286b5a109006c0c67cf7a96",
+            "createdAt": "2026-11-19T15:01:07.451Z",
+            "ids": [
+              "1a696e79-c5f0-4806-8f77-dc3299b34abc",
+              "68c6d883-c75f-411d-aaf0-557d4e9adf08",
+              "cc63fd43-69cc-4074-b3db-feb26fa476a1",
+              "b28b4c83-b549-49ef-852e-64618b528f3f",
+              "d3ff7f7f-2c57-4b21-ac7a-7f61360a9a22",
+              "23f67f70-012f-4a1e-bfe5-9bbd57ca811c",
+              "5d7d6032-9bab-4dcb-8983-ad9c4b93ba39"
+            ]
+          }
+        },
+        {
+          "referenceUrl": "https://sports.yahoo.com/articles/lakers-nine-game-winning-streak-060323188.html",
+          "referenceTitle": "Lakers\u2019 nine-game winning streak ends with loss to Jazz",
+          "candidateId": "68c6d883-c75f-411d-aaf0-557d4e9adf08",
+          "selectedClusterId": "b28b4c83-b549-49ef-852e-64618b528f3f",
+          "selectedTitle": "Luka Doncic takes blame after Lakers' loss to Jazz",
+          "route": "saved semantic merge",
+          "returnedMerge": {
+            "cacheKey": "feefd4746946bb53ff7cb7b8ad3ea3ae1b2d40123286b5a109006c0c67cf7a96",
+            "createdAt": "2026-11-19T15:01:07.451Z",
+            "ids": [
+              "1a696e79-c5f0-4806-8f77-dc3299b34abc",
+              "68c6d883-c75f-411d-aaf0-557d4e9adf08",
+              "cc63fd43-69cc-4074-b3db-feb26fa476a1",
+              "b28b4c83-b549-49ef-852e-64618b528f3f",
+              "d3ff7f7f-2c57-4b21-ac7a-7f61360a9a22",
+              "23f67f70-012f-4a1e-bfe5-9bbd57ca811c",
+              "5d7d6032-9bab-4dcb-8983-ad9c4b93ba39"
+            ]
+          }
+        },
+        {
+          "referenceUrl": "https://sports.yahoo.com/articles/tired-looking-lakers-cant-shots-055623578.html",
+          "referenceTitle": "Tired-looking Lakers can't make their shots in loss to Jazz",
+          "candidateId": "5d7d6032-9bab-4dcb-8983-ad9c4b93ba39",
+          "selectedClusterId": "b28b4c83-b549-49ef-852e-64618b528f3f",
+          "selectedTitle": "Luka Doncic takes blame after Lakers' loss to Jazz",
+          "route": "saved semantic merge",
+          "returnedMerge": {
+            "cacheKey": "feefd4746946bb53ff7cb7b8ad3ea3ae1b2d40123286b5a109006c0c67cf7a96",
+            "createdAt": "2026-11-19T15:01:07.451Z",
+            "ids": [
+              "1a696e79-c5f0-4806-8f77-dc3299b34abc",
+              "68c6d883-c75f-411d-aaf0-557d4e9adf08",
+              "cc63fd43-69cc-4074-b3db-feb26fa476a1",
+              "b28b4c83-b549-49ef-852e-64618b528f3f",
+              "d3ff7f7f-2c57-4b21-ac7a-7f61360a9a22",
+              "23f67f70-012f-4a1e-bfe5-9bbd57ca811c",
+              "5d7d6032-9bab-4dcb-8983-ad9c4b93ba39"
+            ]
+          }
+        },
+        {
+          "referenceUrl": "https://sports.yahoo.com/articles/lakers-win-streak-snapped-offense-053458832.html",
+          "referenceTitle": "Lakers win streak snapped as offense goes ice cold against Jazz",
+          "candidateId": "23f67f70-012f-4a1e-bfe5-9bbd57ca811c",
+          "selectedClusterId": "b28b4c83-b549-49ef-852e-64618b528f3f",
+          "selectedTitle": "Luka Doncic takes blame after Lakers' loss to Jazz",
+          "route": "saved semantic merge",
+          "returnedMerge": {
+            "cacheKey": "feefd4746946bb53ff7cb7b8ad3ea3ae1b2d40123286b5a109006c0c67cf7a96",
+            "createdAt": "2026-11-19T15:01:07.451Z",
+            "ids": [
+              "1a696e79-c5f0-4806-8f77-dc3299b34abc",
+              "68c6d883-c75f-411d-aaf0-557d4e9adf08",
+              "cc63fd43-69cc-4074-b3db-feb26fa476a1",
+              "b28b4c83-b549-49ef-852e-64618b528f3f",
+              "d3ff7f7f-2c57-4b21-ac7a-7f61360a9a22",
+              "23f67f70-012f-4a1e-bfe5-9bbd57ca811c",
+              "5d7d6032-9bab-4dcb-8983-ad9c4b93ba39"
+            ]
+          }
+        },
+        {
+          "referenceUrl": "https://sports.yahoo.com/articles/lakers-finally-broke-luka-doncic-130946127.html",
+          "referenceTitle": "The Lakers finally broke Luka Doncic \u2014 for one night",
+          "candidateId": "d3ff7f7f-2c57-4b21-ac7a-7f61360a9a22",
+          "selectedClusterId": "b28b4c83-b549-49ef-852e-64618b528f3f",
+          "selectedTitle": "Luka Doncic takes blame after Lakers' loss to Jazz",
+          "route": "saved semantic merge",
+          "returnedMerge": {
+            "cacheKey": "feefd4746946bb53ff7cb7b8ad3ea3ae1b2d40123286b5a109006c0c67cf7a96",
+            "createdAt": "2026-11-19T15:01:07.451Z",
+            "ids": [
+              "1a696e79-c5f0-4806-8f77-dc3299b34abc",
+              "68c6d883-c75f-411d-aaf0-557d4e9adf08",
+              "cc63fd43-69cc-4074-b3db-feb26fa476a1",
+              "b28b4c83-b549-49ef-852e-64618b528f3f",
+              "d3ff7f7f-2c57-4b21-ac7a-7f61360a9a22",
+              "23f67f70-012f-4a1e-bfe5-9bbd57ca811c",
+              "5d7d6032-9bab-4dcb-8983-ad9c4b93ba39"
+            ]
+          }
+        },
+        {
+          "referenceUrl": "https://sports.yahoo.com/articles/rockets-back-winning-119-104-103634845.html",
+          "referenceTitle": "Rockets get back to winning with 119-104 victory over Pacers",
+          "candidateId": "83cc5ecd-fb1a-4970-aa21-30abe79b2b44",
+          "selectedClusterId": "83cc5ecd-fb1a-4970-aa21-30abe79b2b44",
+          "selectedTitle": "Rockets beat Pacers 119-104 as Alperen Sengun leaves with eye and face injury",
+          "route": "selected representative identity",
+          "returnedMerge": null
+        },
+        {
+          "referenceUrl": "https://sports.yahoo.com/articles/eight-enough-dybantsa-davis-power-120000022.html",
+          "referenceTitle": "Eight is enough: Dybantsa, Davis power Wizards to win over depleted Raptors",
+          "candidateId": "9ef82ab7-b05b-4e8d-9a63-11b2faca5312",
+          "selectedClusterId": "9ef82ab7-b05b-4e8d-9a63-11b2faca5312",
+          "selectedTitle": "Wizards end eight-game losing streak with win over depleted Raptors",
+          "route": "selected representative identity",
+          "returnedMerge": null
+        }
+      ]
+    },
+    {
+      "topic": "Gaming",
+      "importantArticles": 12,
+      "matchedArticles": 5,
+      "selectedClustersWithReference": 3,
+      "routes": [
+        {
+          "referenceUrl": "https://www.gamesindustry.biz/rockstar-and-iwgb-members-issue-closing-arguments-following-conclusion-of-employment-tribunal",
+          "referenceTitle": "Rockstar and IWGB members issue closing arguments following conclusion of employment tribunal",
+          "candidateId": "9bf51397-245d-4324-8cea-03285ebcfdc8",
+          "selectedClusterId": "df1f35f4-e974-4547-ab8e-86ad4036666b",
+          "selectedTitle": "Rockstar union-busting tribunal hearing ends; judge promises quick verdict",
+          "route": "saved semantic merge",
+          "returnedMerge": {
+            "cacheKey": "9f9dcb713fafdd82b15c5a9ad4a7bef64ded273c019c83b549f17b5f99d9c7cd",
+            "createdAt": "2026-11-19T15:01:18.512Z",
+            "ids": [
+              "74a11d4a-2f40-4f94-bcc8-9285bb4951c3",
+              "9bf51397-245d-4324-8cea-03285ebcfdc8",
+              "df1f35f4-e974-4547-ab8e-86ad4036666b",
+              "1468155d-ed23-4904-beae-d235a9c9082d"
+            ]
+          }
+        },
+        {
+          "referenceUrl": "https://www.eurogamer.net/gta-6-discless-release-code-in-a-box-gamestop-ceo",
+          "referenceTitle": "GameStop CEO slams 'code-in-a-box' games in the wake of GTA 6's discless release",
+          "candidateId": "ac9cb8d5-c8a5-4443-b94e-3ab1cbf4cb99",
+          "selectedClusterId": "c872b24e-762b-4c47-af90-f2f7adc23041",
+          "selectedTitle": "GameStop CEO criticizes all-digital game releases as GTA 6 launches",
+          "route": "saved semantic merge",
+          "returnedMerge": {
+            "cacheKey": "9f9dcb713fafdd82b15c5a9ad4a7bef64ded273c019c83b549f17b5f99d9c7cd",
+            "createdAt": "2026-11-19T15:01:18.512Z",
+            "ids": [
+              "c872b24e-762b-4c47-af90-f2f7adc23041",
+              "247ed43b-b255-4505-8b6c-86df6b5211e8",
+              "ac9cb8d5-c8a5-4443-b94e-3ab1cbf4cb99",
+              "bebc8ef5-1010-44ad-99b1-1b32edfbe303"
+            ]
+          }
+        },
+        {
+          "referenceUrl": "https://www.gamesindustry.biz/call-of-duty-modern-warfare-4-debuts-as-top-selling-game-in-us-for-october-2026",
+          "referenceTitle": "Call of Duty: Modern Warfare 4 debuts as top-selling game in US for October 2026",
+          "candidateId": "4c292142-fe00-4f45-be73-a663558b1a94",
+          "selectedClusterId": "5d32a4f1-7922-429e-ac5e-91f58b46dd15",
+          "selectedTitle": "Circana: US console unit sales rose in October despite higher prices",
+          "route": "saved semantic merge",
+          "returnedMerge": {
+            "cacheKey": "9f9dcb713fafdd82b15c5a9ad4a7bef64ded273c019c83b549f17b5f99d9c7cd",
+            "createdAt": "2026-11-19T15:01:18.512Z",
+            "ids": [
+              "5d32a4f1-7922-429e-ac5e-91f58b46dd15",
+              "4c292142-fe00-4f45-be73-a663558b1a94",
+              "800fd379-badf-44e0-8ee5-56bb02916c30",
+              "b40ed230-aea4-49a4-881a-9f2eabe11ec4"
+            ]
+          }
+        },
+        {
+          "referenceUrl": "https://www.eurogamer.net/call-of-duty-modern-warfare-4-october-top-seller",
+          "referenceTitle": "Call of Duty: Modern Warfare 4 was October's biggest game in the US, but it wasn't enough to crack 2026's best-selling top 10",
+          "candidateId": "800fd379-badf-44e0-8ee5-56bb02916c30",
+          "selectedClusterId": "5d32a4f1-7922-429e-ac5e-91f58b46dd15",
+          "selectedTitle": "Circana: US console unit sales rose in October despite higher prices",
+          "route": "saved semantic merge",
+          "returnedMerge": {
+            "cacheKey": "9f9dcb713fafdd82b15c5a9ad4a7bef64ded273c019c83b549f17b5f99d9c7cd",
+            "createdAt": "2026-11-19T15:01:18.512Z",
+            "ids": [
+              "5d32a4f1-7922-429e-ac5e-91f58b46dd15",
+              "4c292142-fe00-4f45-be73-a663558b1a94",
+              "800fd379-badf-44e0-8ee5-56bb02916c30",
+              "b40ed230-aea4-49a4-881a-9f2eabe11ec4"
+            ]
+          }
+        },
+        {
+          "referenceUrl": "https://www.eurogamer.net/gta-6-rockstar-tribunal-awaits-verdict",
+          "referenceTitle": "As Rockstar's alleged \"union busting\" tribunal hearing comes to a close amid GTA 6 launch, judge pledges to deliver verdict \"as quickly as I possibly can\"",
+          "candidateId": "df1f35f4-e974-4547-ab8e-86ad4036666b",
+          "selectedClusterId": "df1f35f4-e974-4547-ab8e-86ad4036666b",
+          "selectedTitle": "Rockstar union-busting tribunal hearing ends; judge promises quick verdict",
+          "route": "selected representative identity",
+          "returnedMerge": {
+            "cacheKey": "9f9dcb713fafdd82b15c5a9ad4a7bef64ded273c019c83b549f17b5f99d9c7cd",
+            "createdAt": "2026-11-19T15:01:18.512Z",
+            "ids": [
+              "74a11d4a-2f40-4f94-bcc8-9285bb4951c3",
+              "9bf51397-245d-4324-8cea-03285ebcfdc8",
+              "df1f35f4-e974-4547-ab8e-86ad4036666b",
+              "1468155d-ed23-4904-beae-d235a9c9082d"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "topic": "World news & politics",
+      "importantArticles": 35,
+      "matchedArticles": 6,
+      "selectedClustersWithReference": 4,
+      "routes": [
+        {
+          "referenceUrl": "https://www.bbc.co.uk/news/articles/cw8r7510degno?at_campaign=rss&at_medium=RSS",
+          "referenceTitle": "Israeli military completes ground operation in Gaza beyond Yellow Line",
+          "candidateId": "5bb6fedb-9559-4944-bcdc-e94d25351787",
+          "selectedClusterId": "205376d4-0d90-4c18-b308-48a111e3fc70",
+          "selectedTitle": "Israeli tanks cross 'yellow line' into Hamas-controlled central Gaza",
+          "route": "published coverage membership; merge cache unavailable",
+          "returnedMerge": null
+        },
+        {
+          "referenceUrl": "https://www.theguardian.com/world/2026/nov/18/pete-hegseth-venezuela-nicolas-maduro-military",
+          "referenceTitle": "Hegseth uses Venezuela visit to boast of Maduro\u2019s capture by US military",
+          "candidateId": "a30b3cf2-516b-445f-9e56-a32f433c7534",
+          "selectedClusterId": "5b3b315a-9179-49e1-be6c-5f1a29f15233",
+          "selectedTitle": "Venezuela signs military deal with US less than a year after Maduro's removal",
+          "route": "published coverage membership; merge cache unavailable",
+          "returnedMerge": null
+        },
+        {
+          "referenceUrl": "https://www.theguardian.com/world/2026/nov/18/israeli-tanks-cross-yellow-line-boundary-into-hamas-controlled-central-gaza",
+          "referenceTitle": "Israeli tanks cross \u2018yellow line\u2019 boundary into Hamas-controlled central Gaza",
+          "candidateId": "205376d4-0d90-4c18-b308-48a111e3fc70",
+          "selectedClusterId": "205376d4-0d90-4c18-b308-48a111e3fc70",
+          "selectedTitle": "Israeli tanks cross 'yellow line' into Hamas-controlled central Gaza",
+          "route": "selected representative identity",
+          "returnedMerge": null
+        },
+        {
+          "referenceUrl": "https://www.theguardian.com/world/2026/nov/19/genocide-rohingya-international-court-of-justice-ruling-myanmar",
+          "referenceTitle": "Myanmar committed genocide against Rohingya minority, world\u2019s top court rules",
+          "candidateId": "2a106d79-8643-4af6-8537-209787055a54",
+          "selectedClusterId": "570f83ef-0128-4434-a275-273fdf04ce04",
+          "selectedTitle": "UN court rules Myanmar committed genocide against the Rohingya",
+          "route": "published coverage membership; merge cache unavailable",
+          "returnedMerge": null
+        },
+        {
+          "referenceUrl": "https://www.bbc.co.uk/news/articles/cmwy8pyqlq5vo?at_campaign=rss&at_medium=RSS",
+          "referenceTitle": "Venezuela signs military deal with US less than a year after Maduro's removal",
+          "candidateId": "5b3b315a-9179-49e1-be6c-5f1a29f15233",
+          "selectedClusterId": "5b3b315a-9179-49e1-be6c-5f1a29f15233",
+          "selectedTitle": "Venezuela signs military deal with US less than a year after Maduro's removal",
+          "route": "selected representative identity",
+          "returnedMerge": null
+        },
+        {
+          "referenceUrl": "https://www.theguardian.com/us-news/2026/nov/19/first-thing-trump-xi-and-putin-hold-historic-trilateral-meeting-in-china",
+          "referenceTitle": "First Thing: Trump, Xi and Putin hold historic trilateral meeting in China",
+          "candidateId": "e573f5a9-c4c7-48ae-894f-9b380499794a",
+          "selectedClusterId": "8e2e622a-7c4b-41a0-ac6e-9b0bb5fe6a4c",
+          "selectedTitle": "Trump, Xi and Putin hold trilateral summit; Ukraine's allies meet in Berlin afterwards",
+          "route": "published coverage membership; merge cache unavailable",
+          "returnedMerge": null
+        }
+      ]
+    },
+    {
+      "topic": "U.S. news & politics",
+      "importantArticles": 19,
+      "matchedArticles": 3,
+      "selectedClustersWithReference": 2,
+      "routes": [
+        {
+          "referenceUrl": "https://www.npr.org/2026/11/18/nx-s1-6043185/democrats-nominate-jeffries-for-speaker-prep-investigations-into-trumps-orbit",
+          "referenceTitle": "Democrats nominate Jeffries for speaker, prep investigations into Trump's orbit",
+          "candidateId": "9ecac277-ff80-4c06-9462-a70d7af67e91",
+          "selectedClusterId": "1ccd82b2-4f8b-4633-9010-af0254c567cf",
+          "selectedTitle": "House Democrats nominate Hakeem Jeffries for speaker",
+          "route": "published coverage membership; merge cache unavailable",
+          "returnedMerge": null
+        },
+        {
+          "referenceUrl": "https://www.theguardian.com/us-news/2026/nov/18/california-atmospheric-river-flooding",
+          "referenceTitle": "Record-breaking rain lashes California\u2019s Bay area as \u2018atmospheric river\u2019 arrives",
+          "candidateId": "c6b32eb5-0ee0-4f63-81b1-5af78195aa3b",
+          "selectedClusterId": "c6b32eb5-0ee0-4f63-81b1-5af78195aa3b",
+          "selectedTitle": "Atmospheric river brings record rain, flooding and outages to California's Bay Area",
+          "route": "selected representative identity",
+          "returnedMerge": null
+        },
+        {
+          "referenceUrl": "https://www.theguardian.com/us-news/live/2026/nov/19/hakeem-jeffries-us-politics-demicrats-republicans-latest-news-updates",
+          "referenceTitle": "Hakeem Jeffries on brink of House history as he tells Democrats to \u2018fight Maga, not each other\u2019 \u2013 US politics live",
+          "candidateId": "1ccd82b2-4f8b-4633-9010-af0254c567cf",
+          "selectedClusterId": "1ccd82b2-4f8b-4633-9010-af0254c567cf",
+          "selectedTitle": "House Democrats nominate Hakeem Jeffries for speaker",
+          "route": "selected representative identity",
+          "returnedMerge": null
+        }
+      ]
+    }
+  ],
+  "snapshotSha256": "5187cac3ce9650a192aa0aa4710c020a95b73e0ebab16f9965d677eeb50c9cd6",
+  "cacheSearch": "Read-only llm_cache rows created Nov 19 00:00\u201315:30 UTC with groups. Three UUID-array responses retained; one unrelated alias/topic-object evaluation response excluded. Missing cache response is not evidence of missing grouping."
+}

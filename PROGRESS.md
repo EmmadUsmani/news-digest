@@ -122,3 +122,13 @@
 - Three exact-URL/pre-cutoff and absent-routing assertions pass; recall remains null. Cross-URL event matching and five-topic recall/causes remain next; no new confirmed event omission or tuning.
 - Handbook passes 19 pages/21 diagrams/39 tables; all 14 monitored services healthy. Initial source/job CLI checks rate-limited (HTTP 429); retries pass: sources healthy and digest queue zero failures. Logs /tmp/2947-*.log.
 - Runtime unchanged; no rebuild/restart required, live app remains aligned with main. pnpm format/lint:fix and full pnpm check pass: 1,204 unit tests/332 integration passes/four expected skips. Final health/alerts clear; git diff check passes. Commit/push follow.
+
+## 2026-11-19: iteration 2948 — verify selected reference routes across topics
+
+- Clean main at f77c3bc9; no inherited work. Initial alerts and health clear. Evidence/docs only; no runtime writes, scoring changes or paid calls.
+- Preserve 23 important reference article routes into 13 published clusters: Tech 0/0, NBA 9/4, Gaming 5/3, World 6/4, U.S. 3/2 (articles/clusters, not recall).
+- Existing saved semantic merge responses independently confirm 11 cross-article routes (NBA seven/Gaming four); seven representative identities and five published-only coverage routes are distinguished explicitly.
+- Preserve all three UUID-array grouping responses, source snapshot hash and exact candidate/selected IDs. Exclude unrelated alias/topic-object evaluation response. Read-only cache search through 15:30 finds no additional response for five World/U.S. coverage routes; no rejection inferred.
+- Exact assertions pass for every route, cache membership, source snapshot membership, distinct counts and edition identity. Cross-URL event membership, denominators, recall and causes remain next; no new miss claimed.
+- pnpm format/lint:fix and full pnpm check pass: 1,204 unit tests/332 integration passes/four expected skips. Handbook delayed retry passes 19 pages/21 diagrams/39 tables after initial HTTP 429; logs /tmp/2948-*.log. Final health/alerts clear; git diff check passes. Commit/push follow.
+- All 14 services healthy, sources healthy/current and digest queue zero failures; health database/Redis pass. Runtime unchanged, so no rebuild/restart required; live app remains aligned with main.
