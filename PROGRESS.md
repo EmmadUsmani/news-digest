@@ -144,3 +144,11 @@
 - Missing merges cannot establish singleton membership/non-admission. Counts are articles, not events or recall; Nets/Bulls post distinction and Tech wrapper limitations retained. Existing saved merge search exhausted; remaining semantic evidence/next scheduled snapshots needed.
 - Verification: python3 /tmp/2958-work/reconcile.py checks all 153 identities, unique memberships, routing partitions and snapshot/source hashes. Persisted evidence rechecked independently. pnpm format/lint:fix, full pnpm check and pnpm build pass: 1,212 unit tests, 332 integration passes and four expected skips.
 - Updated TASKS and same Nov 19 review; no app/UI/schema behavior changed, so handbook/SOURCES unchanged. Live latest 7a747d9c retains five topics/25 real stories; all 38 sources/14 monitored services healthy and digest failures zero. Logs /tmp/2958-*.log. Commit/push and API/worker restart follow. Next: complete event memberships and three recall reviews before selecting a measured root-cause fix.
+
+## 2026-11-19: iteration 2989 — close Nov 19 recall audit under item 71
+
+- Clean main at 06dfcff1; no inherited work. Read new owner item 71; closed Nov 19 Missed section partial and removed stale instructions to continue its census from TASKS.
+- Preserved existing evidence unchanged; 120/153 article routes unresolved, event recall unavailable. Nov 19 does not count toward three complete reviews; next reviews are Nov 20–22, followed by cause tally and one measured root-cause fix.
+- Alerts clear; /healthz database/Redis pass; all 14 services and 38 source checks pass, disk 61%. Digest-generation has zero failures and next run Nov 20 15:00 UTC. Live latest remains 7a747d9c with five topics.
+- No runtime, UI, source, schema or handbook changes; no provider calls. Verification logs: /tmp/2989-{format,lint,check,build}.log. Queue check initially used invalid digest name; all-queue check succeeds with digest-generation.
+- pnpm format/lint:fix, full pnpm check and pnpm build pass; 1,212 unit tests and 332 integration passes/four expected skips. Final diff check passes. Commit/push and API/worker restart follow; next use waiting time for items 69/70 and review Nov 20 scheduled evidence.
