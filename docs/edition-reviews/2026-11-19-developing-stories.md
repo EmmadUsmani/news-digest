@@ -173,3 +173,14 @@ relationship to the later resignation; it is not labelled a match.
   evaluator and retained/dropped editor orchestration. These verify manually
   specified decisions, not semantic-model precision. Full semantic output
   review and production candidate/budget admission remain open.
+
+## Candidate identity safety — iteration 2890
+
+- The prepared editor flow now rejects duplicate, empty or whitespace-only
+  current candidate IDs before semantic matching or editing. Occurrence IDs in
+  matching are unique, but editor context and saved links are keyed by story ID;
+  duplicate story IDs could otherwise share an unrelated predecessor.
+- Offline tests verify rejection before either adapter is invoked; the five
+  saved controls still pass. IDs reused across historical editions remain valid.
+- No provider calls, production activation or semantic acceptance. Production
+  pool/budget admission and full semantic review remain open.

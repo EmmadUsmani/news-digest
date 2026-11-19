@@ -19,6 +19,14 @@ export async function editDevelopingStories<
     candidates: (T & { earlierCoverage?: EarlierCoverage })[],
   ) => Promise<R | null>;
 }) {
+  // Links and editor selections use story IDs, while semantic evidence uses
+  // occurrence references. Ambiguous IDs must fail before either paid step.
+  const allowed = new Set(input.candidates.map((candidate) => candidate.id));
+  if (
+    allowed.size !== input.candidates.length ||
+    input.candidates.some((candidate) => !candidate.id.trim())
+  )
+    throw new Error('Developing editor requires unique nonempty candidate IDs');
   const links = await matchDevelopingStories(
     input.grouping,
     input.target,
@@ -40,7 +48,6 @@ export async function editDevelopingStories<
   });
   const result = await input.edit(candidates);
   if (!result) return null;
-  const allowed = new Set(input.candidates.map((candidate) => candidate.id));
   const selected = new Set<string>();
   for (const story of result.stories) {
     if (!allowed.has(story.id) || selected.has(story.id))

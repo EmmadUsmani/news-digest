@@ -164,3 +164,41 @@ void test('matching failure still edits normally; editor refusal stays null and 
       /unique current candidates/,
     );
 });
+
+void test('ambiguous candidate IDs reject before matching or editing can spend budget', async () => {
+  for (const ids of [['same', 'same'], [''], ['   ']]) {
+    let calls = 0;
+    await assert.rejects(
+      editDevelopingStories({
+        grouping: {
+          async groupWithResult() {
+            calls++;
+            return { status: 'validated' as const, groups: [] };
+          },
+        },
+        target: {
+          topicId: 'tech',
+          publishedAt: '2026-11-19T12:00:00Z',
+          runId: 'offline',
+        },
+        candidates: ids.map((id, index) => ({
+          id,
+          title: `Distinct event ${index}`,
+        })),
+        history: [
+          {
+            editionId: 'earlier',
+            publishedAt: '2026-11-18T12:00:00Z',
+            stories: [{ id: 'old', title: 'Earlier event', summary: null }],
+          },
+        ],
+        async edit() {
+          calls++;
+          return { stories: [] };
+        },
+      }),
+      /unique nonempty candidate IDs/,
+    );
+    assert.equal(calls, 0);
+  }
+});

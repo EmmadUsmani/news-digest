@@ -91,3 +91,12 @@
 - TASKS and saved review updated; no affected handbook/system/source behavior. Full semantic output review, production candidate-pool/budget admission and integration remain open.
 - Latest reader: five topics/25 stories; initial shared-loopback 429 resolved with existing smoke-test address. Commit/push and API/worker/docs restart follow verification.
 - Next: continue developing-story admission; missed-story/NBA/Tech review after today's 15:00 scheduled edition.
+
+## 2026-11-19: iteration 2890 — developing-story candidate identity safety
+
+- Clean main at 9e1cc39d; no inherited work. Alerts/health clear; 38 monitored sources pass and digest-generation has zero failures, next run 15:00 UTC. Destructoid remains inactive/blocked.
+- Prepared editor flow rejects duplicate, empty and whitespace-only current candidate IDs before matching or editing. Occurrence-based matching otherwise allowed ambiguous story-ID context/link attachment; history may still reuse story IDs across editions.
+- New offline guard test confirms neither adapter is invoked for invalid inputs; all five saved controls pass. No provider calls, live writes or activation; semantic review and production candidate/budget admission remain open.
+- Verification: targeted editor tests 7/7; pnpm format, lint:fix and check pass (1,169 unit / 332 integration, four expected skips). Handbook 19 pages/21 diagrams/39 tables passes. Latest reader returns five topics/25 stories. Logs `/tmp/2890-*.log`.
+- TASKS and saved review updated; no source, handbook architecture or UI change. Initial `sources:check` console invocation was invalid; corrected to `pnpm obs sources --check`.
+- Full pnpm build and git diff --check pass. Commit/push and API/worker/docs restart follow verification; next scheduled missed-story/NBA/Tech review after 15:00 UTC.
