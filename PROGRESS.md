@@ -62,3 +62,13 @@
 - Condensed TASKS handoff; archived progress 2899–2910 to keep orientation small. No changes to owner files, source collection or paid calls.
 - Saved-evidence assertions and handbook check pass (19 pages/21 diagrams/39 tables). pnpm format/lint:fix and full pnpm check pass: 1,204 unit / 332 integration tests, four expected skips. Logs /tmp/2941-*.log.
 - No rebuild/deploy/restart: unchanged runtime and 13:00–16:00 hold. Next: finish reference importance and validated event membership/recall in the same Nov 19 review, then compare cause counts.
+
+## 2026-11-19: iteration 2942 — complete Tech reference article decisions
+
+- Clean main at 327903ba; initial alerts clear and health database/Redis pass. Documentation/evidence only; no runtime, source, scoring or prompt changes and no paid calls.
+- Complete all 59 distinct Tech reference article assessments: 40 important reports/19 exclusions, each with explicit agent editorial rationale, exact title/excerpt and every original dated URL-trace observation.
+- Count concrete developer/security/platform/AI deployment and infrastructure announcements; exclude minor features, shopping, opinion, explainers without new actions and primarily health/entertainment coverage. Future partnerships count as announcements, not completed launches.
+- Forty reports are not forty events or misses. IPO/Gemini and repeated publisher coverage require existing clustering/embedding matching; Arizona selected-post coverage retained. No new confirmed omission, event denominator, cause total or tuning claimed.
+- Evidence assertions pass: exact 59-URL set, all titles/excerpts/observations, 40/19 counts and in-window publication times; event recall explicitly null. Handbook passes 19 pages/21 diagrams/39 tables. Logs /tmp/2942-*.log.
+- Remaining: NBA/World/U.S. importance censuses, cross-URL event memberships and all-topic recall/causes in this same Nov 19 review; three completed reviews and measured root-cause fix still open.
+- pnpm format/lint:fix and full pnpm check pass: 1,204 unit tests/332 integration passes/four expected skips. Final health and alerts clear; git diff check passes. Unchanged runtime needs no rebuild or service restart; live application remains aligned with main. Commit/push follow.
