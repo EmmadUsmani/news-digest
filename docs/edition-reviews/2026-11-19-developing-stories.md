@@ -116,3 +116,18 @@ relationship to the later resignation; it is not labelled a match.
   layout inspected. These show synthetic presentation, not live semantic matches.
 - Production matching/editor/persistence wiring and real-edition acceptance remain
   open; the feature is not complete and no item 70 completion ack is claimed.
+
+## Editor-to-snapshot orchestration — iteration 2887
+
+- Opt-in application flow matches the current candidate pool once, supplies the
+  nearest earlier headline/summary to the editor, then attaches links only to
+  the editor's selected current stories. Other editor result fields are retained.
+- Saved manual memberships exercise all three controls with the reviewed story
+  both retained and dropped. Current edited prose stays unchanged; historical
+  stories never become selectable candidates. Inputs remain unchanged.
+- Matching failure continues ordinary editing without links; editor refusal stays
+  null. Unknown or duplicate selections reject before snapshot assembly.
+- Four offline tests pass without provider calls or database writes. These test
+  orchestration using manual memberships, not semantic matching or writing quality.
+  Production generation does not call this flow yet; activation and real-edition
+  acceptance remain open pending semantic review and existing budget admission.

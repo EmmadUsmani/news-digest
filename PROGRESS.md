@@ -124,3 +124,12 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check (1,158 unit / 332 integration passes, four expected skips), pnpm build, targeted reader projection tests, final changed-file ESLint, handbook (19 pages/one affected diagram/39 tables), browser six cases and git diff --check pass. Logs /tmp/2886-*.log.
 - TASKS, saved review and affected handbook updated; no source changes or provider calls. Production matching/editor/persistence wiring and real-edition acceptance remain open; synthetic screenshots are not semantic acceptance. Destructoid remains blocked.
 - Next: semantic review and generation integration; Nov 19 missed-story/NBA/Tech review after 15:00 UTC. Commit/push and API/worker/docs restart follow checks.
+
+## 2026-11-19: iteration 2887 — developing-story editor/snapshot orchestration
+
+- Clean main at 91116f53; no inherited work. Alerts and health clear; source check passes, digest queue zero failures and next run 15:00 UTC. Today's item 69 evaluation allowance already used.
+- Added opt-in application flow joining one bounded semantic request, nearest earlier-coverage editor context and selected-only immutable link assembly. Retains editor metadata/current prose; history is never selectable. Production generation does not call it yet.
+- Three saved manual controls pass with reviewed candidates retained and dropped. Matching failure preserves ordinary editing, editor refusal stays null, unknown/duplicate selections reject; inputs unchanged. Four offline tests, no provider calls or database writes; no semantic precision claim.
+- TASKS and saved review updated; no affected handbook architecture, UI/source or published-edition changes. Semantic review, production generation wiring/admission and real-edition acceptance remain open; Destructoid remains blocked.
+- Verification: pnpm format/lint:fix, pnpm check (1,162 unit / 332 integration passes, four expected skips), pnpm build, final API build, targeted 4/4, changed-file ESLint and handbook (19 pages/21 diagrams/39 tables) pass; git diff --check clear. Logs /tmp/2887-*.log.
+- Next: semantic matching review before activation; Nov 19 missed-story/NBA/Tech review after 15:00 UTC. Commit/push and API/worker/docs restart follow checks.

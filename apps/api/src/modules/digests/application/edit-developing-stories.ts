@@ -1,0 +1,59 @@
+import type { developingHistory } from '../domain/developing-history';
+import { matchDevelopingStories } from './match-developing-stories';
+import type { GroupingResultPort } from './prepare-story-grouping';
+import { snapshotDevelopingStories } from './snapshot-developing-stories';
+
+type EarlierCoverage = { headline: string; summary: string | null };
+
+// Prepared orchestration only: production admission awaits semantic review.
+// The editor selects from current candidates; history is comparison context only.
+export async function editDevelopingStories<
+  T extends { id: string; title: string; summary?: string | null },
+  R extends { stories: { id: string }[] },
+>(input: {
+  grouping: GroupingResultPort | null;
+  target: { topicId: string; publishedAt: string; runId: string };
+  candidates: readonly T[];
+  history: ReturnType<typeof developingHistory>;
+  edit: (
+    candidates: (T & { earlierCoverage?: EarlierCoverage })[],
+  ) => Promise<R | null>;
+}) {
+  const links = await matchDevelopingStories(
+    input.grouping,
+    input.target,
+    input.candidates,
+    input.history,
+  );
+  const byId = new Map(links.map((link) => [link.storyId, link]));
+  const candidates = input.candidates.map((candidate) => {
+    const link = byId.get(candidate.id);
+    return link
+      ? {
+          ...candidate,
+          earlierCoverage: {
+            headline: link.previousHeadline,
+            summary: link.previousSummary,
+          },
+        }
+      : { ...candidate };
+  });
+  const result = await input.edit(candidates);
+  if (!result) return null;
+  const allowed = new Set(input.candidates.map((candidate) => candidate.id));
+  const selected = new Set<string>();
+  for (const story of result.stories) {
+    if (!allowed.has(story.id) || selected.has(story.id))
+      throw new Error(
+        'Developing editor must select unique current candidates',
+      );
+    selected.add(story.id);
+  }
+  return {
+    ...result,
+    stories: snapshotDevelopingStories<R['stories'][number]>(
+      result.stories,
+      links.filter((link) => selected.has(link.storyId)),
+    ),
+  };
+}
