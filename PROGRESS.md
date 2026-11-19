@@ -125,3 +125,12 @@
 - Two offline tests cover multiple calls, Unicode, exact model headroom/one-micro refusal, protected baseline funds, monthly limits, outstanding holds and invalid inputs. No provider/DB calls, ledger reservations or feature activation. Complete runtime plan, transactional admission and semantic review remain open.
 - Verification: initial full check caught missing void on the new node:test promises; corrected. Final pnpm check passes (1,195 unit / 332 integration, four expected skips). pnpm format/lint:fix pass. Build and handbook pass (19 pages/21 diagrams/39 tables). Logs /tmp/2903-*.log.
 - TASKS and saved review updated; no source/UI/handbook behavior change. Scheduled missed-story/NBA/Tech acceptance remains after 15:00 UTC. Commit/push and API/worker/docs restart follow verification.
+
+## 2026-11-19: iteration 2904 — complete captured-edition coverage gate
+
+- Clean main at c7070c6b; no inherited work. Alerts/health pass; sources report healthy, digest queue zero failures/next 15:00 UTC; reader five topics/25 stories.
+- Offline capture-plan gate requires one ready matching and rewrite request per expected topic/edition before combined budget calculation. Missing, duplicate, unexpected, cross-edition, unavailable and mismatched request-topic captures refuse. Explicit additional repair requests and protected baseline obligations count toward shared/model limits.
+- New CLI reads supplied captures/budget only, recalculates costs and writes a compact mode-600 report without overwriting. No provider, DB, config or ledger calls; production stays inactive. Supplied coverage does not prove complete runtime bounds or semantic quality.
+- Two targeted tests pass; synthetic CLI report/permissions/overwrite refusal pass. pnpm format/lint:fix and full check pass (1,197 unit / 332 integration, four expected skips); build and handbook pass (19 pages/21 diagrams/39 tables). Logs /tmp/2904-*.log.
+- TASKS and saved review updated; no source/UI/handbook behavior change. Semantic model/rewrite review, runtime five-topic plan and transactional admission remain open; scheduled missed-story/NBA/Tech review due after 15:00 UTC.
+- Final git diff --check clear; commit/push and API/worker/docs restart follow verification. No feature activation.
