@@ -37,6 +37,7 @@ import {
   withLlmExecution,
   withScheduledAttempt,
 } from '../src/modules/curation/public/scheduled-context';
+import { snapshotDevelopingStories } from '../src/modules/digests/application/snapshot-developing-stories';
 import { PostgresPreviewRepository } from '../src/modules/digests/database/preview.repository';
 import type { PreviewRepository } from '../src/modules/digests/domain/preview.repository';
 import type { Candidate, rank } from '../src/modules/digests/domain/rank';
@@ -49,6 +50,125 @@ const fixture = (name: string) =>
       'utf8',
     ),
   );
+
+void test('developing links survive PostgreSQL retrieval and immutable edition replacement', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const adapter = new PostgresPreviewRepository();
+  const ids = [crypto.randomUUID(), crypto.randomUUID(), crypto.randomUUID()];
+  const topicId = crypto.randomUUID();
+  const base = fixture('non-ai-golden');
+  const earlier = {
+    ...base.topics[0].stories[0],
+    summary: 'Earlier saved reporting, including its original uncertainty.',
+  };
+  const link = {
+    storyId: earlier.id,
+    previousEditionId: ids[0],
+    previousStoryId: earlier.id,
+    previousHeadline: earlier.title,
+    previousSummary: earlier.summary,
+    editionCount: 2,
+  };
+  const linked = snapshotDevelopingStories(
+    [{ ...earlier, title: 'New development' }],
+    [link],
+  );
+  const snapshots = ids.map((id, index) =>
+    digestPreviewSchema.parse({
+      ...base,
+      id,
+      createdAt: `2096-01-0${index + 1}T15:00:00.000Z`,
+      topics: [
+        {
+          ...base.topics[0],
+          id: topicId,
+          stories: index === 0 ? [earlier] : linked,
+        },
+      ],
+    }),
+  );
+  try {
+    for (const snapshot of snapshots.slice(0, 2))
+      await adapter.db.query(
+        `INSERT INTO digest_previews
+         (id,profile_id,created_at,window_start,window_end,snapshot,kind,published_at)
+         VALUES ($1,'00000000-0000-4000-8000-000000000001',$2,$3,$4,$5,'scheduled',$2)`,
+        [
+          snapshot.id,
+          snapshot.createdAt,
+          snapshot.windowStart,
+          snapshot.windowEnd,
+          snapshot,
+        ],
+      );
+    link.previousSummary = 'Mutated caller memory';
+    linked[0].developing!.previousHeadline = 'Mutated assembly memory';
+    const saved = digestPreviewSchema.parse(await adapter.find(ids[1], true));
+    assert.deepEqual(saved, snapshots[1]);
+    assert.equal(
+      saved.topics[0].stories[0].developing?.previousSummary,
+      earlier.summary,
+    );
+    assert.equal(
+      (await adapter.find(ids[0], true))?.topics[0].stories[0].developing,
+      undefined,
+    );
+    const history = await adapter.developingHistory({
+      id: ids[2],
+      profileId: '00000000-0000-4000-8000-000000000001',
+      topicId,
+      publishedAt: snapshots[2].createdAt,
+    });
+    assert.deepEqual(
+      history.map((edition) => edition.editionId),
+      [ids[1], ids[0]],
+    );
+    for (const id of ids.slice(0, 2)) {
+      await assert.rejects(
+        adapter.db.query('UPDATE digest_previews SET snapshot=$2 WHERE id=$1', [
+          id,
+          snapshots[2],
+        ]),
+        /immutable/i,
+      );
+      await assert.rejects(
+        adapter.db.query('DELETE FROM digest_previews WHERE id=$1', [id]),
+        /immutable/i,
+      );
+    }
+    const next = snapshots[2];
+    await adapter.db.query(
+      `INSERT INTO digest_previews
+       (id,profile_id,created_at,window_start,window_end,snapshot,kind,published_at)
+       VALUES ($1,'00000000-0000-4000-8000-000000000001',$2,$3,$4,$5,'scheduled',$2)`,
+      [next.id, next.createdAt, next.windowStart, next.windowEnd, next],
+    );
+    assert.deepEqual(await adapter.find(ids[1], true), saved);
+    assert.deepEqual(await adapter.find(ids[2], true), next);
+  } finally {
+    const cleanup = await adapter.db.connect();
+    try {
+      await cleanup.query('BEGIN');
+      await cleanup.query(
+        'ALTER TABLE digest_previews DISABLE TRIGGER immutable_digest_preview',
+      );
+      await cleanup.query(
+        'DELETE FROM digest_previews WHERE id=ANY($1::uuid[])',
+        [ids],
+      );
+      await cleanup.query(
+        'ALTER TABLE digest_previews ENABLE TRIGGER immutable_digest_preview',
+      );
+      await cleanup.query('COMMIT');
+    } catch (error) {
+      await cleanup.query('ROLLBACK');
+      throw error;
+    } finally {
+      cleanup.release();
+      await adapter.onModuleDestroy();
+    }
+  }
+});
 
 for (const { systemTest, mode } of [false, true].flatMap((systemTest) =>
   (

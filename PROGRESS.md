@@ -105,3 +105,12 @@
 - No provider calls, production wiring, published-edition/source changes or affected handbook architecture. TASKS and saved review updated; Destructoid remains blocked.
 - Verification: pnpm format/lint:fix, final pnpm check (1,157 unit / 331 integration passes, four expected skips), pnpm build, handbook (19 pages/21 diagrams/39 tables), targeted 4/4 and git diff --check pass. CLI manual replay passes three controls and reports semantic acceptance unestablished; logs /tmp/2884-*.log. Initial lint async-method error corrected; final checks use final files.
 - Next: obtain/review semantic outputs before activation, production integration and reader label; scheduled missed-story/NBA/Tech review after 15:00 UTC. Commit/push and API/worker/docs restart follow checks.
+
+## 2026-11-19: iteration 2885 — developing-link database persistence controls
+
+- Clean main at 0ef7ba62; no inherited work. Alerts and health clear; source check passes, digest queue zero failures with next run 15:00 UTC. Today's item 69 evaluation allowance already used; scheduled review waits.
+- Added isolated PostgreSQL coverage for contract-valid synthetic developing links: exact snapshot retrieval, optional-field compatibility, copied prose/count/IDs, history ordering and independence from later caller/assembly mutation.
+- Existing database triggers must reject updates/deletes of linked and unlinked editions; inserting a later edition must preserve the earlier link. Test inserts are setup, not production generation/publication orchestration.
+- No provider calls, live edition/source changes or reader changes. Semantic matching acceptance, generation/editor wiring and reader label remain open. TASKS and saved review updated; no affected handbook architecture.
+- Verification: pnpm format, pnpm lint:fix, pnpm check (1,157 unit / 332 integration passes, four expected skips), pnpm build, handbook (19 pages/21 diagrams/39 tables) and git diff --check pass. Logs /tmp/2885-*.log. Public-mode job state filter refused as designed; unfiltered queue-count check passes.
+- Next: semantic matching review and production integration; Nov 19 missed-story/NBA/Tech review after 15:00 UTC. Destructoid remains blocked. Commit/push and API/worker/docs restart follow checks.

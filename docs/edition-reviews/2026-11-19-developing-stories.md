@@ -87,3 +87,16 @@ relationship to the later resignation; it is not labelled a match.
   The report always marks semantic acceptance unestablished; recorded provenance
   and all unlabelled stories still need review before production activation.
 - No provider calls, new semantic outputs, production wiring or edition writes.
+
+## Stored-link integration — iteration 2885
+
+- Disposable PostgreSQL coverage saves contract-validated synthetic snapshots
+  with and without a developing link, then retrieves them through the production
+  repository. Exact predecessor IDs, copied prose and edition count survive JSONB.
+- Mutating caller or assembly memory leaves the saved link unchanged. History
+  reads retain the expected edition order; adding a later edition preserves the
+  earlier snapshot. Database triggers reject updates and deletes of both linked
+  and older unlinked snapshots.
+- Inserts are explicit test setup, not generation/publication orchestration.
+  Production generation still does not assemble links. No live data, provider
+  calls or reader changes; semantic matching and activation remain open.
