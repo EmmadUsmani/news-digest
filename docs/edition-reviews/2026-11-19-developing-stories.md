@@ -335,3 +335,10 @@ relationship to the later resignation; it is not labelled a match.
 - Stage swaps, unrelated/empty purposes and missing topic attribution refuse before budget evaluation. Valid supplied plans retain their existing cost calculation. Four offline tests cover both stages, unchanged inputs, no report on refusal, retained output evidence and overwrite refusal.
 - Historical synthetic `/tmp/2904-plan.json` uses generic `capture` purposes and now refuses; its old report is not admission evidence. This change checks attribution, not prompt authenticity, evidence completeness, semantic quality or runtime reservations. No provider calls or production activation.
 - Semantic review, complete runtime budget admission and real-edition acceptance remain open. Missed/NBA/Tech review still follows the 15:00 scheduled edition.
+
+## Iteration 2990 — selected enrichment entry point
+
+- Added inactive `enrichSelectedDevelopingStories`: matches accepted selections using original representative source title/excerpt, then invokes the existing fixed-selection rewrite exactly once for validated links. History remains complete and uses the existing 40-occurrence capacity gate.
+- Non-AI output, missing/duplicate selected evidence, duplicate selection IDs, empty history and excess capacity retain the original accepted array before any provider dispatch. Matching failure/no links skips rewriting; rewrite refusal retains the exact accepted selection without links or retries.
+- Two offline tests cover request order, current reporting rather than edited prose, preserved selection metadata/unmatched stories/input objects, atomic null refusal and no-dispatch gates. Scripted ports establish orchestration only; no semantic model acceptance or budget admission.
+- No generation wiring, provider calls, source/schema/UI/handbook changes or production activation. Complete runtime reservations, semantic review and real-edition reader acceptance remain required.

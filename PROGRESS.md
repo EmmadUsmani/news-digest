@@ -152,3 +152,13 @@
 - Alerts clear; /healthz database/Redis pass; all 14 services and 38 source checks pass, disk 61%. Digest-generation has zero failures and next run Nov 20 15:00 UTC. Live latest remains 7a747d9c with five topics.
 - No runtime, UI, source, schema or handbook changes; no provider calls. Verification logs: /tmp/2989-{format,lint,check,build}.log. Queue check initially used invalid digest name; all-queue check succeeds with digest-generation.
 - pnpm format/lint:fix, full pnpm check and pnpm build pass; 1,212 unit tests and 332 integration passes/four expected skips. Final diff check passes. Commit/push and API/worker restart follow; next use waiting time for items 69/70 and review Nov 20 scheduled evidence.
+
+## 2026-11-19: iteration 2990 — prepare selected developing enrichment
+
+- Clean main at 3470c4eb; no inherited work. Alerts clear, health database/Redis pass, 14 monitored services/38 source checks healthy and digest failures zero; next edition Nov 20 15:00 UTC.
+- Added inactive selection → matching → rewrite orchestration: original representative source reporting feeds matching, complete history retained, accepted selections stay fixed. No production generation wiring or provider calls.
+- Missing/duplicate evidence, duplicate selection IDs, non-AI fallback and oversized history refuse without dispatch; matching/refused rewrite retains the original accepted array without labels/retries. Successful rewrite preserves metadata and unmatched stories.
+- Two new offline tests verify source-vs-edited input, dispatch order, atomic fallback, capacity and unchanged inputs. Semantic review, complete runtime/ledger admission and real-edition acceptance remain open.
+- pnpm format, pnpm lint:fix, pnpm check and pnpm build pass: 1,214 unit tests, 332 integration passes/four expected skips. Logs /tmp/2990-{format,lint,check,build}.log; targeted test log /tmp/2990-target.log.
+- Local latest confirms 7a747d9c/five topics/25 real stories using existing local probe visitor. Initial unforwarded reader request hit rate limit; VM public HTTPS connection unavailable, so external HTTPS acceptance not claimed.
+- Updated TASKS and developing evidence; no active behavior/UI/source/schema/handbook change. Commit/push and API/worker restart follow. Next: semantic/whole-edition admission; Nov 20–22 missed-event daily reviews.
