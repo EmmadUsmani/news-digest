@@ -117,3 +117,11 @@
 - Build and handbook pass (19 pages/21 diagrams/39 tables); pnpm format/lint:fix pass. Initial full check exposed the evaluator's stale three-link count; updated to five for the added controls. Fresh full pnpm check passes: 1,193 unit / 332 integration, four expected skips. Logs /tmp/2902-*.log.
 - Direct default-visitor reader probe was rate-limited; explicit local probe succeeds. Public mode refuses private failed-job filtering; queue-count probe confirms zero failures. TASKS and saved review updated; older progress archived, task handoff condensed. No handbook/source behavior change.
 - Final git diff --check clear; commit/push and API/worker/docs restart follow verification. No feature activation.
+
+## 2026-11-19: iteration 2903 — combined developing-request budget preflight
+
+- Clean main at 1790fd94; no inherited work. Alerts/health pass; sources healthy (Destructoid inactive), digest queue zero failures/next 15:00 UTC. Reader five topics/25 stories.
+- Added offline combined-request calculator using production budget arithmetic: conservative UTF-8/cache-price bounds for all supplied matching/repair/rewrite requests, protected remaining edition obligations, shared daily/monthly headroom and model ceilings. Missing allocated-model snapshots, invalid funds/output bounds and oversized inputs refuse.
+- Two offline tests cover multiple calls, Unicode, exact model headroom/one-micro refusal, protected baseline funds, monthly limits, outstanding holds and invalid inputs. No provider/DB calls, ledger reservations or feature activation. Complete runtime plan, transactional admission and semantic review remain open.
+- Verification: initial full check caught missing void on the new node:test promises; corrected. Final pnpm check passes (1,195 unit / 332 integration, four expected skips). pnpm format/lint:fix pass. Build and handbook pass (19 pages/21 diagrams/39 tables). Logs /tmp/2903-*.log.
+- TASKS and saved review updated; no source/UI/handbook behavior change. Scheduled missed-story/NBA/Tech acceptance remains after 15:00 UTC. Commit/push and API/worker/docs restart follow verification.
