@@ -131,3 +131,23 @@ relationship to the later resignation; it is not labelled a match.
   orchestration using manual memberships, not semantic matching or writing quality.
   Production generation does not call this flow yet; activation and real-edition
   acceptance remain open pending semantic review and existing budget admission.
+
+## Actual request feasibility — iteration 2888
+
+- `prepare-developing-story-requests.ts` captures the existing EventGrouping
+  adapter's exact request through an in-process recorder, with input fingerprint,
+  dates, occurrence IDs, excerpt limits and the configured Haiku prices. It has
+  no provider or database adapter and writes a private, exclusive-create artifact.
+- All 35 Nov 12–18 topic windows checked: 30 requests ready; five correctly
+  unavailable (World Nov 13–14 has no current stories; U.S. Nov 12–14 has no
+  historical stories). No window exceeds the 40-occurrence limit.
+- Production-style conservative reservation bounds: Nov 12 $0.016621,
+  Nov 13 $0.011890, Nov 14 $0.011736, Nov 15 $0.018729,
+  Nov 16 $0.019267, Nov 17 $0.019665, Nov 18 $0.020139;
+  all 30 together $0.118047. These are bounds, not actual spend or budget
+  admission. Maximum input bound 18,868, below the 100,000 input limit.
+- Receipt: `/tmp/2888-developing-requests-final.json`; input
+  `/tmp/2877-developing-story-inputs.json`. No calls, semantic outputs or edition
+  writes. The selected-story replay fits request size; larger production
+  candidate pools still need checking. Semantic review and production admission
+  remain required; this is not activation or semantic acceptance.
