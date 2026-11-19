@@ -183,3 +183,11 @@
 - Verification: pnpm format, lint:fix, typecheck, build and handbook (19 pages/21 diagrams/39 tables) pass; full pnpm check passes (1,184 unit / 332 integration, four expected skips). Logs /tmp/2899-*.log.
 - Exact saved original-evidence requests, semantic review and whole-edition budget admission remain open. No source/UI or handbook behavior changes; scheduled missed-story/NBA/Tech review remains after 15:00 UTC.
 - Final git diff --check clear. Commit/push and API/worker/docs restart follow verification; no feature activation.
+
+## 2026-11-19: iteration 2900 — offline exact rewrite request receipts
+
+- Clean main at 9402f919; no inherited work. Alerts/health pass, active sources healthy; Destructoid inactive. Digest queue zero failed jobs, next scheduled 15:00 UTC. Disk 62%; reader five topics/25 stories.
+- Added offline capture CLI using the inactive real rewrite orchestration and a refusing fake port. Saves exact configured requests, original-input fingerprints, UTF-8/framing bounds and conservative single-rewrite reservations. No provider/DB calls or generation activation.
+- Two synthetic targeted tests pass: exact builder equality, Unicode/input preservation, cost arithmetic, changed-evidence fingerprint and zero requests for missing matches/evidence or oversized input. CLI empty capture writes mode 600 and refuses overwrite. Real saved evidence and semantic/whole-edition admission remain open.
+- Verification: pnpm format, lint:fix, check (1,186 unit / 332 integration pass, four expected skips), build pass; logs /tmp/2900-*.log. Default handbook hit HTTP 429; immediate restart retry hit startup ECONNREFUSED; explicit --owner-services verification passes (19 pages/21 diagrams/39 tables). API/worker/docs restarted; health passes.
+- TASKS and saved review updated; no source/UI/handbook behavior change. Scheduled missed-story/NBA/Tech review remains after 15:00 UTC. Commit/push follow verification.
