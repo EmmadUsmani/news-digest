@@ -556,3 +556,39 @@ void test('destination importance selects ten whole events before recency rankin
   assert.ok(ids.includes('10') && ids.includes('11'));
   assert.ok(!ids.includes('08') && !ids.includes('09'));
 });
+
+void test('ownership observation records only complete validated partitions', async () => {
+  for (const groups of [
+    null,
+    [{ topicId: 'world', ids: ['a', 'b', 'c'] }],
+    [{ topicId: 'world', ids: ['a', 'b', 'c', 'foreign'] }],
+    [{ topicId: 'world', ids: ['a', 'b', 'c', 'd', 'd'] }],
+    [{ topicId: 'other', ids: ['a', 'b', 'c', 'd'] }],
+    [{ topicId: 'world', ids: ['a', 'b', 'c', 'd'] }],
+  ]) {
+    const observations: unknown[] = [];
+    const result = await jointStoryShortlists(
+      { assignTopics: async () => groups },
+      pools,
+      start,
+      end,
+      'offline',
+      undefined,
+      (observation) => observations.push(observation),
+    );
+    if (!result) assert.deepEqual(observations, []);
+    else
+      assert.deepEqual(observations, [
+        {
+          candidates: pools.flatMap((pool) => pool.candidates),
+          groups,
+        },
+      ]);
+    assert.equal(
+      Boolean(result),
+      groups?.[0].ids.length === 4 &&
+        groups[0].topicId === 'world' &&
+        !groups[0].ids.includes('foreign'),
+    );
+  }
+});

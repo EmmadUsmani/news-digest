@@ -64,6 +64,16 @@ void test('politics production preparation shares reports, routes complete event
   );
   assert.ok(result);
   assert.equal(calls, 2);
+  assert.deepEqual(result.storyOwnership, {
+    inputArticles: ['shared', 'us', 'world'].map((id) => ({
+      id,
+      url: article(id).url,
+    })),
+    groups: [
+      { topicId: 'world', ids: ['us', 'shared'] },
+      { topicId: 'us', ids: ['world'] },
+    ],
+  });
   assert.equal(result.ranked.get('world')!.length, 1);
   assert.equal(result.ranked.get('us')![0].id, 'world');
   const world = result.ranked.get('world')![0];
@@ -104,5 +114,46 @@ void test('ownership refusal and incomplete paired triage abort the pair', async
       'edition',
     ),
     null,
+  );
+});
+
+void test('ownership evidence retains groups rejected by destination relevance before editing', async () => {
+  const result = await politicsStories(
+    pools,
+    {
+      async score(scope, candidates) {
+        const result = await triage.score(scope, candidates);
+        return {
+          ...result,
+          scores: result.scores.map((score) =>
+            scope.id === 'world' && score.id === 'us'
+              ? { ...score, relevance: 0, importance: 0 }
+              : score,
+          ),
+        };
+      },
+    },
+    {
+      async assignTopics() {
+        return [
+          { topicId: 'world', ids: ['us'] },
+          { topicId: 'us', ids: ['world', 'shared'] },
+        ];
+      },
+    },
+    start,
+    end,
+    'offline',
+  );
+  assert.ok(result);
+  assert.deepEqual(result.ranked.get('world'), []);
+  assert.deepEqual(result.storyOwnership?.groups[0], {
+    topicId: 'world',
+    ids: ['us'],
+  });
+  assert.ok(
+    result.storyOwnership?.inputArticles.some(
+      (item) => item.id === 'us' && item.url === article('us').url,
+    ),
   );
 });

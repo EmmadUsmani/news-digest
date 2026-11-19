@@ -298,6 +298,28 @@ export const digestPreviewSchema = z.object({
           reason: z.string(),
           brief: z.array(z.string()),
           candidatePrompt: z.string().max(100000).optional(),
+          storyOwnership: z
+            .object({
+              inputArticles: z
+                .array(
+                  z.object({
+                    id: z.string().min(1).max(200),
+                    url: z.string().url(),
+                  }),
+                )
+                .min(1)
+                .max(40),
+              groups: z
+                .array(
+                  z.object({
+                    topicId: z.string().min(1).max(200),
+                    ids: z.array(z.string().min(1).max(200)).min(1).max(40),
+                  }),
+                )
+                .min(1)
+                .max(40),
+            })
+            .optional(),
           storyGrouping: z
             .object({
               topicId: z.string().min(1),

@@ -465,6 +465,9 @@ export class PostgresPreviewRepository
             > = {
               mode: 'non-ai',
               model: null,
+              ...(paired?.storyOwnership
+                ? { storyOwnership: paired.storyOwnership }
+                : {}),
               brief: [],
               triage: [],
               unscoredIds: candidates.map((c) => c.id),

@@ -153,3 +153,13 @@
 - pnpm format/lint:fix run; pnpm build and affected handbook check pass (19 pages/one diagram/39 tables). Initial handbook check caught the 101-line limit, corrected by tightening the affected text; queue detail flags refused in public mode, corrected public-count check passes.
 - Live latest 7a747d9c remains five topics/25 real stories, private grouping absent. Updated TASKS, daily review and pipeline handbook; Nov 19 missing memberships/five-topic recall remain unresolved. Next: use scheduled capture for event matching, finish three reviews and measure the root-cause fix.
 - Full pnpm check passes: 1,210 unit tests/332 integration passes/four expected skips; logs /tmp/2954-*.log. Final diff check passes; commit/push and API/worker restart follow.
+
+## 2026-11-19: iteration 2955 — preserve joint World/U.S. ownership evidence
+
+- Clean main at f2fbf80a; no inherited work. Alerts clear; 38 sources/14 monitored services healthy, digest queue zero failures. No provider calls or production data edits.
+- Successful joint ownership saves exact input IDs/URLs and validated complete topic assignments in both private topic snapshots, before relevance/capacity filtering. Singleton groups are retained; invalid/refused/incomplete ownership supplies no validated evidence.
+- Unit controls cover complete partitions, foreign/duplicate/missing IDs, invalid topics and a destination-relevance rejection. Publication checks cover AI and non-AI editor outcomes; public preview checks pin private persistence and removal from reader responses.
+- Targeted checks pass (17 grouping/politics tests plus public preview controls). pnpm format/lint:fix and final pnpm check pass: 1,212 unit tests/332 integration passes/four expected skips. Initial check caught formatting in the newly appended progress entry; corrected before the complete successful run. pnpm build passes; affected handbook passes (19 pages/one unchanged diagram/39 tables) after correcting its 101-line limit.
+- Existing live edition 7a747d9c retains five topics/25 real stories and no private ownership field. Public mode refused detailed job filtering; corrected public-count query confirms zero digest failures. Logs /tmp/2955-*.log.
+- Updated TASKS, daily review and affected handbook. Nov 19 missing semantic memberships and five-topic event recall remain unresolved; next inspect scheduled joint/per-topic evidence, complete three reviews and measure the root-cause fix.
+- Final diff clean; commit/push and API/worker restart follow.

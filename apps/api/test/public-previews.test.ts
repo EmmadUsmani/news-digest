@@ -29,6 +29,12 @@ const snapshot: DigestPreview = {
         triage: [],
         unscoredIds: [],
         candidatePrompt: 'private-prepared-candidates',
+        storyOwnership: {
+          inputArticles: [
+            { id: 'private-a', url: 'https://example.com/private' },
+          ],
+          groups: [{ topicId: id, ids: ['private-a'] }],
+        },
         storyGrouping: {
           topicId: id,
           inputIds: ['private-a', 'private-b'],
@@ -52,6 +58,11 @@ void test('prepared preview reads force published storage and expose only reader
     digestPreviewSchema.parse({ ...snapshot, method: 'editorial-v1' }).topics[0]
       .editorial?.storyGrouping,
     snapshot.topics[0].editorial?.storyGrouping,
+  );
+  assert.deepEqual(
+    digestPreviewSchema.parse({ ...snapshot, method: 'editorial-v1' }).topics[0]
+      .editorial?.storyOwnership,
+    snapshot.topics[0].editorial?.storyOwnership,
   );
   const calls: unknown[] = [];
   const reads = new PublicPreviewReads({
@@ -93,7 +104,7 @@ void test('prepared preview reads force published storage and expose only reader
   assert.deepEqual(await reads.find(id), latest);
   assert.doesNotMatch(
     JSON.stringify([history, latest]),
-    /private-|candidateCount|method|topicModes|candidatePrompt|storyAdmission|storyGrouping/,
+    /private-|candidateCount|method|topicModes|candidatePrompt|storyAdmission|storyGrouping|storyOwnership/,
   );
   await assert.rejects(reads.find('missing'), NotFoundException);
   assert.deepEqual(calls, [

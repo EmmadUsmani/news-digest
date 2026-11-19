@@ -1,4 +1,4 @@
-import { relevancePolicySchema } from '@digest/contracts';
+import { type DigestPreview, relevancePolicySchema } from '@digest/contracts';
 
 import {
   articleTriageInput,
@@ -72,6 +72,9 @@ export async function politicsStories(
       40,
     ).shortlist.slice(0, 20),
   }));
+  let storyOwnership: NonNullable<
+    DigestPreview['topics'][number]['editorial']
+  >['storyOwnership'];
   const ranked = await jointStoryShortlists(
     ownership,
     selected,
@@ -89,6 +92,14 @@ export async function politicsStories(
           unscoredIds: [],
         }),
     },
+    ({ candidates: inputs, groups }) => {
+      storyOwnership = {
+        inputArticles: inputs.map(({ id, url }) => ({ id, url })),
+        groups: groups.map(({ topicId, ids }) => ({ topicId, ids: [...ids] })),
+      };
+    },
   );
-  return ranked ? { candidates: eligible, scores, ranked } : null;
+  return ranked
+    ? { candidates: eligible, scores, ranked, storyOwnership }
+    : null;
 }

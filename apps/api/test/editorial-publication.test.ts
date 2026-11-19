@@ -559,6 +559,18 @@ void test('production publication routes World/U.S. events before editing and pr
       refused,
     });
     assert.equal(snapshot.topics.length, 2);
+    const ownership = snapshot.topics[0].editorial?.storyOwnership;
+    assert.ok(ownership);
+    assert.deepEqual(snapshot.topics[1].editorial?.storyOwnership, ownership);
+    assert.equal(ownership.inputArticles.length, 2);
+    assert.deepEqual(
+      new Set(ownership.groups.flatMap((group) => group.ids)),
+      new Set(ownership.inputArticles.map((article) => article.id)),
+    );
+    assert.equal(ownership.groups.length, 2);
+    assert.ok(
+      !JSON.stringify(readerEdition(snapshot)).includes('storyOwnership'),
+    );
     assert.deepEqual(
       snapshot.topics.map((topic) => topic.stories.map((story) => story.id)),
       [['00000000-0000-4000-8000-000000000098'], [id]],

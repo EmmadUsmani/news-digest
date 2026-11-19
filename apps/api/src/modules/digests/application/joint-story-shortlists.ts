@@ -59,6 +59,10 @@ export async function jointStoryShortlists(
   end: Date,
   runId: string,
   triage?: TriagePort,
+  observeOwnership?: (input: {
+    candidates: Candidate[];
+    groups: OwnedStoryGroup[];
+  }) => void,
 ): Promise<Map<string, ReturnType<typeof rank>> | null> {
   const pools = sharedPools(inputPools);
   if (!pools) return null;
@@ -112,6 +116,7 @@ export async function jointStoryShortlists(
       }
     }
     if (membership.size !== all.length) return null;
+    observeOwnership?.({ candidates: all, groups });
     return new Map(
       pools.map(({ scope }) => {
         const eligible = scores
