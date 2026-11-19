@@ -1,0 +1,827 @@
+{
+  "editionId": "7a747d9c-3f5c-4e11-8200-2f19e8effc95",
+  "topic": "Gaming",
+  "windowStart": "2026-11-18T15:00:00.000Z",
+  "windowEnd": "2026-11-19T15:00:00.000Z",
+  "method": "Exact publisher URL identity into saved candidate/selected-cluster evidence; existing semantic triage retained, no inferred cross-URL grouping. Importance assessments are agent editorial judgements, not model scores.",
+  "recall": null,
+  "pending": "Unresolved external event membership and four editorial importance reviews prevent a complete denominator. Absent from a bounded pool is not proof of never collected.",
+  "finalInputIds": [
+    "9270bc8d-a8d4-46bf-8b93-e3497f0c8ff8",
+    "c872b24e-762b-4c47-af90-f2f7adc23041",
+    "5d32a4f1-7922-429e-ac5e-91f58b46dd15",
+    "df1f35f4-e974-4547-ab8e-86ad4036666b",
+    "7cadddd2-7b4c-455e-b031-56e908c60798",
+    "9c9aed78-21bc-425b-9f9a-ac252ac4f704",
+    "bcff1a6d-d61d-4602-9ff5-f6aa4fc2792e",
+    "15066462-c898-468e-8aff-dc3ea6efb48f",
+    "43d4ea9b-883c-454f-a55f-5525748e062c",
+    "453b4d3e-28e7-4908-8d4b-b0a7005794a9"
+  ],
+  "references": [
+    {
+      "title": "Arknights: Endfield named Google Play's best game of 2026",
+      "url": "https://www.gamesindustry.biz/arknights-endfield-named-google-plays-best-game-of-2026",
+      "publishedAt": "2026-11-18T17:36:20.000Z",
+      "observations": [
+        "2026-11-19T04:26:02.543Z",
+        "2026-11-19T12:20:11.999Z",
+        "2026-11-19T13:51:18.340Z",
+        "2026-11-19T13:57:05.602Z",
+        "2026-11-19T14:03:01.316Z",
+        "2026-11-19T14:20:42.323Z",
+        "2026-11-19T14:26:56.058Z",
+        "2026-11-19T14:39:01.824Z",
+        "2026-11-19T14:50:59.080Z",
+        "2026-11-19T15:00:13.441Z",
+        "2026-11-19T15:04:59.087Z"
+      ],
+      "selectedClusters": [],
+      "assessment": "review",
+      "editorJudgement": "Mobile platform annual award; read against other awards before declaring importance.",
+      "candidate": null,
+      "stage": "not in bounded newest-200 capture; collection status unknown"
+    },
+    {
+      "title": "18 unsolicited third-party statistics about GTA 6",
+      "url": "https://www.gamesindustry.biz/18-unsolicited-third-party-statistics-about-gta-6",
+      "publishedAt": "2026-11-18T17:03:10.000Z",
+      "observations": [
+        "2026-11-19T04:26:02.543Z",
+        "2026-11-19T12:20:11.999Z",
+        "2026-11-19T13:51:18.340Z",
+        "2026-11-19T13:57:05.602Z",
+        "2026-11-19T14:03:01.316Z",
+        "2026-11-19T14:20:42.323Z",
+        "2026-11-19T14:26:56.058Z",
+        "2026-11-19T14:39:01.824Z",
+        "2026-11-19T14:50:59.080Z",
+        "2026-11-19T15:00:13.441Z",
+        "2026-11-19T15:04:59.087Z"
+      ],
+      "selectedClusters": [],
+      "assessment": "exclude",
+      "editorJudgement": "Third-party launch statistics roundup, not a separately established development.",
+      "candidate": null,
+      "stage": "not in bounded newest-200 capture; collection status unknown"
+    },
+    {
+      "title": "Sam Houser: with GTA 6, Rockstar \"tried to create an experience that will exceed your expectations while showing what this medium is capable of\"",
+      "url": "https://www.gamesindustry.biz/sam-houser-with-gta-6-rockstar-tried-to-create-an-experience-that-will-exceed-your-expectations-while-showing-what-this-medium-is-capable-of",
+      "publishedAt": "2026-11-18T15:56:30.000Z",
+      "observations": [
+        "2026-11-19T04:26:02.543Z",
+        "2026-11-19T12:20:11.999Z",
+        "2026-11-19T13:51:18.340Z",
+        "2026-11-19T13:57:05.602Z",
+        "2026-11-19T14:03:01.316Z",
+        "2026-11-19T14:20:42.323Z",
+        "2026-11-19T14:26:56.058Z",
+        "2026-11-19T14:39:01.824Z",
+        "2026-11-19T14:50:59.080Z",
+        "2026-11-19T15:00:13.441Z",
+        "2026-11-19T15:04:59.087Z"
+      ],
+      "selectedClusters": [],
+      "assessment": "exclude",
+      "editorJudgement": "Promotional launch statement.",
+      "candidate": null,
+      "stage": "not in bounded newest-200 capture; collection status unknown"
+    },
+    {
+      "title": "GTA 6 arrives to record review scores and streaming audiences",
+      "url": "https://www.gamesindustry.biz/gta-6-arrives-to-record-review-scores-and-streaming-audiences",
+      "publishedAt": "2026-11-18T15:24:20.000Z",
+      "observations": [
+        "2026-11-19T04:26:02.543Z",
+        "2026-11-19T12:20:11.999Z",
+        "2026-11-19T13:51:18.340Z",
+        "2026-11-19T13:57:05.602Z",
+        "2026-11-19T14:03:01.316Z",
+        "2026-11-19T14:20:42.323Z",
+        "2026-11-19T14:26:56.058Z",
+        "2026-11-19T14:39:01.824Z",
+        "2026-11-19T14:50:59.080Z",
+        "2026-11-19T15:00:13.441Z",
+        "2026-11-19T15:04:59.087Z"
+      ],
+      "selectedClusters": [],
+      "assessment": "important",
+      "editorJudgement": "Major release reception and audience milestone; launch association needs semantic validation.",
+      "candidate": null,
+      "stage": "not in bounded newest-200 capture; collection status unknown"
+    },
+    {
+      "title": "GTA 6's Japanese version only partially obscures male nudity by putting Jason in a thong, seemingly due to regional censorship",
+      "url": "https://www.eurogamer.net/gta-6-japanese-jason-thong-regional-censorship",
+      "publishedAt": "2026-11-18T20:40:20.000Z",
+      "observations": [
+        "2026-11-19T04:26:02.634Z",
+        "2026-11-19T12:20:12.043Z",
+        "2026-11-19T13:51:18.398Z",
+        "2026-11-19T13:57:05.719Z",
+        "2026-11-19T14:03:01.378Z",
+        "2026-11-19T14:20:42.384Z",
+        "2026-11-19T14:26:56.106Z",
+        "2026-11-19T14:39:01.867Z",
+        "2026-11-19T14:50:59.131Z",
+        "2026-11-19T15:00:13.503Z",
+        "2026-11-19T15:04:59.147Z"
+      ],
+      "selectedClusters": [],
+      "assessment": "exclude",
+      "editorJudgement": "Regional cosmetic detail; the edition also carries a Japanese censorship post.",
+      "candidate": null,
+      "stage": "not in bounded newest-200 capture; collection status unknown"
+    },
+    {
+      "title": "Delete GTA 6 from your hard drive and indie publisher Devolver Digital might give you a free game",
+      "url": "https://www.eurogamer.net/delete-gta-6-free-game-devolver-digital",
+      "publishedAt": "2026-11-18T19:08:20.000Z",
+      "observations": [
+        "2026-11-19T04:26:02.634Z",
+        "2026-11-19T12:20:12.043Z",
+        "2026-11-19T13:51:18.398Z",
+        "2026-11-19T13:57:05.719Z",
+        "2026-11-19T14:03:01.378Z",
+        "2026-11-19T14:20:42.384Z",
+        "2026-11-19T14:26:56.106Z",
+        "2026-11-19T14:39:01.867Z",
+        "2026-11-19T14:50:59.131Z",
+        "2026-11-19T15:00:13.503Z",
+        "2026-11-19T15:04:59.147Z"
+      ],
+      "selectedClusters": [],
+      "assessment": "exclude",
+      "editorJudgement": "Publisher giveaway promotion.",
+      "candidate": null,
+      "stage": "not in bounded newest-200 capture; collection status unknown"
+    },
+    {
+      "title": "GTA 6 won't let you use cheats until you complete the main story, and locks progression when you do",
+      "url": "https://www.eurogamer.net/gta-6-no-cheats-until-completing-main-story",
+      "publishedAt": "2026-11-18T18:42:20.000Z",
+      "observations": [
+        "2026-11-19T04:26:02.634Z",
+        "2026-11-19T12:20:12.043Z",
+        "2026-11-19T13:51:18.398Z",
+        "2026-11-19T13:57:05.719Z",
+        "2026-11-19T14:03:01.378Z",
+        "2026-11-19T14:20:42.384Z",
+        "2026-11-19T14:26:56.106Z",
+        "2026-11-19T14:39:01.867Z",
+        "2026-11-19T14:50:59.131Z",
+        "2026-11-19T15:00:13.503Z",
+        "2026-11-19T15:04:59.147Z"
+      ],
+      "selectedClusters": [],
+      "assessment": "exclude",
+      "editorJudgement": "Gameplay/cheat guide detail.",
+      "candidate": null,
+      "stage": "not in bounded newest-200 capture; collection status unknown"
+    },
+    {
+      "title": "Even the PS5 Pro is \"not powerful enough\" to run GTA 6 at 60FPS or 40FPS, Rockstar says",
+      "url": "https://www.eurogamer.net/ps5-pro-not-powerful-enough-gta-6-60fps",
+      "publishedAt": "2026-11-18T18:17:50.000Z",
+      "observations": [
+        "2026-11-19T04:26:02.634Z",
+        "2026-11-19T12:20:12.043Z",
+        "2026-11-19T13:51:18.398Z",
+        "2026-11-19T13:57:05.719Z",
+        "2026-11-19T14:03:01.378Z",
+        "2026-11-19T14:20:42.384Z",
+        "2026-11-19T14:26:56.106Z",
+        "2026-11-19T14:39:01.867Z",
+        "2026-11-19T14:50:59.131Z",
+        "2026-11-19T15:00:13.503Z",
+        "2026-11-19T15:04:59.147Z"
+      ],
+      "selectedClusters": [],
+      "assessment": "important",
+      "editorJudgement": "Console performance limitation affects purchase expectations; membership unresolved.",
+      "candidate": null,
+      "stage": "not in bounded newest-200 capture; collection status unknown"
+    },
+    {
+      "title": "PSA: Some GTA 6 Ultimate Edition content is only available for the first chapter, and you'll have to put in hard graft to unlock more",
+      "url": "https://www.eurogamer.net/gta-6-ultimate-edition-unlock-details-temporary-content",
+      "publishedAt": "2026-11-18T17:42:30.000Z",
+      "observations": [
+        "2026-11-19T04:26:02.634Z",
+        "2026-11-19T12:20:12.043Z",
+        "2026-11-19T13:51:18.398Z",
+        "2026-11-19T13:57:05.719Z",
+        "2026-11-19T14:03:01.378Z",
+        "2026-11-19T14:20:42.384Z",
+        "2026-11-19T14:26:56.106Z",
+        "2026-11-19T14:39:01.867Z",
+        "2026-11-19T14:50:59.131Z",
+        "2026-11-19T15:00:13.503Z",
+        "2026-11-19T15:04:59.147Z"
+      ],
+      "selectedClusters": [],
+      "assessment": "exclude",
+      "editorJudgement": "Ultimate Edition unlock guide.",
+      "candidate": null,
+      "stage": "not in bounded newest-200 capture; collection status unknown"
+    },
+    {
+      "title": "Most, though not quite all, of the 34 fired Rockstar employees are named in the GTA 6 credits",
+      "url": "https://www.eurogamer.net/fired-rockstar-employees-named-gta-6-credits-tribunal",
+      "publishedAt": "2026-11-18T17:35:50.000Z",
+      "observations": [
+        "2026-11-19T04:26:02.634Z",
+        "2026-11-19T12:20:12.043Z",
+        "2026-11-19T13:51:18.398Z",
+        "2026-11-19T13:57:05.719Z",
+        "2026-11-19T14:03:01.378Z",
+        "2026-11-19T14:20:42.384Z",
+        "2026-11-19T14:26:56.106Z",
+        "2026-11-19T14:39:01.867Z",
+        "2026-11-19T14:50:59.131Z",
+        "2026-11-19T15:00:13.503Z",
+        "2026-11-19T15:04:59.147Z"
+      ],
+      "selectedClusters": [],
+      "assessment": "review",
+      "editorJudgement": "Credits detail tied to labor dispute; do not automatically merge with tribunal.",
+      "candidate": null,
+      "stage": "not in bounded newest-200 capture; collection status unknown"
+    },
+    {
+      "title": "GTA 6 is so big, it managed to break Reddit - and it isn't even actually out yet",
+      "url": "https://www.eurogamer.net/grand-theft-auto-6-breaks-reddit-not-out-yet",
+      "publishedAt": "2026-11-18T16:07:50.000Z",
+      "observations": [
+        "2026-11-19T04:26:02.634Z",
+        "2026-11-19T12:20:12.043Z",
+        "2026-11-19T13:51:18.398Z",
+        "2026-11-19T13:57:05.719Z",
+        "2026-11-19T14:03:01.378Z",
+        "2026-11-19T14:20:42.384Z",
+        "2026-11-19T14:26:56.106Z",
+        "2026-11-19T14:39:01.867Z",
+        "2026-11-19T14:50:59.131Z",
+        "2026-11-19T15:00:13.503Z",
+        "2026-11-19T15:04:59.147Z"
+      ],
+      "selectedClusters": [],
+      "assessment": "exclude",
+      "editorJudgement": "Transient website outage around launch.",
+      "candidate": null,
+      "stage": "not in bounded newest-200 capture; collection status unknown"
+    },
+    {
+      "title": "GTA 6 breaks the all-time livestream viewer record hours before it's available to play for most of the world",
+      "url": "https://www.eurogamer.net/grand-theft-auto-6-streaming-record-broken",
+      "publishedAt": "2026-11-18T15:42:50.000Z",
+      "observations": [
+        "2026-11-19T04:26:02.634Z",
+        "2026-11-19T12:20:12.043Z",
+        "2026-11-19T13:51:18.398Z",
+        "2026-11-19T13:57:05.719Z",
+        "2026-11-19T14:03:01.378Z",
+        "2026-11-19T14:20:42.384Z",
+        "2026-11-19T14:26:56.106Z",
+        "2026-11-19T14:39:01.867Z",
+        "2026-11-19T14:50:59.131Z",
+        "2026-11-19T15:00:13.503Z",
+        "2026-11-19T15:04:59.147Z"
+      ],
+      "selectedClusters": [],
+      "assessment": "important",
+      "editorJudgement": "Audience record; do not count independently from the reception reference until matched.",
+      "candidate": null,
+      "stage": "not in bounded newest-200 capture; collection status unknown"
+    },
+    {
+      "title": "PlayStation has no Game of the Year nominations at The Game Awards for the first time in 11 years",
+      "url": "https://www.eurogamer.net/playstation-sony-game-awards-no-nominations",
+      "publishedAt": "2026-11-18T15:17:10.000Z",
+      "observations": [
+        "2026-11-19T04:26:02.634Z",
+        "2026-11-19T12:20:12.043Z",
+        "2026-11-19T13:51:18.398Z",
+        "2026-11-19T13:57:05.719Z",
+        "2026-11-19T14:03:01.378Z",
+        "2026-11-19T14:20:42.384Z",
+        "2026-11-19T14:26:56.106Z",
+        "2026-11-19T14:39:01.867Z",
+        "2026-11-19T14:50:59.131Z",
+        "2026-11-19T15:00:13.503Z",
+        "2026-11-19T15:04:59.147Z"
+      ],
+      "selectedClusters": [],
+      "assessment": "review",
+      "editorJudgement": "Awards nomination absence; compare original nomination date before counting a new event.",
+      "candidate": null,
+      "stage": "not in bounded newest-200 capture; collection status unknown"
+    },
+    {
+      "title": "Just how detailed is the audio in GTA 6? Well, even convenience store refrigerators \"all have their own unique sounds\", says Rockstar dev",
+      "url": "https://www.eurogamer.net/gta-6-detailed-fridge-noise",
+      "publishedAt": "2026-11-18T15:10:30.000Z",
+      "observations": [
+        "2026-11-19T04:26:02.634Z",
+        "2026-11-19T12:20:12.043Z",
+        "2026-11-19T13:51:18.398Z",
+        "2026-11-19T13:57:05.719Z",
+        "2026-11-19T14:03:01.378Z",
+        "2026-11-19T14:20:42.384Z",
+        "2026-11-19T14:26:56.106Z",
+        "2026-11-19T14:39:01.867Z",
+        "2026-11-19T14:50:59.131Z",
+        "2026-11-19T15:00:13.503Z",
+        "2026-11-19T15:04:59.147Z"
+      ],
+      "selectedClusters": [],
+      "assessment": "exclude",
+      "editorJudgement": "Minor game audio feature.",
+      "candidate": null,
+      "stage": "not in bounded newest-200 capture; collection status unknown"
+    },
+    {
+      "title": "US Senate hearing examines child safety on Roblox, considers bipartisan bill to bypass forced arbitration",
+      "url": "https://www.gamesindustry.biz/us-senate-hearing-examines-child-safety-on-roblox-considers-bipartisan-bill-to-bypass-forced-arbitration",
+      "publishedAt": "2026-11-19T11:52:10.000Z",
+      "observations": [
+        "2026-11-19T12:20:11.999Z",
+        "2026-11-19T13:51:18.340Z",
+        "2026-11-19T13:57:05.602Z",
+        "2026-11-19T14:03:01.316Z",
+        "2026-11-19T14:20:42.323Z",
+        "2026-11-19T14:26:56.058Z",
+        "2026-11-19T14:39:01.824Z",
+        "2026-11-19T14:50:59.080Z",
+        "2026-11-19T15:00:13.441Z",
+        "2026-11-19T15:04:59.087Z"
+      ],
+      "selectedClusters": [],
+      "assessment": "important",
+      "editorJudgement": "Senate oversight of child safety and forced arbitration has platform-wide legal significance.",
+      "candidate": {
+        "id": "f54bd57c-d206-49be-8b86-4082d6f1852b",
+        "triage": {
+          "id": "f54bd57c-d206-49be-8b86-4082d6f1852b",
+          "event": "Senate hearing on Roblox child safety",
+          "rationale": "Congressional scrutiny of gaming platform, bill on arbitration",
+          "relevance": 7,
+          "importance": 6
+        },
+        "finalRepresentative": false
+      },
+      "stage": "collected but not shortlisted"
+    },
+    {
+      "title": "The future of British gaming is more than just games | Opinion",
+      "url": "https://www.gamesindustry.biz/the-future-of-british-gaming-is-more-than-just-games-opinion",
+      "publishedAt": "2026-11-19T10:32:50.000Z",
+      "observations": [
+        "2026-11-19T12:20:11.999Z",
+        "2026-11-19T13:51:18.340Z",
+        "2026-11-19T13:57:05.602Z",
+        "2026-11-19T14:03:01.316Z",
+        "2026-11-19T14:20:42.323Z",
+        "2026-11-19T14:26:56.058Z",
+        "2026-11-19T14:39:01.824Z",
+        "2026-11-19T14:50:59.080Z",
+        "2026-11-19T15:00:13.441Z",
+        "2026-11-19T15:04:59.087Z"
+      ],
+      "selectedClusters": [],
+      "assessment": "exclude",
+      "editorJudgement": "Industry opinion without a new reported event.",
+      "candidate": {
+        "id": "6e683f39-4c56-4c27-bdeb-fd5ec2974680",
+        "triage": {
+          "id": "6e683f39-4c56-4c27-bdeb-fd5ec2974680",
+          "event": "British gaming industry opinion",
+          "rationale": "Opinion piece on UK studios",
+          "relevance": 7,
+          "importance": 2
+        },
+        "finalRepresentative": false
+      },
+      "stage": "collected; representative absent; check grouped evidence"
+    },
+    {
+      "title": "Rockstar and IWGB members issue closing arguments following conclusion of employment tribunal",
+      "url": "https://www.gamesindustry.biz/rockstar-and-iwgb-members-issue-closing-arguments-following-conclusion-of-employment-tribunal",
+      "publishedAt": "2026-11-19T10:03:40.000Z",
+      "observations": [
+        "2026-11-19T12:20:11.999Z",
+        "2026-11-19T13:51:18.340Z",
+        "2026-11-19T13:57:05.602Z",
+        "2026-11-19T14:03:01.316Z",
+        "2026-11-19T14:20:42.323Z",
+        "2026-11-19T14:26:56.058Z",
+        "2026-11-19T14:39:01.824Z",
+        "2026-11-19T14:50:59.080Z",
+        "2026-11-19T15:00:13.441Z",
+        "2026-11-19T15:04:59.087Z"
+      ],
+      "selectedClusters": [
+        {
+          "id": "df1f35f4-e974-4547-ab8e-86ad4036666b",
+          "title": "Rockstar union-busting tribunal hearing ends; judge promises quick verdict"
+        }
+      ],
+      "assessment": "important",
+      "editorJudgement": "Closing of employment tribunal hearing; saved selected cluster establishes membership.",
+      "candidate": {
+        "id": "9bf51397-245d-4324-8cea-03285ebcfdc8",
+        "triage": {
+          "id": "9bf51397-245d-4324-8cea-03285ebcfdc8",
+          "event": "Rockstar firings tribunal closings",
+          "rationale": "Closing arguments in Rockstar union tribunal",
+          "relevance": 8,
+          "importance": 5
+        },
+        "finalRepresentative": false
+      },
+      "stage": "selected-cluster"
+    },
+    {
+      "title": "GTA 6 developers at Rockstar are worried about being laid off after shipping \"the biggest game of all time\"",
+      "url": "https://www.eurogamer.net/gta-6-rockstar-developers-layoffs-worries",
+      "publishedAt": "2026-11-19T12:16:00.000Z",
+      "observations": [
+        "2026-11-19T12:20:12.043Z",
+        "2026-11-19T13:51:18.398Z",
+        "2026-11-19T13:57:05.719Z",
+        "2026-11-19T14:03:01.378Z",
+        "2026-11-19T14:20:42.384Z",
+        "2026-11-19T14:26:56.106Z",
+        "2026-11-19T14:39:01.867Z",
+        "2026-11-19T14:50:59.131Z",
+        "2026-11-19T15:00:13.503Z",
+        "2026-11-19T15:04:59.147Z"
+      ],
+      "selectedClusters": [],
+      "assessment": "important",
+      "editorJudgement": "Post-launch employment and unionization concerns; distinctness from selected labor hearing unresolved.",
+      "candidate": {
+        "id": "7234d33b-c12c-475b-ae91-f15cb7244d8a",
+        "triage": {
+          "id": "7234d33b-c12c-475b-ae91-f15cb7244d8a",
+          "event": "GTA 6 shipped; Rockstar layoff fears",
+          "rationale": "Major release; reports developer layoff worries",
+          "relevance": 9,
+          "importance": 7
+        },
+        "finalRepresentative": false
+      },
+      "stage": "collected; representative absent; check grouped evidence"
+    },
+    {
+      "title": "After Grand Theft Auto 6's launch, players are in love with wacky criminality, in-game social media, and animal fatalities",
+      "url": "https://www.eurogamer.net/grand-theft-auto-6-players-love-crime-social-media-animals",
+      "publishedAt": "2026-11-19T09:38:50.000Z",
+      "observations": [
+        "2026-11-19T12:20:12.043Z",
+        "2026-11-19T13:51:18.398Z",
+        "2026-11-19T13:57:05.719Z",
+        "2026-11-19T14:03:01.378Z",
+        "2026-11-19T14:20:42.384Z",
+        "2026-11-19T14:26:56.106Z",
+        "2026-11-19T14:39:01.867Z",
+        "2026-11-19T14:50:59.131Z",
+        "2026-11-19T15:00:13.503Z",
+        "2026-11-19T15:04:59.147Z"
+      ],
+      "selectedClusters": [],
+      "assessment": "exclude",
+      "editorJudgement": "Player-reaction color around launch.",
+      "candidate": {
+        "id": "a65b4a63-0e13-4a0a-b1eb-c18102a0206f",
+        "triage": {
+          "id": "a65b4a63-0e13-4a0a-b1eb-c18102a0206f",
+          "event": "GTA 6 launch player reactions",
+          "rationale": "Player reaction coverage after launch",
+          "relevance": 9,
+          "importance": 6
+        },
+        "finalRepresentative": false
+      },
+      "stage": "collected; representative absent; check grouped evidence"
+    },
+    {
+      "title": "Grand Theft Auto 6 launch day live - news and reaction as GTA 6 arrives around the world",
+      "url": "https://www.eurogamer.net/gta-6-grand-theft-auto-6-launch-day-live-blog",
+      "publishedAt": "2026-11-19T09:05:00.000Z",
+      "observations": [
+        "2026-11-19T12:20:12.043Z",
+        "2026-11-19T13:51:18.398Z",
+        "2026-11-19T13:57:05.719Z",
+        "2026-11-19T14:03:01.378Z",
+        "2026-11-19T14:20:42.384Z",
+        "2026-11-19T14:26:56.106Z",
+        "2026-11-19T14:39:01.867Z",
+        "2026-11-19T14:50:59.131Z",
+        "2026-11-19T15:00:13.503Z",
+        "2026-11-19T15:04:59.147Z"
+      ],
+      "selectedClusters": [],
+      "assessment": "important",
+      "editorJudgement": "Worldwide release of major game; saved semantic event association still required.",
+      "candidate": {
+        "id": "fb1fe8f9-5787-46ae-b812-4878b2fff972",
+        "triage": {
+          "id": "fb1fe8f9-5787-46ae-b812-4878b2fff972",
+          "event": "GTA 6 worldwide launch",
+          "rationale": "Live coverage of major GTA 6 release",
+          "relevance": 10,
+          "importance": 9
+        },
+        "finalRepresentative": false
+      },
+      "stage": "collected; representative absent; check grouped evidence"
+    },
+    {
+      "title": "It really seems like Xbox isn't allowed to say GTA 6 at all",
+      "url": "https://www.eurogamer.net/xbox-cant-say-grand-theft-auto-6-marketing",
+      "publishedAt": "2026-11-19T08:41:40.000Z",
+      "observations": [
+        "2026-11-19T12:20:12.043Z",
+        "2026-11-19T13:51:18.398Z",
+        "2026-11-19T13:57:05.719Z",
+        "2026-11-19T14:03:01.378Z",
+        "2026-11-19T14:20:42.384Z",
+        "2026-11-19T14:26:56.106Z",
+        "2026-11-19T14:39:01.867Z",
+        "2026-11-19T14:50:59.131Z",
+        "2026-11-19T15:00:13.503Z",
+        "2026-11-19T15:04:59.147Z"
+      ],
+      "selectedClusters": [],
+      "assessment": "exclude",
+      "editorJudgement": "Marketing observation without consequential new development.",
+      "candidate": {
+        "id": "82a7ee50-b11b-4656-a071-17a85d58cc53",
+        "triage": {
+          "id": "82a7ee50-b11b-4656-a071-17a85d58cc53",
+          "event": "Xbox GTA 6 marketing avoidance",
+          "rationale": "Marketing angle on GTA 6 launch",
+          "relevance": 7,
+          "importance": 3
+        },
+        "finalRepresentative": false
+      },
+      "stage": "collected; representative absent; check grouped evidence"
+    },
+    {
+      "title": "GTA 6 has replaced websites with social media and phone apps because \"it didn't feel necessary\"",
+      "url": "https://www.eurogamer.net/grand-theft-auto-6-no-web-social-media-apps",
+      "publishedAt": "2026-11-19T13:43:10.000Z",
+      "observations": [
+        "2026-11-19T13:51:18.398Z",
+        "2026-11-19T13:57:05.719Z",
+        "2026-11-19T14:03:01.378Z",
+        "2026-11-19T14:20:42.384Z",
+        "2026-11-19T14:26:56.106Z",
+        "2026-11-19T14:39:01.867Z",
+        "2026-11-19T14:50:59.131Z",
+        "2026-11-19T15:00:13.503Z",
+        "2026-11-19T15:04:59.147Z"
+      ],
+      "selectedClusters": [],
+      "assessment": "exclude",
+      "editorJudgement": "Minor in-game interface design detail.",
+      "candidate": {
+        "id": "1ea05d47-4299-4388-b331-ecd7512f95de",
+        "triage": {
+          "id": "1ea05d47-4299-4388-b331-ecd7512f95de",
+          "event": "GTA 6 replaces websites with social media",
+          "rationale": "Design choice explained by Rockstar",
+          "relevance": 7,
+          "importance": 3
+        },
+        "finalRepresentative": false
+      },
+      "stage": "collected; representative absent; check grouped evidence"
+    },
+    {
+      "title": "GameStop CEO slams 'code-in-a-box' games in the wake of GTA 6's discless release",
+      "url": "https://www.eurogamer.net/gta-6-discless-release-code-in-a-box-gamestop-ceo",
+      "publishedAt": "2026-11-19T13:03:30.000Z",
+      "observations": [
+        "2026-11-19T13:51:18.398Z",
+        "2026-11-19T13:57:05.719Z",
+        "2026-11-19T14:03:01.378Z",
+        "2026-11-19T14:20:42.384Z",
+        "2026-11-19T14:26:56.106Z",
+        "2026-11-19T14:39:01.867Z",
+        "2026-11-19T14:50:59.131Z",
+        "2026-11-19T15:00:13.503Z",
+        "2026-11-19T15:04:59.147Z"
+      ],
+      "selectedClusters": [
+        {
+          "id": "c872b24e-762b-4c47-af90-f2f7adc23041",
+          "title": "GameStop CEO criticizes all-digital game releases as GTA 6 launches"
+        }
+      ],
+      "assessment": "important",
+      "editorJudgement": "Digital ownership and retail dispute; saved selected cluster establishes membership.",
+      "candidate": {
+        "id": "ac9cb8d5-c8a5-4443-b94e-3ab1cbf4cb99",
+        "triage": {
+          "id": "ac9cb8d5-c8a5-4443-b94e-3ab1cbf4cb99",
+          "event": "GameStop CEO criticizes GTA 6 digital-only",
+          "rationale": "Industry criticism of discless releases",
+          "relevance": 8,
+          "importance": 6
+        },
+        "finalRepresentative": false
+      },
+      "stage": "selected-cluster"
+    },
+    {
+      "title": "The hunt for World of Warcraft: Forever secrets continue with the discovery of an elusive pet",
+      "url": "https://www.eurogamer.net/world-of-warcraft-forever-secret-hunter-pet-green-cat",
+      "publishedAt": "2026-11-19T12:35:00.000Z",
+      "observations": [
+        "2026-11-19T13:51:18.398Z",
+        "2026-11-19T13:57:05.719Z",
+        "2026-11-19T14:03:01.378Z",
+        "2026-11-19T14:20:42.384Z",
+        "2026-11-19T14:26:56.106Z",
+        "2026-11-19T14:39:01.867Z",
+        "2026-11-19T14:50:59.131Z",
+        "2026-11-19T15:00:13.503Z",
+        "2026-11-19T15:04:59.147Z"
+      ],
+      "selectedClusters": [],
+      "assessment": "exclude",
+      "editorJudgement": "Hidden-pet guide/discovery.",
+      "candidate": {
+        "id": "a4613649-356b-4fed-bf59-55dc148a7e37",
+        "triage": {
+          "id": "a4613649-356b-4fed-bf59-55dc148a7e37",
+          "event": "WoW: Forever hidden pet discovered",
+          "rationale": "Blizzard game secret find; minor in-game news",
+          "relevance": 6,
+          "importance": 2
+        },
+        "finalRepresentative": false
+      },
+      "stage": "collected; representative absent; check grouped evidence"
+    },
+    {
+      "title": "Call of Duty: Modern Warfare 4 debuts as top-selling game in US for October 2026",
+      "url": "https://www.gamesindustry.biz/call-of-duty-modern-warfare-4-debuts-as-top-selling-game-in-us-for-october-2026",
+      "publishedAt": "2026-11-19T14:00:00.000Z",
+      "observations": [
+        "2026-11-19T14:03:01.316Z",
+        "2026-11-19T14:20:42.323Z",
+        "2026-11-19T14:26:56.058Z",
+        "2026-11-19T14:39:01.824Z",
+        "2026-11-19T14:50:59.080Z",
+        "2026-11-19T15:00:13.441Z",
+        "2026-11-19T15:04:59.087Z"
+      ],
+      "selectedClusters": [
+        {
+          "id": "5d32a4f1-7922-429e-ac5e-91f58b46dd15",
+          "title": "Circana: US console unit sales rose in October despite higher prices"
+        }
+      ],
+      "assessment": "important",
+      "editorJudgement": "Monthly US sales report; saved selected cluster establishes membership.",
+      "candidate": {
+        "id": "4c292142-fe00-4f45-be73-a663558b1a94",
+        "triage": {
+          "id": "4c292142-fe00-4f45-be73-a663558b1a94",
+          "event": "Circana October 2026 top seller CoD MW4",
+          "rationale": "Modern Warfare 4 debuts top US October sales",
+          "relevance": 8,
+          "importance": 5
+        },
+        "finalRepresentative": false
+      },
+      "stage": "selected-cluster"
+    },
+    {
+      "title": "Call of Duty: Modern Warfare 4 was October's biggest game in the US, but it wasn't enough to crack 2026's best-selling top 10",
+      "url": "https://www.eurogamer.net/call-of-duty-modern-warfare-4-october-top-seller",
+      "publishedAt": "2026-11-19T14:01:40.000Z",
+      "observations": [
+        "2026-11-19T14:03:01.378Z",
+        "2026-11-19T14:20:42.384Z",
+        "2026-11-19T14:26:56.106Z",
+        "2026-11-19T14:39:01.867Z",
+        "2026-11-19T14:50:59.131Z",
+        "2026-11-19T15:00:13.503Z",
+        "2026-11-19T15:04:59.147Z"
+      ],
+      "selectedClusters": [
+        {
+          "id": "5d32a4f1-7922-429e-ac5e-91f58b46dd15",
+          "title": "Circana: US console unit sales rose in October despite higher prices"
+        }
+      ],
+      "assessment": "important",
+      "editorJudgement": "Same monthly sales report; same saved selected cluster, count once.",
+      "candidate": {
+        "id": "800fd379-badf-44e0-8ee5-56bb02916c30",
+        "triage": {
+          "id": "800fd379-badf-44e0-8ee5-56bb02916c30",
+          "event": "Circana October 2026 top seller CoD MW4",
+          "rationale": "Modern Warfare 4 tops US October sales",
+          "relevance": 8,
+          "importance": 5
+        },
+        "finalRepresentative": false
+      },
+      "stage": "selected-cluster"
+    },
+    {
+      "title": "Warren Spector lambasts GTA 6's \"billion dollar\" development - 'I just hope it's is the last of its kind even if it's the best we have to offer'",
+      "url": "https://www.eurogamer.net/gta-6-warren-spector-lambasts-billion-dollar-development",
+      "publishedAt": "2026-11-19T14:08:40.000Z",
+      "observations": [
+        "2026-11-19T14:20:42.384Z",
+        "2026-11-19T14:26:56.106Z",
+        "2026-11-19T14:39:01.867Z",
+        "2026-11-19T14:50:59.131Z",
+        "2026-11-19T15:00:13.503Z",
+        "2026-11-19T15:04:59.147Z"
+      ],
+      "selectedClusters": [],
+      "assessment": "exclude",
+      "editorJudgement": "Individual opinion on development costs.",
+      "candidate": {
+        "id": "a12f6fe4-d546-42b7-b97d-d2ae33289fb3",
+        "triage": {
+          "id": "a12f6fe4-d546-42b7-b97d-d2ae33289fb3",
+          "event": "Spector criticizes GTA 6 budget",
+          "rationale": "Industry figure critiques billion-dollar development model",
+          "relevance": 7,
+          "importance": 4
+        },
+        "finalRepresentative": false
+      },
+      "stage": "collected; representative absent; check grouped evidence"
+    },
+    {
+      "title": "As Rockstar's alleged \"union busting\" tribunal hearing comes to a close amid GTA 6 launch, judge pledges to deliver verdict \"as quickly as I possibly can\"",
+      "url": "https://www.eurogamer.net/gta-6-rockstar-tribunal-awaits-verdict",
+      "publishedAt": "2026-11-19T14:08:10.000Z",
+      "observations": [
+        "2026-11-19T14:20:42.384Z",
+        "2026-11-19T14:26:56.106Z",
+        "2026-11-19T14:39:01.867Z",
+        "2026-11-19T14:50:59.131Z",
+        "2026-11-19T15:00:13.503Z",
+        "2026-11-19T15:04:59.147Z"
+      ],
+      "selectedClusters": [
+        {
+          "id": "df1f35f4-e974-4547-ab8e-86ad4036666b",
+          "title": "Rockstar union-busting tribunal hearing ends; judge promises quick verdict"
+        }
+      ],
+      "assessment": "important",
+      "editorJudgement": "Same tribunal closure; same saved selected cluster, count once.",
+      "candidate": {
+        "id": "df1f35f4-e974-4547-ab8e-86ad4036666b",
+        "triage": {
+          "id": "df1f35f4-e974-4547-ab8e-86ad4036666b",
+          "event": "Rockstar IWGB tribunal hearing closes",
+          "rationale": "Studio labor case closing statements, verdict pending",
+          "relevance": 8,
+          "importance": 6
+        },
+        "finalRepresentative": true
+      },
+      "stage": "selected-cluster"
+    },
+    {
+      "title": "Does GTA 6 have an 'easy mode'? Not officially, but there are two very important settings you can change to make the game less difficult",
+      "url": "https://www.eurogamer.net/gta-6-easy-mode-accessibility-options",
+      "publishedAt": "2026-11-19T14:42:20.000Z",
+      "observations": [
+        "2026-11-19T14:50:59.131Z",
+        "2026-11-19T15:00:13.503Z",
+        "2026-11-19T15:04:59.147Z"
+      ],
+      "selectedClusters": [],
+      "assessment": "exclude",
+      "editorJudgement": "Difficulty/settings guide.",
+      "candidate": null,
+      "stage": "not in bounded newest-200 capture; collection status unknown"
+    },
+    {
+      "title": "007 First Light wins GOTY at 2026 TIGA Awards, Dovetail Games takes home four accolades including Best Publisher",
+      "url": "https://www.gamesindustry.biz/007-first-light-wins-goty-at-2026-tiga-awards-dovetail-games-takes-home-four-accolades-including-best-publisher",
+      "publishedAt": "2026-11-19T14:55:30.000Z",
+      "observations": ["2026-11-19T15:00:13.441Z", "2026-11-19T15:04:59.087Z"],
+      "selectedClusters": [],
+      "assessment": "review",
+      "editorJudgement": "Industry awards result; compare importance with other awards before inclusion.",
+      "candidate": null,
+      "stage": "not in bounded newest-200 capture; collection status unknown"
+    }
+  ]
+}

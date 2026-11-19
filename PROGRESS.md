@@ -137,3 +137,12 @@
 - Saved-evidence assertion check passes: 12 scores, one admitted representative, zero selections, 9/5 prompt/selection IDs, four observations/two pre-cutoff and Arizona post. Handbook check passes (19 pages/21 diagrams/39 tables).
 - pnpm format, pnpm lint:fix and full pnpm check pass: 1,204 unit / 332 integration, four expected skips (/tmp/2938-check.log). No paid calls, collection, scoring changes, builds/deploys or service restarts during the 13:00–16:00 hold; application code unchanged.
 - Final health/alerts pass; documentation/evidence-only commit and push follow. No rebuild/restart needed. Next: finish importance/event matching and recall/causes in this daily review, then event concentration.
+
+## 2026-11-19: iteration 2939 — review Gaming references and locate shortlist omission
+
+- Clean main at f5f0ef54; no inherited work. Initial alerts clear; health database/Redis pass. Documentation/evidence only, no runtime changes.
+- Preserved all 30 distinct Gaming references with observation times, editorial assessments and exact saved candidate/triage identity: 15 excluded, 11 important articles, four importance/date decisions pending. Article counts are not event counts or a completed recall denominator.
+- Existing selected-cluster membership resolves five reference URLs to three events (tribunal, Circana, retail dispute); duplicate references count once. Unresolved launch/performance/labor memberships remain explicit; no wording matcher or invented semantic grouping.
+- Confirmed Roblox child-safety Senate hearing is collected but not shortlisted: exact publisher URL, saved 7/6 semantic triage, pre-cutoff observation, absent from ten final representatives and all supplied prompt/story/post text. Motivation remains unknown; no scoring changes or root-cause deployment.
+- Saved-evidence assertions pass for 30 dates/URLs, candidate/triage identity, five links/three selected events, Roblox stage and unset recall. Updated the same daily review and TASKS; five-topic recall and three completed reviews remain open.
+- pnpm format/lint:fix and full pnpm check pass: 1,204 unit / 332 integration tests, four expected skips. Handbook passes (19 pages/21 diagrams/39 tables). Logs /tmp/2939-*.log; final health/alerts clear. No paid calls, source changes, build/deploy or restart during the 13:00–16:00 hold; unchanged application needs no restart. Commit/push follow verification.
