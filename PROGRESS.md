@@ -113,3 +113,12 @@
 - Exact saved-evidence assertions pass (seven groups, uniqueness, five URL/ID/selected membership checks, three absent-routing controls); handbook passes 19 pages/21 diagrams/39 tables. Logs /tmp/2946-*.log.
 - Final services/sources checks pass (Destructoid remains paused); digest queue zero failures. Public jobs counts pass; detailed failed-state query is unavailable in public mode. Final health/alerts clear.
 - Runtime unchanged; no rebuild or restart needed, live application remains aligned with main. pnpm format/lint:fix and full pnpm check pass: 1,204 unit tests/332 integration passes/four expected skips; git diff check passes. Commit/push follow.
+
+## 2026-11-19: iteration 2947 — resolve Gaming collection uncertainty
+
+- Clean main at d38b4a8b; no inherited work. Initial alerts clear; health database/Redis pass. Evidence/docs only; no production writes, runtime changes or paid calls.
+- Exact canonical-URL lookup finds all three important Gaming references absent from the bounded newest-200 capture: GTA reception, audience record and PS5 Pro limits. All fetched Nov 18 before cutoff; preserve IDs, source excerpts and timestamps.
+- Never-collected is ruled out for these URLs. No IDs in saved returned merges, final representative list or selected coverage; current cache search returns no matching response but cannot prove historical triage failure.
+- Three exact-URL/pre-cutoff and absent-routing assertions pass; recall remains null. Cross-URL event matching and five-topic recall/causes remain next; no new confirmed event omission or tuning.
+- Handbook passes 19 pages/21 diagrams/39 tables; all 14 monitored services healthy. Initial source/job CLI checks rate-limited (HTTP 429); retries pass: sources healthy and digest queue zero failures. Logs /tmp/2947-*.log.
+- Runtime unchanged; no rebuild/restart required, live app remains aligned with main. pnpm format/lint:fix and full pnpm check pass: 1,204 unit tests/332 integration passes/four expected skips. Final health/alerts clear; git diff check passes. Commit/push follow.

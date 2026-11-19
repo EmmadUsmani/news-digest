@@ -984,5 +984,46 @@
       }
     ],
     "limits": "Cache row records returned multi-article merges, not singleton inputs or a complete reference matching pass. Five selected reference URLs map to three distinct saved clusters. No cross-URL inference for absent candidates, new omission count or event recall."
+  },
+  "collectionLookupAudit": {
+    "iteration": 2947,
+    "checkedAt": "2026-11-19T17:00:52.343Z",
+    "method": "Read-only content_items lookup by exact canonical_url for all three important references absent from the bounded capture. Read-only llm_cache response search by the three exact IDs returned zero rows.",
+    "rows": [
+      {
+        "url": "https://www.gamesindustry.biz/gta-6-arrives-to-record-review-scores-and-streaming-audiences",
+        "id": "6689274b-49fd-4ead-a41c-c7f5f358636f",
+        "title": "GTA 6 arrives to record review scores and streaming audiences",
+        "excerpt": "GTA 6 has already set records for critical response and streaming audience, even before formally releasing in much of the globe including Europe and the USA. Read more",
+        "publishedAt": "2026-11-18T15:24:20.000Z",
+        "fetchedAt": "2026-11-18T15:29:50.728Z",
+        "inReturnedMerge": false,
+        "inFinalRepresentativeList": false,
+        "inSelectedCoverage": false
+      },
+      {
+        "url": "https://www.eurogamer.net/ps5-pro-not-powerful-enough-gta-6-60fps",
+        "id": "b4a98fdc-5c24-4b72-b903-d4e2ff4369f8",
+        "title": "Even the PS5 Pro is \"not powerful enough\" to run GTA 6 at 60FPS or 40FPS, Rockstar says",
+        "excerpt": "Don't expect GTA 6 to get an update supporting higher framerate modes, at least, not on current-generation consoles. Rockstar has explained that even the most powerful console of the bunch, the PS5 Pro, isn't powerful enough to run the lavish game at 40FPS or 60FPS.…",
+        "publishedAt": "2026-11-18T18:17:50.000Z",
+        "fetchedAt": "2026-11-18T18:41:28.523Z",
+        "inReturnedMerge": false,
+        "inFinalRepresentativeList": false,
+        "inSelectedCoverage": false
+      },
+      {
+        "url": "https://www.eurogamer.net/grand-theft-auto-6-streaming-record-broken",
+        "id": "15cab3b5-b204-401c-9adb-3a73476c18e9",
+        "title": "GTA 6 breaks the all-time livestream viewer record hours before it's available to play for most of the world",
+        "excerpt": "Hours before it's even playable in most of the world, Grand Theft Auto 6 has already broken the record for the most viewers across livestreaming platforms like Twitch.…",
+        "publishedAt": "2026-11-18T15:42:50.000Z",
+        "fetchedAt": "2026-11-18T16:11:28.594Z",
+        "inReturnedMerge": false,
+        "inFinalRepresentativeList": false,
+        "inSelectedCoverage": false
+      }
+    ],
+    "conclusion": "All three articles were collected before edition cutoff. Never-collected is ruled out for these URLs. No saved merge, final representative or selected coverage contains their IDs. Current cache absence does not establish historical triage failure, and related launch coverage still needs semantic matching. No additional event omission or recall claimed."
   }
 }
