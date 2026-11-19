@@ -72,3 +72,13 @@
 - Evidence assertions pass: exact 59-URL set, all titles/excerpts/observations, 40/19 counts and in-window publication times; event recall explicitly null. Handbook passes 19 pages/21 diagrams/39 tables. Logs /tmp/2942-*.log.
 - Remaining: NBA/World/U.S. importance censuses, cross-URL event memberships and all-topic recall/causes in this same Nov 19 review; three completed reviews and measured root-cause fix still open.
 - pnpm format/lint:fix and full pnpm check pass: 1,204 unit tests/332 integration passes/four expected skips. Final health and alerts clear; git diff check passes. Unchanged runtime needs no rebuild or service restart; live application remains aligned with main. Commit/push follow.
+
+## 2026-11-19: iteration 2943 — complete NBA reference article decisions
+
+- Clean main at aeb5f4c6; no inherited work. Initial alerts clear; /healthz database/Redis pass. Documentation/evidence only, no runtime/source/scoring changes or paid calls.
+- Complete all 100 NBA reference URL decisions: 47 important reports/53 exclusions, with explicit agent editorial rationale, supplied title/excerpt and every original dated cluster/editor-input observation.
+- Include completed games, material availability updates and NBA Europe launch reporting. Exclude previews, betting, rankings, discussions, entertainment, WNBA ownership and explicitly older event reports despite in-window feed timestamps.
+- Reports are not distinct events/misses; repeated games still need existing cluster/embedding matching. No new confirmed omission, denominator, cause total or prompt change. World/U.S. censuses and five-topic event recall remain open.
+- Exact saved-evidence assertions pass for all 100 URLs, titles/excerpts, every observation, 47/53 counts and unset event recall. Handbook passes: 19 pages/21 diagrams/39 tables. Logs /tmp/2943-*.log.
+- pnpm format/lint:fix and full pnpm check pass: 1,204 unit tests/332 integration passes/four expected skips. Final health database/Redis pass; alerts clear; git diff check passes.
+- Unchanged runtime needs no rebuild or service restart; live application remains aligned with main. Next: World/U.S. censuses, then validated event matching/recall/causes in the same Nov 19 review. Commit/push follow.
