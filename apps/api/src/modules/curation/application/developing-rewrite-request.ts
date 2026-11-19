@@ -32,7 +32,7 @@ export function developingRewriteRequest(input: {
     throw new Error(
       'Expected one to ten unique matched selections with current evidence',
     );
-  return {
+  const request: LlmRequest = {
     model: { ...input.model },
     runId: input.runId,
     topicId: input.topicId,
@@ -74,4 +74,13 @@ Return only a JSON array with exactly these fields per story: id, title, summary
       })),
     }),
   };
+  // Match BudgetedLlm's conservative input bound before treating this request
+  // as ready. Keep all current evidence: oversized input must fail atomically,
+  // never truncate reporting or split the fixed selection into partial rewrites.
+  if (
+    Buffer.byteLength(request.instructions + request.prompt, 'utf8') + 2048 >=
+    100000
+  )
+    throw new Error('Developing rewrite exceeds input bound');
+  return request;
 }

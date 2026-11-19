@@ -274,3 +274,10 @@ relationship to the later resignation; it is not labelled a match.
 - Prepared validator applies the selection editor’s existing absence-support guard and 240/1,400/400-character headline/summary/significance limits to rewritten prose. It uses only bounded current representative/cluster title and excerpt evidence, retaining the NBA summary exception.
 - Offline integration with the atomic rewrite contract rejects a historical-only absence claim, preserves the exact accepted selection on failure, and accepts the same attributed claim when current evidence supports it. Controls cover attribution removal in all prose fields, supplemental cluster support, evidence truncation, mismatched IDs and length limits.
 - This is the existing lexical guard, not general factual entailment or semantic acceptance. No provider calls or production activation. Exact saved request/cost capture, semantic review and combined whole-edition admission remain open.
+
+## Iteration 2898 — rewrite input admission safety
+
+- Request preparation now applies BudgetedLlm's UTF-8 instruction/prompt byte bound plus 2,048 framing allowance, rejecting bounds at or above 100,000. The prior output cap alone did not bound original cluster evidence or historical comparison text.
+- Exact boundary controls accept 99,999 and reject 100,000; Unicode, oversized supplemental evidence and historical comparison are covered. Accepted evidence is retained exactly, without truncation or partial requests.
+- Integration with the fixed-selection contract confirms preparation refusal occurs before dispatch and preserves the exact accepted selection, including unmatched stories, without links or validation calls.
+- No provider calls or activation. Saved exact request/cost capture remains open: the matching-only replay inputs contain published prose, not the original complete editorial evidence required for exact rewrite reconstruction. Do not substitute published summaries as source evidence. Semantic review and whole-edition budget admission remain required.

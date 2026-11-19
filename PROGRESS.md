@@ -165,3 +165,12 @@
 - No provider calls, production activation, source/UI changes or affected handbook behavior. Exact saved request/cost capture, semantic review and whole-edition admission remain next; scheduled acceptance after 15:00 UTC.
 - Verification: targeted 2/2; pnpm format, lint:fix and check pass (1,179 unit / 332 integration tests, four expected skips); handbook 19 pages/21 diagrams/39 tables passes. Build passes; API/worker/docs restarted, health passes and reader retains five topics/25 stories. git diff --check clear. Logs /tmp/2897-*.log.
 - TASKS and saved review updated; no changed handbook behavior. Commit/push follow verification. Scheduled missed-story/NBA/Tech review remains due after 15:00 UTC.
+
+## 2026-11-19: iteration 2898 — bound rewrite input before dispatch
+
+- Clean main at f9d4e09a; no inherited work. Alerts and health pass; 37 active sources healthy, Destructoid inactive. Digest queue zero failures; scheduled review remains after 15:00 UTC.
+- Found rewrite preparation bounded output but not full original evidence input. Added the existing BudgetedLlm UTF-8/framing bound: reject at 100,000 without truncating evidence or partially rewriting selections.
+- Four targeted request tests pass, including exact 99,999/100,000 boundary, Unicode, supplemental/history overflow and atomic contract fallback before dispatch. Reader retains five topics/25 stories.
+- No provider calls, activation, source/UI changes or affected handbook behavior. Matching replay files contain published prose, not complete original editorial evidence; exact rewrite capture must not substitute summaries as source evidence. Saved request/cost capture, semantic review and whole-edition admission remain open.
+- Verification: pnpm format, lint:fix, check (1,181 unit / 332 integration pass, four expected skips), build and handbook (19 pages/21 diagrams/39 tables) pass; git diff --check clear. Logs /tmp/2898-*.log.
+- TASKS and saved review updated; no changed handbook behavior. Commit/push and API/worker/docs restart follow verification; scheduled review remains due after 15:00 UTC.
