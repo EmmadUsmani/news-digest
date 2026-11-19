@@ -12,6 +12,7 @@ import {
   developingHistory,
   type PublishedStoryEdition,
 } from '../src/modules/digests/domain/developing-history';
+import { savedEditorialEvidence } from './saved-editorial-evidence';
 
 async function main() {
   const args = process.argv.slice(2);
@@ -57,6 +58,17 @@ async function main() {
         topicId: topic.id,
         topicName: topic.name,
         windowEnd: row.windowEnd,
+        originalEditorialEvidence: savedEditorialEvidence(
+          topic.editorial?.candidatePrompt,
+          topic.id,
+          topic.stories.map((story) => story.id),
+        ),
+        selected: topic.stories.map(({ id, title, summary, whyItMatters }) => ({
+          id,
+          title,
+          summary: summary ?? '',
+          whyItMatters: whyItMatters ?? '',
+        })),
         stories: topic.stories.map(({ id, title, summary }) => ({
           id,
           title,
@@ -85,6 +97,9 @@ async function main() {
       JSON.stringify({
         output: args[1],
         cases: cases.length,
+        originalEvidenceCases: cases.filter(
+          (item) => item.originalEditorialEvidence,
+        ).length,
         selectedStories: cases.reduce((n, item) => n + item.stories.length, 0),
         historyEditions: [
           ...new Set(cases.map((item) => item.history.length)),
