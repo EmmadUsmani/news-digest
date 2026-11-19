@@ -25,6 +25,9 @@ continuing story from scratch.
   missed ones, so if the matches look wrong, raise the threshold. Don't add
   rules.
 
+Implementation decision: [selected-story enrichment](decisions/2026-11-19-developing-selection.md).
+Production remains inactive until semantic and whole-edition budget acceptance.
+
 ## 2. Why this was picked
 
 **Goal:** readers can see why each story and post made the edition.

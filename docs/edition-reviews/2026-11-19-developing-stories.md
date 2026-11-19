@@ -229,3 +229,17 @@ relationship to the later resignation; it is not labelled a match.
   higher caps, history truncation or changed matching rules authorized here.
 - Receipt `/tmp/2893-capacity.json`; three offline request tests pass, including
   seven five-story editions that fit five current stories and reject ten.
+
+## Selected-story design decision — iteration 2894
+
+- [Decision](../decisions/2026-11-19-developing-selection.md): keep ordinary
+  editorial selection, then match selected original evidence and rewrite only
+  validated matches through a fixed-selection contract. Preserve the ten-item
+  shortlist, seven-edition history, current guards and immutable publication.
+- Matching capacity is checked against actual selections; budgets above five
+  are not covered by the saved five-story receipt. Enrichment failure retains
+  the accepted edition without links. No second selection or history splitting.
+- Existing selecting-editor and pre-selection helper contracts cannot directly
+  implement this flow. Next: offline exact rewrite request capture and contract
+  controls, then combined matching/rewrite whole-edition budget admission.
+- No provider calls, implementation activation or saved-edition changes.

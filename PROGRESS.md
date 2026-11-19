@@ -128,3 +128,13 @@
 - Verification: targeted request tests 3/3; pnpm format, lint:fix, check pass (1,172 unit / 332 integration, four expected skips); pnpm build and handbook (19 pages/21 diagrams/39 tables) pass. git diff --check clear. Logs /tmp/2893-*.log; receipt /tmp/2893-capacity.json.
 - Latest reader five topics/25 stories. TASKS and saved review updated; no source/UI/handbook-system change. Scheduled missed-story/NBA/Tech acceptance remains after 15:00 UTC.
 - Commit/push and API/worker/docs restart follow verification.
+
+## 2026-11-19: iteration 2894 — bounded developing-story design
+
+- Clean main at 34f3f321; no inherited work. Alerts clear, health passes, 38 monitored sources healthy; digest queue zero failures, next scheduled 15:00 UTC.
+- Recorded selection → matching → fixed-selection rewrite decision. Preserve the ten-candidate editor shortlist and seven-edition history; reject shortlist reduction/history splitting. Existing pre-selection helper stays inactive.
+- Defined exact-ID rewrite contract, original-evidence matching, atomic fallback, final brief/social context, actual-selection capacity check and combined ledger admission requirements. Five-story receipt does not cover configured ten-story budgets or rewrite costs.
+- Next concrete step: capture exact rewrite requests and test fixed-selection/failure contracts offline, then semantic and whole-edition budget acceptance. No provider calls, feature activation, source changes or UI changes.
+- Verification: pnpm format, lint:fix, check (1,172 unit / 332 integration pass, four expected skips), build and handbook (19 pages/21 diagrams/39 tables) pass; git diff --check clear. Logs /tmp/2894-*.log.
+- Reader five topics/25 stories. Initial headerless local reader probe returned admission 429; corrected existing smoke-check forwarded-client header passes. No live breakage.
+- TASKS, feature plan and saved review updated; no changed handbook behavior. Commit/push and API/worker/docs restart follow verification. Scheduled missed-story/NBA/Tech review remains after 15:00 UTC.
