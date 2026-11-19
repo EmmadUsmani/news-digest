@@ -143,3 +143,12 @@
 - Seven targeted tests pass. pnpm format/lint:fix and full pnpm check pass (1,197 unit / 332 integration, four expected skips); build and handbook pass (19 pages/21 diagrams/39 tables). Handbook results in /tmp/2905-handbook.log; remaining logs /tmp/2905-*.log.
 - TASKS and saved review updated; v1 reservation figures explicitly historical, fresh captures recalculate v2 bounds. Semantic review/runtime admission/live acceptance remain open; missed-story/NBA/Tech scheduled review due after 15:00 UTC. No source/UI/handbook behavior change.
 - Commit/push and API/worker/docs restart follow verification; live health and alert checks repeated after restart.
+
+## 2026-11-19: iteration 2906 — trace missed-story references through saved coverage
+
+- Clean main at ecca00b6; no inherited work. Alerts/health pass; all 37 active sources return data without errors (Destructoid inactive); digest queue zero failures/next 15:00 UTC. Reader five topics/25 stories; default local visitor was rate-limited, explicit loopback probe passes.
+- Added offline trace-reference-stories CLI: compares a dated capture to a saved reader edition, uses ingestion canonical URLs to locate selected representatives/explicit cluster coverage, preserves reference excerpts and unavailable feeds, and leaves different URLs for event/importance review. No inferred misses, recall, wording matcher, DB writes or provider calls.
+- Exact edition-window and unique-topic checks prevent cross-edition/topic matches. Early captures remain marked incomplete (derived from capture time); legacy captures without windowEnded are accepted. Output is a new mode-600 file, refusing overwrite.
+- Two targeted tests pass (coverage/normalization, cross-topic isolation, unchanged inputs, failure preservation, window/credential refusals); synthetic CLI transport/permissions/overwrite checks pass. Actual early Nov 19 capture against saved Nov 18 edition refuses on window mismatch; no semantic recall claimed.
+- pnpm format/lint:fix and full pnpm check pass: 1,199 unit / 332 integration, four expected skips. Build and handbook pass (19 pages/21 diagrams/39 tables). Logs /tmp/2906-*.log. TASKS and docs/SOURCES.md updated; no UI/handbook behavior change.
+- Scheduled Missed/NBA/Tech review remains due after 15:00 UTC; developing semantic review/runtime admission remain open. Commit/push and API/worker/docs restart follow verification.

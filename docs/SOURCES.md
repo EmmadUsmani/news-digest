@@ -22,6 +22,13 @@ limited to the existing parser's first 60 entries; this is a rolling observation
 not a reconstructed historical top list. Preserve an early capture and capture
 again immediately after publication to reduce loss from rolling feeds.
 
+Trace the saved reader edition with `pnpm exec tsx apps/api/scripts/trace-reference-stories.ts capture.json reader.json output.json`.
+The windows must match. This offline report locates reference URLs in the topic’s
+selected representatives and saved cluster coverage, using ingestion’s URL
+normalization. It retains unavailable feeds and unresolved references for review;
+a different URL still needs event matching and is not automatically a miss.
+The output is a new private file; no network, database or model calls occur.
+
 These publishers already appear in collection, so this first reference set can
 expose selection misses but cannot fully test independent collection coverage.
 Techmeme adds a separate curated Tech list. Publisher feeds are not ranked lists:
