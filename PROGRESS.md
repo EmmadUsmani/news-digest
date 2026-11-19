@@ -93,3 +93,13 @@
 - Exact saved-evidence assertions pass for all 86 URLs, titles/excerpts, every dated observation, in-window feed publication times and 35/51 decisions; event recall remains null. `pnpm exec tsx scripts/check-handbook.ts` passes 19 pages/21 diagrams/39 tables.
 - `pnpm format`, `pnpm lint:fix` and full `pnpm check` pass: 1,204 unit tests/332 integration passes/four expected skips. Logs: /tmp/2944-{format,lint,check,handbook}.log. Final alerts clear; health database/Redis pass; all 14 services healthy, 37 active sources returning data/one paused, digest queue zero failures.
 - Unchanged runtime needs no rebuild or service restart; live application remains aligned with main. `git diff --check` passes. Commit/push follow.
+
+## 2026-11-19: iteration 2945 — complete U.S. reference article decisions
+
+- Clean main at 52429b82; no inherited work. Initial alerts clear; health database/Redis pass. Evidence/documentation only; no runtime, scoring, source or prompt changes and no paid calls.
+- Complete all 51 U.S. reference URL decisions: 19 important reports/32 exclusions, with supplied titles/excerpts, explicit agent editorial rationale and every dated saved cluster/editor-input observation.
+- Include material domestic leadership, oversight, infrastructure, emergency and public-health accountability reporting. Mixed articles count only for domestic actions; World diplomacy/Haiti, sports, opinion, profiles and older results excluded. Nomination is not election; investigative demands are not findings.
+- All five article censuses complete. Counts are articles, not events or misses; five-topic existing-cluster/embedding matching, recall and omission causes remain open. No new confirmed omission or tuning.
+- Exact saved-evidence assertions pass: 51 URLs, titles/excerpts, every observation, in-window feed timestamps, 19/32 decisions and unset recall. Handbook passes 19 pages/21 diagrams/39 tables. Logs /tmp/2945-*.log.
+- Final health and alerts clear; all 14 monitored services healthy, sources current, digest queue zero failures. Runtime unchanged, so no rebuild or restart needed; live application remains aligned with main.
+- pnpm format/lint:fix and full pnpm check pass: 1,204 unit tests/332 integration passes/four expected skips. git diff --check passes. Next: five-topic event matching/recall/causes in the same Nov 19 review; three completed reviews and measured root-cause fix still open. Commit/push follow.
