@@ -106,3 +106,12 @@
 - Four targeted tests pass: stage swaps, unrelated/empty purposes, absent topics, unchanged inputs, no report on refusal, existing-evidence preservation and overwrite refusal. Historical generic-purpose synthetic /tmp/2904-plan.json correctly refuses under the stricter gate; it is not admission evidence.
 - This checks attribution, not prompt authenticity or semantic quality. Runtime whole-edition admission, semantic review and activation remain open. No provider calls, source/UI/handbook behavior changes or feature activation. Missed/NBA/Tech review remains due after 15:00 UTC.
 - pnpm format/lint:fix and full pnpm check pass (1,203 unit / 332 integration, four expected skips); pnpm build and handbook --owner-services pass (19 pages/21 diagrams/39 tables). Logs /tmp/2909-*.log. Final diff check, commit/push and API/worker/docs restart follow; live health/alerts rechecked after restart.
+
+## 2026-11-19: iteration 2910 — retain rolling reference observations together
+
+- Clean main at 3fd37b1f; no inherited work. Alerts/health and source checks pass; digest queue zero failures/next 15:00 UTC. Reader serves five topics/25 real saved stories.
+- Reference trace accepts a JSON array of same-window captures, retaining each feed's stories, failures, observation time and capture completion time. Latest completion is order-independent; early observations stay early. No URL/event deduplication or recall inference.
+- Five targeted offline tests pass, including rolling disappearance/later failure, input preservation, reversed order, empty input and mixed-window refusal. CLI duplicate-observation check on a synthetic reference plus real saved edition preserves both observations and writes mode 600; no historical/live reference claim.
+- TASKS and docs/SOURCES.md updated. No UI, production source or handbook behavior change, provider calls or feature activation. Post-15:00 Missed/NBA/Tech review remains next.
+- Verification: pnpm format/lint:fix; pnpm check; pnpm build; handbook --owner-services. Build and handbook pass (19 pages/21 diagrams/39 tables); full check passes (1,204 unit / 332 integration, four expected skips). Logs /tmp/2910-*.log.
+- Final diff check and commit/push follow verification; API/worker/docs restart and live health/alerts are rechecked afterward. Initial reader probe hit HTTP 429; the existing forwarded-address smoke pattern returned five topics/25 stories.

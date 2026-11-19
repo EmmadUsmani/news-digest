@@ -37,6 +37,11 @@ members without URLs (including older saved prompts). An unmatched URL cannot
 establish a collection or shortlist gap. Snapshot identity and windows must agree
 with the reader edition. This evidence supports cause review after event matching;
 it does not compute recall or label a miss.
+The capture input also accepts a JSON array of same-window capture objects.
+This traces early and post-publication observations together, retaining each
+feed's observation time, capture completion time, stories and failures. Repeated
+URLs remain separate observations for event review, not additional recall units.
+Mixed windows refuse; a later capture cannot relabel an early observation.
 The output is a new private file; no network, database or model calls occur.
 
 These publishers already appear in collection, so this first reference set can

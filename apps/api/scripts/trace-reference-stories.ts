@@ -17,6 +17,7 @@ const captureSchema = z.object({
       topic: z.string(),
       name: z.string(),
       observedAt: z.string().datetime({ offset: true }),
+      captureCompletedAt: z.string().datetime({ offset: true }).optional(),
       error: z.string().optional(),
       stories: z
         .array(
@@ -65,7 +66,37 @@ export function traceReferenceStories(
   editionInput: unknown,
   snapshotInput?: unknown,
 ) {
-  const capture = captureSchema.parse(captureInput);
+  // Multiple rolling observations remain separate: deduplicating their URLs
+  // here would erase timing and failed-feed evidence needed by the reviewer.
+  const captures = (
+    Array.isArray(captureInput) ? captureInput : [captureInput]
+  ).map((input) => captureSchema.parse(input));
+  if (!captures.length) throw new Error('No reference observations');
+  const first = captures[0];
+  if (
+    captures.some(
+      (item) =>
+        Date.parse(item.start) !== Date.parse(first.start) ||
+        Date.parse(item.end) !== Date.parse(first.end),
+    )
+  )
+    throw new Error('Reference observation windows must match exactly');
+  const capture = {
+    ...first,
+    capturedAt: captures.reduce(
+      (latest, item) =>
+        Date.parse(item.capturedAt) > Date.parse(latest)
+          ? item.capturedAt
+          : latest,
+      first.capturedAt,
+    ),
+    feeds: captures.flatMap((item) =>
+      item.feeds.map((feed) => ({
+        ...feed,
+        captureCompletedAt: feed.captureCompletedAt ?? item.capturedAt,
+      })),
+    ),
+  };
   const edition = readerEditionSchema.parse(editionInput);
   const snapshot =
     snapshotInput === undefined
@@ -100,6 +131,7 @@ export function traceReferenceStories(
     windowStart: edition.windowStart,
     windowEnd: edition.windowEnd,
     capturedAt: capture.capturedAt,
+    observationCount: captures.length,
     windowEnded:
       Date.parse(capture.capturedAt) >= end &&
       capture.feeds.length > 0 &&
@@ -117,6 +149,7 @@ export function traceReferenceStories(
           topic: feed.topic,
           name: feed.name,
           observedAt: feed.observedAt,
+          captureCompletedAt: feed.captureCompletedAt,
           windowEnded: Date.parse(feed.observedAt) >= end,
           error: feed.error ?? 'Missing stories',
         };
@@ -124,6 +157,7 @@ export function traceReferenceStories(
         topic: feed.topic,
         name: feed.name,
         observedAt: feed.observedAt,
+        captureCompletedAt: feed.captureCompletedAt,
         windowEnded: Date.parse(feed.observedAt) >= end,
         topicAvailable: !!topic,
         stories: feed.stories.map((reference) => {

@@ -357,3 +357,50 @@ void test('optional saved snapshot traces editor admission without inferring col
   });
   assert.equal(otherTopic.feeds[0].stories![2].editorInput!.available, false);
 });
+
+void test('rolling reference observations retain early stories, later failures and provenance', () => {
+  const late = {
+    ...capture,
+    capturedAt: '2026-11-18T15:05:00Z',
+    feeds: [
+      {
+        ...capture.feeds[0],
+        observedAt: '2026-11-18T15:04:00Z',
+        stories: [reference('https://example.com/later')],
+      },
+    ],
+  };
+  const failed = {
+    ...late,
+    capturedAt: '2026-11-18T15:10:00Z',
+    feeds: [
+      {
+        topic: 'Gaming',
+        name: 'Reference',
+        observedAt: '2026-11-18T15:09:00Z',
+        error: 'HTTP 503',
+      },
+    ],
+  };
+  const observations = [capture, late, failed];
+  const before = JSON.stringify(observations);
+  const report = traceReferenceStories(observations, edition);
+  assert.equal(report.observationCount, 3);
+  assert.equal(report.capturedAt, failed.capturedAt);
+  assert.equal(report.windowEnded, false);
+  assert.equal(report.feeds[0].stories?.length, 3);
+  assert.equal(report.feeds[0].captureCompletedAt, capture.capturedAt);
+  assert.equal(report.feeds[1].windowEnded, true);
+  assert.equal(report.feeds[1].stories?.[0].url, 'https://example.com/later');
+  assert.equal(report.feeds[2].error, 'HTTP 503');
+  assert.equal(JSON.stringify(observations), before);
+  assert.equal(
+    traceReferenceStories([...observations].reverse(), edition).capturedAt,
+    failed.capturedAt,
+  );
+  assert.throws(() => traceReferenceStories([], edition), /No reference/);
+  assert.throws(
+    () => traceReferenceStories([capture, { ...late, start: date }], edition),
+    /windows/,
+  );
+});
