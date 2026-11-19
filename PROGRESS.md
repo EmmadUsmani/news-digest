@@ -143,3 +143,13 @@
 - Live latest edition 7a747d9c still serves five topics/25 real stories with private grouping data absent. Incorrect initial queue alias rejected; corrected digest-generation check passes.
 - Updated daily review, TASKS and pipeline handbook. Nov 19 semantic memberships/five-topic event recall remain unresolved; next use the scheduled identity capture to complete future review joins, then three reviews and measured root-cause fix.
 - Final diff/checks pass; commit/push and API/worker restart follow. No production data edits or source configuration changes.
+
+## 2026-11-19: iteration 2954 — trace saved semantic memberships to publication
+
+- Clean main at a277b0a3; no inherited work. Alerts/health clear, 38 sources and 14 monitored services healthy, digest queue zero failures.
+- Offline reference trace now follows exact input URL identities through validated saved memberships into selected coverage and editor candidate/evidence IDs; carries original input/member IDs without title rules or transitive joins.
+- Validated omitted inputs retain singleton identity; refusals and missing editor prompts remain unknown. Foreign IDs, singleton merges, duplicate members and overlapping groups reject the saved membership evidence. Direct URL status stays separate; no automatic event counts/misses.
+- Targeted trace tests pass 6/6, covering canonical identities, selected routes, unselected singleton routes, missing prompts, evidence-only editor IDs, absent inputs and invalid memberships. No provider calls, production data edits or historical backfill.
+- pnpm format/lint:fix run; pnpm build and affected handbook check pass (19 pages/one diagram/39 tables). Initial handbook check caught the 101-line limit, corrected by tightening the affected text; queue detail flags refused in public mode, corrected public-count check passes.
+- Live latest 7a747d9c remains five topics/25 real stories, private grouping absent. Updated TASKS, daily review and pipeline handbook; Nov 19 missing memberships/five-topic recall remain unresolved. Next: use scheduled capture for event matching, finish three reviews and measure the root-cause fix.
+- Full pnpm check passes: 1,210 unit tests/332 integration passes/four expected skips; logs /tmp/2954-*.log. Final diff check passes; commit/push and API/worker restart follow.

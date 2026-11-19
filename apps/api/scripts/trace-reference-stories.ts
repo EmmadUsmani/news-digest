@@ -210,9 +210,64 @@ export function traceReferenceStories(
                         identityUrls.includes(canonicalUrl(article.url) ?? ''),
                       )
                       .map((article) => article.id);
+                    // Revalidate saved merges before using them as semantic
+                    // evidence. Never join overlapping groups transitively.
+                    const memberships = new Map<string, string[]>();
+                    if (grouping.result.status === 'validated') {
+                      for (const group of grouping.result.groups) {
+                        if (group.length < 2) return null;
+                        for (const id of group) {
+                          if (
+                            !grouping.inputIds.includes(id) ||
+                            memberships.has(id)
+                          )
+                            return null;
+                          memberships.set(id, group);
+                        }
+                      }
+                    }
                     return {
                       matchingIds,
                       result: grouping.result,
+                      // Null means no validated membership evidence; an empty
+                      // array means the reference has no exact input identity.
+                      membershipRoutes:
+                        grouping.result.status !== 'validated'
+                          ? null
+                          : matchingIds.map((id) => {
+                              const memberIds = memberships.get(id) ?? [id];
+                              return {
+                                inputId: id,
+                                memberIds,
+                                selectedClusters: (topic?.stories ?? [])
+                                  .filter((story) =>
+                                    [story, ...(story.coverage ?? [])].some(
+                                      (member) => memberIds.includes(member.id),
+                                    ),
+                                  )
+                                  .map((story) => ({
+                                    id: story.id,
+                                    title: story.title,
+                                  })),
+                                editorCandidates:
+                                  input === null
+                                    ? null
+                                    : input
+                                        .filter((candidate) =>
+                                          [
+                                            candidate,
+                                            ...(candidate.clusterEvidence ??
+                                              []),
+                                          ].some((member) =>
+                                            memberIds.includes(member.id),
+                                          ),
+                                        )
+                                        .map((candidate) => ({
+                                          id: candidate.id,
+                                          title: candidate.title,
+                                        })),
+                              };
+                            }),
                     };
                   })(),
                   editorInput: {

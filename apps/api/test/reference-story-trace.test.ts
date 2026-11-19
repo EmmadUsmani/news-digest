@@ -308,6 +308,17 @@ void test('optional saved snapshot traces editor admission without inferring col
   assert.deepEqual(grouped[2].groupingInput, {
     matchingIds: [droppedId],
     result: grouping.result,
+    membershipRoutes: [
+      {
+        inputId: droppedId,
+        memberIds: [id, droppedId],
+        selectedClusters: [{ id, title: 'Selected event' }],
+        editorCandidates: prompt.candidates.map(({ id, title }) => ({
+          id,
+          title,
+        })),
+      },
+    ],
   });
   assert.equal(grouped[2].status, 'needs-event-review');
   const unavailable = { status: 'unavailable', reason: 'no-result' };
@@ -320,6 +331,7 @@ void test('optional saved snapshot traces editor admission without inferring col
     {
       matchingIds: [droppedId],
       result: unavailable,
+      membershipRoutes: null,
     },
   );
   for (const invalid of [
@@ -330,6 +342,18 @@ void test('optional saved snapshot traces editor admission without inferring col
       inputArticles: [grouping.inputArticles[0], grouping.inputArticles[0]],
     },
     { ...grouping, inputIds: [id, 'unknown'] },
+    ...[
+      [[id]],
+      [[id, 'unknown']],
+      [[id, id]],
+      [
+        [id, droppedId],
+        [id, droppedId],
+      ],
+    ].map((groups) => ({
+      ...grouping,
+      result: { status: 'validated', groups },
+    })),
   ]) {
     assert.equal(
       traceReferenceStories(capture, edition, groupedSnapshot(invalid)).feeds[0]
@@ -337,6 +361,80 @@ void test('optional saved snapshot traces editor admission without inferring col
       null,
     );
   }
+  const singleton = traceReferenceStories(
+    capture,
+    edition,
+    groupedSnapshot({
+      ...grouping,
+      result: { status: 'validated', groups: [] },
+    }),
+  ).feeds[0].stories![2].groupingInput;
+  assert.deepEqual(singleton?.membershipRoutes, [
+    {
+      inputId: droppedId,
+      memberIds: [droppedId],
+      selectedClusters: [],
+      editorCandidates: [{ id: droppedId, title: 'Unselected event' }],
+    },
+  ]);
+  const absent = traceReferenceStories(
+    capture,
+    edition,
+    groupedSnapshot({
+      ...grouping,
+      inputArticles: grouping.inputArticles.map((article) => ({
+        ...article,
+        url: 'https://example.com/unrelated/' + article.id,
+      })),
+    }),
+  ).feeds[0].stories![2].groupingInput;
+  assert.deepEqual(absent?.membershipRoutes, []);
+  const withoutPrompt = groupedSnapshot(grouping);
+  const missingPrompt = traceReferenceStories(capture, edition, {
+    ...withoutPrompt,
+    topics: [
+      {
+        ...withoutPrompt.topics[0],
+        editorial: {
+          ...withoutPrompt.topics[0].editorial,
+          candidatePrompt: undefined,
+        },
+      },
+    ],
+  }).feeds[0].stories![2].groupingInput;
+  assert.equal(missingPrompt?.membershipRoutes?.[0].editorCandidates, null);
+  assert.deepEqual(missingPrompt?.membershipRoutes?.[0].selectedClusters, [
+    { id, title: 'Selected event' },
+  ]);
+  const viaEvidence = groupedSnapshot({
+    ...grouping,
+    result: { status: 'validated', groups: [] },
+  });
+  const evidenceRoute = traceReferenceStories(capture, edition, {
+    ...viaEvidence,
+    topics: [
+      {
+        ...viaEvidence.topics[0],
+        editorial: {
+          ...viaEvidence.topics[0].editorial,
+          candidatePrompt: JSON.stringify({
+            topic: { id },
+            candidates: [
+              {
+                id,
+                title: 'Selected event',
+                clusterEvidence: [{ id: droppedId }],
+              },
+            ],
+          }),
+        },
+      },
+    ],
+  }).feeds[0].stories![2].groupingInput;
+  assert.deepEqual(evidenceRoute?.membershipRoutes?.[0].editorCandidates, [
+    { id, title: 'Selected event' },
+  ]);
+  assert.deepEqual(evidenceRoute?.membershipRoutes?.[0].selectedClusters, []);
   const before = JSON.stringify({ capture, edition, snapshot });
   const report = traceReferenceStories(capture, edition, snapshot);
   const stories = report.feeds[0].stories!;
