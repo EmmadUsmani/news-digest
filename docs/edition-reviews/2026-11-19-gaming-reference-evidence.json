@@ -5,7 +5,7 @@
   "windowEnd": "2026-11-19T15:00:00.000Z",
   "method": "Exact publisher URL identity into saved candidate/selected-cluster evidence; existing semantic triage retained, no inferred cross-URL grouping. Importance assessments are agent editorial judgements, not model scores.",
   "recall": null,
-  "pending": "Unresolved external event membership and four editorial importance reviews prevent a complete denominator. Absent from a bounded pool is not proof of never collected.",
+  "pending": "All article importance decisions complete. Cross-URL launch, reception, performance and labor event memberships remain unresolved, preventing a complete event denominator. Absent from a bounded pool is not proof of never collected.",
   "finalInputIds": [
     "9270bc8d-a8d4-46bf-8b93-e3497f0c8ff8",
     "c872b24e-762b-4c47-af90-f2f7adc23041",
@@ -37,10 +37,11 @@
         "2026-11-19T15:04:59.087Z"
       ],
       "selectedClusters": [],
-      "assessment": "review",
-      "editorJudgement": "Mobile platform annual award; read against other awards before declaring importance.",
+      "assessment": "exclude",
+      "editorJudgement": "Platform-specific annual award; lower editorial priority than major releases, industry-wide sales, platform safety and studio labor developments.",
       "candidate": null,
-      "stage": "not in bounded newest-200 capture; collection status unknown"
+      "stage": "not in bounded newest-200 capture; collection status unknown",
+      "finalEditorInput": null
     },
     {
       "title": "18 unsolicited third-party statistics about GTA 6",
@@ -63,7 +64,8 @@
       "assessment": "exclude",
       "editorJudgement": "Third-party launch statistics roundup, not a separately established development.",
       "candidate": null,
-      "stage": "not in bounded newest-200 capture; collection status unknown"
+      "stage": "not in bounded newest-200 capture; collection status unknown",
+      "finalEditorInput": null
     },
     {
       "title": "Sam Houser: with GTA 6, Rockstar \"tried to create an experience that will exceed your expectations while showing what this medium is capable of\"",
@@ -86,7 +88,8 @@
       "assessment": "exclude",
       "editorJudgement": "Promotional launch statement.",
       "candidate": null,
-      "stage": "not in bounded newest-200 capture; collection status unknown"
+      "stage": "not in bounded newest-200 capture; collection status unknown",
+      "finalEditorInput": null
     },
     {
       "title": "GTA 6 arrives to record review scores and streaming audiences",
@@ -109,7 +112,8 @@
       "assessment": "important",
       "editorJudgement": "Major release reception and audience milestone; launch association needs semantic validation.",
       "candidate": null,
-      "stage": "not in bounded newest-200 capture; collection status unknown"
+      "stage": "not in bounded newest-200 capture; collection status unknown",
+      "finalEditorInput": null
     },
     {
       "title": "GTA 6's Japanese version only partially obscures male nudity by putting Jason in a thong, seemingly due to regional censorship",
@@ -132,7 +136,8 @@
       "assessment": "exclude",
       "editorJudgement": "Regional cosmetic detail; the edition also carries a Japanese censorship post.",
       "candidate": null,
-      "stage": "not in bounded newest-200 capture; collection status unknown"
+      "stage": "not in bounded newest-200 capture; collection status unknown",
+      "finalEditorInput": null
     },
     {
       "title": "Delete GTA 6 from your hard drive and indie publisher Devolver Digital might give you a free game",
@@ -155,7 +160,8 @@
       "assessment": "exclude",
       "editorJudgement": "Publisher giveaway promotion.",
       "candidate": null,
-      "stage": "not in bounded newest-200 capture; collection status unknown"
+      "stage": "not in bounded newest-200 capture; collection status unknown",
+      "finalEditorInput": null
     },
     {
       "title": "GTA 6 won't let you use cheats until you complete the main story, and locks progression when you do",
@@ -178,7 +184,8 @@
       "assessment": "exclude",
       "editorJudgement": "Gameplay/cheat guide detail.",
       "candidate": null,
-      "stage": "not in bounded newest-200 capture; collection status unknown"
+      "stage": "not in bounded newest-200 capture; collection status unknown",
+      "finalEditorInput": null
     },
     {
       "title": "Even the PS5 Pro is \"not powerful enough\" to run GTA 6 at 60FPS or 40FPS, Rockstar says",
@@ -201,7 +208,8 @@
       "assessment": "important",
       "editorJudgement": "Console performance limitation affects purchase expectations; membership unresolved.",
       "candidate": null,
-      "stage": "not in bounded newest-200 capture; collection status unknown"
+      "stage": "not in bounded newest-200 capture; collection status unknown",
+      "finalEditorInput": null
     },
     {
       "title": "PSA: Some GTA 6 Ultimate Edition content is only available for the first chapter, and you'll have to put in hard graft to unlock more",
@@ -224,7 +232,8 @@
       "assessment": "exclude",
       "editorJudgement": "Ultimate Edition unlock guide.",
       "candidate": null,
-      "stage": "not in bounded newest-200 capture; collection status unknown"
+      "stage": "not in bounded newest-200 capture; collection status unknown",
+      "finalEditorInput": null
     },
     {
       "title": "Most, though not quite all, of the 34 fired Rockstar employees are named in the GTA 6 credits",
@@ -244,10 +253,11 @@
         "2026-11-19T15:04:59.147Z"
       ],
       "selectedClusters": [],
-      "assessment": "review",
-      "editorJudgement": "Credits detail tied to labor dispute; do not automatically merge with tribunal.",
+      "assessment": "exclude",
+      "editorJudgement": "Credits inclusion is a detail of the existing labor dispute, without a new ruling, firing or employment action established by this reference.",
       "candidate": null,
-      "stage": "not in bounded newest-200 capture; collection status unknown"
+      "stage": "not in bounded newest-200 capture; collection status unknown",
+      "finalEditorInput": null
     },
     {
       "title": "GTA 6 is so big, it managed to break Reddit - and it isn't even actually out yet",
@@ -270,7 +280,8 @@
       "assessment": "exclude",
       "editorJudgement": "Transient website outage around launch.",
       "candidate": null,
-      "stage": "not in bounded newest-200 capture; collection status unknown"
+      "stage": "not in bounded newest-200 capture; collection status unknown",
+      "finalEditorInput": null
     },
     {
       "title": "GTA 6 breaks the all-time livestream viewer record hours before it's available to play for most of the world",
@@ -293,7 +304,8 @@
       "assessment": "important",
       "editorJudgement": "Audience record; do not count independently from the reception reference until matched.",
       "candidate": null,
-      "stage": "not in bounded newest-200 capture; collection status unknown"
+      "stage": "not in bounded newest-200 capture; collection status unknown",
+      "finalEditorInput": null
     },
     {
       "title": "PlayStation has no Game of the Year nominations at The Game Awards for the first time in 11 years",
@@ -313,10 +325,11 @@
         "2026-11-19T15:04:59.147Z"
       ],
       "selectedClusters": [],
-      "assessment": "review",
-      "editorJudgement": "Awards nomination absence; compare original nomination date before counting a new event.",
+      "assessment": "exclude",
+      "editorJudgement": "Nomination-absence analysis rather than a newly announced award result; this reference does not establish a separate consequential development in this window.",
       "candidate": null,
-      "stage": "not in bounded newest-200 capture; collection status unknown"
+      "stage": "not in bounded newest-200 capture; collection status unknown",
+      "finalEditorInput": null
     },
     {
       "title": "Just how detailed is the audio in GTA 6? Well, even convenience store refrigerators \"all have their own unique sounds\", says Rockstar dev",
@@ -339,7 +352,8 @@
       "assessment": "exclude",
       "editorJudgement": "Minor game audio feature.",
       "candidate": null,
-      "stage": "not in bounded newest-200 capture; collection status unknown"
+      "stage": "not in bounded newest-200 capture; collection status unknown",
+      "finalEditorInput": null
     },
     {
       "title": "US Senate hearing examines child safety on Roblox, considers bipartisan bill to bypass forced arbitration",
@@ -371,7 +385,8 @@
         },
         "finalRepresentative": false
       },
-      "stage": "collected but not shortlisted"
+      "stage": "collected but not shortlisted",
+      "finalEditorInput": null
     },
     {
       "title": "The future of British gaming is more than just games | Opinion",
@@ -403,7 +418,8 @@
         },
         "finalRepresentative": false
       },
-      "stage": "collected; representative absent; check grouped evidence"
+      "stage": "collected; representative absent; check grouped evidence",
+      "finalEditorInput": null
     },
     {
       "title": "Rockstar and IWGB members issue closing arguments following conclusion of employment tribunal",
@@ -440,7 +456,8 @@
         },
         "finalRepresentative": false
       },
-      "stage": "selected-cluster"
+      "stage": "selected-cluster",
+      "finalEditorInput": null
     },
     {
       "title": "GTA 6 developers at Rockstar are worried about being laid off after shipping \"the biggest game of all time\"",
@@ -472,7 +489,8 @@
         },
         "finalRepresentative": false
       },
-      "stage": "collected; representative absent; check grouped evidence"
+      "stage": "collected; representative absent; check grouped evidence",
+      "finalEditorInput": null
     },
     {
       "title": "After Grand Theft Auto 6's launch, players are in love with wacky criminality, in-game social media, and animal fatalities",
@@ -504,7 +522,8 @@
         },
         "finalRepresentative": false
       },
-      "stage": "collected; representative absent; check grouped evidence"
+      "stage": "collected; representative absent; check grouped evidence",
+      "finalEditorInput": null
     },
     {
       "title": "Grand Theft Auto 6 launch day live - news and reaction as GTA 6 arrives around the world",
@@ -536,7 +555,8 @@
         },
         "finalRepresentative": false
       },
-      "stage": "collected; representative absent; check grouped evidence"
+      "stage": "collected; representative absent; check grouped evidence",
+      "finalEditorInput": null
     },
     {
       "title": "It really seems like Xbox isn't allowed to say GTA 6 at all",
@@ -568,7 +588,8 @@
         },
         "finalRepresentative": false
       },
-      "stage": "collected; representative absent; check grouped evidence"
+      "stage": "collected; representative absent; check grouped evidence",
+      "finalEditorInput": null
     },
     {
       "title": "GTA 6 has replaced websites with social media and phone apps because \"it didn't feel necessary\"",
@@ -599,7 +620,8 @@
         },
         "finalRepresentative": false
       },
-      "stage": "collected; representative absent; check grouped evidence"
+      "stage": "collected; representative absent; check grouped evidence",
+      "finalEditorInput": null
     },
     {
       "title": "GameStop CEO slams 'code-in-a-box' games in the wake of GTA 6's discless release",
@@ -635,7 +657,8 @@
         },
         "finalRepresentative": false
       },
-      "stage": "selected-cluster"
+      "stage": "selected-cluster",
+      "finalEditorInput": null
     },
     {
       "title": "The hunt for World of Warcraft: Forever secrets continue with the discovery of an elusive pet",
@@ -666,7 +689,8 @@
         },
         "finalRepresentative": false
       },
-      "stage": "collected; representative absent; check grouped evidence"
+      "stage": "collected; representative absent; check grouped evidence",
+      "finalEditorInput": null
     },
     {
       "title": "Call of Duty: Modern Warfare 4 debuts as top-selling game in US for October 2026",
@@ -700,7 +724,8 @@
         },
         "finalRepresentative": false
       },
-      "stage": "selected-cluster"
+      "stage": "selected-cluster",
+      "finalEditorInput": null
     },
     {
       "title": "Call of Duty: Modern Warfare 4 was October's biggest game in the US, but it wasn't enough to crack 2026's best-selling top 10",
@@ -734,7 +759,8 @@
         },
         "finalRepresentative": false
       },
-      "stage": "selected-cluster"
+      "stage": "selected-cluster",
+      "finalEditorInput": null
     },
     {
       "title": "Warren Spector lambasts GTA 6's \"billion dollar\" development - 'I just hope it's is the last of its kind even if it's the best we have to offer'",
@@ -762,7 +788,8 @@
         },
         "finalRepresentative": false
       },
-      "stage": "collected; representative absent; check grouped evidence"
+      "stage": "collected; representative absent; check grouped evidence",
+      "finalEditorInput": null
     },
     {
       "title": "As Rockstar's alleged \"union busting\" tribunal hearing comes to a close amid GTA 6 launch, judge pledges to deliver verdict \"as quickly as I possibly can\"",
@@ -795,7 +822,14 @@
         },
         "finalRepresentative": true
       },
-      "stage": "selected-cluster"
+      "stage": "selected-cluster",
+      "finalEditorInput": {
+        "id": "df1f35f4-e974-4547-ab8e-86ad4036666b",
+        "title": "As Rockstar's alleged \"union busting\" tribunal hearing comes to a close amid GTA 6 launch, judge pledges to deliver verdict \"as quickly as I possibly can\"",
+        "excerpt": "Closing statements in Rockstar and IWGB's employment tribunal case - revolving around the GTA 6 developer's alleged 'union busting' and the firing of 34 employees - have now been read, bringing the hearing to an end. There's currently no timeline for a verdict, however, with one commentator suggesting a judgement could take weeks or months to arrive.…",
+        "url": "https://www.eurogamer.net/gta-6-rockstar-tribunal-awaits-verdict",
+        "sources": ["Aftermath", "Eurogamer", "GamesIndustry.biz"]
+      }
     },
     {
       "title": "Does GTA 6 have an 'easy mode'? Not officially, but there are two very important settings you can change to make the game less difficult",
@@ -810,7 +844,8 @@
       "assessment": "exclude",
       "editorJudgement": "Difficulty/settings guide.",
       "candidate": null,
-      "stage": "not in bounded newest-200 capture; collection status unknown"
+      "stage": "not in bounded newest-200 capture; collection status unknown",
+      "finalEditorInput": null
     },
     {
       "title": "007 First Light wins GOTY at 2026 TIGA Awards, Dovetail Games takes home four accolades including Best Publisher",
@@ -818,10 +853,36 @@
       "publishedAt": "2026-11-19T14:55:30.000Z",
       "observations": ["2026-11-19T15:00:13.441Z", "2026-11-19T15:04:59.087Z"],
       "selectedClusters": [],
-      "assessment": "review",
-      "editorJudgement": "Industry awards result; compare importance with other awards before inclusion.",
-      "candidate": null,
-      "stage": "not in bounded newest-200 capture; collection status unknown"
+      "assessment": "important",
+      "editorJudgement": "New industry award results across multiple studios, including Game of the Year and publisher awards; comparable to the selected Korea Game Awards result.",
+      "candidate": {
+        "id": "9270bc8d-a8d4-46bf-8b93-e3497f0c8ff8",
+        "triage": {
+          "id": "9270bc8d-a8d4-46bf-8b93-e3497f0c8ff8",
+          "event": "TIGA Awards 2026 winners",
+          "rationale": "Industry awards; 007 First Light GOTY, Dovetail wins",
+          "relevance": 8,
+          "importance": 5
+        },
+        "finalRepresentative": true,
+        "identitySource": "immutable final editor prompt; absent from bounded newest-200 capture"
+      },
+      "stage": "shortlisted but dropped by editor",
+      "finalEditorInput": {
+        "id": "9270bc8d-a8d4-46bf-8b93-e3497f0c8ff8",
+        "title": "007 First Light wins GOTY at 2026 TIGA Awards, Dovetail Games takes home four accolades including Best Publisher",
+        "excerpt": "IO Interactive's 007 First Light received Game of the Year at the 2026 TIGA Awards, while Dovetail Games earned four awards, including Best Publisher and Best Educational, Serious or Simulation Game for Train Sim World 6. Read more",
+        "url": "https://www.gamesindustry.biz/007-first-light-wins-goty-at-2026-tiga-awards-dovetail-games-takes-home-four-accolades-including-best-publisher",
+        "sources": ["GamesIndustry.biz"]
+      }
+    }
+  ],
+  "finalEditorOmissions": [
+    {
+      "id": "9270bc8d-a8d4-46bf-8b93-e3497f0c8ff8",
+      "cause": "shortlisted but dropped by editor",
+      "evidence": "Exact reference URL is present in immutable final editor prompt with award-result excerpt; ID absent from selected stories. All four selected posts inspected: regional GTA censorship, launch revenue forecast, in-game meme and NYC games employment; none reports TIGA awards.",
+      "motivation": "unknown; do not infer editorial reason from selection alone"
     }
   ]
 }
