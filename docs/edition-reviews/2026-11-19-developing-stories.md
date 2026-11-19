@@ -151,3 +151,25 @@ relationship to the later resignation; it is not labelled a match.
   writes. The selected-story replay fits request size; larger production
   candidate pools still need checking. Semantic review and production admission
   remain required; this is not activation or semantic acceptance.
+
+## IPO progression and policy ambiguity — iteration 2889
+
+- Added two manually reviewed saved controls (five total), retaining each full
+  current pool and seven-edition history. No provider output is asserted.
+- Nov 15 Tech IPO landing (`b509c8e8`) follows Nov 10's proposed Anthropic
+  IPO valuation (`0226a49f`, edition `dbbf2d66`): the same company's IPO
+  progresses from proposed pricing to its reported arrival. Expected predecessor
+  is Nov 10, two editions represented. Other saved Anthropic items concern
+  outages, code-worker features or exposed credentials, not the IPO.
+- Nov 17 indirect China AI-access restriction (`9035014e`) remains unlinked.
+  Nov 16's remote-access rule (`9dec3f4b`) might describe the same policy,
+  but the short saved summaries establish neither a shared instrument nor
+  an explicit follow-up. Nov 15's Lutnick claim (`1a5c3722`) is a different
+  allegation. Shared chip-policy context is insufficient for a safe link.
+- The ambiguous policy control deliberately prefers a missed link to an
+  unsupported one; it is not a claim that the underlying real policies differ.
+  No wording rules, threshold changes, paid replay or production activation.
+- All five controls exercise matcher, immutable snapshot, recorded-membership
+  evaluator and retained/dropped editor orchestration. These verify manually
+  specified decisions, not semantic-model precision. Full semantic output
+  review and production candidate/budget admission remain open.

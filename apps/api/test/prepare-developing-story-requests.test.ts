@@ -21,8 +21,8 @@ const model = llmConfig({}).haiku;
 void test('saved windows capture real adapter requests with fingerprints, dates and conservative reservation bounds', async () => {
   const before = structuredClone(fixture);
   const report = await prepareDevelopingRequests(fixture.cases, model);
-  assert.equal(report.requestCount, 3);
-  assert.equal(report.cases.length, 3);
+  assert.equal(report.requestCount, fixture.cases.length);
+  assert.equal(report.cases.length, fixture.cases.length);
   for (const [index, result] of report.cases.entries()) {
     const item = fixture.cases[index];
     assert.equal(result.inputSha256, replayFingerprint(item));

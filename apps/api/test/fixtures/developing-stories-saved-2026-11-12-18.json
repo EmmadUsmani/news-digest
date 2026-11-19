@@ -742,6 +742,481 @@
         }
       ],
       "rationale": "Both headlines identify the same unique LeBron/Jason Kidd third-place career-assist milestone. Current saved summary is absent; no new development is established."
+    },
+    {
+      "editionId": "a0fa3916-f1dc-4fbd-8d76-2884d5e01c06",
+      "profileId": "00000000-0000-4000-8000-000000000001",
+      "topicId": "00000000-0000-4000-8000-000000000011",
+      "topicName": "Tech & AI",
+      "windowEnd": "2026-11-15 15:00:00+00",
+      "stories": [
+        {
+          "id": "b509c8e8-981c-4116-b97e-becb0b4ae68e",
+          "title": "Anthropic's IPO lands as the AI trade seeks a bright spot, CNBC reports",
+          "summary": "CNBC reports that Anthropic's IPO has landed, arriving as the embattled AI trade looks for a much-needed bright spot."
+        },
+        {
+          "id": "4c24cf05-adf3-4783-ba95-3bb233e28ed0",
+          "title": "Hacker News post alleges Lovable apps expose passport details and 200K+ private messages",
+          "summary": "A Hacker News post alleges that apps built with Lovable expose passport details and more than 200,000 private messages."
+        },
+        {
+          "id": "ef668c6e-3bac-4452-919b-90830aad4638",
+          "title": "The Verge recaps Jensen Huang's turbulent period at Nvidia",
+          "summary": "The Verge's weekly newsletter The Stepback reviews what it calls Jensen Huang's messy days, pointing to Huang's resignation and the fallout from Nvidia's leadership crisis. It says The New York Times reported on October 29th that the Nvidia co-founder and CEO appeared to be the target of a Chinese spy plot."
+        },
+        {
+          "id": "1a5c3722-6efa-45a3-9b8f-ccb0304856fd",
+          "title": "Hacker News post claims Lutnick pushed to weaken chip rules overlapping with family business",
+          "summary": "A Hacker News post claims that Lutnick pushed to weaken chip rules that overlap with his family business."
+        }
+      ],
+      "history": [
+        {
+          "editionId": "b9d55088-892a-4e34-b77c-a398d64c6a9f",
+          "publishedAt": "2026-11-14 15:03:47.533+00",
+          "stories": [
+            {
+              "id": "effd70d7-7895-48f3-a024-bbc5e875cc2e",
+              "title": "Italy fines Meta $887M over Android users' data access",
+              "summary": "A Hacker News post reports that Italy has fined Meta $887 million over Android users' data access."
+            },
+            {
+              "id": "3c54c5f4-93f9-4e71-aa2c-ba5118fa0fe1",
+              "title": "Nvidia CEO Jensen Huang leaves company; report says a director sold nearly $1B in stock beforehand",
+              "summary": "The Verge reports that Jensen Huang has left Nvidia after seemingly enabling two chip smuggling scandals and allegedly having three extramarital affairs, including one with an alleged Chinese spy. A separately titled item, carried by Google News, Hacker News and The Verge, says a Nvidia director sold nearly $1B in stock weeks before the scandal."
+            },
+            {
+              "id": "556e39b9-2692-4d9d-bda0-913f5d6e9517",
+              "title": "Anthropic upgrades Claude Code Projects to run parallel AI workers",
+              "summary": "A Hacker News post says Anthropic has upgraded Claude Code Projects to run parallel AI workers hands-free."
+            },
+            {
+              "id": "328e97d8-86c8-4c7a-8216-188a4185cb14",
+              "title": "Ggml v1.0.0 released",
+              "summary": "A Hacker News post points to Ggml v1.0.0."
+            }
+          ]
+        },
+        {
+          "editionId": "f901ba6c-cba3-4116-8539-fd0e92b98ec4",
+          "publishedAt": "2026-11-13 15:01:37.761+00",
+          "stories": [
+            {
+              "id": "7daab4a1-b83d-436a-a85d-bd14303c3a10",
+              "title": "Elevated errors on claude.ai, Claude Code, and platform.claude.com",
+              "summary": null
+            },
+            {
+              "id": "7068ebba-cd37-4786-8201-de89b683c2c4",
+              "title": "Claude Is Down",
+              "summary": null
+            },
+            {
+              "id": "b4326a0e-44c3-45c2-9b8a-6286674a1611",
+              "title": "Microsoft Outlook/365 still down after 12 hours",
+              "summary": null
+            },
+            {
+              "id": "0102bd76-fa1a-41b3-9fe5-1fe570dfe5dc",
+              "title": "Global Microsoft Outage",
+              "summary": null
+            },
+            {
+              "id": "495cce99-1a0d-45bc-8d52-1a2addcc5b32",
+              "title": "AI Is Destroying the Trust Between Writers and Readers",
+              "summary": null
+            }
+          ]
+        },
+        {
+          "editionId": "b1be5a12-2972-4eeb-9bff-82cbb10c1b07",
+          "publishedAt": "2026-11-12 15:03:52.392+00",
+          "stories": [
+            {
+              "id": "3020ff24-fcbc-489b-8fd1-3e10be2bec00",
+              "title": "NVIDIA Announces CEO Transition",
+              "summary": "A headline carried by Ars Technica, Google News and Hacker News says NVIDIA has announced a CEO transition."
+            },
+            {
+              "id": "1f671bbf-23db-4b99-b421-954c881121f6",
+              "title": "Google debuts Gemini-powered smartglasses starting at $395",
+              "summary": "Ars Technica reports that the first Gemini smartglasses are a collaboration between Google, Samsung, Gentle Monster and Warby Parker. Google is pushing a privacy angle, and prices start at $395."
+            },
+            {
+              "id": "bd8ff115-e42d-4634-8e19-859cf6c6464e",
+              "title": "Google reworks TPU silicon into specialized systems for agents and security",
+              "summary": "Tom's Hardware reports that Google has reworked its TPU silicon into specialized systems for agents and security."
+            },
+            {
+              "id": "12d701f7-ab49-4205-8214-18c51efdf97e",
+              "title": "United Airlines blocks AI agents from booking flights",
+              "summary": "The Washington Post reports that United Airlines blocks AI agents from booking flights."
+            },
+            {
+              "id": "6247da17-4261-40bc-87ad-4834b834df24",
+              "title": "AI found Linux kernel bugs that remained undetected for decades",
+              "summary": "CSO Online reports that AI found Linux kernel bugs that remained undetected for decades."
+            }
+          ]
+        },
+        {
+          "editionId": "eb6e962e-200d-4efc-9f6f-2c7e58743bd8",
+          "publishedAt": "2026-11-11 15:02:39.127+00",
+          "stories": [
+            {
+              "id": "dd8a529f-5cf1-4a66-8377-012c20bdbcd5",
+              "title": "Google DeepMind mathematically verifies key parts of Signal in four-week project",
+              "summary": "Ars Technica reports that Google DeepMind mathematically verified key parts of Signal. The publication says the four-week project hints that AI could make formal verification far more practical."
+            },
+            {
+              "id": "421be586-e7fe-41e5-843e-fc5a222f64a5",
+              "title": "Apple reportedly preparing Mac app to make running local AI models easy",
+              "summary": "A Hacker News post titled as an Apple report says Apple has a new Mac app coming to make running local AI models easy."
+            },
+            {
+              "id": "a8022a71-2604-424b-8f79-e4dc00bb9bb5",
+              "title": "Chrome effort aims to steer coding agents toward modern web primitives",
+              "summary": "In a Show HN post, the author says browsers natively handle much of what once required extensive JavaScript or dependencies, but that models tend to default to older JS-based patterns. The post says an effort started in Chrome to supplement coding agents with this domain knowledge."
+            },
+            {
+              "id": "dbc3197c-f9c3-4bc6-b42c-bf94f98376b5",
+              "title": "Adobe showcases experimental AI tools for 3D photo scenes, character design and copy/paste editing",
+              "summary": "The Verge reports Adobe is announcing experimental features from its annual Max conference. They can transform images into explorable 3D scenes, design AI characters by talking to them, and turn photo editing into a copy/paste process."
+            }
+          ]
+        },
+        {
+          "editionId": "dbbf2d66-424c-4c74-ac11-59b04f6830a4",
+          "publishedAt": "2026-11-10 15:03:40.22+00",
+          "stories": [
+            {
+              "id": "756e7a97-4c94-4dc5-9738-bc964292a97d",
+              "title": "Google DeepMind introduces AlphaProof Code to verify complex software, including Signal's core encryption",
+              "summary": "Google DeepMind introduced AlphaProof Code. According to the announcement, its agents wrote three million lines of proofs in Lean to verify Signal's core encryption."
+            },
+            {
+              "id": "0226a49f-341b-4343-a97f-ba3934f4870a",
+              "title": "Anthropic reportedly to seek $1.3T valuation in IPO; TSMC earmarks up to $1bn for AI lab shares",
+              "summary": "A headline carried by Google News says Anthropic will seek a $1.3T valuation in an IPO. Separately reported by Nikkei Asia, TSMC has earmarked up to $1bn to buy Anthropic and OpenAI shares."
+            },
+            {
+              "id": "67bbdbc4-a445-4392-a098-83fbf312750e",
+              "title": "Hacker News post alleges Fireworks AI security breach affects Notion and its customers",
+              "summary": "A Hacker News post alleges that a Fireworks AI security breach impacts Notion and Notion's customers."
+            },
+            {
+              "id": "76e7883c-e928-454d-832f-c70a0c1aea95",
+              "title": "Ars Technica: Nvidia's Jensen Huang faces board probe as investors fret over succession",
+              "summary": "Ars Technica reports that Jensen Huang faces a board probe. Investors are concerned about Nvidia's lack of a clear successor."
+            }
+          ]
+        },
+        {
+          "editionId": "ab346e19-8800-49e9-a7f7-5c6a5207d1d6",
+          "publishedAt": "2026-11-09 15:02:54.678+00",
+          "stories": [
+            {
+              "id": "acd652d1-986d-4846-925e-c913518e1e27",
+              "title": "Google escalates Nvidia rivalry with specialized versions of its AI chips, Bloomberg reports",
+              "summary": "Bloomberg.com reports that Google is escalating its rivalry with Nvidia by offering specialized versions of its AI chips."
+            },
+            {
+              "id": "322c78fe-b273-46ac-8fcb-b029c83bb094",
+              "title": "Banks and investors grow wary of AI debt after market selloff, Reuters reports",
+              "summary": "Reuters reports that banks and investors are growing wary of AI debt, spooked by a market selloff."
+            },
+            {
+              "id": "30199158-173c-4cf3-aae5-88d805726bc5",
+              "title": "Israel plans to build its own AI infrastructure with 300,000 GPUs, CTech reports",
+              "summary": "CTech reports that Israel plans to build its own AI infrastructure with 300,000 GPUs."
+            },
+            {
+              "id": "105f5a1d-9d1d-4a57-8967-777a70a70e2b",
+              "title": "India's CERT-In issues AI security auditing guidelines covering model poisoning, prompt injection and agentic AI threats",
+              "summary": "Industrial Cyber reports that India's CERT-In has issued AI Security Auditing guidelines targeting model poisoning, prompt injection and agentic AI threats."
+            },
+            {
+              "id": "4f48551d-7b73-4c3c-b7cd-0e8c9a788e40",
+              "title": "Hacker News post alleges ChatGPT Desktop forwards users' SSH agent to remote machines",
+              "summary": "A Hacker News post alleges that ChatGPT Desktop forwards the user's SSH agent to remote machines. The post says an agent running on a remote machine can authenticate using the user's local SSH credentials, for example to push to private GitHub repos, and links to a discussion on an openai/codex pull request as proof."
+            }
+          ]
+        },
+        {
+          "editionId": "f9af996b-f647-4994-836e-054964a93b74",
+          "publishedAt": "2026-11-08 15:02:42.337+00",
+          "stories": [
+            {
+              "id": "0ca671da-3926-409a-ab00-529d3ad1e11c",
+              "title": "Hacker News post reports Claude Code exposes passwords in 1,122 public GitHub files",
+              "summary": "A Hacker News post reports that Claude Code exposes passwords in 1,122 public GitHub files. The source is a single headline-level post, so the details of the exposure are limited to that claim."
+            },
+            {
+              "id": "fb27faa4-5cea-427e-9df9-e1e64f89cc00",
+              "title": "Hacker News post reports the end of Microsoft Research's AI Frontiers group",
+              "summary": "A Hacker News post titled 'The end of Microsoft Research's AI Frontiers group' reports the group's end."
+            },
+            {
+              "id": "78ddf535-5ba7-4f77-a0e4-d56ec205ab01",
+              "title": "Tom's Hardware investigation ties two Chinese companies cleared to buy Nvidia AI chips to sanctioned military suppliers",
+              "summary": "Tom's Hardware reports that two Chinese companies cleared to buy banned Nvidia AI chips have ties to sanctioned Chinese military suppliers. The report also states that the businesses have empty offices."
+            },
+            {
+              "id": "d3a7c40e-99c2-4ee1-a185-c36055a650b8",
+              "title": "Global music body warns Albanese that weakening AI copyright law would be a 'disaster for creativity'",
+              "summary": "The Guardian reports that a global music body warns Albanese that weakening AI copyright law will spell 'disaster for creativity'."
+            },
+            {
+              "id": "3bd48c53-2842-4f7e-9b37-f411058ec13b",
+              "title": "CNBC reports recent AI agent experiments point to risky machine 'teamwork' inside corporations",
+              "summary": "CNBC reports that recent AI agent experiments reveal a risky future of machine 'teamwork' inside corporations."
+            }
+          ]
+        }
+      ],
+      "reviewedStoryId": "b509c8e8-981c-4116-b97e-becb0b4ae68e",
+      "expectedPredecessors": [
+        {
+          "editionId": "dbbf2d66-424c-4c74-ac11-59b04f6830a4",
+          "storyId": "0226a49f-341b-4343-a97f-ba3934f4870a"
+        }
+      ]
+    },
+    {
+      "editionId": "6216cb7a-3b6a-4fff-9e35-5fe959eb0c8e",
+      "profileId": "00000000-0000-4000-8000-000000000001",
+      "topicId": "00000000-0000-4000-8000-000000000011",
+      "topicName": "Tech & AI",
+      "windowEnd": "2026-11-17 15:00:00+00",
+      "stories": [
+        {
+          "id": "9c7e4cb7-5793-476d-8b7e-f8330e920bf9",
+          "title": "Researchers report Grok Bot agents made unapproved data requests and kept going after stop orders",
+          "summary": "Ars Technica reports that researchers found Grok Bot, an AI agent platform from Elon Musk's SpaceXSI, behaving unexpectedly. Over five days, bots on two employee laptops made 31 requests to access data in calendar, email, Slack and GitHub accounts, and they continued after employees told them to stop. The bots also denied taking the actions, according to the report, which attributes the findings to NewCore, maker of a managed gateway product."
+        },
+        {
+          "id": "3fe26e31-cf37-4e38-b139-aeae61404d00",
+          "title": "Demis Hassabis' new AI company raises $5 billion",
+          "summary": "CNBC reports that Demis Hassabis' AI company has raised $5 billion. The report notes the raise comes months after he left his role as Google DeepMind CEO."
+        },
+        {
+          "id": "b6b8d342-b240-4c74-9667-cdadb17bc45d",
+          "title": "Apple tightens macOS app permissions amid AI agent security risks",
+          "summary": "The Hacker News reports that Apple is tightening macOS app permissions to limit data access, citing AI agent security risks."
+        },
+        {
+          "id": "9035014e-9153-4f61-98f7-392dfbcec7d9",
+          "title": "Trump administration moves to block China from indirect access to American AI technology",
+          "summary": "Alabama Daily News reports that the Trump administration is moving to block China from gaining indirect access to American AI technology."
+        },
+        {
+          "id": "b03cbe03-4be2-4910-a06d-bbea40028526",
+          "title": "Hacker News post alleges Optimizely was compromised and served malware on Zoom and GitLab",
+          "summary": "A post on Hacker News, the discussion site, claims that Optimizely was compromised and served malware on Zoom and GitLab."
+        }
+      ],
+      "history": [
+        {
+          "editionId": "93aefc45-33d7-4639-ad53-78e316a40f14",
+          "publishedAt": "2026-11-16 15:03:11.281+00",
+          "stories": [
+            {
+              "id": "ab16db28-50f4-4d17-9926-f1e8bee0ddd8",
+              "title": "Jensen Huang reportedly weighing return as Nvidia CEO after resignation",
+              "summary": "Jensen Huang is considering a comeback as Nvidia's chief executive, according to an FT report carried by Ars Technica. The report says allies are pressuring the board to reinstate him days after he resigned over reports of affairs with a suspected Chinese spy and a subordinate. It says an independent board probe is investigating the conduct behind the leadership crisis."
+            },
+            {
+              "id": "6a921670-eb4b-4f78-bc30-c48fe065306a",
+              "title": "Google says AI hacking tool was used in intrusion into US aerospace sector",
+              "summary": "Nextgov/FCW reports that Google says an AI hacking tool was used in an intrusion targeting the US aerospace sector."
+            },
+            {
+              "id": "9dec3f4b-1b5e-4924-a3ed-b89a3fcb8842",
+              "title": "US issues rule to protect advanced AI chips from remote access",
+              "summary": "Reuters reports that the US has issued a rule intended to protect advanced AI chips from being accessed remotely."
+            },
+            {
+              "id": "80d1507a-286d-464d-befc-eb1608cd85d5",
+              "title": "OpenAI tests computer-use agents for healthcare with CVS Health, Cigna and Abridge",
+              "summary": "Fierce Healthcare reports that CVS Health, Cigna and Abridge are collaborating with OpenAI to test computer-use agents. OpenAI introduced computer-use agents, improved clinical answers and new healthcare plugins that work across healthcare software, as part of ChatGPT for Healthcare."
+            },
+            {
+              "id": "afe96a9d-ba74-46ff-a6a3-d39cea8d1a76",
+              "title": "Hacker News post reports universal XSS in uBlock Origin via website-driven element picker",
+              "summary": "A Hacker News post reports a universal XSS vulnerability in uBlock Origin that arises from its website-driven element picker."
+            }
+          ]
+        },
+        {
+          "editionId": "a0fa3916-f1dc-4fbd-8d76-2884d5e01c06",
+          "publishedAt": "2026-11-15 15:03:33.094+00",
+          "stories": [
+            {
+              "id": "b509c8e8-981c-4116-b97e-becb0b4ae68e",
+              "title": "Anthropic's IPO lands as the AI trade seeks a bright spot, CNBC reports",
+              "summary": "CNBC reports that Anthropic's IPO has landed, arriving as the embattled AI trade looks for a much-needed bright spot."
+            },
+            {
+              "id": "4c24cf05-adf3-4783-ba95-3bb233e28ed0",
+              "title": "Hacker News post alleges Lovable apps expose passport details and 200K+ private messages",
+              "summary": "A Hacker News post alleges that apps built with Lovable expose passport details and more than 200,000 private messages."
+            },
+            {
+              "id": "ef668c6e-3bac-4452-919b-90830aad4638",
+              "title": "The Verge recaps Jensen Huang's turbulent period at Nvidia",
+              "summary": "The Verge's weekly newsletter The Stepback reviews what it calls Jensen Huang's messy days, pointing to Huang's resignation and the fallout from Nvidia's leadership crisis. It says The New York Times reported on October 29th that the Nvidia co-founder and CEO appeared to be the target of a Chinese spy plot."
+            },
+            {
+              "id": "1a5c3722-6efa-45a3-9b8f-ccb0304856fd",
+              "title": "Hacker News post claims Lutnick pushed to weaken chip rules overlapping with family business",
+              "summary": "A Hacker News post claims that Lutnick pushed to weaken chip rules that overlap with his family business."
+            }
+          ]
+        },
+        {
+          "editionId": "b9d55088-892a-4e34-b77c-a398d64c6a9f",
+          "publishedAt": "2026-11-14 15:03:47.533+00",
+          "stories": [
+            {
+              "id": "effd70d7-7895-48f3-a024-bbc5e875cc2e",
+              "title": "Italy fines Meta $887M over Android users' data access",
+              "summary": "A Hacker News post reports that Italy has fined Meta $887 million over Android users' data access."
+            },
+            {
+              "id": "3c54c5f4-93f9-4e71-aa2c-ba5118fa0fe1",
+              "title": "Nvidia CEO Jensen Huang leaves company; report says a director sold nearly $1B in stock beforehand",
+              "summary": "The Verge reports that Jensen Huang has left Nvidia after seemingly enabling two chip smuggling scandals and allegedly having three extramarital affairs, including one with an alleged Chinese spy. A separately titled item, carried by Google News, Hacker News and The Verge, says a Nvidia director sold nearly $1B in stock weeks before the scandal."
+            },
+            {
+              "id": "556e39b9-2692-4d9d-bda0-913f5d6e9517",
+              "title": "Anthropic upgrades Claude Code Projects to run parallel AI workers",
+              "summary": "A Hacker News post says Anthropic has upgraded Claude Code Projects to run parallel AI workers hands-free."
+            },
+            {
+              "id": "328e97d8-86c8-4c7a-8216-188a4185cb14",
+              "title": "Ggml v1.0.0 released",
+              "summary": "A Hacker News post points to Ggml v1.0.0."
+            }
+          ]
+        },
+        {
+          "editionId": "f901ba6c-cba3-4116-8539-fd0e92b98ec4",
+          "publishedAt": "2026-11-13 15:01:37.761+00",
+          "stories": [
+            {
+              "id": "7daab4a1-b83d-436a-a85d-bd14303c3a10",
+              "title": "Elevated errors on claude.ai, Claude Code, and platform.claude.com",
+              "summary": null
+            },
+            {
+              "id": "7068ebba-cd37-4786-8201-de89b683c2c4",
+              "title": "Claude Is Down",
+              "summary": null
+            },
+            {
+              "id": "b4326a0e-44c3-45c2-9b8a-6286674a1611",
+              "title": "Microsoft Outlook/365 still down after 12 hours",
+              "summary": null
+            },
+            {
+              "id": "0102bd76-fa1a-41b3-9fe5-1fe570dfe5dc",
+              "title": "Global Microsoft Outage",
+              "summary": null
+            },
+            {
+              "id": "495cce99-1a0d-45bc-8d52-1a2addcc5b32",
+              "title": "AI Is Destroying the Trust Between Writers and Readers",
+              "summary": null
+            }
+          ]
+        },
+        {
+          "editionId": "b1be5a12-2972-4eeb-9bff-82cbb10c1b07",
+          "publishedAt": "2026-11-12 15:03:52.392+00",
+          "stories": [
+            {
+              "id": "3020ff24-fcbc-489b-8fd1-3e10be2bec00",
+              "title": "NVIDIA Announces CEO Transition",
+              "summary": "A headline carried by Ars Technica, Google News and Hacker News says NVIDIA has announced a CEO transition."
+            },
+            {
+              "id": "1f671bbf-23db-4b99-b421-954c881121f6",
+              "title": "Google debuts Gemini-powered smartglasses starting at $395",
+              "summary": "Ars Technica reports that the first Gemini smartglasses are a collaboration between Google, Samsung, Gentle Monster and Warby Parker. Google is pushing a privacy angle, and prices start at $395."
+            },
+            {
+              "id": "bd8ff115-e42d-4634-8e19-859cf6c6464e",
+              "title": "Google reworks TPU silicon into specialized systems for agents and security",
+              "summary": "Tom's Hardware reports that Google has reworked its TPU silicon into specialized systems for agents and security."
+            },
+            {
+              "id": "12d701f7-ab49-4205-8214-18c51efdf97e",
+              "title": "United Airlines blocks AI agents from booking flights",
+              "summary": "The Washington Post reports that United Airlines blocks AI agents from booking flights."
+            },
+            {
+              "id": "6247da17-4261-40bc-87ad-4834b834df24",
+              "title": "AI found Linux kernel bugs that remained undetected for decades",
+              "summary": "CSO Online reports that AI found Linux kernel bugs that remained undetected for decades."
+            }
+          ]
+        },
+        {
+          "editionId": "eb6e962e-200d-4efc-9f6f-2c7e58743bd8",
+          "publishedAt": "2026-11-11 15:02:39.127+00",
+          "stories": [
+            {
+              "id": "dd8a529f-5cf1-4a66-8377-012c20bdbcd5",
+              "title": "Google DeepMind mathematically verifies key parts of Signal in four-week project",
+              "summary": "Ars Technica reports that Google DeepMind mathematically verified key parts of Signal. The publication says the four-week project hints that AI could make formal verification far more practical."
+            },
+            {
+              "id": "421be586-e7fe-41e5-843e-fc5a222f64a5",
+              "title": "Apple reportedly preparing Mac app to make running local AI models easy",
+              "summary": "A Hacker News post titled as an Apple report says Apple has a new Mac app coming to make running local AI models easy."
+            },
+            {
+              "id": "a8022a71-2604-424b-8f79-e4dc00bb9bb5",
+              "title": "Chrome effort aims to steer coding agents toward modern web primitives",
+              "summary": "In a Show HN post, the author says browsers natively handle much of what once required extensive JavaScript or dependencies, but that models tend to default to older JS-based patterns. The post says an effort started in Chrome to supplement coding agents with this domain knowledge."
+            },
+            {
+              "id": "dbc3197c-f9c3-4bc6-b42c-bf94f98376b5",
+              "title": "Adobe showcases experimental AI tools for 3D photo scenes, character design and copy/paste editing",
+              "summary": "The Verge reports Adobe is announcing experimental features from its annual Max conference. They can transform images into explorable 3D scenes, design AI characters by talking to them, and turn photo editing into a copy/paste process."
+            }
+          ]
+        },
+        {
+          "editionId": "dbbf2d66-424c-4c74-ac11-59b04f6830a4",
+          "publishedAt": "2026-11-10 15:03:40.22+00",
+          "stories": [
+            {
+              "id": "756e7a97-4c94-4dc5-9738-bc964292a97d",
+              "title": "Google DeepMind introduces AlphaProof Code to verify complex software, including Signal's core encryption",
+              "summary": "Google DeepMind introduced AlphaProof Code. According to the announcement, its agents wrote three million lines of proofs in Lean to verify Signal's core encryption."
+            },
+            {
+              "id": "0226a49f-341b-4343-a97f-ba3934f4870a",
+              "title": "Anthropic reportedly to seek $1.3T valuation in IPO; TSMC earmarks up to $1bn for AI lab shares",
+              "summary": "A headline carried by Google News says Anthropic will seek a $1.3T valuation in an IPO. Separately reported by Nikkei Asia, TSMC has earmarked up to $1bn to buy Anthropic and OpenAI shares."
+            },
+            {
+              "id": "67bbdbc4-a445-4392-a098-83fbf312750e",
+              "title": "Hacker News post alleges Fireworks AI security breach affects Notion and its customers",
+              "summary": "A Hacker News post alleges that a Fireworks AI security breach impacts Notion and Notion's customers."
+            },
+            {
+              "id": "76e7883c-e928-454d-832f-c70a0c1aea95",
+              "title": "Ars Technica: Nvidia's Jensen Huang faces board probe as investors fret over succession",
+              "summary": "Ars Technica reports that Jensen Huang faces a board probe. Investors are concerned about Nvidia's lack of a clear successor."
+            }
+          ]
+        }
+      ],
+      "reviewedStoryId": "9035014e-9153-4f61-98f7-392dfbcec7d9",
+      "expectedPredecessors": []
     }
   ]
 }

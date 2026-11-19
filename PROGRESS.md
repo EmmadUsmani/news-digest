@@ -81,3 +81,13 @@
 - Artifact `/tmp/2888-developing-requests-final.json`; two offline tests cover saved request transport, dates/fingerprints/bounds and unavailable pools. TASKS and saved review updated; no affected handbook architecture or sources.
 - Verification: pnpm format/lint:fix, pnpm check (1,164 unit / 332 integration passes, four expected skips), pnpm build, targeted 2/2, handbook (19 pages/21 diagrams/39 tables) and git diff --check pass; logs `/tmp/2888-*.log`. Latest reader returns five topics/25 stories; shared-loopback 429 corrected using existing smoke-test address. Archived iterations 2875–2880 to keep PROGRESS small.
 - Next: semantic matching review and production candidate-pool admission before activation; missed-story/NBA/Tech scheduled review after 15:00 UTC. Destructoid remains blocked. Commit/push and API/worker/docs restart follow checks.
+
+## 2026-11-19: iteration 2889 — developing-story IPO/policy controls
+
+- Clean main at 7457d57e; no inherited work. Alerts/health clear; 38 monitored sources pass, digest-generation zero failures/one delayed job for 15:00 UTC. Destructoid remains inactive/blocked.
+- Added two exact saved Tech controls (five total): Nov 15 Anthropic IPO arrival follows Nov 10 proposed valuation; Nov 17 indirect China access policy stays separate from Nov 16 remote-access rule because saved summaries do not establish the same instrument/follow-up.
+- Full current/history pools preserved. Manual agent labels, not semantic model results; policy ambiguity intentionally yields no link, without claiming the policies differ. No wording rules, provider calls, live writes or activation.
+- Targeted matcher/snapshot/evaluator/editor orchestration 16/16 and request capture 2/2 pass. Initial full check caught request-capture test hard-coding three fixture cases; changed to fixture length and reran. Final pnpm format/lint:fix/check (1,168 unit, 332 integration, four expected skips), pnpm build, handbook (19 pages/21 diagrams/39 tables) and git diff --check pass; logs /tmp/2889-*.log.
+- TASKS and saved review updated; no affected handbook/system/source behavior. Full semantic output review, production candidate-pool/budget admission and integration remain open.
+- Latest reader: five topics/25 stories; initial shared-loopback 429 resolved with existing smoke-test address. Commit/push and API/worker/docs restart follow verification.
+- Next: continue developing-story admission; missed-story/NBA/Tech review after today's 15:00 scheduled edition.
