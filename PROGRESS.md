@@ -162,3 +162,13 @@
 - pnpm format, pnpm lint:fix, pnpm check and pnpm build pass: 1,214 unit tests, 332 integration passes/four expected skips. Logs /tmp/2990-{format,lint,check,build}.log; targeted test log /tmp/2990-target.log.
 - Local latest confirms 7a747d9c/five topics/25 real stories using existing local probe visitor. Initial unforwarded reader request hit rate limit; VM public HTTPS connection unavailable, so external HTTPS acceptance not claimed.
 - Updated TASKS and developing evidence; no active behavior/UI/source/schema/handbook change. Commit/push and API/worker restart follow. Next: semantic/whole-edition admission; Nov 20–22 missed-event daily reviews.
+
+## 2026-11-19: iteration 2991 — explicit developing enrichment refusals
+
+- Clean main at ac268708; no inherited work. Alerts clear; health database/Redis pass. Monitored services/source checks healthy; digest-generation zero failures, next run Nov 20 15:00 UTC.
+- Inactive selected enrichment reports explicit reasons for preflight refusals, no validated matches and rewrite refusal; history capacity is checked before dispatch without truncation. All failures retain the exact accepted array.
+- Extended the two offline tests to assert refusal reasons, missing matcher/empty selection, no-dispatch preflight and atomic rewrite fallback. Targeted tests pass; no provider calls or production activation.
+- Updated TASKS and developing evidence. No UI/source/schema/handbook changes. Runtime budget admission, semantic review and real-edition reader acceptance remain open.
+- Live latest remains 7a747d9c, five topics/25 real stories. Initial private job-state filter unsupported in public mode; queue-count probe succeeds.
+- pnpm format, pnpm lint:fix and full pnpm check pass: 1,214 unit tests, 332 integration passes/four expected skips. Targeted log /tmp/2991-target.log; full logs /tmp/2991-{format,lint,check,build}.log.
+- pnpm build and final diff check pass. Commit/push and API/worker restart follow. Next: complete semantic/whole-edition admission; Nov 20–22 daily missed-event recall reviews.

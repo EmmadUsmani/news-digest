@@ -130,6 +130,7 @@ void test('selected enrichment matches original reporting then rewrites once wit
   });
   assert.equal(refused.stories, selected);
   assert.equal(refused.status, 'unchanged');
+  assert.equal('reason' in refused && refused.reason, 'rewrite-refused');
 });
 
 void test('fallback, missing or ambiguous evidence and capacity refusal make no enrichment calls', async () => {
@@ -143,7 +144,17 @@ void test('fallback, missing or ambiguous evidence and capacity refusal make no 
     grouping: { groupWithResult: never },
     llm: { complete: never },
   };
-  for (const override of [
+  const reasons = [
+    'non-ai-selection',
+    'ambiguous-or-missing-evidence',
+    'ambiguous-or-missing-evidence',
+    'ambiguous-or-missing-evidence',
+    'empty-history',
+    'history-capacity',
+    'matching-unavailable',
+    'empty-selection',
+  ];
+  for (const [index, override] of [
     { editorialMode: 'fallback' as const },
     { evidence },
     { evidence: [...completeEvidence, evidence[0]] },
@@ -160,10 +171,13 @@ void test('fallback, missing or ambiguous evidence and capacity refusal make no 
         },
       ],
     },
-  ]) {
+    { grouping: null },
+    { selected: [] },
+  ].entries()) {
     const value = { ...input, ...override };
     const result = await enrichSelectedDevelopingStories(value);
     assert.equal(result.status, 'unchanged');
+    assert.equal('reason' in result && result.reason, reasons[index]);
     assert.equal(result.stories, value.selected);
   }
   const result = await enrichSelectedDevelopingStories({
@@ -175,4 +189,5 @@ void test('fallback, missing or ambiguous evidence and capacity refusal make no 
     },
   });
   assert.equal(result.stories, selected);
+  assert.equal('reason' in result && result.reason, 'no-validated-links');
 });

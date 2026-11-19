@@ -18,8 +18,25 @@ export async function enrichSelectedDevelopingStories<
     publishedAt: string;
   },
 ) {
-  const fallback = { status: 'unchanged' as const, stories: input.selected };
-  if (input.editorialMode !== 'ai' || !input.selected.length) return fallback;
+  const fallback = (reason: string) => ({
+    status: 'unchanged' as const,
+    stories: input.selected,
+    reason,
+  });
+  if (input.editorialMode !== 'ai') return fallback('non-ai-selection');
+  if (!input.selected.length) return fallback('empty-selection');
+  if (!input.history.some((edition) => edition.stories.length))
+    return fallback('empty-history');
+  if (
+    input.selected.length +
+      input.history.reduce(
+        (count, edition) => count + edition.stories.length,
+        0,
+      ) >
+    40
+  )
+    return fallback('history-capacity');
+  if (!input.grouping) return fallback('matching-unavailable');
   const evidence = new Map(input.evidence.map((item) => [item.id, item]));
   const ids = new Set(input.selected.map((item) => item.id));
   if (
@@ -27,7 +44,7 @@ export async function enrichSelectedDevelopingStories<
     ids.size !== input.selected.length ||
     input.selected.some((item) => !item.id.trim() || !evidence.has(item.id))
   )
-    return fallback;
+    return fallback('ambiguous-or-missing-evidence');
   // Matching uses current reporting, never the accepted editor's rewritten prose.
   const current = input.selected.map(({ id }) => {
     const source = evidence.get(id)!;
@@ -39,6 +56,7 @@ export async function enrichSelectedDevelopingStories<
     current,
     input.history,
   );
-  if (!links.length) return fallback;
-  return rewriteSelectedDevelopingStories({ ...input, links });
+  if (!links.length) return fallback('no-validated-links');
+  const result = await rewriteSelectedDevelopingStories({ ...input, links });
+  return result.status === 'rewritten' ? result : fallback('rewrite-refused');
 }

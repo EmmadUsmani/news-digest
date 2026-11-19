@@ -342,3 +342,9 @@ relationship to the later resignation; it is not labelled a match.
 - Non-AI output, missing/duplicate selected evidence, duplicate selection IDs, empty history and excess capacity retain the original accepted array before any provider dispatch. Matching failure/no links skips rewriting; rewrite refusal retains the exact accepted selection without links or retries.
 - Two offline tests cover request order, current reporting rather than edited prose, preserved selection metadata/unmatched stories/input objects, atomic null refusal and no-dispatch gates. Scripted ports establish orchestration only; no semantic model acceptance or budget admission.
 - No generation wiring, provider calls, source/schema/UI/handbook changes or production activation. Complete runtime reservations, semantic review and real-edition reader acceptance remain required.
+
+## Iteration 2991 — explicit enrichment refusal outcomes
+
+- Inactive selected enrichment now returns a reason for non-AI/empty selection, empty history, excess history capacity, unavailable matching, ambiguous or missing evidence, no validated links and refused rewrite. Capacity is checked before matching dispatch; no history is truncated.
+- Existing offline orchestration controls now assert each refusal reason, exact original-array preservation, no calls for preflight refusal and a single atomic rewrite refusal. Matching failures remain grouped with no validated links; no semantic success is inferred.
+- Generation remains unwired. No providers, UI, sources, schema or runtime budget changes. Semantic review, whole-edition ledger admission and real-edition acceptance remain open.
