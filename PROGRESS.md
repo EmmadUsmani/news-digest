@@ -138,3 +138,12 @@
 - Verification: pnpm format, lint:fix, check (1,172 unit / 332 integration pass, four expected skips), build and handbook (19 pages/21 diagrams/39 tables) pass; git diff --check clear. Logs /tmp/2894-*.log.
 - Reader five topics/25 stories. Initial headerless local reader probe returned admission 429; corrected existing smoke-check forwarded-client header passes. No live breakage.
 - TASKS, feature plan and saved review updated; no changed handbook behavior. Commit/push and API/worker/docs restart follow verification. Scheduled missed-story/NBA/Tech review remains after 15:00 UTC.
+
+## 2026-11-19: iteration 2895 — fixed-selection rewrite contract
+
+- Clean main at 8de45aa9; no inherited work. Alerts/health clear, 37 active sources healthy and Destructoid inactive. Digest queue zero failures; next scheduled 15:00 UTC.
+- Added inactive rewrite contract after selection/matching: exact ordered matched IDs, prose-only replacement, mandatory current-evidence guard callback, validated snapshot links and atomic original-selection fallback. Accepted output and evidence are isolated from adapter mutation.
+- Three offline tests cover success, changed/missing/extra/reordered IDs, rationale/evidence injection, refusal, partial guard failure, guard errors, mutation and invalid preflight without calls. Synthetic contract prose establishes no semantic acceptance.
+- Initial full check found unsafe unknown-array narrowing; fixed explicitly. Verification: pnpm format, lint:fix, check (1,175 unit / 332 integration passes, four expected skips), build and final API rebuild pass; targeted 3/3 and handbook (19 pages/21 diagrams/39 tables) pass. Logs /tmp/2895-*.log.
+- TASKS and saved review updated. No provider calls, activation, source/UI changes or affected handbook behavior. Exact provider requests, existing factual-guard integration, semantic review and whole-edition budget admission remain next.
+- Latest reader five topics/25 stories. Commit/push and API/worker/docs restart follow verification. Scheduled missed-story/NBA/Tech review remains after 15:00 UTC.

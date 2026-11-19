@@ -243,3 +243,21 @@ relationship to the later resignation; it is not labelled a match.
   implement this flow. Next: offline exact rewrite request capture and contract
   controls, then combined matching/rewrite whole-edition budget admission.
 - No provider calls, implementation activation or saved-edition changes.
+
+## Fixed-selection rewrite contract — iteration 2895
+
+- Prepared `rewriteDevelopingStories` accepts the existing selection, original
+  evidence and validated matches; only matched selections reach its adapter.
+- The response must contain exactly the matched IDs in selection order and only
+  title, summary and why-it-matters prose. Rationale, source URLs and unmatched
+  stories stay intact. Relationships come only from validated snapshot links.
+- Current-evidence validation is mandatory and receives no historical context.
+  Input clones isolate adapter mutation. Refusal, malformed output, failed guards
+  or invalid relationships retain the exact original selection atomically.
+- Three offline contract tests cover success, missing/extra/reordered/changed IDs,
+  rationale/evidence injection, refusal, partial validation failure, guard errors,
+  input mutation and preflight rejection without calls. Synthetic prose tests
+  transport only, not semantic quality or integration with factual guards.
+- No provider implementation, generation activation or paid calls. Next: exact
+  request capture with original cluster evidence, factual-guard integration,
+  semantic review and combined whole-edition budget admission.
