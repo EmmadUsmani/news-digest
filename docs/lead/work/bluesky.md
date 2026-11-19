@@ -1,23 +1,25 @@
 # Bluesky in editions
 
-**Status:** reserved-slot trial finished (Nov 7–9): 12 Bluesky picks, none
-reused, and Nov 9's picks are distinct from X. Weak spots: Gaming had nothing
-pass triage on Nov 8 or 9, and World picks have tiny engagement (agent's figures,
-[review](../../edition-reviews/2026-11-09.md)).
+**Status (Nov 19):** working, and nothing waits on the owner. The Nov 18
+edition (`cd357e84`) had Bluesky posts in all five topics (Tech 1, NBA 1,
+Gaming 2, World 2, U.S. 2), including the U.S. posts that were missing earlier.
+Source: the status script's edition summary and
+[the Nov 18 selection review](../../edition-reviews/2026-11-18-bluesky-selection.md)
+(agent's reading; I haven't opened the posts myself).
 
 **What we know:**
 
-- Collection works hourly. Bluesky has been on in editions since Nov 3.
-- Bluesky only gets slots X leaves empty. NBA, Gaming and Tech got none on Nov 6.
-- Saved editions now keep the Bluesky outcome, so failures are visible.
-- Both durable alerts are live (18 healthy rules). Neither has fired on a real edition.
-- The reserved slot (one X slot per topic) is ON. Flag confirmed on the VM on Nov 7.
-  First edition using it: Nov 7.
-
-**Owner decision (Nov 6):** reserved slot on, accepting the cost gate miss of
-about $0.00006 (STEERING item 40 update). Cap unchanged.
+- Collection runs hourly for AI, NBA, game, World, Ukraine, Gaza and Congress.
+  All 24 jobs succeeded on Nov 17
+  ([review](../../edition-reviews/2026-11-17-bluesky-day.md)).
+- Bluesky only gets slots X leaves empty, plus one reserved slot per topic
+  (on since Nov 7, owner decision Nov 6, cost cap unchanged).
+- Saved editions keep the Bluesky outcome, and both durable alerts are live.
+- Weak spot: NBA put three slots on one Lakers game on Nov 18 (two X, one
+  Bluesky). Gaming ceremony breadth is also open.
 
 **Next:**
 
-- Item 59 (Nov 13): after item 50, fix U.S. having no Bluesky posts, then
-  tuning. Gaming got a Bluesky pick on Nov 12; watch before any source fix.
+- The agent is to compare the exact Nov 18 texts offline before changing
+  event grouping. Production queries, budgets and selection stay unchanged.
+- U.S. Bluesky (item 59) stays in the daily edition review; no owner action.

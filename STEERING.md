@@ -25,7 +25,9 @@ details, budgets and rules stay in the items. Every new item goes on this list.
    follow `docs/public-access-plan.md`; later phases need the owner.
 3. U.S. news & politics acceptance (items 56, 57) continues in the daily
    edition review.
-4. After item 50 is waiting on the owner: U.S. has no Bluesky posts (item 59).
+4. U.S. Bluesky posts (item 59): item 50 is done and nothing here waits on the
+   owner. The Nov 18 edition had two U.S. Bluesky posts; keep watching it in the
+   daily edition review.
 5. Then X search and Bluesky tuning (items 39, 34, 40, 41).
 6. Tech summary depth runs alongside line 1 (items 66, 67): one cause table
    and one general excerpt fix, no more per-publisher recovery commits.
