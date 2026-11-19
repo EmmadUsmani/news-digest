@@ -23,6 +23,7 @@ details, budgets and rules stay in the items. Every new item goes on this list.
    The review after each scheduled edition is a fixed daily task.
 2. Missed stories (item 68): measure what each edition misses and fix the
    biggest cause. Owner ranks it just below breakages (Nov 19).
+   Item 71 sets the pace: Nov 19 audit closed, three editions, then one fix.
 3. Public access (item 50) is done and the site is shared. Reader accounts
    follow `docs/public-access-plan.md`; later phases need the owner.
 4. U.S. news & politics acceptance (items 56, 57) continues in the daily
@@ -3182,6 +3183,8 @@ Protect the morning edition.
 
 ack: 2026-11-19 (2875) — selected two free reference feeds per topic in docs/SOURCES.md and added scripts/capture-reference-stories.ts for dated, window-filtered observations without DB/model calls. Ten feeds pass live; early Nov 19 window contains 166 entries before importance/event review. Daily Missed recall and causes remain pending publication; three reviews and a measured root-cause fix remain open. No scoring changes or paid replay.
 
+Item 71 (Nov 19) replaces the pace of steps 2 to 5 above: close the Nov 19 audit and finish from the Nov 20 to 22 editions.
+
 ## 69. Use waiting time for evaluation; count stories and posts per event (2026-11-19)
 
 **Why:** after its last commit at 20:12 UTC on Nov 18, the agent ran more than
@@ -3239,4 +3242,41 @@ parts.
 
 **Limits:** existing AI caps. If a feature can't fit, write one line in
 `NEEDS_FROM_HUMAN.md` and move on. No deploys between 13:00 and 16:00 UTC.
+Protect the morning edition.
+
+## 71. NOW: stop the Nov 19 audit; finish item 68 from the next three editions (2026-11-19)
+
+**Why:** item 68 has had about 30 commits and a 550-line Nov 19 review, and still
+has no recall number. The latest census (iteration 2958) says 120 of 153
+important reference routes can't be resolved from Nov 19's saved data, because
+the grouping input maps were only added on Nov 19 (iterations 2953 to 2956).
+More digging in Nov 19 can't change that. The confirmed causes so far are mixed
+(Celtics, Harper: dropped by the editor; Warriors, Roblox: never shortlisted),
+so no single cause is the largest yet.
+
+**Priority:** replaces item 68's pace, not its goal. Same place, Current order
+line 2.
+
+**What to do:**
+
+1. Close the Nov 19 Missed section as it stands, labelled partial. No more
+   commits that extend the Nov 19 census, routing or evidence files.
+2. For the Nov 20, 21 and 22 editions, build the Missed section from the saved
+   grouping memberships now captured. Judge the unresolved references as an
+   editor, as item 68 step 2 says. Give each edition recall per topic and each
+   miss's cause. This stays inside the daily review commit.
+3. After the Nov 22 review, tally the causes across the three editions. Fix the
+   largest at its root, measure the fix on the saved pools, then deploy.
+   If two causes tie, pick the one with more distinct events.
+4. Waiting time goes to items 69 and 70, not to more reference tooling.
+
+**What not to do:** no new reference scripts, schemas or snapshot fields. No
+paid replays, new spend or new vendors. Don't tune scoring to the references.
+No checkpoint commits (item 66).
+
+**Done when:** three reviews carry per-topic recall and causes, and one
+root-cause fix is deployed. The ack gives recall per topic before and after,
+and the cause tally.
+
+**Limits:** unchanged from item 68. No deploys between 13:00 and 16:00 UTC.
 Protect the morning edition.
