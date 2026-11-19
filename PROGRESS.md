@@ -134,3 +134,12 @@
 - Two targeted tests pass; synthetic CLI report/permissions/overwrite refusal pass. pnpm format/lint:fix and full check pass (1,197 unit / 332 integration, four expected skips); build and handbook pass (19 pages/21 diagrams/39 tables). Logs /tmp/2904-*.log.
 - TASKS and saved review updated; no source/UI/handbook behavior change. Semantic model/rewrite review, runtime five-topic plan and transactional admission remain open; scheduled missed-story/NBA/Tech review due after 15:00 UTC.
 - Final git diff --check clear; commit/push and API/worker/docs restart follow verification. No feature activation.
+
+## 2026-11-19: iteration 2905 — refuse invented developing-story updates
+
+- Clean main at 178894d3; no inherited work. Alerts/health pass; sources healthy, digest queue zero failures/next 15:00 UTC; reader five topics/25 stories.
+- Prepared developing rewrite v2 explicitly requires whole-request null when current evidence repeats earlier results/rankings/sales totals; forbids invented milestones/reporting periods and unsupported confirmation of prior conditional claims. No grouping/title rules or feature activation.
+- Exact saved Zelda transport supplies original evidence/history; scripted null preserves all five selections by identity with no relationship metadata and one dispatch/no retry. This verifies refusal handling, not semantic model compliance. No provider calls.
+- Seven targeted tests pass. pnpm format/lint:fix and full pnpm check pass (1,197 unit / 332 integration, four expected skips); build and handbook pass (19 pages/21 diagrams/39 tables). Handbook results in /tmp/2905-handbook.log; remaining logs /tmp/2905-*.log.
+- TASKS and saved review updated; v1 reservation figures explicitly historical, fresh captures recalculate v2 bounds. Semantic review/runtime admission/live acceptance remain open; missed-story/NBA/Tech scheduled review due after 15:00 UTC. No source/UI/handbook behavior change.
+- Commit/push and API/worker/docs restart follow verification; live health and alert checks repeated after restart.

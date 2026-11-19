@@ -8,6 +8,7 @@ import {
 } from '../scripts/prepare-developing-rewrite-requests';
 import { llmConfig } from '../src/modules/curation/adapters/config';
 import { developingRewriteRequest } from '../src/modules/curation/application/developing-rewrite-request';
+import { rewriteSelectedDevelopingStories } from '../src/modules/digests/application/rewrite-selected-developing-stories';
 import type { developingHistory } from '../src/modules/digests/domain/developing-history';
 import {
   developingEvidence,
@@ -178,6 +179,41 @@ void test('saved positive memberships capture original evidence without replacin
       }),
     );
     assert.ok(report.cases[index].reserveMicros! > 0);
+    if (item.topicName === 'Gaming') {
+      let calls = 0;
+      const result = await rewriteSelectedDevelopingStories({
+        ...item,
+        model,
+        llm: {
+          async complete(request) {
+            calls++;
+            assert.match(
+              request.instructions,
+              /only repeats an earlier result/,
+            );
+            assert.match(
+              request.instructions,
+              /return null for the entire request/,
+            );
+            assert.match(
+              request.instructions,
+              /Never describe earlier conditional claims/,
+            );
+            assert.deepEqual(request, report.cases[index].request);
+            // Scripted refusal, not a semantic model judgement.
+            return {
+              text: 'null',
+              usage: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
+            };
+          },
+        },
+      });
+      assert.equal(calls, 1);
+      assert.equal(result.status, 'unchanged');
+      assert.equal(result.stories, item.selected);
+      assert.equal(result.stories.length, 5);
+      assert.ok(result.stories.every((story) => !('developing' in story)));
+    }
   }
   assert.deepEqual(cases, before);
 });
