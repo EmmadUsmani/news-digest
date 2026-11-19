@@ -156,3 +156,12 @@
 - Saved exact request receipts/cost bounds, existing factual-guard integration, semantic review and whole-edition admission remain next. Daily missed-story/NBA/Tech acceptance remains after 15:00 UTC.
 - Verification: targeted tests 2/2; pnpm format, lint:fix, check (1,177 unit / 332 integration pass, four expected skips), build and handbook (19 pages/21 diagrams/39 tables) pass. git diff --check clear. Latest reader five topics/25 stories; no changed source/UI/handbook behavior.
 - TASKS and saved review updated. Commit/push and API/worker/docs restart follow verification. Logs /tmp/2896-*.log.
+
+## 2026-11-19: iteration 2897 — current-evidence rewrite guard
+
+- Clean main at cda81321; no inherited work. Alerts/health pass; active sources healthy, Destructoid inactive. Digest queue zero failures; next scheduled 15:00 UTC. Latest reader five topics/25 stories.
+- Prepared rewrite validator reuses the selection editor’s bounded current-evidence absence guard, NBA summary exception and editorial prose limits. Historical context is excluded from factual support.
+- Two offline tests cover real-guard integration with atomic fallback, historical-only rejection/current-supported acceptance, attribution stripping in all fields, supplemental support, truncation, IDs and length bounds. This lexical guard does not establish general entailment or semantic acceptance.
+- No provider calls, production activation, source/UI changes or affected handbook behavior. Exact saved request/cost capture, semantic review and whole-edition admission remain next; scheduled acceptance after 15:00 UTC.
+- Verification: targeted 2/2; pnpm format, lint:fix and check pass (1,179 unit / 332 integration tests, four expected skips); handbook 19 pages/21 diagrams/39 tables passes. Build passes; API/worker/docs restarted, health passes and reader retains five topics/25 stories. git diff --check clear. Logs /tmp/2897-*.log.
+- TASKS and saved review updated; no changed handbook behavior. Commit/push follow verification. Scheduled missed-story/NBA/Tech review remains due after 15:00 UTC.

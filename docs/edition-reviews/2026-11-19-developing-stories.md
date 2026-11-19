@@ -268,3 +268,9 @@ relationship to the later resignation; it is not labelled a match.
 - Explicitly projects selected prose, original current cluster evidence and validated earlier headline/summary. Inherited evidence history and snapshot link IDs are excluded; original evidence is retained without truncation.
 - Instructions require exact ordered IDs, current-evidence factual support and atomic refusal when an update cannot be supported. Tests cover evidence isolation, model mutation, ten-story order/output bounds and invalid selection preflight. These are synthetic transport controls, not semantic acceptance.
 - Saved exact request capture/reservation receipts, existing factual guards, semantic review and combined edition-budget admission remain required before activation. No provider calls or production wiring.
+
+## Iteration 2897 — current-evidence rewrite guard
+
+- Prepared validator applies the selection editor’s existing absence-support guard and 240/1,400/400-character headline/summary/significance limits to rewritten prose. It uses only bounded current representative/cluster title and excerpt evidence, retaining the NBA summary exception.
+- Offline integration with the atomic rewrite contract rejects a historical-only absence claim, preserves the exact accepted selection on failure, and accepts the same attributed claim when current evidence supports it. Controls cover attribution removal in all prose fields, supplemental cluster support, evidence truncation, mismatched IDs and length limits.
+- This is the existing lexical guard, not general factual entailment or semantic acceptance. No provider calls or production activation. Exact saved request/cost capture, semantic review and combined whole-edition admission remain open.
