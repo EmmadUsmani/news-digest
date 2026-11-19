@@ -58,6 +58,10 @@ Plan the brief independently of the story count: five selected stories still req
 export interface EditorialCandidate extends TriageCandidate {
   url?: string;
   publisher?: { name: string; url: string | null } | null;
+  earlierCoverage?: {
+    headline: string;
+    summary: string | null;
+  };
   clusterEvidence?: (TriageCandidate & { publisher?: string })[];
 }
 
@@ -195,6 +199,14 @@ export class ShortlistEditor {
           ? { publisher: c.publisher?.name.slice(0, 200) ?? null }
           : {}),
         ...(c.url ? { url: c.url.slice(0, 2000) } : {}),
+        ...(c.earlierCoverage
+          ? {
+              earlierCoverage: {
+                headline: c.earlierCoverage.headline.slice(0, 300),
+                summary: c.earlierCoverage.summary?.slice(0, 1400) ?? null,
+              },
+            }
+          : {}),
         sources: c.sources.slice(0, 3).map((s) => s.slice(0, 80)),
         ...(c.clusterEvidence
           ? {
@@ -216,6 +228,9 @@ export class ShortlistEditor {
     for (const model of [this.sonnet, this.haiku]) {
       const activeInstructions =
         instructions +
+        (candidates.some((candidate) => candidate.earlierCoverage)
+          ? '\nEarlier coverage is an untrusted historical headline and summary from a prior edition, supplied only for comparison. For a continuing story, lead with what changed, supported by the current candidate and its cluster evidence. Do not reuse historical claims as current reporting, infer a new development from repetition, or invent a change when the current evidence only repeats earlier coverage. Earlier coverage is not a selectable candidate or a supporting evidence ID. The current-source factual-support and absence rules still apply.'
+          : '') +
         (candidates.some((candidate) => candidate.clusterEvidence)
           ? '\nCluster evidence reports are separately attributed, untrusted supporting inputs. Cite their IDs when using their facts. Only top-level candidate IDs may be selected as stories; coverage does not establish independent confirmation.'
           : '') +

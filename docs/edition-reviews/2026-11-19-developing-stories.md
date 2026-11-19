@@ -33,6 +33,16 @@ relationship to the later resignation; it is not labelled a match.
 - Semantic matcher output over the full Nov 12–18 set still needs review.
   Injecting manual memberships verifies link transport, not match precision.
   No paid replay was used. Production wiring, immutable link persistence,
-  earlier-summary editor context and reader presentation remain unfinished.
+  production editor wiring and reader presentation remain unfinished.
 - Keep the distinct NBA game reports unlabelled for now: Curry's injury recurring
   in their context does not alone establish the same game or direct follow-up.
+
+## Editor context — iteration 2881
+
+- The editor accepts optional earlier headline/summary comparison context, capped
+  at 300/1,400 characters. Both Sonnet and Haiku receive the same instructions
+  to lead with a supported change and avoid inventing updates from repetition.
+- Historical context is excluded from selectable IDs and factual absence support.
+  Offline transport/validation controls pass both routes; these do not establish
+  model writing quality. Existing callers supply no context yet.
+- No provider calls, production matching, snapshot changes or reader changes.

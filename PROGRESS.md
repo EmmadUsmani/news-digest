@@ -66,3 +66,12 @@
 - Verification: targeted tsx tests 3/3, pnpm format/lint:fix, pnpm build (atomic web publication), handbook check (19 pages/21 diagrams/39 tables) and git diff --check pass. Full pnpm check passes: 1,149 unit / 330 integration tests, four expected skips; logs /tmp/2880-*.log. No source or handbook architecture change; TASKS updated; archived iterations 2778–2786 to keep progress below 25 KB.
 - API/worker/docs restarted active. Immediate health probe raced startup; subsequent pnpm obs health --check and curl /healthz pass; alerts remain clear.
 - Next: complete semantic acceptance and feature integration; scheduled Nov 19 missed-story/NBA/Tech review after 15:00. Destructoid remains paused/blocked.
+
+## 2026-11-19: iteration 2881 — prepare developing-story editor context
+
+- Clean main at e57051bc; no inherited work. Alerts/health clear, 38 monitored sources healthy, digest queue zero failures; next publication 15:00 UTC. Scheduled acceptance awaits that edition; today's item 69 evaluation already used.
+- Continued item 70: optional earlier headline/summary comparison context reaches both editor model routes, bounded to 300/1,400 characters. Instructions lead with a supported change, reject invented updates from repetition and keep historical reporting separate from current evidence.
+- Historical context never enters selectable IDs or factual absence support. Three offline tests cover both routes, historical-negative-claim rejection, input immutability, bounds and unchanged ordinary inputs. These are transport/validation controls, not semantic writing acceptance.
+- No paid calls, production context wiring, snapshot/reader/source changes or affected handbook architecture. Semantic matching review, immutable persistence, production wiring and reader label remain open. TASKS and saved review updated; Destructoid remains blocked.
+- Verification: editor tests 49/49; pnpm format, pnpm lint:fix, full pnpm check (1,152 unit / 330 integration passes, four expected skips), pnpm build and git diff --check pass. Handbook initially hit tool API HTTP 429; retry after service restart passes 19 pages/21 diagrams/39 tables. Logs /tmp/2881-*.log.
+- Web assets published atomically; API/worker/docs restarted healthy. Final restart follows commit/push so services match main. Next: semantic acceptance/integration; Nov 19 missed-story recall/causes and NBA/Tech acceptance after 15:00 UTC.

@@ -1956,3 +1956,69 @@ for (const refuse of [[], ['claude-sonnet-5-5']]) {
     );
   });
 }
+
+for (const refuse of [[], ['claude-sonnet-5-5']]) {
+  void test(`developing context is comparison only on ${refuse.length ? 'Haiku' : 'Sonnet'}`, async () => {
+    const h = harness([valid], refuse);
+    const earlierCoverage = {
+      headline: 'An earlier model announcement',
+      summary: 'Historical reporting. The company has not commented.',
+    };
+    const input = [{ ...candidates[0], earlierCoverage }];
+    const before = structuredClone(input);
+    const result = await h.editor.edit(topic, input, 1, 'developing-context');
+    assert.ok(result);
+    assert.deepEqual(
+      JSON.parse(h.calls[0].prompt).candidates[0].earlierCoverage,
+      earlierCoverage,
+    );
+    assert.match(h.calls[0].instructions, /lead with what changed/);
+    assert.match(
+      h.calls[0].instructions,
+      /not a selectable candidate or a supporting evidence ID/,
+    );
+    assert.match(
+      h.calls[0].instructions,
+      /infer a new development from repetition/,
+    );
+    assert.deepEqual(input, before);
+
+    // Historical absence prose must not authorize unsupported current claims.
+    const rejected = harness(
+      [{ ...valid, stories: [{ ...story, summary: earlierCoverage.summary }] }],
+      refuse,
+    );
+    assert.equal(
+      await rejected.editor.edit(topic, input, 1, 'historical-absence'),
+      null,
+    );
+    assert.ok(rejected.calls.length > 0);
+  });
+}
+
+void test('developing context is bounded and absent for ordinary stories', async () => {
+  const h = harness();
+  await h.editor.edit(
+    topic,
+    [
+      {
+        ...candidates[0],
+        earlierCoverage: {
+          headline: 'h'.repeat(500),
+          summary: 's'.repeat(2000),
+        },
+      },
+    ],
+    1,
+    'bounded-history',
+  );
+  const context = JSON.parse(h.calls[0].prompt).candidates[0].earlierCoverage;
+  assert.equal(context.headline.length, 300);
+  assert.equal(context.summary.length, 1400);
+  const ordinary = harness();
+  await ordinary.editor.edit(topic, candidates, 1, 'ordinary');
+  assert.equal(
+    'earlierCoverage' in JSON.parse(ordinary.calls[0].prompt).candidates[0],
+    false,
+  );
+});
