@@ -1,7 +1,7 @@
 import type { StoryGroupingResult } from '../../curation/public/editorial';
 import type { Candidate } from '../domain/rank';
 
-interface GroupingResultPort {
+export interface GroupingResultPort {
   groupWithResult(
     topicId: string,
     candidates: {

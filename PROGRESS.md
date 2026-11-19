@@ -141,3 +141,13 @@
 - Verification: targeted tsx --test passes 3/3; pnpm format, pnpm lint:fix, full pnpm check (1,143 unit / 330 integration passes, four expected skips), pnpm build, check-handbook.ts (19 pages/21 diagrams/39 tables) and git diff --check pass. Logs /tmp/2878-*.log.
 - Web assets published atomically; API/worker/docs restarted active. pnpm obs health --check and curl /healthz pass; obs alerts clear; digest-generation queue zero failures, next 15:00 UTC. TASKS updated; Destructoid remains paused/blocked.
 - Next: scheduled edition review with missed-story recall/causes and NBA/Tech acceptance; otherwise continue developing-story matching integration and saved semantic review within existing caps.
+
+## 2026-11-19: iteration 2879 — connect developing-story semantic orchestration
+
+- Clean main at 677541f8; no inherited work. Initial orientation output was too broad; narrowed subsequent reads. Alerts/health clear, 38 monitored sources healthy; digest queue zero failures, next scheduled edition 15:00 UTC.
+- Scheduled review awaits publication; today's item 69 evaluation commit already used. Continued item 70 with opt-in matchDevelopingStories through the existing budgeted grouping interface, preserving occurrence IDs, publication dates and saved summary evidence.
+- One request at most; no batching, history truncation or added admission path. Missing evidence, pools above existing 40-item limit, unavailable/error responses and invalid memberships leave stories unlinked.
+- Three offline tests cover evidence/run-context transport, recurring story IDs, immutability, unavailable/invalid/error results and no-call limits. No live provider calls, production wiring, DB/snapshot writes, UI/source/budget changes or affected handbook architecture.
+- Verification: targeted tsx tests 3/3; pnpm format/lint:fix, pnpm build and git diff --check pass. Handbook check initially interrupted by service restart (ECONNREFUSED); rerun passes 19 pages/21 diagrams/39 tables. Full pnpm check passes: 1,146 unit / 330 integration tests, four expected skips; logs /tmp/2879-*.log.
+- Web assets published atomically; API/worker/docs restarted. pnpm obs health --check and curl /healthz pass; sources healthy and digest queue zero failures. TASKS updated.
+- Next: saved Nov 12–18 semantic matching review, then persistence/editor context/reader label; feature not yet live or semantically accepted. Scheduled missed-story/NBA/Tech review after 15:00; Destructoid remains blocked.
