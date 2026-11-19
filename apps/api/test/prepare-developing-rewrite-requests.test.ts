@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 
 import {
@@ -7,6 +8,11 @@ import {
 } from '../scripts/prepare-developing-rewrite-requests';
 import { llmConfig } from '../src/modules/curation/adapters/config';
 import { developingRewriteRequest } from '../src/modules/curation/application/developing-rewrite-request';
+import type { developingHistory } from '../src/modules/digests/domain/developing-history';
+import {
+  developingEvidence,
+  developingLinks,
+} from '../src/modules/digests/domain/developing-links';
 
 const selected = {
   id: 'a',
@@ -89,4 +95,89 @@ void test('offline capture charges no request for absent matches, missing eviden
     assert.equal(result.request, null);
     assert.equal(result.reserveMicros, null);
   }
+});
+
+void test('saved positive memberships capture original evidence without replacing the accepted selection', async () => {
+  const fixture = JSON.parse(
+    readFileSync(
+      new URL(
+        './fixtures/developing-stories-saved-2026-11-12-18.json',
+        import.meta.url,
+      ),
+      'utf8',
+    ),
+  ) as {
+    cases: {
+      editionId: string;
+      topicId: string;
+      topicName: string;
+      stories: { id: string; title: string; summary: string | null }[];
+      history: ReturnType<typeof developingHistory>;
+      reviewedStoryId: string;
+      expectedPredecessors: { editionId: string; storyId: string }[];
+      selected?: RewriteCaptureCase['selected'];
+      originalEditorialEvidence?: {
+        promptSha256: string;
+        evidence: RewriteCaptureCase['evidence'];
+      };
+    }[];
+  };
+  const cases: RewriteCaptureCase[] = [];
+  for (const item of fixture.cases) {
+    if (!item.originalEditorialEvidence || !item.selected) continue;
+    const evidence = developingEvidence(item.stories, item.history);
+    const current = evidence.find(
+      (x) => x.editionId === null && x.story.id === item.reviewedStoryId,
+    )!;
+    const previous = item.expectedPredecessors.map((p) =>
+      evidence.find(
+        (x) => x.editionId === p.editionId && x.story.id === p.storyId,
+      )!,
+    );
+    assert.ok(previous.every(Boolean));
+    const links = developingLinks(item.stories, item.history, [
+      [current.reference, ...previous.map((x) => x.reference)],
+    ]);
+    assert.equal(links.length, 1);
+    assert.equal(links[0].editionCount, previous.length + 1);
+    assert.equal(
+      links[0].previousEditionId,
+      item.expectedPredecessors[0].editionId,
+    );
+    assert.match(item.originalEditorialEvidence.promptSha256, /^[a-f0-9]{64}$/);
+    cases.push({
+      editionId: item.editionId,
+      topicId: item.topicId,
+      topicName: item.topicName,
+      runId: 'offline-saved-positive',
+      selected: item.selected,
+      evidence: item.originalEditorialEvidence.evidence,
+      links,
+    });
+  }
+  assert.equal(cases.length, 2);
+  const before = structuredClone(cases);
+  const model = llmConfig({}).sonnet;
+  const report = await prepareDevelopingRewriteRequests(cases, model);
+  assert.equal(report.requestCount, 2);
+  for (const [index, item] of cases.entries()) {
+    const link = item.links[0];
+    assert.deepEqual(
+      report.cases[index].request,
+      developingRewriteRequest({
+        model,
+        runId: item.runId,
+        topicId: item.topicId,
+        stories: [
+          {
+            selected: item.selected.find((x) => x.id === link.storyId)!,
+            evidence: item.evidence.find((x) => x.id === link.storyId)!,
+            earlierCoverage: link,
+          },
+        ],
+      }),
+    );
+    assert.ok(report.cases[index].reserveMicros! > 0);
+  }
+  assert.deepEqual(cases, before);
 });

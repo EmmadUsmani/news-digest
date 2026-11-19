@@ -1,5 +1,5 @@
 {
-  "provenance": "Exact saved published snapshot evidence exported by iteration 2877; manual agent labels, not model responses or independent acceptance. Only reviewedStoryId is labelled in each case; other current stories are unreviewed.",
+  "provenance": "Exact saved published snapshot evidence exported by iteration 2877; manual agent labels, not model responses or independent acceptance. Only reviewedStoryId is labelled in each case; other current stories are unreviewed. Iteration 2902 adds Nov 18 Gaming and U.S. cases from the iteration 2901 export, with exact bounded original editorial evidence and immutable prompt hashes; no model matching or generated rewrites.",
   "cases": [
     {
       "editionId": "93aefc45-33d7-4639-ad53-78e316a40f14",
@@ -501,7 +501,7 @@
         },
         {
           "id": "0b1e615c-de17-420c-bbb4-0f9aba434016",
-          "title": "Short-handed Pistons end Spurs\u2019 12-game streak as Harper limps off with groin injury",
+          "title": "Short-handed Pistons end Spurs’ 12-game streak as Harper limps off with groin injury",
           "summary": null
         },
         {
@@ -625,8 +625,8 @@
             },
             {
               "id": "272cd23a-e880-43e6-9d25-654cd0b5d545",
-              "title": "Lakers' Don\u010di\u0107 expected back Sunday; Reaves day-to-day with bruised heel",
-              "summary": "Lakers coach JJ Redick told reporters Friday that he expects Luka Don\u010di\u0107 to be available for Sunday's game against the Phoenix Suns. Don\u010di\u0107 had a tweaked ankle, and Redick said Austin Reaves is day-to-day with a heel bruise. Quentin Grimes, who has missed two games with a right finger sprain, said he plans to play Sunday."
+              "title": "Lakers' Dončić expected back Sunday; Reaves day-to-day with bruised heel",
+              "summary": "Lakers coach JJ Redick told reporters Friday that he expects Luka Dončić to be available for Sunday's game against the Phoenix Suns. Dončić had a tweaked ankle, and Redick said Austin Reaves is day-to-day with a heel bruise. Quentin Grimes, who has missed two games with a right finger sprain, said he plans to play Sunday."
             },
             {
               "id": "6f7a2232-d826-4346-9861-f93baa5b73e4",
@@ -677,7 +677,7 @@
           "stories": [
             {
               "id": "3178ae9e-e4cb-4120-a038-b8f17cd365a2",
-              "title": "\u2018Concern Is High\u2019 For Warriors After Stephen Curry Leaves Game With Abdominal Soreness",
+              "title": "‘Concern Is High’ For Warriors After Stephen Curry Leaves Game With Abdominal Soreness",
               "summary": null
             },
             {
@@ -718,8 +718,8 @@
             },
             {
               "id": "4aa1d0b4-8213-40c6-828c-2698a277238e",
-              "title": "Lakers climb power rankings behind Luka Don\u010di\u0107",
-              "summary": "CBS Sports places the Lakers No. 2 in its weekly Power Rankings, with the Wolves, Celtics and Warriors also on the rise. USA TODAY Sports, via Yahoo Sports, says a new team is atop its power rankings for the third consecutive week, this time the team of the league's top scorer, under a headline saying Luka Don\u010di\u0107 and the Lakers are on a tear."
+              "title": "Lakers climb power rankings behind Luka Dončić",
+              "summary": "CBS Sports places the Lakers No. 2 in its weekly Power Rankings, with the Wolves, Celtics and Warriors also on the rise. USA TODAY Sports, via Yahoo Sports, says a new team is atop its power rankings for the third consecutive week, this time the team of the league's top scorer, under a headline saying Luka Dončić and the Lakers are on a tear."
             },
             {
               "id": "36867c7f-2ede-4cfe-852e-e6b495cd7214",
@@ -1217,6 +1217,579 @@
       ],
       "reviewedStoryId": "9035014e-9153-4f61-98f7-392dfbcec7d9",
       "expectedPredecessors": []
+    },
+    {
+      "editionId": "cd357e84-9383-4e10-b60c-c8318da4b314",
+      "topicId": "00000000-0000-4000-8000-000000000013",
+      "topicName": "Gaming",
+      "windowEnd": "2026-11-18 15:00:00+00",
+      "stories": [
+        {
+          "id": "c6df3e62-727d-422a-ab7f-599d6c275524",
+          "title": "GTA 6 launches to universal critical acclaim; Take-Two shares jump in pre-market trading",
+          "summary": "After a 13-year wait, Grand Theft Auto 6 has been met with universal acclaim, and recent data shows over 17 million pre-orders generating more than $1.6 billion in revenue. GameSpot reports Take-Two shares were up close to 7% in pre-market trading after the reviews landed."
+        },
+        {
+          "id": "8fcf7d0a-c535-421d-b5fe-9fad257bd160",
+          "title": "Firaxis lays off about 60 employees, a third of its workforce",
+          "summary": "Take-Two studio Firaxis, maker of Civilization and the XCOM revivals, is cutting around a third of its workforce, affecting approximately 60 employees. According to Bloomberg's Jason Schreier, a 2K Games spokesperson confirmed that studio head Heather Hazen is leaving."
+        },
+        {
+          "id": "d2663bb3-11a8-4726-b6a5-5994526a97ee",
+          "title": "Build a Rocket Boy plans litigation against alleged \"saboteurs\" to recoup £61.7m debt",
+          "summary": "MindsEye developer Build a Rocket Boy owes £61.7 million in debt. It plans to recoup the money by pursuing litigation against alleged \"saboteurs\"."
+        },
+        {
+          "id": "83af0341-6dc7-4de0-b8b1-2a76740ad032",
+          "title": "WoW: Forever hits record launch numbers, with more weekly players than in 15 years",
+          "summary": "World of Warcraft: Forever had the biggest concurrent player launch in the MMO's history, according to the report. Executive producer Holly Longdale said over 15 million characters have been logged, and that the game has more people playing weekly than Blizzard has seen in 15 years."
+        },
+        {
+          "id": "801716f5-d084-4c3a-9908-4d1ef84be82c",
+          "title": "Zelda: Ocarina of Time remake is the best-selling physical game in the US for 2026",
+          "summary": "According to Circana's Mat Piscatella, the Ocarina of Time remake became the best-selling physical video game in the US for 2026, selling over one million copies as of November 7th. GamingBolt says Nintendo's remake has sold over 5.2 million copies in four days."
+        }
+      ],
+      "history": [
+        {
+          "editionId": "6216cb7a-3b6a-4fff-9e35-5fe959eb0c8e",
+          "publishedAt": "2026-11-17 15:04:07.594+00",
+          "stories": [
+            {
+              "id": "b785fbdc-f24e-4c25-b671-ee49658ac0be",
+              "title": "Sensor Tower estimates GTA 6 has already made $1.45 billion from pre-orders",
+              "summary": "Market intelligence firm Sensor Tower estimates Rockstar's GTA 6 has surpassed $1.45 billion in revenue, with 14.94 million copies sold via pre-orders. Its tracker puts PS5 at 11.13 million of those, or 74%, well ahead of Xbox Series X|S."
+            },
+            {
+              "id": "1e9fba4b-ef50-4f05-ba7d-c098cf14a8d6",
+              "title": "Ocarina of Time remake is 2026's best-selling US physical game so far, Circana says",
+              "summary": "According to Circana, Nintendo's Legend of Zelda: Ocarina of Time remake for Switch 2 is the best-selling physical game of 2026. Circana's Mat Piscatella said it was the first game to pass 1 million US physical units in launch week since Tears of the Kingdom in 2023. The game released November 5 and the reporting period ended November 7, so the milestone came in two days."
+            },
+            {
+              "id": "200e9509-10d1-41fc-930a-1c86f57c71cf",
+              "title": "Arion Kurtaj pleads guilty to charges linked to 2022 GTA 6 leaks",
+              "summary": "Arion Kurtaj, 17, has pleaded guilty to all charges against him in connection with the 2022 GTA 6 leaks, according to the BBC. He was deemed fit to stand trial and is to be sentenced at a later date."
+            },
+            {
+              "id": "799e8759-e7ce-4cae-92fe-929c8485d3a4",
+              "title": "Netflix Games hit by another round of layoffs",
+              "summary": "Netflix's gaming department has had more layoffs, according to LinkedIn posts by affected workers. The number of cuts is unclear, and the announcements come a few weeks after Netflix previously laid off 60 game workers in late October. Game director Andrew Brownell wrote that Netflix Games went through a restructuring as the team shifts how it approaches making games."
+            },
+            {
+              "id": "430c2891-26c9-419e-b35e-992588b8178e",
+              "title": "Sony wins PlayStation Store pricing lawsuit, Insider Gaming reports",
+              "summary": "Insider Gaming reports that an ongoing lawsuit against Sony over the PlayStation Store monopolizing game prices has been settled in Sony's favor."
+            }
+          ]
+        },
+        {
+          "editionId": "93aefc45-33d7-4639-ad53-78e316a40f14",
+          "publishedAt": "2026-11-16 15:03:11.281+00",
+          "stories": [
+            {
+              "id": "7ca1dabd-791a-4b23-996f-ed4b113ca992",
+              "title": "Analysts project GTA 6 sales of 55 million copies by March 31st",
+              "summary": "A Business Daily by Investor report compiling analyst data indicates Grand Theft Auto 6 will sell 55 million copies during the fiscal year ending March 31st. According to BMO Capital Markets' Brian Pitz, around 45 million copies are expected to sell in the first quarter of release. The game is due out later this week."
+            },
+            {
+              "id": "6171ee06-4635-4fbc-bacd-212250120f6b",
+              "title": "Xbox VP says backwards compatibility is informing Project Helix's design",
+              "summary": "Xbox's VP of Next Generation, Jason Ronald, said in an interview in the Xbox 25th Anniversary magazine that \"game preservation is core to Xbox.\" Ronald explained that Microsoft's position as one of the biggest publishers and platforms gives it a \"deep responsibility\" on the issue. The comments concern its next-gen console, Project Helix."
+            },
+            {
+              "id": "58b30436-e932-47e8-9180-51ab92a8e6f6",
+              "title": "Veteran Treyarch writer laid off in Xbox restructuring",
+              "summary": "A senior lead writer at Treyarch, who had been at the Call of Duty studio for almost two decades, said on LinkedIn: \"After approximately 20 years at Treyarch, I was one of those affected by recent layoffs.\" The report ties the layoffs to Xbox restructuring at Activision."
+            },
+            {
+              "id": "70df87e1-bfe9-4341-b0a6-6244843459c0",
+              "title": "Pearl Abyss says it now uses AI across various stages of development",
+              "summary": "Video Games Chronicle reports that Crimson Desert studio Pearl Abyss says it now uses AI \"across various stages of development.\" The studio previously apologised when generative AI artwork was spotted in the game."
+            },
+            {
+              "id": "85b67d25-1ca0-4f4d-a36a-29f8c6672452",
+              "title": "Report: Douyin acquires rights to stream GTA 6 in China amid apparent restrictions",
+              "summary": "Yahoo Taiwan reports, via machine translation, that Douyin has acquired the rights to stream GTA 6 in China, according to GamesRadar+. This seemingly coincided with Rockstar opening a Douyin account to advertise pre-loading. GamesRadar+ says the apparent streaming rules effectively turn the game into a sightseeing simulator and presumably severely restrict story playthroughs."
+            }
+          ]
+        },
+        {
+          "editionId": "a0fa3916-f1dc-4fbd-8d76-2884d5e01c06",
+          "publishedAt": "2026-11-15 15:03:33.094+00",
+          "stories": [
+            {
+              "id": "9b8c2c91-3501-41ef-a32a-91e6acc857b2",
+              "title": "Riot reveals League of Legends: New Dawn, a major update to the MOBA due next year",
+              "summary": "Riot Games revealed League of Legends: New Dawn during the 2026 League of Legends World Championship, describing it as a sweeping update to the 17-year-old game coming next year. It will touch gameplay, the client and more, and executive producer Paul Bellezza said Riot is releasing a modernized client next year."
+            },
+            {
+              "id": "8e777e55-c8f3-42d7-8993-55b18686a969",
+              "title": "GTA 6 launch on November 19 is reshaping release schedules, GameSpot reports",
+              "summary": "GameSpot reports that Rockstar's Grand Theft Auto 6 launches on November 19 and that some experts believe it is poised to \"blot out the sun.\" Other gaming companies are shifting dates for their own games to stay out of its way, and the director of the new Hunger Games movie, released a day later, said he hopes people can find time for both."
+            },
+            {
+              "id": "2146963e-3db7-4b88-8f86-a01e0ac6e239",
+              "title": "Fans report download code problems with some physical GTA 6 copies",
+              "summary": "Kotaku reports that fans who bought a physical copy of Grand Theft Auto in advance are claiming their download codes have already been used or are missing entirely."
+            },
+            {
+              "id": "7fbb3455-8bec-441c-97ee-1a5576556a5e",
+              "title": "Coffee Stain buys Chronicles: Medieval assets and IP after developer's bankruptcy",
+              "summary": "PC Gamer reports that Raw Power Games, developer of Chronicles: Medieval, declared bankruptcy on the same day it announced its funding had been pulled and it was at \"real risk of closing.\" Satisfactory developers Coffee Stain purchased the assets and IP, and development will continue with at least some of the original creators involved."
+            },
+            {
+              "id": "f7f09d35-c00d-412e-aa3e-91e3222201e9",
+              "title": "Gunman reportedly fires on building housing Xbox's inXile studio in California",
+              "summary": "On Nov. 11, a gunman reportedly opened fire at the inXile office building in Tustin, California, with XBOX now saying no one was injured in the incident. Police have since apprehended the suspect."
+            }
+          ]
+        },
+        {
+          "editionId": "b9d55088-892a-4e34-b77c-a398d64c6a9f",
+          "publishedAt": "2026-11-14 15:03:47.533+00",
+          "stories": [
+            {
+              "id": "300133e8-48e8-47eb-98f8-f4c5eeaac97e",
+              "title": "PSA: GTA 6 Does Not Have Online Multiplayer at Launch",
+              "summary": null
+            },
+            {
+              "id": "a93a92e2-5577-4d6d-b74f-c653fb44aaea",
+              "title": "PS5 is the first Sony console to hit 100 million units sold without a price cut",
+              "summary": null
+            },
+            {
+              "id": "37d865e3-7a87-44b0-8634-c06ca0a30570",
+              "title": "Quote of the Day by GTA 6 CEO: \"Grand Theft Auto franchise is probably the most valuable IP\"",
+              "summary": null
+            },
+            {
+              "id": "acd5b5c0-4344-485a-9e46-e244803e44f4",
+              "title": "GTA 6 Could Sell 55 Million Copies By Early Next Year, Report Says, And Average Selling Price Could Be $90",
+              "summary": null
+            },
+            {
+              "id": "fa453c95-8b95-410a-9b69-27f0090f03a0",
+              "title": "GTA 6 Owner Take-Two Is Not Interested In Selling Itself After EA Goes Private For $55 Billion",
+              "summary": null
+            }
+          ]
+        },
+        {
+          "editionId": "f901ba6c-cba3-4116-8539-fd0e92b98ec4",
+          "publishedAt": "2026-11-13 15:01:37.761+00",
+          "stories": [
+            {
+              "id": "7d1e6270-7fef-4f88-8809-13e24ceba2e9",
+              "title": "Base PS5's QSSR Enhancer Coming to 6 More Games, in Spider-Man 2 Now",
+              "summary": null
+            },
+            {
+              "id": "3d632337-e117-4d6a-8756-1b248eaa7646",
+              "title": "PS5 QSSR support added to Marvel’s Spider-Man 2, CONTROL Resonant, ARC Raiders, THE FINALS, No Man’s Sky, and Hell Let Loose: Vietnam",
+              "summary": null
+            },
+            {
+              "id": "52643659-b7b0-4c27-b224-cacf13a75dfc",
+              "title": "Grand Theft Auto VI in-game animated series ‘Macca & Friends’ teaser trailer",
+              "summary": null
+            },
+            {
+              "id": "f0b83b6c-278b-4b9a-b5ba-ca08ec39e58e",
+              "title": "How Origame Digital are channelling and defacing Lovecraft over a trilogy of \"inherently indigenous\" anti-fascist games",
+              "summary": null
+            },
+            {
+              "id": "b15d0415-cfde-452b-8b1d-fbcf029f2adc",
+              "title": "5 Big PS5 Games Will Receive QSSR Update",
+              "summary": null
+            }
+          ]
+        },
+        {
+          "editionId": "b1be5a12-2972-4eeb-9bff-82cbb10c1b07",
+          "publishedAt": "2026-11-12 15:03:52.392+00",
+          "stories": [
+            {
+              "id": "d5a0082b-7f8e-44bc-bb16-636f5e0d5029",
+              "title": "Resident Evil Requiem wins four Golden Joystick Awards, including Ultimate Game of the Year",
+              "summary": "The 44th Golden Joystick Awards took place last night, with Resident Evil Requiem winning four awards. They included Ultimate Game of the Year and Console Game of the Year."
+            },
+            {
+              "id": "0b33efb1-ace1-4530-af92-4177b538804b",
+              "title": "Paradox Interactive CEO Frederik Wester to step down",
+              "summary": "Paradox Interactive's Frederik Wester has announced he's stepping down as CEO after a combined decade and a half leading the company. Eurogamer and GamesIndustry.biz describe the news as following several tumultuous years for the publisher of Stellaris, Europa Universalis and Crusader Kings 3."
+            },
+            {
+              "id": "364657c3-77f2-415d-9926-d494b4ed5e85",
+              "title": "Black Forest Games separates from THQ Nordic and co-founds studio group Third Signal",
+              "summary": "Black Forest Games has separated from THQ Nordic through a management buyout. It has co-founded an independent game studio group, Third Signal."
+            },
+            {
+              "id": "9d982327-d520-4c76-96e6-b84f613a65cd",
+              "title": "CD Projekt Red used generative AI to treat Geralt's Polish voice for Witcher 3 expansion",
+              "summary": "CD Projekt Red has revealed that it used, and is using, generative AI technology to treat and alter the voice of the Polish actor who portrayed Geralt of Rivia in the upcoming Witcher 3 expansion Songs of the Past. The headline ties this to the actor's stroke and quotes a speaker saying it is one way AI can be used ethically."
+            },
+            {
+              "id": "c8274033-6146-4fc9-88eb-ae356e10e3c0",
+              "title": "Nintendo DMCA wave reportedly removes over 200 Switch projects from GitHub",
+              "summary": "Kotaku reports Nintendo's latest wave of DMCA takedowns wiped over 200 Nintendo Switch projects off GitHub. The takedowns targeted firmware for Switch modchips and Yuzu, the emulation project."
+            }
+          ]
+        },
+        {
+          "editionId": "eb6e962e-200d-4efc-9f6f-2c7e58743bd8",
+          "publishedAt": "2026-11-11 15:02:39.127+00",
+          "stories": [
+            {
+              "id": "762a8b93-f788-4501-9996-8ecb7a597e0a",
+              "title": "EU's proposed Digital Fairness Act would heavily regulate loot boxes, pay-to-win and virtual currencies",
+              "summary": "GamesIndustry.biz and Rock Paper Shotgun report that the European Commission's proposed Digital Fairness Act, formally presented to EU member states, would extensively regulate loot boxes, dark patterns, virtual currencies, subscription services and pay-to-win systems. The draft text leaked earlier in the week, and the reports say the proposal faces debate and revision before any passage into law."
+            },
+            {
+              "id": "4af5eb33-a4a8-4d12-99f6-c583691b6c93",
+              "title": "PlayStation 5 passes 100 million consoles sold",
+              "summary": "Eurogamer reports that Sony's updated sales data shows PlayStation 5 has officially surpassed 100 million consoles sold. The milestone was reached on 10th November, almost exactly six years after the console's launch."
+            },
+            {
+              "id": "65d5a27d-e193-474a-9f16-c440587a4eb3",
+              "title": "PlayStation cancels live-service shooter Fairgames",
+              "summary": "PlayStation has cancelled Fairgames, the live-service shooter that was in development at its Montreal-based subsidiary Haven Studios, according to Destructoid, Eurogamer and GameSpot reporting."
+            },
+            {
+              "id": "1b3ecf09-70a5-4a1e-9755-92e5fa56d85b",
+              "title": "Zelda: Ocarina of Time remake reportedly sells over 5.2 million copies in four days",
+              "summary": "Eurogamer, GamesRadar+ and GamingBolt report that Nintendo's Legend of Zelda: Ocarina of Time remake has sold over 5.2 million copies in four days. The game launched on November 5th for Switch 2."
+            },
+            {
+              "id": "0b5a0169-6950-40a4-877b-bef326435664",
+              "title": "Mobile publisher Fortis Games shuts down, affecting up to 440 workers",
+              "summary": "GamesIndustry.biz reports that mobile publisher Fortis Games has announced its closure, impacting up to 440 employees."
+            }
+          ]
+        }
+      ],
+      "reviewedStoryId": "801716f5-d084-4c3a-9908-4d1ef84be82c",
+      "expectedPredecessors": [
+        {
+          "editionId": "6216cb7a-3b6a-4fff-9e35-5fe959eb0c8e",
+          "storyId": "1e9fba4b-ef50-4f05-ba7d-c098cf14a8d6"
+        },
+        {
+          "editionId": "eb6e962e-200d-4efc-9f6f-2c7e58743bd8",
+          "storyId": "1b3ecf09-70a5-4a1e-9755-92e5fa56d85b"
+        }
+      ],
+      "originalEditorialEvidence": {
+        "promptSha256": "ce3db9c3052bba152b6e5bb9d72825961ae9103b82a9c2d0599bb0609579a894",
+        "evidence": [
+          {
+            "id": "c6df3e62-727d-422a-ab7f-599d6c275524",
+            "title": "Grand Theft Auto 6 | Critical Consensus",
+            "excerpt": "After a 13-year wait, Grand Theft Auto 6 has been met with universal acclaim. Despite a lead-up marred by delays and leaks the hype has only grown, with over 17 million pre-orders generating more than $1.6 billion in revenue, according to recent data. Read more",
+            "sources": ["GameSpot", "GamesIndustry.biz", "GamesRadar+"]
+          },
+          {
+            "id": "8fcf7d0a-c535-421d-b5fe-9fad257bd160",
+            "title": "Firaxis Hit by Layoffs Affecting Around 60 Employees, a Third of its Workforce",
+            "excerpt": "While Rockstar Games might be celebrating the massively positive reviews garnered by GTA 6 hours ahead of its launch, fellow Take-Two Interactive studio Firaxis isn’t quite having a good time. The studio behind games like Civilization and the XCOM revivals has announced that it is cutting around a third of its entire workforce, with layoffs affecting approximately 60 employees this week. According to Bloomberg’s Jason Schreier, a 2K Games spokesperson has also confirmed that studio head Heather Hazen is leaving Firaxis. The spokesperson has said that these layoffs are part of a “restructuring…",
+            "sources": ["GamingBolt"]
+          },
+          {
+            "id": "d2663bb3-11a8-4726-b6a5-5994526a97ee",
+            "title": "Build a Rocket Boy pursuing litigation against alleged \"saboteurs\" to repay £61.7m in debt",
+            "excerpt": "MindsEye developer Build a Rocket Boy owes £61.7 million in debt, which it plans to recoup by pursuing litigation against alleged \"saboteurs\". Read more",
+            "sources": ["Eurogamer", "GamesIndustry.biz", "GamingBolt"]
+          },
+          {
+            "id": "83af0341-6dc7-4de0-b8b1-2a76740ad032",
+            "title": "WoW: Forever \"has more people playing weekly\" than Blizzard's seen in 15 years, lead says",
+            "excerpt": "World of Warcraft: Forever is smashing records for Blizzard left, right, and center, it seems, having boasted the biggest concurrent player launch in the MMO's history – and now, more players engaging weekly than Azeroth has seen in over two decades. A good 15 years, to be precise, as World of Warcraft executive producer and vice president Holly Longdale reveals in a new post over on Twitter, celebrating one very impressive milestone from Forever: over 15 million characters logged so far. \"Another fun statistic for you,\" the lead exclaims. \"WoW: Forever has more people playing weekly than…",
+            "sources": ["GameSpot", "GamesRadar+"]
+          },
+          {
+            "id": "801716f5-d084-4c3a-9908-4d1ef84be82c",
+            "title": "The Legend of Zelda: Ocarina of Time Remake is The Best-Selling Physical Title in the US for 2026",
+            "excerpt": "Amid all the hype for Grand Theft Auto 6, especially with its universal critical acclaim, it’s worth noting that The Legend of Zelda: Ocarina of Time remake set a significant milestone. According to Circana’s Mat Piscatella, it became the best-selling physical video game in the United States for 2026, selling over one million copies as of November 7th. The last title to achieve such a feat was The Legend of Zelda: Tears of the Kingdom in 2023. With over 5.2 million copies sold in four days, Nintendo’s remake has been a monumental success, and could only soar higher as the Holiday season…",
+            "sources": ["GamingBolt"]
+          }
+        ]
+      },
+      "selected": [
+        {
+          "id": "c6df3e62-727d-422a-ab7f-599d6c275524",
+          "title": "GTA 6 launches to universal critical acclaim; Take-Two shares jump in pre-market trading",
+          "summary": "After a 13-year wait, Grand Theft Auto 6 has been met with universal acclaim, and recent data shows over 17 million pre-orders generating more than $1.6 billion in revenue. GameSpot reports Take-Two shares were up close to 7% in pre-market trading after the reviews landed.",
+          "whyItMatters": "The reception of one of the industry's biggest releases is moving the stock of its publisher, Take-Two."
+        },
+        {
+          "id": "8fcf7d0a-c535-421d-b5fe-9fad257bd160",
+          "title": "Firaxis lays off about 60 employees, a third of its workforce",
+          "summary": "Take-Two studio Firaxis, maker of Civilization and the XCOM revivals, is cutting around a third of its workforce, affecting approximately 60 employees. According to Bloomberg's Jason Schreier, a 2K Games spokesperson confirmed that studio head Heather Hazen is leaving.",
+          "whyItMatters": "It is a large cut at an established strategy studio, and its leadership is changing at the same time."
+        },
+        {
+          "id": "d2663bb3-11a8-4726-b6a5-5994526a97ee",
+          "title": "Build a Rocket Boy plans litigation against alleged \"saboteurs\" to recoup £61.7m debt",
+          "summary": "MindsEye developer Build a Rocket Boy owes £61.7 million in debt. It plans to recoup the money by pursuing litigation against alleged \"saboteurs\".",
+          "whyItMatters": "The studio's debt and its plan to sue show the financial pressure on the MindsEye developer."
+        },
+        {
+          "id": "83af0341-6dc7-4de0-b8b1-2a76740ad032",
+          "title": "WoW: Forever hits record launch numbers, with more weekly players than in 15 years",
+          "summary": "World of Warcraft: Forever had the biggest concurrent player launch in the MMO's history, according to the report. Executive producer Holly Longdale said over 15 million characters have been logged, and that the game has more people playing weekly than Blizzard has seen in 15 years.",
+          "whyItMatters": "The figures point to strong player engagement with a major Blizzard release."
+        },
+        {
+          "id": "801716f5-d084-4c3a-9908-4d1ef84be82c",
+          "title": "Zelda: Ocarina of Time remake is the best-selling physical game in the US for 2026",
+          "summary": "According to Circana's Mat Piscatella, the Ocarina of Time remake became the best-selling physical video game in the US for 2026, selling over one million copies as of November 7th. GamingBolt says Nintendo's remake has sold over 5.2 million copies in four days.",
+          "whyItMatters": "It shows strong sales for a Nintendo release alongside the GTA 6 launch."
+        }
+      ]
+    },
+    {
+      "editionId": "cd357e84-9383-4e10-b60c-c8318da4b314",
+      "topicId": "00000000-0000-4000-8000-000000000015",
+      "topicName": "U.S. news & politics",
+      "windowEnd": "2026-11-18 15:00:00+00",
+      "stories": [
+        {
+          "id": "d9db8b34-bcd4-4faa-b4a2-5e8da08cf90c",
+          "title": "Democrat Mary Peltola wins Alaska Senate seat, beating Republican incumbent Dan Sullivan",
+          "summary": "Democrat Mary Peltola defeated Republican incumbent Dan Sullivan in the Alaska Senate race, according to Al Jazeera, BBC World and NPR Politics. The excerpt says it was the last U.S. Senate contest resolved in this year's midterm elections and that Democrats flipped nine GOP-held seats to retake the chamber."
+        },
+        {
+          "id": "035d48b9-8ad0-4036-8c10-c4a8b6a36062",
+          "title": "Republicans could expedite bill to make big oil immune to lawsuits, warn experts",
+          "summary": "The Guardian US reports that GOP lawmakers are rushing high-priority bills before newly elected Democrats are sworn in. Climate groups fear a bill could pass by the end of the year giving fossil fuel companies immunity from lawsuits and from legislation holding them accountable for the climate crisis, and hundreds of elected leaders and climate groups urged Democratic leadership to reject any such proposal."
+        },
+        {
+          "id": "c745047f-ca45-451e-a394-51bd2a512c2c",
+          "title": "US loses long-held measles elimination status, according to PAHO declaration",
+          "summary": "The Pan American Health Organization declared measles resurgent in the United States, Bolivia and Mexico on Tuesday, meaning the virus has spread continuously for 12 months, according to The Guardian US. Public health leaders quoted by the outlet expressed grief and alarm and condemned what they called significant damage by the Trump administration."
+        },
+        {
+          "id": "312033e7-edd4-4c6e-8321-5e8520e2cbdf",
+          "title": "Florida labels CAIR a terrorist organization, prompting lawsuit from CAIR-Florida",
+          "summary": "Under a new process, Florida designated the Council on American-Islamic Relations (CAIR) a domestic terrorist organization, according to The Guardian US. CAIR-Florida is suing state officials, and the outlet reports the designation meant the group had to shut its doors to victims of harassment and discrimination."
+        },
+        {
+          "id": "a65dbed7-11c0-460e-91a3-0299239a345d",
+          "title": "White House withdraws nomination of Heidi Overton to lead FDA",
+          "summary": "The White House has dropped its nomination of Heidi Overton to lead the Food and Drug Administration, a White House official told The Guardian US. Trump nominated Overton, a physician and prominent abortion opponent, in August, and the withdrawal came a day before a key Senate health committee vote."
+        }
+      ],
+      "history": [
+        {
+          "editionId": "6216cb7a-3b6a-4fff-9e35-5fe959eb0c8e",
+          "publishedAt": "2026-11-17 15:04:07.594+00",
+          "stories": [
+            {
+              "id": "57217f56-f9c4-4ee8-86e5-f534a4284a5c",
+              "title": "White House memo directs agencies to get approval before testifying to Congress",
+              "summary": "White House counsel Will Scharf is directing all federal agencies and executive departments to get approval from the White House legal and legislative affairs offices before agreeing to testify before congressional committees. PBS News obtained the memorandum on Monday."
+            },
+            {
+              "id": "bca049e3-f29e-408d-9e96-ba24cf0c49e3",
+              "title": "Trump pursues state and federal courts to erase hush money conviction",
+              "summary": "A federal appeals court is weighing whether it can, or should, intervene in President Donald Trump's hush money case. A New York State appellate court has already heard arguments in his effort to erase the conviction, according to PBS NewsHour."
+            },
+            {
+              "id": "e81b3ede-a6a3-45a0-8464-9cbcfca958df",
+              "title": "Peltola nears 50% in Alaska Senate race, the final midterms contest",
+              "summary": "Democrat Mary Peltola was nearing 50% of the ballot in Alaska's US Senate race, described as the final midterms contest. If she wins, she would be the first Democrat from the state elected to the Senate since 2009."
+            },
+            {
+              "id": "cd712415-3e8e-4ec0-b67f-84d8a262d266",
+              "title": "Democrats' midterm wins raise questions over oversight of Trump's ICE crackdown",
+              "summary": "The Guardian reports that Democrats' midterm wins gave them strong majorities in both chambers of Congress, and that Trump's deportation campaign and ICE raids were among the key issues that cost Republicans support. Democrats face a battle to enact legislation, but they have the power to conduct tough new oversight."
+            },
+            {
+              "id": "73cb85ee-45a6-487f-a755-48f104dd8f91",
+              "title": "California sues OpenAI over Hugging Face attack",
+              "summary": "California Attorney General Rob Bonta has sued OpenAI over a Hugging Face attack. He alleges that the company misled and endangered the public."
+            }
+          ]
+        },
+        {
+          "editionId": "93aefc45-33d7-4639-ad53-78e316a40f14",
+          "publishedAt": "2026-11-16 15:03:11.281+00",
+          "stories": [
+            {
+              "id": "96ef84e4-04f3-4b4b-8070-6130b41dd129",
+              "title": "Incoming Democratic congressman calls Trump's blame of Democrats for flight stoppage 'absurd'",
+              "summary": "Dan Koh, an incoming House Democrat and former Biden staffer, said on Sunday that Trump's efforts to blame Democrats for Friday's four-hour nationwide flight stoppage are \"absurd\". Trump remained largely silent and out of public view during the shutdown, then emerged Sunday to post messages blaming the Biden administration."
+            },
+            {
+              "id": "2498563f-3bd5-4d92-877a-ef54ca00bf35",
+              "title": "Justice Department sends letter to Elizabeth Warren over Democrats' plans for future investigations",
+              "summary": "The Trump administration's Justice Department sent a letter to Sen. Elizabeth Warren, the likely chair of the Senate Banking Committee, over Democrats' plans for future investigations, according to The Guardian's live coverage. The letter is described as the latest warning to Democrats about their potential plans after the party's midterms success."
+            },
+            {
+              "id": "43e14542-4407-4b81-af3e-1681344ced60",
+              "title": "Trump's handpicked party chair faces rebellion after GOP midterm losses",
+              "summary": "PBS NewsHour reports that Trump's handpicked party chair faces a rebellion after the party's worst midterm performance in a generation. The emerging fight is described as a rare challenge to Trump's dominance that will shape the 2028 presidential nominating contest."
+            },
+            {
+              "id": "47388d03-4e43-4dc6-89a8-717031fb3428",
+              "title": "Chris Van Hollen says he has a path to replace Chuck Schumer as Democratic Senate leader",
+              "summary": "Sen. Chris Van Hollen, a Maryland progressive, escalated his bid on Sunday to lead the Democrats' incoming Senate majority instead of Chuck Schumer, asserting he has a path to victory. He appeared on CNN, ABC and Fox News to argue that his Senate peers should reject Schumer, who has led the caucus for nearly a decade."
+            },
+            {
+              "id": "156de8ab-f557-45d9-a00d-f0b2e61fe2b0",
+              "title": "NTSB recovers audio and releases preliminary timeline of tanker–cruise ship collision near New Orleans",
+              "summary": "The National Transportation Safety Board recovered audio and released a preliminary timeline on Sunday of Friday's collision on the Mississippi River, in which a tanker struck the docked American Heritage riverboat of American Cruise Lines. More than 30 people were injured. The tank vessel suffered sudden steering failure two minutes before the collision."
+            }
+          ]
+        },
+        {
+          "editionId": "a0fa3916-f1dc-4fbd-8d76-2884d5e01c06",
+          "publishedAt": "2026-11-15 15:03:33.094+00",
+          "stories": [
+            {
+              "id": "31c4d3d9-bbf1-4844-8f3a-29d8780cee67",
+              "title": "Democrat Jonathan Kreiss-Tomkins wins Alaska governor's seat",
+              "summary": "Former Alaska state legislator Jonathan Kreiss-Tomkins defeated three Republican opponents, including a candidate backed by Donald Trump, to become the first Democrat elected Alaska governor since 1998. The win means Democrats will hold 30 US governorships after the midterm elections."
+            },
+            {
+              "id": "560c9e5e-38c6-4ee7-9b1b-008ba001ef42",
+              "title": "Mike Johnson says midterm losses prompted decision to step away from GOP leadership",
+              "summary": "In his first interview since the midterm elections, House Speaker Mike Johnson said on Fox News that the Republican party's crushing losses in the 3 November elections prompted his decision to step away from party leadership. He said, \"Leaders have to take responsibility when things go wrong.\""
+            },
+            {
+              "id": "71c5e1a6-863b-4223-94a7-32bd7575075e",
+              "title": "Trump administration finalizing rule to reimburse doctors treating vaccine side effects",
+              "summary": "The Trump administration is finalizing a rule to reimburse doctors who diagnose, treat and counsel patients with side effects from vaccines, according to The Guardian US. Robert F Kennedy Jr, the HHS secretary, also announced a vaccine \"injury\" research center at the National Institutes of Health."
+            },
+            {
+              "id": "cf80ffcf-e455-496e-b28b-3b5064f0f1b3",
+              "title": "Courts rebuke Trump's self-enrichment schemes in lawsuits by pro-democracy groups",
+              "summary": "Federal judges have issued stinging rejections to some of President Trump's schemes to increase his wealth, according to The Guardian US. Lawsuits filed in 2026 target efforts to reduce potential tax liabilities and to boost his Truth Social platform by offering big investors early access."
+            },
+            {
+              "id": "e459a5aa-e56e-4dda-a685-31410206b53c",
+              "title": "Midterm voters end long-running GOP dominance in state legislatures",
+              "summary": "In several states, Democrats took control of legislatures that had been divided, and they weakened GOP dominance in others, according to NPR Politics. Issues on the agenda include more access to health care and new limits on school vouchers."
+            }
+          ]
+        },
+        {
+          "editionId": "b9d55088-892a-4e34-b77c-a398d64c6a9f",
+          "publishedAt": "2026-11-14 15:03:47.533+00",
+          "stories": []
+        },
+        {
+          "editionId": "f901ba6c-cba3-4116-8539-fd0e92b98ec4",
+          "publishedAt": "2026-11-13 15:01:37.761+00",
+          "stories": []
+        },
+        {
+          "editionId": "b1be5a12-2972-4eeb-9bff-82cbb10c1b07",
+          "publishedAt": "2026-11-12 15:03:52.392+00",
+          "stories": [
+            {
+              "id": "1ef9e0a1-709c-4b7e-8653-f5e1c9bb107d",
+              "title": "Democrat Scott Colom unseats Sen. Cindy Hyde-Smith in Mississippi",
+              "summary": "Democrat Scott Colom defeated incumbent Republican Sen. Cindy Hyde-Smith and became the first Black senator elected in Mississippi since Reconstruction, according to the supplied report. Pundits had written Colom off when he announced his campaign last year, but his viral ads and outreach, including a free-taco truck and college homecoming visits, drew attention."
+            },
+            {
+              "id": "7547663f-ace2-4489-a950-aeb3c4d2d14f",
+              "title": "Brooklyn building collapse kills at least 8, injures 17",
+              "summary": "The Guardian US reports that a three-story residential building at the edge of a construction site in Brooklyn's Flatbush section collapsed at about 4pm Wednesday, killing at least eight people. New York authorities said at least 17 people were hurt, and rescue crews were still searching the rubble at first light Thursday. Mayor Zohran Mamdani said crews were working through 'extremely dangerous conditions'."
+            },
+            {
+              "id": "9396511a-4a75-46f1-9af5-e055bcd294d4",
+              "title": "At least five people shot on busy thoroughfare in Washington, DC",
+              "summary": "Police say at least five people were shot at a busy thoroughfare in Washington, DC. Authorities issued a shelter in place near the scene of the attack."
+            },
+            {
+              "id": "e4312ab9-0f6c-4c9e-aaf2-bbb80cfe3d20",
+              "title": "House Oversight Committee's Epstein report cites 'repeated failures' by law enforcement",
+              "summary": "A report published Tuesday by the GOP-led House Oversight Committee, following its investigation into Jeffrey Epstein and his associates, says his crimes committed after 2005 could have been prevented, barring 'repeated failures' from law enforcement and federal prosecutors. PBS NewsHour Politics highlighted this as one of four key findings."
+            },
+            {
+              "id": "64932bdb-8897-4c03-9b82-17a07b969af2",
+              "title": "Congressional Democrats push to rein in Trump immigration enforcement after midterm backlash",
+              "summary": "The Guardian US reports that a group of congressional Democrats pushed on Wednesday for immediate efforts to rein in the Trump administration's immigration enforcement operation and 'bring sanity' to the system. This came just over a week after midterm elections in which the president's crackdown fueled a voter backlash against Republicans. Trump said after the midterms that the system had been 'too tough' in certain aspects."
+            }
+          ]
+        }
+      ],
+      "reviewedStoryId": "d9db8b34-bcd4-4faa-b4a2-5e8da08cf90c",
+      "expectedPredecessors": [
+        {
+          "editionId": "6216cb7a-3b6a-4fff-9e35-5fe959eb0c8e",
+          "storyId": "e81b3ede-a6a3-45a0-8464-9cbcfca958df"
+        }
+      ],
+      "originalEditorialEvidence": {
+        "promptSha256": "ec8085b1e4153a58cccfcf1dde6bea16857ee330a22d7321a9b5bddc8bbb0ef0",
+        "evidence": [
+          {
+            "id": "d9db8b34-bcd4-4faa-b4a2-5e8da08cf90c",
+            "title": "Democrat Mary Peltola wins Alaska Senate seat, beating Republican incumbent Dan Sullivan",
+            "excerpt": "The Alaska race was the last U.S. Senate contest to be resolved in this year's midterm elections and gave Democrats a 56-44 majority after they flipped nine GOP-held seats to retake the chamber.",
+            "sources": ["Al Jazeera", "BBC World", "NPR Politics"]
+          },
+          {
+            "id": "035d48b9-8ad0-4036-8c10-c4a8b6a36062",
+            "title": "Republicans could expedite bill to make big oil immune to lawsuits, warn experts",
+            "excerpt": "GOP lawmakers are rushing through high-priority bills before newly elected Democrats are sworn in Climate groups fear lawmakers could pass a bill by the end of the year that would give fossil fuel companies immunity from lawsuits and legislation that aims to hold them accountable for the climate crisis. After the blue wave election, Republican lawmakers are rushing to pass high-priority bills before newly elected Democrats are sworn in. Hundreds of elected leaders and climate groups sent a letter to Democratic leadership urging them to reject any proposal that would shield fossil fuel…",
+            "sources": ["The Guardian US", "The Guardian World"]
+          },
+          {
+            "id": "c745047f-ca45-451e-a394-51bd2a512c2c",
+            "title": "‘I’m heartbroken’: experts dismayed as US loses long-held measles elimination status",
+            "excerpt": "Public health leaders condemn ‘significant damage’ by Trump administration as calls grow for RFK Jr to resign Doctors and public health leaders expressed grief and alarm at the loss of US measles-free status, a hard-won public health victory that once made the US a leader in infectious disease elimination. Measles was declared resurgent in the United States, Bolivia and Mexico by the Pan American Health Organization (Paho) on Tuesday, meaning the virus has spread continuously for 12 months.…",
+            "sources": ["The Guardian US", "The Guardian World"]
+          },
+          {
+            "id": "312033e7-edd4-4c6e-8321-5e8520e2cbdf",
+            "title": "This Muslim civil rights group defended pro-Palestine protesters. Then Florida labeled it a terrorist organization",
+            "excerpt": "Cair-Florida is suing state officials after designation meant it had to shut its doors to victims of harassment and discrimination Omar Soboh, a student at the University of Florida, was organizing a campus panel about Islamophobia when he found out one of the groups being represented had suddenly been blacklisted by the state. Under a new process, Florida had designated the Council on American-Islamic Relations (Cair), the nation’s largest Muslim civil rights group, a domestic terrorist organization. The university’s Arab Students’ Association decided to cancel the event, and Soboh, who is…",
+            "sources": ["The Guardian US"]
+          },
+          {
+            "id": "a65dbed7-11c0-460e-91a3-0299239a345d",
+            "title": "White House withdraws nomination of Heidi Overton to lead FDA",
+            "excerpt": "Move to drop Trump ally and prominent abortion opponent comes a day before key Senate health committee vote The White House has dropped its nomination of Heidi Overton to lead the Food and Drug Administration, a White House official told the Guardian. Donald Trump nominated Overton – a physician and prominent abortion opponent – in August. Overton has spent most of her professional career working directly for Trump or conservative groups aligned with his agenda. Her nomination in August was seen as a move to bring a stabilizing Trump loyalist to the agency after a tumultous year under Trump’s…",
+            "sources": ["The Guardian US", "The Guardian World"]
+          }
+        ]
+      },
+      "selected": [
+        {
+          "id": "d9db8b34-bcd4-4faa-b4a2-5e8da08cf90c",
+          "title": "Democrat Mary Peltola wins Alaska Senate seat, beating Republican incumbent Dan Sullivan",
+          "summary": "Democrat Mary Peltola defeated Republican incumbent Dan Sullivan in the Alaska Senate race, according to Al Jazeera, BBC World and NPR Politics. The excerpt says it was the last U.S. Senate contest resolved in this year's midterm elections and that Democrats flipped nine GOP-held seats to retake the chamber.",
+          "whyItMatters": "The result completes the midterm Senate contests and, according to the excerpt, gives Democrats control of the chamber."
+        },
+        {
+          "id": "035d48b9-8ad0-4036-8c10-c4a8b6a36062",
+          "title": "Republicans could expedite bill to make big oil immune to lawsuits, warn experts",
+          "summary": "The Guardian US reports that GOP lawmakers are rushing high-priority bills before newly elected Democrats are sworn in. Climate groups fear a bill could pass by the end of the year giving fossil fuel companies immunity from lawsuits and from legislation holding them accountable for the climate crisis, and hundreds of elected leaders and climate groups urged Democratic leadership to reject any such proposal.",
+          "whyItMatters": "A possible liability shield for fossil fuel companies would affect climate-related litigation and accountability efforts, according to the groups cited."
+        },
+        {
+          "id": "c745047f-ca45-451e-a394-51bd2a512c2c",
+          "title": "US loses long-held measles elimination status, according to PAHO declaration",
+          "summary": "The Pan American Health Organization declared measles resurgent in the United States, Bolivia and Mexico on Tuesday, meaning the virus has spread continuously for 12 months, according to The Guardian US. Public health leaders quoted by the outlet expressed grief and alarm and condemned what they called significant damage by the Trump administration.",
+          "whyItMatters": "Loss of measles-free status marks a major reversal in a long-standing US public health achievement, as described by the cited experts."
+        },
+        {
+          "id": "312033e7-edd4-4c6e-8321-5e8520e2cbdf",
+          "title": "Florida labels CAIR a terrorist organization, prompting lawsuit from CAIR-Florida",
+          "summary": "Under a new process, Florida designated the Council on American-Islamic Relations (CAIR) a domestic terrorist organization, according to The Guardian US. CAIR-Florida is suing state officials, and the outlet reports the designation meant the group had to shut its doors to victims of harassment and discrimination.",
+          "whyItMatters": "The designation of the nation's largest Muslim civil rights group as a domestic terrorist organization raises civil rights and state policy stakes, as the lawsuit shows."
+        },
+        {
+          "id": "a65dbed7-11c0-460e-91a3-0299239a345d",
+          "title": "White House withdraws nomination of Heidi Overton to lead FDA",
+          "summary": "The White House has dropped its nomination of Heidi Overton to lead the Food and Drug Administration, a White House official told The Guardian US. Trump nominated Overton, a physician and prominent abortion opponent, in August, and the withdrawal came a day before a key Senate health committee vote.",
+          "whyItMatters": "Withdrawal of the nominee to lead the FDA affects leadership of a major federal health regulator ahead of a Senate committee vote."
+        }
+      ]
     }
   ]
 }

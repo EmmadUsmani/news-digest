@@ -51,7 +51,7 @@ void test('manual positive and negative controls pass offline replay; all linked
   assert.equal(report.controlsPassed, true);
   assert.equal(
     report.cases.reduce((n, c) => n + c.links.length, 0),
-    3,
+    5,
   );
   assert.ok(report.cases.every((c) => c.status === 'replayed'));
 });
