@@ -82,3 +82,14 @@
 - Exact saved-evidence assertions pass for all 100 URLs, titles/excerpts, every observation, 47/53 counts and unset event recall. Handbook passes: 19 pages/21 diagrams/39 tables. Logs /tmp/2943-*.log.
 - pnpm format/lint:fix and full pnpm check pass: 1,204 unit tests/332 integration passes/four expected skips. Final health database/Redis pass; alerts clear; git diff check passes.
 - Unchanged runtime needs no rebuild or service restart; live application remains aligned with main. Next: World/U.S. censuses, then validated event matching/recall/causes in the same Nov 19 review. Commit/push follow.
+
+## 2026-11-19: iteration 2944 — complete World reference article decisions
+
+- Clean main at caa98543; no inherited work. Initial alerts clear and /healthz database/Redis pass. Documentation/evidence only; no runtime/source/scoring changes or paid calls.
+- Complete all 86 World reference URL decisions: 35 important reports/51 exclusions, each with supplied title/excerpt, explicit agent editorial rationale and every dated saved cluster/editor-input observation.
+- Apply owner-approved scope: US foreign policy and Haitian assassination accountability remain World; US domestic politics/weather/transport excluded. Include consequential non-US national policy, international conflict, diplomacy and global rights/energy findings; exclude routine local/celebrity reports and previews without new outcomes.
+- Articles are not distinct events or misses. Repeated summit/Gaza/Haiti/Crimea reports need existing cluster/embedding matching; Berlin sequence establishes no causation. Recall/causes unset; no new confirmed omission or tuning.
+- Next: U.S. census, then validated five-topic event matching/recall/causes in this same Nov 19 review. Three completed reviews and measured root-cause fix remain open.
+- Exact saved-evidence assertions pass for all 86 URLs, titles/excerpts, every dated observation, in-window feed publication times and 35/51 decisions; event recall remains null. `pnpm exec tsx scripts/check-handbook.ts` passes 19 pages/21 diagrams/39 tables.
+- `pnpm format`, `pnpm lint:fix` and full `pnpm check` pass: 1,204 unit tests/332 integration passes/four expected skips. Logs: /tmp/2944-{format,lint,check,handbook}.log. Final alerts clear; health database/Redis pass; all 14 services healthy, 37 active sources returning data/one paused, digest queue zero failures.
+- Unchanged runtime needs no rebuild or service restart; live application remains aligned with main. `git diff --check` passes. Commit/push follow.
