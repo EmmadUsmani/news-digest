@@ -115,3 +115,15 @@
 - TASKS and docs/SOURCES.md updated. No UI, production source or handbook behavior change, provider calls or feature activation. Post-15:00 Missed/NBA/Tech review remains next.
 - Verification: pnpm format/lint:fix; pnpm check; pnpm build; handbook --owner-services. Build and handbook pass (19 pages/21 diagrams/39 tables); full check passes (1,204 unit / 332 integration, four expected skips). Logs /tmp/2910-*.log.
 - Final diff check and commit/push follow verification; API/worker/docs restart and live health/alerts are rechecked afterward. Initial reader probe hit HTTP 429; the existing forwarded-address smoke pattern returned five topics/25 stories.
+
+## 2026-11-19: iteration 2937 — scheduled NBA recovery and published reference trace
+
+- Clean main at 76e29445; no inherited work. Initial/final health and alerts pass; 14 services and 37 active sources healthy, Destructoid inactive. Scheduled job completed once, zero failures; next Nov 20 15:00 UTC.
+- Nov 19 edition 7a747d9c published 15:03:34.140 UTC: 25 stories/22 posts, all five story sections Sonnet, no unscored selections. Read saved summaries/evidence; NBA non-AI fallback recovered. World/U.S. selected/evidence/coverage IDs disjoint.
+- Tech prospective text 51/200; saved selected evidence 5/5 sets and 9/9 excerpts nonempty. Admission validated; reserved events already in baseline. Close item 67 scheduled check; no further extraction tuning.
+- Natural breadth concerns: Gemini story plus four posts uses 5/10 Tech slots; Gaming has three GTA posts. World summit significance implies causation beyond the excerpt's chronology; review remains open. English Gaming context/U.S. two Bluesky picks present.
+- Closing and post-publication captures: ten feeds pass; eleven combined captures preserve 2,140 observations/317 distinct raw URLs. Private mode 600/JSON round-trip verified. Offline same-edition selected-cluster/editor-input trace retained. Missed section explicitly leaves event recall/causes pending, with no automatic URL-mismatch misses.
+- Daily review, TASKS and SOURCES updated. Public signed-out scheduled reader gate passes all five required AI topics; Playwright 390/1440 latest/direct/history/private refusals/no errors/overflow passes; both PNGs inspected. Receipts /tmp/2937-*.
+- Timing 214.136 s, ledger $0.521930/57 calls/zero holds. No paid verification/manual generation, production configuration changes or service restarts during the hold.
+- Verification: pnpm format/lint:fix and full pnpm check pass (1,204 unit / 332 integration, four expected skips); offline web build to /tmp/2937-web-build passes. Root pnpm build was stopped because it invokes web publishing; wrapper terminated before switching dist (still release 6798d84e). API/docs compilation completed; no live web activation.
+- Final health/alerts and diff checks pass; commit/push follow. No runtime changes to restart; the 13:00–16:00 deployment hold takes precedence. Next: complete Nov 19 important-event matching/recall/causes in the same daily review, then evaluate event concentration.

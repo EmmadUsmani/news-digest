@@ -56,6 +56,10 @@ topic, each real miss and its saved-data cause (never collected, not shortlisted
 editor dropped, or wrongly withheld/merged). Report unavailable reference data
 explicitly. No recall is claimed before importance and event matching are done.
 After three scheduled reviews, measure the largest root-cause fix on saved pools.
+Nov 19 published-edition evidence and unresolved recall are recorded in the
+[daily review](edition-reviews/2026-11-19.md#missed--reference-evidence-preserved-recall-pending).
+The reference URLs are traced through saved selected clusters and editor inputs;
+URL trace counts remain separate from event recall.
 
 `World news & politics`; Tech/Gaming fall back to `AI`/`game`. Historical Nov 12
 observations contain only 46/52/51 distinct posts respectively. Effective
