@@ -1,4 +1,5 @@
 import type {
+  LlmExecutionContext,
   ObserveStoryGrouping,
   StoryGroupingResult,
 } from '../../curation/public/editorial';
@@ -17,6 +18,7 @@ export interface GroupingResultPort {
     }[],
     runId: string,
     observe?: ObserveStoryGrouping,
+    execution?: LlmExecutionContext,
   ): Promise<StoryGroupingResult>;
 }
 

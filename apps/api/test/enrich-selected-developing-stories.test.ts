@@ -3,6 +3,7 @@ import { test } from 'node:test';
 
 import { llmConfig } from '../src/modules/curation/adapters/config';
 import { BudgetedLlm } from '../src/modules/curation/application/budgeted-llm';
+import { EventGrouping } from '../src/modules/curation/application/event-grouping';
 import { costMicros } from '../src/modules/curation/domain/budget';
 import type { LlmRequest } from '../src/modules/curation/domain/llm.port';
 import { ProviderSpendLimit } from '../src/modules/curation/domain/llm.port';
@@ -340,6 +341,107 @@ void test('selected enrichment retains accepted stories across real budget-wrapp
       assert.equal(result.status, 'unchanged');
       assert.equal(result.stories, selected);
       assert.equal('reason' in result && result.reason, 'rewrite-refused');
+    }
+  }
+});
+
+void test('one execution deadline bounds real semantic matching and rewriting without retries', async () => {
+  for (const scenario of [
+    'expired-before-match',
+    'expired-after-match',
+    'success',
+  ] as const) {
+    let now = scenario === 'expired-before-match' ? 100 : 0;
+    const execution = { deadline: 100 };
+    const requests: LlmRequest[] = [];
+    const holds: string[] = [];
+    const settled: string[] = [];
+    const ledger: LlmLedger = {
+      async reserve(request) {
+        holds.push(request.purpose);
+        return request.purpose;
+      },
+      async settle(id) {
+        settled.push(id);
+      },
+      async fail() {
+        assert.fail('No provider failure expected');
+      },
+      async cached() {
+        return undefined;
+      },
+      async cache() {},
+    };
+    const budgeted = new BudgetedLlm(
+      {
+        async complete(request, context) {
+          assert.equal(context, execution);
+          requests.push(request);
+          assert.equal(request.runId, config.runId);
+          assert.equal(request.topicId, config.topicId);
+          if (request.purpose === 'story-grouping-v3') {
+            if (scenario === 'expired-after-match') now = 100;
+            return {
+              text: JSON.stringify({ groups: [['current:0', 'history:0:0']] }),
+              usage,
+            };
+          }
+          assert.equal(request.purpose, 'developing-rewrite');
+          return { text: JSON.stringify([prose]), usage };
+        },
+      },
+      ledger,
+      undefined,
+      undefined,
+      () => now,
+    );
+    const result = await enrichSelectedDevelopingStories({
+      ...config,
+      evidence: completeEvidence,
+      editorialMode: 'ai',
+      history,
+      publishedAt: '2026-11-18T15:00:00Z',
+      execution,
+      grouping: new EventGrouping(budgeted, llmConfig({}).haiku),
+      llm: {
+        async complete(request, context) {
+          const outcome = await budgeted.jsonOutcome(
+            request,
+            (value) => value,
+            {
+              repair: false,
+              execution: context,
+            },
+          );
+          if (outcome.status !== 'complete') throw new Error(outcome.status);
+          return { text: JSON.stringify(outcome.value), usage };
+        },
+      },
+    });
+    const expected =
+      scenario === 'success'
+        ? ['story-grouping-v3', 'developing-rewrite']
+        : scenario === 'expired-after-match'
+          ? ['story-grouping-v3']
+          : [];
+    assert.deepEqual(
+      requests.map((request) => request.purpose),
+      expected,
+    );
+    assert.deepEqual(holds, expected);
+    assert.deepEqual(settled, expected);
+    assert.equal(
+      result.status,
+      scenario === 'success' ? 'rewritten' : 'unchanged',
+    );
+    if (scenario !== 'success') {
+      assert.equal(result.stories, selected);
+      assert.equal(
+        'reason' in result && result.reason,
+        scenario === 'expired-before-match'
+          ? 'no-validated-links'
+          : 'rewrite-refused',
+      );
     }
   }
 });

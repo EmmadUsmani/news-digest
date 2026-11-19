@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import type { ModelPrice } from '../domain/llm.port';
+import type { LlmExecutionContext, ModelPrice } from '../domain/llm.port';
 import type { BudgetedLlm } from './budgeted-llm';
 
 export interface GroupingCandidate {
@@ -238,8 +238,14 @@ export class EventGrouping {
     candidates: GroupingCandidate[],
     runId: string,
     observe?: ObserveStoryGrouping,
+    execution?: LlmExecutionContext,
   ): Promise<StoryGroupingResult> {
-    const result = await this.evaluateGrouping(topicId, candidates, runId);
+    const result = await this.evaluateGrouping(
+      topicId,
+      candidates,
+      runId,
+      execution,
+    );
     // Save prepared identities and explicit outcomes; a refusal makes no membership claim.
     // Malformed or over-limit pools never produced a bounded grouping input.
     if (
@@ -259,6 +265,7 @@ export class EventGrouping {
     topicId: string,
     candidates: GroupingCandidate[],
     runId: string,
+    execution?: LlmExecutionContext,
   ): Promise<StoryGroupingResult> {
     if (candidates.length < 2)
       return { status: 'unavailable', reason: 'small-pool' };
@@ -307,7 +314,7 @@ export class EventGrouping {
             }
           return parsed;
         },
-        { repair: false },
+        { repair: false, execution },
       );
       return result
         ? { status: 'validated', groups: result.groups }

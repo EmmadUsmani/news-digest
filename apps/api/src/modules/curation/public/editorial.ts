@@ -87,3 +87,4 @@ export type {
   SocialEditorialResult,
 } from '../application/social-editor';
 export type { TriageResult, TriageTopic } from '../application/triage';
+export type { LlmExecutionContext } from '../domain/llm.port';

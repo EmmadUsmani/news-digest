@@ -1,3 +1,4 @@
+import type { LlmExecutionContext } from '../../curation/public/editorial';
 import type { developingHistory } from '../domain/developing-history';
 import {
   developingEvidence,
@@ -10,7 +11,12 @@ import type { GroupingResultPort } from './prepare-story-grouping';
 // history into extra calls or silently dropping older evidence to fit its limit.
 export async function matchDevelopingStories(
   grouping: GroupingResultPort | null,
-  target: { topicId: string; publishedAt: string; runId: string },
+  target: {
+    topicId: string;
+    publishedAt: string;
+    runId: string;
+    execution?: LlmExecutionContext;
+  },
   current: Parameters<typeof developingEvidence>[0],
   history: ReturnType<typeof developingHistory>,
 ) {
@@ -35,6 +41,8 @@ export async function matchDevelopingStories(
         excerpt: item.story.summary ?? '',
       })),
       target.runId,
+      undefined,
+      target.execution,
     );
     return result.status === 'validated'
       ? developingLinks(current, history, result.groups)

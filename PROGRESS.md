@@ -181,3 +181,12 @@
 - This establishes rewrite-stage composition only, not transactional DB/whole-edition admission or semantic quality. Production remains inactive; no provider calls or runtime/UI/source/schema/handbook changes. Updated TASKS and developing evidence.
 - Targeted test passes (3 tests); pnpm format, pnpm lint:fix, full pnpm check and pnpm build pass: 1,215 unit tests, 332 integration passes/four expected skips. Logs /tmp/2992-{target,format,lint,check,build}.log; final diff check passes.
 - Live latest 7a747d9c retains five topics/25 real stories. Commit/push and API/worker restart follow. Next: semantic review and whole-edition admission; Nov 20–22 recall reviews.
+
+## 2026-11-19: iteration 2993 — bound developing matching by execution deadline
+
+- Clean main at 3a089c97; no inherited work. Alerts clear; health database/Redis pass, 14 monitored services/38 source checks healthy, disk 61%. Digest queue has zero failures; next edition Nov 20 15:00 UTC.
+- Threaded optional execution context through the semantic grouping port and EventGrouping into BudgetedLlm. Prepared selected enrichment now bounds matching and rewriting by the same deadline; existing callers retain ambient context behavior.
+- Three offline scenarios compose real grouping/budget wrappers with a scripted provider/in-memory ledger. Expired-before-match dispatches/reserves nothing; expiry after matching settles matching but prevents rewrite reservation; both retain the accepted array. Success verifies context identity and run/topic attribution across both calls. No retries or provider calls.
+- Targeted enrichment/matching tests pass (7); pnpm format, pnpm lint:fix and full pnpm check pass: 1,216 unit tests, 332 integration passes/four expected skips. Logs /tmp/2993-{target,format,lint,check,build}.log.
+- Updated TASKS and developing evidence; no active feature/UI/source/schema/handbook change. Live latest 7a747d9c retains five topics/25 real stories. Semantic review, whole-edition transactional admission and activation remain open; Nov 20–22 recall reviews stay next scheduled work.
+- pnpm build and final diff check pass. Commit/push and API/worker restart follow; no production activation or paid replay.
