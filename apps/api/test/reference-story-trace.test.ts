@@ -282,6 +282,93 @@ void test('optional saved snapshot traces editor admission without inferring col
       },
     ],
   };
+  // Joint ownership must route to the assigned topic, including when it differs
+  // from the reference feed's topic. Missing prompts remain unknown.
+  const destinationId = '00000000-0000-4000-8000-000000000003';
+  const ownership = {
+    inputArticles: [
+      { id, url: 'https://example.com/lead' },
+      { id: droppedId, url: 'https://example.com/other' },
+    ],
+    groups: [{ topicId: destinationId, ids: [id, droppedId] }],
+  };
+  const ownershipTrace = (value: unknown, withPrompt = false) =>
+    traceReferenceStories(
+      capture,
+      {
+        ...edition,
+        topics: [
+          ...edition.topics,
+          { ...edition.topics[0], id: destinationId, name: 'World' },
+        ],
+      },
+      {
+        ...snapshot,
+        topics: [
+          {
+            ...snapshot.topics[0],
+            editorial: {
+              ...snapshot.topics[0].editorial,
+              storyOwnership: value,
+            },
+          },
+          {
+            ...snapshot.topics[0],
+            id: destinationId,
+            name: 'World',
+            editorial: withPrompt
+              ? {
+                  ...snapshot.topics[0].editorial,
+                  candidatePrompt: JSON.stringify({
+                    ...prompt,
+                    topic: { id: destinationId },
+                  }),
+                }
+              : undefined,
+          },
+        ],
+      },
+    ).feeds[0].stories![2].ownershipInput;
+  assert.deepEqual(ownershipTrace(ownership), {
+    membershipRoutes: [
+      {
+        inputId: droppedId,
+        topicId: destinationId,
+        memberIds: [id, droppedId],
+        selectedClusters: [{ id, title: 'Selected event' }],
+        editorCandidates: null,
+      },
+    ],
+  });
+  assert.deepEqual(
+    ownershipTrace(ownership, true)?.membershipRoutes[0].editorCandidates,
+    prompt.candidates.map(({ id, title }) => ({ id, title })),
+  );
+  assert.equal(ownershipTrace(undefined), null);
+  for (const groups of [
+    [{ topicId: destinationId, ids: [id] }],
+    [{ topicId: destinationId, ids: [id, id, droppedId] }],
+    [{ topicId: destinationId, ids: [id, droppedId, 'foreign'] }],
+    [{ topicId: 'foreign', ids: [id, droppedId] }],
+  ])
+    assert.equal(ownershipTrace({ ...ownership, groups }), null);
+  assert.equal(
+    ownershipTrace({
+      ...ownership,
+      inputArticles: [ownership.inputArticles[0], ownership.inputArticles[0]],
+    }),
+    null,
+  );
+  assert.deepEqual(
+    ownershipTrace({
+      ...ownership,
+      inputArticles: ownership.inputArticles.map((a) => ({
+        ...a,
+        url: 'https://example.com/absent',
+      })),
+    }),
+    { membershipRoutes: [] },
+  );
   const grouping = {
     topicId: id,
     inputIds: [id, droppedId],

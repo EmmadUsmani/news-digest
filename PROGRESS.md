@@ -14,56 +14,7 @@
 
 [Iterations 2937–2940](docs/progress-archive/2026-11-19-iterations-2937-2940.md).
 
-## 2026-11-19: iteration 2941 — preserve NBA final-editor omission evidence
-
-- Clean main at 0794d544; no inherited work. Initial/final alerts clear and /healthz database/Redis pass. Documentation/evidence only; no runtime changes.
-- Exact saved publisher URL identifies Celtics–Nuggets candidate d2294ac7 in immutable ten-item final prompt: relevance 9/importance 5, short informative excerpt, absent from five selected IDs. Selected summaries/four post texts omit teams, Tatum and score; no inferred cross-URL membership.
-- Preserved all six reference observations (four before cutoff), original triage/input and selected story/post evidence. Stage: shortlisted but editor dropped; motivation unknown. Agent importance judgement explicit; no score threshold or causal prompt change.
-- Final NBA reference trace has 100 distinct URLs, not the early 22 candidate observations or an event denominator. Importance census and five-topic event matching/recall remain open.
-- Condensed TASKS handoff; archived progress 2899–2910 to keep orientation small. No changes to owner files, source collection or paid calls.
-- Saved-evidence assertions and handbook check pass (19 pages/21 diagrams/39 tables). pnpm format/lint:fix and full pnpm check pass: 1,204 unit / 332 integration tests, four expected skips. Logs /tmp/2941-*.log.
-- No rebuild/deploy/restart: unchanged runtime and 13:00–16:00 hold. Next: finish reference importance and validated event membership/recall in the same Nov 19 review, then compare cause counts.
-
-## 2026-11-19: iteration 2942 — complete Tech reference article decisions
-
-- Clean main at 327903ba; initial alerts clear and health database/Redis pass. Documentation/evidence only; no runtime, source, scoring or prompt changes and no paid calls.
-- Complete all 59 distinct Tech reference article assessments: 40 important reports/19 exclusions, each with explicit agent editorial rationale, exact title/excerpt and every original dated URL-trace observation.
-- Count concrete developer/security/platform/AI deployment and infrastructure announcements; exclude minor features, shopping, opinion, explainers without new actions and primarily health/entertainment coverage. Future partnerships count as announcements, not completed launches.
-- Forty reports are not forty events or misses. IPO/Gemini and repeated publisher coverage require existing clustering/embedding matching; Arizona selected-post coverage retained. No new confirmed omission, event denominator, cause total or tuning claimed.
-- Evidence assertions pass: exact 59-URL set, all titles/excerpts/observations, 40/19 counts and in-window publication times; event recall explicitly null. Handbook passes 19 pages/21 diagrams/39 tables. Logs /tmp/2942-*.log.
-- Remaining: NBA/World/U.S. importance censuses, cross-URL event memberships and all-topic recall/causes in this same Nov 19 review; three completed reviews and measured root-cause fix still open.
-- pnpm format/lint:fix and full pnpm check pass: 1,204 unit tests/332 integration passes/four expected skips. Final health and alerts clear; git diff check passes. Unchanged runtime needs no rebuild or service restart; live application remains aligned with main. Commit/push follow.
-
-## 2026-11-19: iteration 2943 — complete NBA reference article decisions
-
-- Clean main at aeb5f4c6; no inherited work. Initial alerts clear; /healthz database/Redis pass. Documentation/evidence only, no runtime/source/scoring changes or paid calls.
-- Complete all 100 NBA reference URL decisions: 47 important reports/53 exclusions, with explicit agent editorial rationale, supplied title/excerpt and every original dated cluster/editor-input observation.
-- Include completed games, material availability updates and NBA Europe launch reporting. Exclude previews, betting, rankings, discussions, entertainment, WNBA ownership and explicitly older event reports despite in-window feed timestamps.
-- Reports are not distinct events/misses; repeated games still need existing cluster/embedding matching. No new confirmed omission, denominator, cause total or prompt change. World/U.S. censuses and five-topic event recall remain open.
-- Exact saved-evidence assertions pass for all 100 URLs, titles/excerpts, every observation, 47/53 counts and unset event recall. Handbook passes: 19 pages/21 diagrams/39 tables. Logs /tmp/2943-*.log.
-- pnpm format/lint:fix and full pnpm check pass: 1,204 unit tests/332 integration passes/four expected skips. Final health database/Redis pass; alerts clear; git diff check passes.
-- Unchanged runtime needs no rebuild or service restart; live application remains aligned with main. Next: World/U.S. censuses, then validated event matching/recall/causes in the same Nov 19 review. Commit/push follow.
-
-## 2026-11-19: iteration 2944 — complete World reference article decisions
-
-- Clean main at caa98543; no inherited work. Initial alerts clear and /healthz database/Redis pass. Documentation/evidence only; no runtime/source/scoring changes or paid calls.
-- Complete all 86 World reference URL decisions: 35 important reports/51 exclusions, each with supplied title/excerpt, explicit agent editorial rationale and every dated saved cluster/editor-input observation.
-- Apply owner-approved scope: US foreign policy and Haitian assassination accountability remain World; US domestic politics/weather/transport excluded. Include consequential non-US national policy, international conflict, diplomacy and global rights/energy findings; exclude routine local/celebrity reports and previews without new outcomes.
-- Articles are not distinct events or misses. Repeated summit/Gaza/Haiti/Crimea reports need existing cluster/embedding matching; Berlin sequence establishes no causation. Recall/causes unset; no new confirmed omission or tuning.
-- Next: U.S. census, then validated five-topic event matching/recall/causes in this same Nov 19 review. Three completed reviews and measured root-cause fix remain open.
-- Exact saved-evidence assertions pass for all 86 URLs, titles/excerpts, every dated observation, in-window feed publication times and 35/51 decisions; event recall remains null. `pnpm exec tsx scripts/check-handbook.ts` passes 19 pages/21 diagrams/39 tables.
-- `pnpm format`, `pnpm lint:fix` and full `pnpm check` pass: 1,204 unit tests/332 integration passes/four expected skips. Logs: /tmp/2944-{format,lint,check,handbook}.log. Final alerts clear; health database/Redis pass; all 14 services healthy, 37 active sources returning data/one paused, digest queue zero failures.
-- Unchanged runtime needs no rebuild or service restart; live application remains aligned with main. `git diff --check` passes. Commit/push follow.
-
-## 2026-11-19: iteration 2945 — complete U.S. reference article decisions
-
-- Clean main at 52429b82; no inherited work. Initial alerts clear; health database/Redis pass. Evidence/documentation only; no runtime, scoring, source or prompt changes and no paid calls.
-- Complete all 51 U.S. reference URL decisions: 19 important reports/32 exclusions, with supplied titles/excerpts, explicit agent editorial rationale and every dated saved cluster/editor-input observation.
-- Include material domestic leadership, oversight, infrastructure, emergency and public-health accountability reporting. Mixed articles count only for domestic actions; World diplomacy/Haiti, sports, opinion, profiles and older results excluded. Nomination is not election; investigative demands are not findings.
-- All five article censuses complete. Counts are articles, not events or misses; five-topic existing-cluster/embedding matching, recall and omission causes remain open. No new confirmed omission or tuning.
-- Exact saved-evidence assertions pass: 51 URLs, titles/excerpts, every observation, in-window feed timestamps, 19/32 decisions and unset recall. Handbook passes 19 pages/21 diagrams/39 tables. Logs /tmp/2945-*.log.
-- Final health and alerts clear; all 14 monitored services healthy, sources current, digest queue zero failures. Runtime unchanged, so no rebuild or restart needed; live application remains aligned with main.
-- pnpm format/lint:fix and full pnpm check pass: 1,204 unit tests/332 integration passes/four expected skips. git diff --check passes. Next: five-topic event matching/recall/causes in the same Nov 19 review; three completed reviews and measured root-cause fix still open. Commit/push follow.
+[Iterations 2941–2945](docs/progress-archive/2026-11-19-iterations-2941-2945.md).
 
 ## 2026-11-19: iteration 2946 — validate Gaming saved grouping routes
 
@@ -163,3 +114,13 @@
 - Existing live edition 7a747d9c retains five topics/25 real stories and no private ownership field. Public mode refused detailed job filtering; corrected public-count query confirms zero digest failures. Logs /tmp/2955-*.log.
 - Updated TASKS, daily review and affected handbook. Nov 19 missing semantic memberships and five-topic event recall remain unresolved; next inspect scheduled joint/per-topic evidence, complete three reviews and measure the root-cause fix.
 - Final diff clean; commit/push and API/worker restart follow.
+
+## 2026-11-19: iteration 2956 — trace joint ownership into destination publication
+
+- Clean main at 4a2a9734; no inherited work. Alerts clear; health, 38 sources/14 monitored services pass, digest queue zero failures.
+- Offline reference trace follows exact joint input URLs through complete saved ownership into destination-topic editor candidates/evidence and selected coverage, including cross-topic assignments. Invalid partitions, duplicate inputs and unknown destinations reject evidence; missing prompts remain unknown.
+- Targeted reference checks pass 6/6, including selected destination routes, available/missing prompts, legacy absence, no exact match, foreign/duplicate/missing IDs and invalid topics. No provider calls, historical backfill or production data edits.
+- pnpm format/lint:fix run; pnpm build and affected handbook check pass (19 pages/one unchanged diagram/39 tables). Full pnpm check passes: 1,212 unit tests/332 integration passes/four expected skips. Logs /tmp/2956-*.log.
+- Live 7a747d9c retains five topics/25 real stories; private ownership absent. Initial localhost reader probe returned 429; the established explicit local visitor probe succeeds. No UI or diagrams changed.
+- Updated TASKS, daily review and affected handbook. Historical memberships/five-topic event recall remain unresolved; next use scheduled evidence, complete three reviews and measure the root-cause fix. Older progress entries archived to stay below 25 KB.
+- Final diff check passes; commit/push and API/worker restart follow.

@@ -72,7 +72,7 @@ article-template, AsciiDoc document bodies or MediaWiki prose for submissions wi
   candidates for the highest-importance scored events after successful grouping;
   Enabled on this VM; failed grouping or triage keeps the usual ranking.
   Private snapshots retain editor prompts, unselected reports and grouping inputs/URLs;
-  Saved merges/refusals support offline tracing; joint World/U.S. decisions retain input URLs and complete topic assignments.
+  Offline tracing follows saved merges and joint World/U.S. assignments into the destination topic’s editor inputs and selected stories.
   Enabled Tech admission retains reserved, displaced and admitted event IDs
   and reservation scores. Public reader responses omit private review fields.
 - **Story composition:** the editor keeps separate developments in separate

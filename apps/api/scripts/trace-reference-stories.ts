@@ -188,6 +188,72 @@ export function traceReferenceStories(
             selectedClusters,
             ...(snapshot
               ? {
+                  ownershipInput: (() => {
+                    const ownership = savedTopic?.editorial?.storyOwnership;
+                    if (!ownership) return null;
+                    const ids = new Set(
+                      ownership.inputArticles.map((a) => a.id),
+                    );
+                    if (ids.size !== ownership.inputArticles.length)
+                      return null;
+                    const memberships = new Map<
+                      string,
+                      (typeof ownership.groups)[number]
+                    >();
+                    for (const group of ownership.groups) {
+                      if (!snapshot.topics.some((t) => t.id === group.topicId))
+                        return null;
+                      for (const id of group.ids) {
+                        if (!ids.has(id) || memberships.has(id)) return null;
+                        memberships.set(id, group);
+                      }
+                    }
+                    if (memberships.size !== ids.size) return null;
+                    return {
+                      membershipRoutes: ownership.inputArticles
+                        .filter((a) =>
+                          identityUrls.includes(canonicalUrl(a.url) ?? ''),
+                        )
+                        .map((article) => {
+                          const group = memberships.get(article.id)!;
+                          const destination = snapshot.topics.find(
+                            (t) => t.id === group.topicId,
+                          )!;
+                          const destinationInput = editorInput(
+                            destination.editorial?.candidatePrompt,
+                            destination.id,
+                          );
+                          const published = edition.topics.find(
+                            (t) => t.id === destination.id,
+                          );
+                          return {
+                            inputId: article.id,
+                            topicId: destination.id,
+                            memberIds: group.ids,
+                            selectedClusters: (published?.stories ?? [])
+                              .filter((story) =>
+                                [story, ...(story.coverage ?? [])].some(
+                                  (member) => group.ids.includes(member.id),
+                                ),
+                              )
+                              .map(({ id, title }) => ({ id, title })),
+                            editorCandidates:
+                              destinationInput === null
+                                ? null
+                                : destinationInput
+                                    .filter((candidate) =>
+                                      [
+                                        candidate,
+                                        ...(candidate.clusterEvidence ?? []),
+                                      ].some((member) =>
+                                        group.ids.includes(member.id),
+                                      ),
+                                    )
+                                    .map(({ id, title }) => ({ id, title })),
+                          };
+                        }),
+                    };
+                  })(),
                   groupingInput: (() => {
                     const grouping = savedTopic?.editorial?.storyGrouping;
                     if (
