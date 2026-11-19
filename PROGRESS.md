@@ -127,3 +127,13 @@
 - Timing 214.136 s, ledger $0.521930/57 calls/zero holds. No paid verification/manual generation, production configuration changes or service restarts during the hold.
 - Verification: pnpm format/lint:fix and full pnpm check pass (1,204 unit / 332 integration, four expected skips); offline web build to /tmp/2937-web-build passes. Root pnpm build was stopped because it invokes web publishing; wrapper terminated before switching dist (still release 6798d84e). API/docs compilation completed; no live web activation.
 - Final health/alerts and diff checks pass; commit/push follow. No runtime changes to restart; the 13:00–16:00 deployment hold takes precedence. Next: complete Nov 19 important-event matching/recall/causes in the same daily review, then evaluate event concentration.
+
+## 2026-11-19: iteration 2938 — locate a Tech omission in the saved pipeline
+
+- Clean main at bd744be7; no inherited work. Alerts clear and /healthz database/Redis pass. No runtime or source changes.
+- Extended the same Nov 19 daily review: important EU attack candidate e123373d was admitted to the nine-item final prompt at 7/7, then absent from five selected stories and five posts. Cause stage: shortlisted but editor dropped; no saved explanation proves the motivation.
+- Preserved twelve same-label scored candidate IDs/empty excerpts and four reference observations (two before cutoff). Immutable final prompt independently confirms the admitted representative has no excerpt or cluster evidence. Duplicate triage labels are not independent coverage or validated cluster membership.
+- Arizona investigation is present in selected Bluesky text; avoid conflating story absence with whole-edition absence. External-reference event association remains agent judgement; required cluster/embedding validation and full five-topic recall remain open. This is not a completed three-edition review or a root-cause deployment.
+- Saved-evidence assertion check passes: 12 scores, one admitted representative, zero selections, 9/5 prompt/selection IDs, four observations/two pre-cutoff and Arizona post. Handbook check passes (19 pages/21 diagrams/39 tables).
+- pnpm format, pnpm lint:fix and full pnpm check pass: 1,204 unit / 332 integration, four expected skips (/tmp/2938-check.log). No paid calls, collection, scoring changes, builds/deploys or service restarts during the 13:00–16:00 hold; application code unchanged.
+- Final health/alerts pass; documentation/evidence-only commit and push follow. No rebuild/restart needed. Next: finish importance/event matching and recall/causes in this daily review, then event concentration.

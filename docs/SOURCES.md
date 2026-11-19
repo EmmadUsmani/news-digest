@@ -59,7 +59,10 @@ After three scheduled reviews, measure the largest root-cause fix on saved pools
 Nov 19 published-edition evidence and unresolved recall are recorded in the
 [daily review](edition-reviews/2026-11-19.md#missed--reference-evidence-preserved-recall-pending).
 The reference URLs are traced through saved selected clusters and editor inputs;
-URL trace counts remain separate from event recall.
+URL trace counts remain separate from event recall. The Nov 19 follow-up traces
+the collected EU attack candidate through final-editor omission; its external
+reference membership still needs validation. Arizona is covered by a selected
+Bluesky post, so story omissions and whole-edition omissions remain distinct.
 
 `World news & politics`; Tech/Gaming fall back to `AI`/`game`. Historical Nov 12
 observations contain only 46/52/51 distinct posts respectively. Effective

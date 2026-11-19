@@ -1,0 +1,183 @@
+{
+  "editionId": "7a747d9c-3f5c-4e11-8200-2f19e8effc95",
+  "topic": "Tech & AI",
+  "windowStart": "2026-11-18T15:00:00.000Z",
+  "windowEnd": "2026-11-19T15:00:00.000Z",
+  "classification": "Collected EU attack candidate shortlisted but not selected; reference association is agent editorial judgement, not validated cluster membership.",
+  "referenceObservations": [
+    {
+      "observedAt": "2026-11-19T14:39:01.250Z",
+      "publishedAt": "2026-11-19T14:35:01.000Z",
+      "url": "https://www.techmeme.com/261119/p32",
+      "title": "The European Commission confirms a cyberattack that disrupted systems for 10+ days; CERT-EU says international hackers used AI penetration testing tool ARTEX (Gerardo Fortuna/Politico)",
+      "excerpt": "Gerardo Fortuna / Politico: The European Commission confirms a cyberattack that disrupted systems for 10+ days; CERT-EU says international hackers used AI penetration testing tool ARTEX — Presented by European Commission's Directorate-General for Education, Youth, Sport and Culture — with MAX GRIERA — CIAO THERE."
+    },
+    {
+      "observedAt": "2026-11-19T14:50:58.144Z",
+      "publishedAt": "2026-11-19T14:35:01.000Z",
+      "url": "https://www.techmeme.com/261119/p32",
+      "title": "The European Commission confirms a cyberattack that disrupted systems for 10+ days; CERT-EU says international hackers used AI penetration testing tool ARTEX (Gerardo Fortuna/Politico)",
+      "excerpt": "Gerardo Fortuna / Politico: The European Commission confirms a cyberattack that disrupted systems for 10+ days; CERT-EU says international hackers used AI penetration testing tool ARTEX — Presented by European Commission's Directorate-General for Education, Youth, Sport and Culture — with MAX GRIERA — CIAO THERE."
+    },
+    {
+      "observedAt": "2026-11-19T15:00:12.927Z",
+      "publishedAt": "2026-11-19T14:35:01.000Z",
+      "url": "https://www.techmeme.com/261119/p32",
+      "title": "The European Commission confirms a cyberattack that disrupted systems for 10+ days; CERT-EU says international hackers used AI penetration testing tool ARTEX (Gerardo Fortuna/Politico)",
+      "excerpt": "Gerardo Fortuna / Politico: The European Commission confirms a cyberattack that disrupted systems for 10+ days; CERT-EU says international hackers used AI penetration testing tool ARTEX — Presented by European Commission's Directorate-General for Education, Youth, Sport and Culture — with MAX GRIERA — CIAO THERE."
+    },
+    {
+      "observedAt": "2026-11-19T15:04:58.501Z",
+      "publishedAt": "2026-11-19T14:35:01.000Z",
+      "url": "https://www.techmeme.com/261119/p32",
+      "title": "The European Commission confirms a cyberattack that disrupted systems for 10+ days; CERT-EU says international hackers used AI penetration testing tool ARTEX (Gerardo Fortuna/Politico)",
+      "excerpt": "Gerardo Fortuna / Politico: The European Commission confirms a cyberattack that disrupted systems for 10+ days; CERT-EU says international hackers used AI penetration testing tool ARTEX — Presented by European Commission's Directorate-General for Education, Youth, Sport and Culture — with MAX GRIERA — CIAO THERE."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "e123373d-70c5-4c2d-829e-eb447b11d491",
+      "title": "A cyberattack using artificial intelligence targeted the EU in October, official says - ABC News - Breaking News, Latest News and Videos",
+      "publishedAt": "2026-11-19T13:30:35.000Z",
+      "relevance": 7,
+      "importance": 7,
+      "excerptCharacters": 0,
+      "inSavedEditorInput": true,
+      "selected": false
+    },
+    {
+      "id": "79697010-4236-40f6-a65f-d29e1bded1f4",
+      "title": "A cyberattack using artificial intelligence targeted the EU in October, official says - The Killeen Daily Herald",
+      "publishedAt": "2026-11-19T13:20:29.000Z",
+      "relevance": 7,
+      "importance": 7,
+      "excerptCharacters": 0,
+      "inSavedEditorInput": false,
+      "selected": false
+    },
+    {
+      "id": "95b70f6f-9569-4442-a33b-18b9aaf9c15c",
+      "title": "A cyberattack using artificial intelligence targeted the EU in October, official says - Eagle-Tribune",
+      "publishedAt": "2026-11-19T13:20:29.000Z",
+      "relevance": 7,
+      "importance": 7,
+      "excerptCharacters": 0,
+      "inSavedEditorInput": false,
+      "selected": false
+    },
+    {
+      "id": "8244f809-fd90-45f8-afba-5d3e585449d0",
+      "title": "A cyberattack using artificial intelligence targeted the EU in October, official says - KCRA",
+      "publishedAt": "2026-11-19T13:07:00.000Z",
+      "relevance": 7,
+      "importance": 7,
+      "excerptCharacters": 0,
+      "inSavedEditorInput": false,
+      "selected": false
+    },
+    {
+      "id": "0a1b2ee1-9b64-4a62-896c-df408e792ae8",
+      "title": "A cyberattack using artificial intelligence targeted the EU in October, official says - Toronto Star",
+      "publishedAt": "2026-11-19T12:32:26.000Z",
+      "relevance": 7,
+      "importance": 7,
+      "excerptCharacters": 0,
+      "inSavedEditorInput": false,
+      "selected": false
+    },
+    {
+      "id": "8e7d4a23-4ce3-4349-860c-0f8786ce954b",
+      "title": "A cyberattack using artificial intelligence targeted the EU in October, official says - AP News",
+      "publishedAt": "2026-11-19T12:32:18.000Z",
+      "relevance": 7,
+      "importance": 7,
+      "excerptCharacters": 0,
+      "inSavedEditorInput": false,
+      "selected": false
+    },
+    {
+      "id": "bf67151c-3632-4ad4-87f3-1a2b1e54e41d",
+      "title": "A cyberattack using artificial intelligence targeted the EU in October, official says - Newsday",
+      "publishedAt": "2026-11-19T12:31:17.000Z",
+      "relevance": 7,
+      "importance": 7,
+      "excerptCharacters": 0,
+      "inSavedEditorInput": false,
+      "selected": false
+    },
+    {
+      "id": "d842fa17-223d-4618-b2f6-69784d4d08cf",
+      "title": "A cyberattack using artificial intelligence targeted the EU in October, official says - The Seattle Times",
+      "publishedAt": "2026-11-19T12:31:04.000Z",
+      "relevance": 7,
+      "importance": 7,
+      "excerptCharacters": 0,
+      "inSavedEditorInput": false,
+      "selected": false
+    },
+    {
+      "id": "1ef6ade7-7a0d-479b-9d2e-02cb0f08e37c",
+      "title": "A cyberattack using artificial intelligence targeted the EU in October, official says - Herald Bulletin",
+      "publishedAt": "2026-11-19T12:30:53.000Z",
+      "relevance": 7,
+      "importance": 7,
+      "excerptCharacters": 0,
+      "inSavedEditorInput": false,
+      "selected": false
+    },
+    {
+      "id": "26a62707-cd0d-44d6-8f69-59860bfaad96",
+      "title": "A cyberattack using artificial intelligence targeted the EU in October, official says - Bozeman Daily Chronicle",
+      "publishedAt": "2026-11-19T12:30:53.000Z",
+      "relevance": 7,
+      "importance": 7,
+      "excerptCharacters": 0,
+      "inSavedEditorInput": false,
+      "selected": false
+    },
+    {
+      "id": "b5c949c8-e275-4dc5-8a0e-7f5ffc865346",
+      "title": "A cyberattack using artificial intelligence targeted the EU in October, official says - Post Register",
+      "publishedAt": "2026-11-19T12:30:53.000Z",
+      "relevance": 7,
+      "importance": 7,
+      "excerptCharacters": 0,
+      "inSavedEditorInput": false,
+      "selected": false
+    },
+    {
+      "id": "c583de54-caf1-4771-b4ac-087a910488f6",
+      "title": "A cyberattack using artificial intelligence targeted the EU in October, official says - ClickOnDetroit | WDIV Local 4",
+      "publishedAt": "2026-11-19T12:30:53.000Z",
+      "relevance": 7,
+      "importance": 7,
+      "excerptCharacters": 0,
+      "inSavedEditorInput": false,
+      "selected": false
+    }
+  ],
+  "editorInputCandidateIds": [
+    "d4ce7761-5617-4019-9f68-c8583048fb09",
+    "71560bc5-34b3-403b-9016-b41823615f90",
+    "dfd9e116-8e69-4887-a4e1-e68783d5416e",
+    "cf6cf4a0-4dea-400d-b05d-3e5003aea30a",
+    "0b57854a-22e6-4cac-a836-51cd75bb8b7d",
+    "e123373d-70c5-4c2d-829e-eb447b11d491",
+    "0eb01486-0fd1-4069-b165-f0acc3badadc",
+    "1722dd86-40a5-4b64-86cc-5173196cecdc",
+    "7b0e9205-6458-48e5-9db2-dc675e920a9e"
+  ],
+  "selectedStoryIds": [
+    "71560bc5-34b3-403b-9016-b41823615f90",
+    "dfd9e116-8e69-4887-a4e1-e68783d5416e",
+    "cf6cf4a0-4dea-400d-b05d-3e5003aea30a",
+    "0b57854a-22e6-4cac-a836-51cd75bb8b7d",
+    "d4ce7761-5617-4019-9f68-c8583048fb09"
+  ],
+  "limitations": [
+    "The 14:56 prospective pool establishes stored text at that time, not exact dispatch-time text. The immutable final editor prompt independently confirms the admitted representative has an empty excerpt.",
+    "Repeated event labels in triage do not establish a validated twelve-member cluster or independent publisher coverage.",
+    "No per-candidate rejection rationale establishes why the final editor omitted this event.",
+    "No complete reference importance denominator or five-topic recall is claimed."
+  ]
+}
