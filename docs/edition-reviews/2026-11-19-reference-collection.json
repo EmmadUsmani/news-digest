@@ -1,0 +1,1633 @@
+{
+  "iteration": 2951,
+  "editionId": "7a747d9c-3f5c-4e11-8200-2f19e8effc95",
+  "checkedAt": "2026-11-19T17:51:55.280Z",
+  "method": "Read-only exact canonical_url lookup against content_items for all important reference URLs and five preserved Techmeme publisher aliases. fetched_at is the insert timestamp: ingestion upserts leave it unchanged. No title matching, model calls or production writes.",
+  "limits": "Exact URL collection census, not event matching or recall. Missing aggregator URLs do not prove missing publisher reports. Post-cutoff insertion does not establish event omission. Publisher aliases were observed later and are not backdated.",
+  "query": "select id,canonical_url,published_at,fetched_at from content_items where canonical_url = any($1::text[])",
+  "topics": [
+    {
+      "topic": "Gaming",
+      "sourceFile": "2026-11-19-gaming-reference-evidence.json",
+      "sourceSha256": "ac5429aedf12657310d17e293875d5e76018fedc6afab819f70738caeb7b3b93",
+      "windowEnd": "2026-11-19T15:00:00.000Z",
+      "importantArticleCount": 12,
+      "counts": {
+        "collected-before-cutoff": 12
+      },
+      "articles": [
+        {
+          "url": "https://www.gamesindustry.biz/gta-6-arrives-to-record-review-scores-and-streaming-audiences",
+          "title": "GTA 6 arrives to record review scores and streaming audiences",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "6689274b-49fd-4ead-a41c-c7f5f358636f",
+            "canonical_url": "https://www.gamesindustry.biz/gta-6-arrives-to-record-review-scores-and-streaming-audiences",
+            "published_at": "2026-11-18T15:24:20.000Z",
+            "fetched_at": "2026-11-18T15:29:50.728Z"
+          }
+        },
+        {
+          "url": "https://www.eurogamer.net/ps5-pro-not-powerful-enough-gta-6-60fps",
+          "title": "Even the PS5 Pro is \"not powerful enough\" to run GTA 6 at 60FPS or 40FPS, Rockstar says",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "b4a98fdc-5c24-4b72-b903-d4e2ff4369f8",
+            "canonical_url": "https://www.eurogamer.net/ps5-pro-not-powerful-enough-gta-6-60fps",
+            "published_at": "2026-11-18T18:17:50.000Z",
+            "fetched_at": "2026-11-18T18:41:28.523Z"
+          }
+        },
+        {
+          "url": "https://www.eurogamer.net/grand-theft-auto-6-streaming-record-broken",
+          "title": "GTA 6 breaks the all-time livestream viewer record hours before it's available to play for most of the world",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "15cab3b5-b204-401c-9adb-3a73476c18e9",
+            "canonical_url": "https://www.eurogamer.net/grand-theft-auto-6-streaming-record-broken",
+            "published_at": "2026-11-18T15:42:50.000Z",
+            "fetched_at": "2026-11-18T16:11:28.594Z"
+          }
+        },
+        {
+          "url": "https://www.gamesindustry.biz/us-senate-hearing-examines-child-safety-on-roblox-considers-bipartisan-bill-to-bypass-forced-arbitration",
+          "title": "US Senate hearing examines child safety on Roblox, considers bipartisan bill to bypass forced arbitration",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "f54bd57c-d206-49be-8b86-4082d6f1852b",
+            "canonical_url": "https://www.gamesindustry.biz/us-senate-hearing-examines-child-safety-on-roblox-considers-bipartisan-bill-to-bypass-forced-arbitration",
+            "published_at": "2026-11-19T11:52:10.000Z",
+            "fetched_at": "2026-11-19T11:59:51.100Z"
+          }
+        },
+        {
+          "url": "https://www.gamesindustry.biz/rockstar-and-iwgb-members-issue-closing-arguments-following-conclusion-of-employment-tribunal",
+          "title": "Rockstar and IWGB members issue closing arguments following conclusion of employment tribunal",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "9bf51397-245d-4324-8cea-03285ebcfdc8",
+            "canonical_url": "https://www.gamesindustry.biz/rockstar-and-iwgb-members-issue-closing-arguments-following-conclusion-of-employment-tribunal",
+            "published_at": "2026-11-19T10:03:40.000Z",
+            "fetched_at": "2026-11-19T10:29:50.953Z"
+          }
+        },
+        {
+          "url": "https://www.eurogamer.net/gta-6-rockstar-developers-layoffs-worries",
+          "title": "GTA 6 developers at Rockstar are worried about being laid off after shipping \"the biggest game of all time\"",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "7234d33b-c12c-475b-ae91-f15cb7244d8a",
+            "canonical_url": "https://www.eurogamer.net/gta-6-rockstar-developers-layoffs-worries",
+            "published_at": "2026-11-19T12:16:00.000Z",
+            "fetched_at": "2026-11-19T12:41:28.565Z"
+          }
+        },
+        {
+          "url": "https://www.eurogamer.net/gta-6-grand-theft-auto-6-launch-day-live-blog",
+          "title": "Grand Theft Auto 6 launch day live - news and reaction as GTA 6 arrives around the world",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "fb1fe8f9-5787-46ae-b812-4878b2fff972",
+            "canonical_url": "https://www.eurogamer.net/gta-6-grand-theft-auto-6-launch-day-live-blog",
+            "published_at": "2026-11-19T09:05:00.000Z",
+            "fetched_at": "2026-11-19T09:11:28.632Z"
+          }
+        },
+        {
+          "url": "https://www.eurogamer.net/gta-6-discless-release-code-in-a-box-gamestop-ceo",
+          "title": "GameStop CEO slams 'code-in-a-box' games in the wake of GTA 6's discless release",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "ac9cb8d5-c8a5-4443-b94e-3ab1cbf4cb99",
+            "canonical_url": "https://www.eurogamer.net/gta-6-discless-release-code-in-a-box-gamestop-ceo",
+            "published_at": "2026-11-19T13:03:30.000Z",
+            "fetched_at": "2026-11-19T13:11:28.513Z"
+          }
+        },
+        {
+          "url": "https://www.gamesindustry.biz/call-of-duty-modern-warfare-4-debuts-as-top-selling-game-in-us-for-october-2026",
+          "title": "Call of Duty: Modern Warfare 4 debuts as top-selling game in US for October 2026",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "4c292142-fe00-4f45-be73-a663558b1a94",
+            "canonical_url": "https://www.gamesindustry.biz/call-of-duty-modern-warfare-4-debuts-as-top-selling-game-in-us-for-october-2026",
+            "published_at": "2026-11-19T14:00:00.000Z",
+            "fetched_at": "2026-11-19T14:29:50.778Z"
+          }
+        },
+        {
+          "url": "https://www.eurogamer.net/call-of-duty-modern-warfare-4-october-top-seller",
+          "title": "Call of Duty: Modern Warfare 4 was October's biggest game in the US, but it wasn't enough to crack 2026's best-selling top 10",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "800fd379-badf-44e0-8ee5-56bb02916c30",
+            "canonical_url": "https://www.eurogamer.net/call-of-duty-modern-warfare-4-october-top-seller",
+            "published_at": "2026-11-19T14:01:40.000Z",
+            "fetched_at": "2026-11-19T14:11:28.565Z"
+          }
+        },
+        {
+          "url": "https://www.eurogamer.net/gta-6-rockstar-tribunal-awaits-verdict",
+          "title": "As Rockstar's alleged \"union busting\" tribunal hearing comes to a close amid GTA 6 launch, judge pledges to deliver verdict \"as quickly as I possibly can\"",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "df1f35f4-e974-4547-ab8e-86ad4036666b",
+            "canonical_url": "https://www.eurogamer.net/gta-6-rockstar-tribunal-awaits-verdict",
+            "published_at": "2026-11-19T14:08:10.000Z",
+            "fetched_at": "2026-11-19T14:11:28.565Z"
+          }
+        },
+        {
+          "url": "https://www.gamesindustry.biz/007-first-light-wins-goty-at-2026-tiga-awards-dovetail-games-takes-home-four-accolades-including-best-publisher",
+          "title": "007 First Light wins GOTY at 2026 TIGA Awards, Dovetail Games takes home four accolades including Best Publisher",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "9270bc8d-a8d4-46bf-8b93-e3497f0c8ff8",
+            "canonical_url": "https://www.gamesindustry.biz/007-first-light-wins-goty-at-2026-tiga-awards-dovetail-games-takes-home-four-accolades-including-best-publisher",
+            "published_at": "2026-11-19T14:55:30.000Z",
+            "fetched_at": "2026-11-19T14:59:50.789Z"
+          }
+        }
+      ]
+    },
+    {
+      "topic": "NBA",
+      "sourceFile": "2026-11-19-nba-reference-evidence.json",
+      "sourceSha256": "3cfcda7a3ac4f54d56c58a535a83aa4c61424e2807d9fef2ba7ae30a4589e706",
+      "windowEnd": "2026-11-19T15:00:00.000Z",
+      "importantArticleCount": 47,
+      "counts": {
+        "collected-before-cutoff": 47
+      },
+      "articles": [
+        {
+          "url": "https://sports.yahoo.com/articles/cavs-react-sam-merrill-tough-035235621.html",
+          "title": "Cavs react to Sam Merrill\u2019s tough missed free throws: \u2018We all trust him\u2019",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "b2d2b6b8-7256-4168-ba65-0ba1e6f24898",
+            "canonical_url": "https://sports.yahoo.com/articles/cavs-react-sam-merrill-tough-035235621.html",
+            "published_at": "2026-11-19T03:52:35.000Z",
+            "fetched_at": "2026-11-19T04:11:29.176Z"
+          }
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/nets-rocked-lowly-bulls-ugly-034221251.html",
+          "title": "Nets rocked by lowly Bulls in ugly night to forget",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "8257ac77-e6ca-48b9-9b68-019a6153bb05",
+            "canonical_url": "https://sports.yahoo.com/articles/nets-rocked-lowly-bulls-ugly-034221251.html",
+            "published_at": "2026-11-19T03:42:21.000Z",
+            "fetched_at": "2026-11-19T04:11:29.176Z"
+          }
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/player-grades-cavs-vs-grizzlies-034008328.html",
+          "title": "Player Grades: Cavs vs. Grizzlies \u2013 Cleveland loses back-and-forth affair",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "bf887a9f-c90e-4c87-95b7-a263c46408ea",
+            "canonical_url": "https://sports.yahoo.com/articles/player-grades-cavs-vs-grizzlies-034008328.html",
+            "published_at": "2026-11-19T03:40:08.000Z",
+            "fetched_at": "2026-11-19T04:11:29.176Z"
+          }
+        },
+        {
+          "url": "https://sports.yahoo.com/nba/breaking-news/article/heats-giannis-antetokounmpo-sniffs-triple-double-in-first-game-vs-bucks-tyler-herro-booed-while-bam-adebayo-stars-in-win-030545435.html",
+          "title": "Heat's Giannis Antetokounmpo sniffs triple-double in first game vs. Bucks; Tyler Herro booed while Bam Adebayo stars in win",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "60f9e755-eef6-438c-ad81-2628e345900e",
+            "canonical_url": "https://sports.yahoo.com/nba/breaking-news/article/heats-giannis-antetokounmpo-sniffs-triple-double-in-first-game-vs-bucks-tyler-herro-booed-while-bam-adebayo-stars-in-win-030545435.html",
+            "published_at": "2026-11-19T03:05:45.000Z",
+            "fetched_at": "2026-11-19T03:11:29.105Z"
+          }
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/cavs-lose-124-121-grizzlies-023239186.html",
+          "title": "Cavs lose 124-121 to Grizzlies despite Donovan Mitchell\u2019s 34 points",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "a3fe2c28-5cb6-46da-abc4-fd3f87cef3d3",
+            "canonical_url": "https://sports.yahoo.com/articles/cavs-lose-124-121-grizzlies-023239186.html",
+            "published_at": "2026-11-19T02:32:39.000Z",
+            "fetched_at": "2026-11-19T03:11:29.105Z"
+          }
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/warriors-vs-mavericks-injury-report-004432177.html",
+          "title": "Warriors vs. Mavericks injury report: Steph Curry, Al Horford out",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "51f3922f-b7ae-45ac-8015-aeac42f2ecc5",
+            "canonical_url": "https://sports.yahoo.com/articles/warriors-vs-mavericks-injury-report-004432177.html",
+            "published_at": "2026-11-19T00:44:32.000Z",
+            "fetched_at": "2026-11-19T03:11:29.105Z"
+          }
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/nba-europe-appears-headed-soft-233744763.html",
+          "title": "NBA Europe appears headed for 'soft launch' next fall",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "c560aa16-0f26-41bb-8157-3cfe7171362e",
+            "canonical_url": "https://sports.yahoo.com/articles/nba-europe-appears-headed-soft-233744763.html",
+            "published_at": "2026-11-18T23:37:44.000Z",
+            "fetched_at": "2026-11-19T00:11:28.969Z"
+          }
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/tyrese-maxey-scratch-vs-magic-233352020.html",
+          "title": "Tyrese Maxey a late scratch vs. Magic",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "55474669-3b7d-4c43-a518-7357b65a7df0",
+            "canonical_url": "https://sports.yahoo.com/articles/tyrese-maxey-scratch-vs-magic-233352020.html",
+            "published_at": "2026-11-18T23:33:52.000Z",
+            "fetched_at": "2026-11-19T02:11:28.965Z"
+          }
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/dylan-harper-ruled-against-clippers-232719827.html",
+          "title": "Dylan Harper ruled out against Clippers with \u201csoreness\u201d, more to come tomorrow",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "0621f38e-e99f-4c2d-ae62-861e0464d124",
+            "canonical_url": "https://sports.yahoo.com/articles/dylan-harper-ruled-against-clippers-232719827.html",
+            "published_at": "2026-11-18T23:27:19.000Z",
+            "fetched_at": "2026-11-19T02:11:28.965Z"
+          }
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/vice-city-rout-heat-defeat-220036436.html",
+          "title": "A Vice City rout: Heat defeat Bucks 137-130 in collab with \u2018GTA VI'",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "b15576c8-e69a-4246-8bb0-6a3f38fe3b65",
+            "canonical_url": "https://sports.yahoo.com/articles/vice-city-rout-heat-defeat-220036436.html",
+            "published_at": "2026-11-18T22:00:36.000Z",
+            "fetched_at": "2026-11-19T03:11:29.105Z"
+          }
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/austin-reaves-remains-vs-jazz-212232223.html",
+          "title": "Austin Reaves remains out vs. Jazz, Walker Kessler returns",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "a9d90286-432b-46f6-9a93-0fdf106f0262",
+            "canonical_url": "https://sports.yahoo.com/articles/austin-reaves-remains-vs-jazz-212232223.html",
+            "published_at": "2026-11-18T21:22:32.000Z",
+            "fetched_at": "2026-11-19T00:11:28.969Z"
+          }
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/injured-warriors-guard-making-good-201301368.html",
+          "title": "Injured Warriors guard making good progress, to be re-evaluated this week",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "1412549d-d460-49c3-ba6c-9102826a0573",
+            "canonical_url": "https://sports.yahoo.com/articles/injured-warriors-guard-making-good-201301368.html",
+            "published_at": "2026-11-18T20:13:01.000Z",
+            "fetched_at": "2026-11-18T20:41:28.995Z"
+          }
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/learned-warriors-3-point-struggles-194136627.html",
+          "title": "What we learned as Warriors' 3-point struggles continue in loss to Mavericks",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "35f9f300-72af-4030-a3b1-b3ffe8414096",
+            "canonical_url": "https://sports.yahoo.com/articles/learned-warriors-3-point-struggles-194136627.html",
+            "published_at": "2026-11-18T19:41:36.000Z",
+            "fetched_at": "2026-11-19T04:11:29.176Z"
+          }
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/brandon-williams-hamstring-strain-lingers-192956474.html",
+          "title": "Brandon Williams\u2019 hamstring strain lingers, will miss at least two more games",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "87ae2c50-7fa5-406f-812a-22e3dc578a43",
+            "canonical_url": "https://sports.yahoo.com/articles/brandon-williams-hamstring-strain-lingers-192956474.html",
+            "published_at": "2026-11-18T19:29:56.000Z",
+            "fetched_at": "2026-11-18T22:11:28.933Z"
+          }
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/vice-city-rout-heat-defeat-190036397.html",
+          "title": "A Vice City rout: Heat defeat Bucks 137-130 in collab with \u2018GTA VI'",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "39daa8f0-5bf6-42d1-aa9b-19345acdc0cd",
+            "canonical_url": "https://sports.yahoo.com/articles/vice-city-rout-heat-defeat-190036397.html",
+            "published_at": "2026-11-18T19:00:36.000Z",
+            "fetched_at": "2026-11-19T03:41:29.221Z"
+          }
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/sixers-smart-jaylen-brown-hamstring-180000373.html",
+          "title": "The Sixers need to be smart with Jaylen Brown\u2019s hamstring injury",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "621a3897-2366-4bf0-978f-1b6a57b56031",
+            "canonical_url": "https://sports.yahoo.com/articles/sixers-smart-jaylen-brown-hamstring-180000373.html",
+            "published_at": "2026-11-18T18:00:00.000Z",
+            "fetched_at": "2026-11-18T20:41:28.995Z"
+          }
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/observations-sixers-come-back-strong-170700167.html",
+          "title": "Observations after Sixers come back for strong shorthanded victory",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "7c9de402-b74e-402e-a3e9-99cda3990a50",
+            "canonical_url": "https://sports.yahoo.com/articles/observations-sixers-come-back-strong-170700167.html",
+            "published_at": "2026-11-18T22:00:36.000Z",
+            "fetched_at": "2026-11-19T03:11:29.105Z"
+          }
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/vice-city-rout-heat-defeat-220036890.html",
+          "title": "A Vice City rout: Heat defeat Bucks 137-130 in collab with \u2018GTA VI'",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "c23d252b-ebab-4e73-87c3-4799dea584ed",
+            "canonical_url": "https://sports.yahoo.com/articles/vice-city-rout-heat-defeat-220036890.html",
+            "published_at": "2026-11-18T22:00:36.000Z",
+            "fetched_at": "2026-11-19T03:11:29.105Z"
+          }
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/sixers-rule-brown-hamstring-injury-165845297.html",
+          "title": "Sixers rule Brown out with hamstring injury for Magic game",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "e5d31d8b-6790-46cb-9a6c-98ee2461342d",
+            "canonical_url": "https://sports.yahoo.com/articles/sixers-rule-brown-hamstring-injury-165845297.html",
+            "published_at": "2026-11-17T16:58:45.000Z",
+            "fetched_at": "2026-11-17T22:41:29.050Z"
+          }
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/attrition-finally-gets-best-lakers-065527537.html",
+          "title": "Attrition finally gets best of Lakers in loss to Jazz",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "cc63fd43-69cc-4074-b3db-feb26fa476a1",
+            "canonical_url": "https://sports.yahoo.com/articles/attrition-finally-gets-best-lakers-065527537.html",
+            "published_at": "2026-11-19T06:55:27.000Z",
+            "fetched_at": "2026-11-19T09:11:29.366Z"
+          }
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/utah-jazz-vs-los-angeles-064313292.html",
+          "title": "Utah Jazz vs. Los Angeles Lakers: Recap and Final Score",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "1a696e79-c5f0-4806-8f77-dc3299b34abc",
+            "canonical_url": "https://sports.yahoo.com/articles/utah-jazz-vs-los-angeles-064313292.html",
+            "published_at": "2026-11-19T06:43:13.000Z",
+            "fetched_at": "2026-11-19T09:11:29.366Z"
+          }
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/player-grades-lakers-vs-jazz-063154573.html",
+          "title": "Player Grades: Lakers vs. Jazz",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "6e256718-3763-4e7d-b467-83a6bc85d312",
+            "canonical_url": "https://sports.yahoo.com/articles/player-grades-lakers-vs-jazz-063154573.html",
+            "published_at": "2026-11-19T06:31:54.000Z",
+            "fetched_at": "2026-11-19T08:41:29.312Z"
+          }
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/suns-beat-kings-128-107-060802341.html",
+          "title": "The Suns beat the Kings 128-107 to get to .500 for the first time this season",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "f1823a2c-c0da-470f-9381-8eef15a902bf",
+            "canonical_url": "https://sports.yahoo.com/articles/suns-beat-kings-128-107-060802341.html",
+            "published_at": "2026-11-19T06:08:02.000Z",
+            "fetched_at": "2026-11-19T08:41:29.312Z"
+          }
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/lakers-nine-game-winning-streak-060323188.html",
+          "title": "Lakers\u2019 nine-game winning streak ends with loss to Jazz",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "68c6d883-c75f-411d-aaf0-557d4e9adf08",
+            "canonical_url": "https://sports.yahoo.com/articles/lakers-nine-game-winning-streak-060323188.html",
+            "published_at": "2026-11-19T06:03:23.000Z",
+            "fetched_at": "2026-11-19T06:41:29.274Z"
+          }
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/tired-looking-lakers-cant-shots-055623578.html",
+          "title": "Tired-looking Lakers can't make their shots in loss to Jazz",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "5d7d6032-9bab-4dcb-8983-ad9c4b93ba39",
+            "canonical_url": "https://sports.yahoo.com/articles/tired-looking-lakers-cant-shots-055623578.html",
+            "published_at": "2026-11-19T05:56:23.000Z",
+            "fetched_at": "2026-11-19T06:41:29.274Z"
+          }
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/lakers-win-streak-snapped-offense-053458832.html",
+          "title": "Lakers win streak snapped as offense goes ice cold against Jazz",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "23f67f70-012f-4a1e-bfe5-9bbd57ca811c",
+            "canonical_url": "https://sports.yahoo.com/articles/lakers-win-streak-snapped-offense-053458832.html",
+            "published_at": "2026-11-19T05:34:58.000Z",
+            "fetched_at": "2026-11-19T07:41:29.409Z"
+          }
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/celtics-blow-17-point-lead-053427693.html",
+          "title": "Celtics blow 17-point lead to Nuggets, lose 105-101",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "24a8e43b-e43d-4c10-a682-ad51b21a8405",
+            "canonical_url": "https://sports.yahoo.com/articles/celtics-blow-17-point-lead-053427693.html",
+            "published_at": "2026-11-19T05:34:27.000Z",
+            "fetched_at": "2026-11-19T07:41:29.409Z"
+          }
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/warriors-vs-mavericks-player-grades-053321899.html",
+          "title": "Warriors vs. Mavericks player grades: Will Richard stars, Yaxel Lendeborg struggles",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "dfa7bb22-70bb-4e44-8fb9-81cdeee799e0",
+            "canonical_url": "https://sports.yahoo.com/articles/warriors-vs-mavericks-player-grades-053321899.html",
+            "published_at": "2026-11-19T05:33:21.000Z",
+            "fetched_at": "2026-11-19T07:41:29.409Z"
+          }
+        },
+        {
+          "url": "https://sports.yahoo.com/nba/breaking-news/article/celtics-star-jayson-tatum-called-for-technical-after-throwing-ball-toward-official-late-in-loss-to-nuggets-053023894.html",
+          "title": "Celtics star Jayson Tatum called for technical after throwing ball toward official late in loss to Nuggets",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "b5730acc-894c-460d-8c6b-de519447d1ad",
+            "canonical_url": "https://sports.yahoo.com/nba/breaking-news/article/celtics-star-jayson-tatum-called-for-technical-after-throwing-ball-toward-official-late-in-loss-to-nuggets-053023894.html",
+            "published_at": "2026-11-19T05:30:23.000Z",
+            "fetched_at": "2026-11-19T05:41:29.382Z"
+          }
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/diving-deeper-cavs-last-second-052457927.html",
+          "title": "Diving deeper into Cavs last-second loss to Grizzlies: Progression isn\u2019t always measured in final result",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "7c029d86-a725-4e2c-baf3-9ef884b1d72b",
+            "canonical_url": "https://sports.yahoo.com/articles/diving-deeper-cavs-last-second-052457927.html",
+            "published_at": "2026-11-19T05:24:57.000Z",
+            "fetched_at": "2026-11-19T06:11:28.899Z"
+          }
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/nets-embarrass-themselves-front-franchise-052301883.html",
+          "title": "Nets embarrass themselves in front of franchise greats with pounding by Bulls",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "740b9e14-edd6-4555-b694-e20fb98581d6",
+            "canonical_url": "https://sports.yahoo.com/articles/nets-embarrass-themselves-front-franchise-052301883.html",
+            "published_at": "2026-11-19T05:23:01.000Z",
+            "fetched_at": "2026-11-19T05:41:29.382Z"
+          }
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/stats-rundown-4-numbers-know-043000888.html",
+          "title": "Stats Rundown: 4 numbers to know from the Mavericks 116-94 win over the Warriors",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "7e1d0161-61d0-4273-88c9-96b8c2e32836",
+            "canonical_url": "https://sports.yahoo.com/articles/stats-rundown-4-numbers-know-043000888.html",
+            "published_at": "2026-11-19T04:30:00.000Z",
+            "fetched_at": "2026-11-19T07:11:29.368Z"
+          }
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/cooper-flagg-good-warriors-starters-040739887.html",
+          "title": "Cooper Flagg was as good as the Warriors starters were bad in blowout loss in Dallas",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "cbe250e8-c89c-4900-9dc9-562f3d2f616d",
+            "canonical_url": "https://sports.yahoo.com/articles/cooper-flagg-good-warriors-starters-040739887.html",
+            "published_at": "2026-11-19T04:07:39.000Z",
+            "fetched_at": "2026-11-19T06:41:29.274Z"
+          }
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/rapid-recap-heat-137-bucks-035844721.html",
+          "title": "Rapid Recap: Heat 137, Bucks 130",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "148b859e-8ff6-4d3a-b85b-7717f25cc4f6",
+            "canonical_url": "https://sports.yahoo.com/articles/rapid-recap-heat-137-bucks-035844721.html",
+            "published_at": "2026-11-19T03:58:44.000Z",
+            "fetched_at": "2026-11-19T06:11:28.899Z"
+          }
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/recap-wizards-mercifully-win-103-035830692.html",
+          "title": "Recap: Wizards mercifully win 103-99 vs. Raptors",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "11178b1b-3cec-42c7-995c-56e0bc569924",
+            "canonical_url": "https://sports.yahoo.com/articles/recap-wizards-mercifully-win-103-035830692.html",
+            "published_at": "2026-11-19T03:58:30.000Z",
+            "fetched_at": "2026-11-19T06:11:28.899Z"
+          }
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/gta-6-comes-raptors-break-035409636.html",
+          "title": "GTA 6 comes out before Raptors can break losing streak vs. Wizards",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "5d98faa8-0642-472e-b077-9fc354d6d4db",
+            "canonical_url": "https://sports.yahoo.com/articles/gta-6-comes-raptors-break-035409636.html",
+            "published_at": "2026-11-19T03:54:09.000Z",
+            "fetched_at": "2026-11-19T06:11:28.899Z"
+          }
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/sixers-bell-ringer-philly-continues-034931965.html",
+          "title": "Sixers Bell Ringer: Philly continues crunch-time magic with win over Orlando",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "a4a2820c-3d69-472d-8c46-2b08718b29a9",
+            "canonical_url": "https://sports.yahoo.com/articles/sixers-bell-ringer-philly-continues-034931965.html",
+            "published_at": "2026-11-19T03:49:31.000Z",
+            "fetched_at": "2026-11-19T06:11:28.899Z"
+          }
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/3-things-led-mavericks-cathartic-034132950.html",
+          "title": "3 things that led to the Mavericks\u2019 cathartic 116-94 blowout win over the Golden State Warriors",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "aa75e197-3deb-4f28-a318-65c6a8b725fb",
+            "canonical_url": "https://sports.yahoo.com/articles/3-things-led-mavericks-cathartic-034132950.html",
+            "published_at": "2026-11-19T03:41:32.000Z",
+            "fetched_at": "2026-11-19T06:11:28.899Z"
+          }
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/pistons-pelicans-final-score-no-033534083.html",
+          "title": "Pistons at Pelicans final score: No Cade, No Problem",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "07d21b30-d37a-480c-8f84-9093f8620e28",
+            "canonical_url": "https://sports.yahoo.com/articles/pistons-pelicans-final-score-no-033534083.html",
+            "published_at": "2026-11-19T03:35:34.000Z",
+            "fetched_at": "2026-11-19T06:11:28.899Z"
+          }
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/nets-put-dud-vs-bulls-030223595.html",
+          "title": "Nets put up a dud in front of ABA champ, lose to Bulls, 137-107",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "b2af9604-372c-4fb0-b89e-a10a9785c2c8",
+            "canonical_url": "https://sports.yahoo.com/articles/nets-put-dud-vs-bulls-030223595.html",
+            "published_at": "2026-11-19T03:02:23.000Z",
+            "fetched_at": "2026-11-19T05:41:29.382Z"
+          }
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/no-maxey-brown-sixers-overcome-023641870.html",
+          "title": "With no Maxey, Brown, Sixers overcome putrid start to earn gritty win",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "54760785-e3d3-4154-9aba-015f1ad9f46b",
+            "canonical_url": "https://sports.yahoo.com/articles/no-maxey-brown-sixers-overcome-023641870.html",
+            "published_at": "2026-11-19T02:36:41.000Z",
+            "fetched_at": "2026-11-19T05:11:29.006Z"
+          }
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/lakers-finally-broke-luka-doncic-130946127.html",
+          "title": "The Lakers finally broke Luka Doncic \u2014 for one night",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "d3ff7f7f-2c57-4b21-ac7a-7f61360a9a22",
+            "canonical_url": "https://sports.yahoo.com/articles/lakers-finally-broke-luka-doncic-130946127.html",
+            "published_at": "2026-11-19T13:09:46.000Z",
+            "fetched_at": "2026-11-19T13:41:28.893Z"
+          }
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/rockets-back-winning-119-104-103634845.html",
+          "title": "Rockets get back to winning with 119-104 victory over Pacers",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "83cc5ecd-fb1a-4970-aa21-30abe79b2b44",
+            "canonical_url": "https://sports.yahoo.com/articles/rockets-back-winning-119-104-103634845.html",
+            "published_at": "2026-11-19T10:36:34.000Z",
+            "fetched_at": "2026-11-19T13:11:28.795Z"
+          }
+        },
+        {
+          "url": "https://www.cbssports.com/nba/news/jayson-tatum-technical-celtics-nuggets/",
+          "title": "Jayson Tatum takes the blame for costly technical in Celtics' loss to Nuggets: 'I wasn't mad'",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "d2294ac7-9171-452a-8ce8-19f62e46ed54",
+            "canonical_url": "https://www.cbssports.com/nba/news/jayson-tatum-technical-celtics-nuggets/",
+            "published_at": "2026-11-19T14:12:40.000Z",
+            "fetched_at": "2026-11-19T14:29:50.702Z"
+          }
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/eight-enough-dybantsa-davis-power-120000022.html",
+          "title": "Eight is enough: Dybantsa, Davis power Wizards to win over depleted Raptors",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "9ef82ab7-b05b-4e8d-9a63-11b2faca5312",
+            "canonical_url": "https://sports.yahoo.com/articles/eight-enough-dybantsa-davis-power-120000022.html",
+            "published_at": "2026-11-19T12:00:00.000Z",
+            "fetched_at": "2026-11-19T14:41:31.228Z"
+          }
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/takeaways-coming-off-mile-high-120000983.html",
+          "title": "Takeaways coming off a Mile High loss",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "de0feaf0-f5fe-4b0d-a98c-b420d43ac533",
+            "canonical_url": "https://sports.yahoo.com/articles/takeaways-coming-off-mile-high-120000983.html",
+            "published_at": "2026-11-19T12:00:00.000Z",
+            "fetched_at": "2026-11-19T14:41:31.228Z"
+          }
+        },
+        {
+          "url": "https://sports.yahoo.com/articles/suns-avoided-trap-found-offensive-120000271.html",
+          "title": "The Suns avoided the trap and found their offensive rhythm",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "3274975e-273a-4505-b8af-07932c5d7c4e",
+            "canonical_url": "https://sports.yahoo.com/articles/suns-avoided-trap-found-offensive-120000271.html",
+            "published_at": "2026-11-19T12:00:00.000Z",
+            "fetched_at": "2026-11-19T14:41:31.228Z"
+          }
+        }
+      ]
+    },
+    {
+      "topic": "Tech & AI",
+      "sourceFile": "2026-11-19-tech-reference-evidence.json",
+      "sourceSha256": "483e8033aaee1ecfd0a72e016aaa27da682bebff876914dc5f2a2eab74fd7ff2",
+      "windowEnd": "2026-11-19T15:00:00.000Z",
+      "importantArticleCount": 40,
+      "counts": {
+        "exact-url-absent": 32,
+        "collected-before-cutoff": 7,
+        "first-collected-after-cutoff": 1
+      },
+      "articles": [
+        {
+          "url": "https://www.techmeme.com/261118/p61",
+          "title": "Arizona's AG opens a criminal investigation into OpenAI and other AI companies relating to the \"apparent infiltration of banks by rogue AI agents\" (David Thomas/Reuters)",
+          "status": "exact-url-absent",
+          "storedItem": null
+        },
+        {
+          "url": "https://www.techmeme.com/261118/p60",
+          "title": "Sources: Jeffrey Kessler, who oversees the Commerce Dept.'s BIS, pressured staff to expedite Nvidia H200 China sales despite red flags from other departments (The Information)",
+          "status": "exact-url-absent",
+          "storedItem": null
+        },
+        {
+          "url": "https://www.techmeme.com/261118/p59",
+          "title": "Intel says it signed its first outside customer for its 18A-P chips, which went into risk production in June, a milestone in a five-year effort to take on TSMC (Katie Tarasov/CNBC)",
+          "status": "exact-url-absent",
+          "storedItem": null
+        },
+        {
+          "url": "https://www.techmeme.com/261118/p58",
+          "title": "Artificial Analysis: Gemini 4 Neon trails only Claude Fable 5.2 and GPT-6.2 Astra on the Intelligence Index and rivals Opus 5.5 on coding at a much lower cost (Artificial Analysis)",
+          "status": "exact-url-absent",
+          "storedItem": null
+        },
+        {
+          "url": "https://www.techmeme.com/261118/p57",
+          "title": "How Alibaba uses regional companies like Megaspeed to access Nvidia chips via offshore data centers and potentially aid a Chinese military-linked AI lab (New York Times)",
+          "status": "exact-url-absent",
+          "storedItem": null
+        },
+        {
+          "url": "https://www.techmeme.com/261118/p56",
+          "title": "Hackers compromised Microsoft's Agent Framework Python package on PyPI, publishing two versions designed to steal cloud credentials and other information (Bill Toulas/BleepingComputer)",
+          "status": "exact-url-absent",
+          "storedItem": null
+        },
+        {
+          "url": "https://www.techmeme.com/261118/p55",
+          "title": "The US DOJ indicts a Russian national for allegedly working for Moscow to stalk staff of a tech and defense firm aiding Ukraine, which a source says is Palantir (Bloomberg)",
+          "status": "exact-url-absent",
+          "storedItem": null
+        },
+        {
+          "url": "https://www.techmeme.com/261118/p54",
+          "title": "OpenAI says agents now complete 46% of its researchers' 2-to-4-hour tasks on their own, vs. 23% in March, median researcher's agent use hit $2,400/day, and more (OpenAI)",
+          "status": "exact-url-absent",
+          "storedItem": null
+        },
+        {
+          "url": "https://www.techmeme.com/261118/p52",
+          "title": "NYC, LA, and Chicago school districts are weighing alternatives to Google Search after Google declined to offer schools a version of Search without AI features (New York Times)",
+          "status": "exact-url-absent",
+          "storedItem": null
+        },
+        {
+          "url": "https://www.techmeme.com/261118/p51",
+          "title": "Filing: Anthropic raised ~$3B from Japanese investors as part of its IPO, the lower end of its planned range of $3B to $3.5B (Yasutaka Tamura/Bloomberg)",
+          "status": "exact-url-absent",
+          "storedItem": null
+        },
+        {
+          "url": "https://www.techmeme.com/261118/p49",
+          "title": "Gemini 4 Neon costs $3/1M input tokens and $15/1M output tokens; the model sits between Hydrogen and Carbon and replaces Argon in the Gemini app (Abner Li/9to5Google)",
+          "status": "exact-url-absent",
+          "storedItem": null
+        },
+        {
+          "url": "https://www.techmeme.com/261118/p48",
+          "title": "The Homeland Security Task Force launches the Threat Disruption Center to fight crypto fraud and cybercrime, using TRM Labs' AI platform via a ~$95M no-bid deal (Bloomberg)",
+          "status": "exact-url-absent",
+          "storedItem": null
+        },
+        {
+          "url": "https://www.techmeme.com/261118/p47",
+          "title": "Palo Alto Networks reports Q1 revenue up 39% YoY to $3.45B, above $3.31B est., and raises its FY 2027 revenue forecast; PANW jumps 7%+ after hours (Reuters)",
+          "status": "exact-url-absent",
+          "storedItem": null
+        },
+        {
+          "url": "https://www.theverge.com/tech/1037448/elon-musk-ukraine-starlink-starshield-nyt-dealbook",
+          "title": "Elon Musk tries to explain what\u2019s going on with Ukraine and Starlink",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "c08298c8-995b-4fa8-a0e3-e11192224d51",
+            "canonical_url": "https://www.theverge.com/tech/1037448/elon-musk-ukraine-starlink-starshield-nyt-dealbook",
+            "published_at": "2026-11-19T01:39:45.000Z",
+            "fetched_at": "2026-11-19T02:00:11.291Z"
+          }
+        },
+        {
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1037151/school-districts-ditching-google",
+          "title": "The nation\u2019s largest school districts consider ditching Google Search",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "f84d91b7-cac1-4d59-86e4-1ba24e3d6548",
+            "canonical_url": "https://www.theverge.com/ai-artificial-intelligence/1037151/school-districts-ditching-google",
+            "published_at": "2026-11-18T23:18:35.000Z",
+            "fetched_at": "2026-11-18T23:30:11.180Z"
+          }
+        },
+        {
+          "url": "https://www.theverge.com/policy/1037134/democrats-boycott-fcc-nomination-vote-danielle-thumann-severs",
+          "title": "Democrats skip a vote on adding Brendan Carr\u2019s adviser to the FCC",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "2cc4958f-8d15-42a1-a0a0-e0c224c67ee0",
+            "canonical_url": "https://www.theverge.com/policy/1037134/democrats-boycott-fcc-nomination-vote-danielle-thumann-severs",
+            "published_at": "2026-11-18T22:05:48.000Z",
+            "fetched_at": "2026-11-18T23:00:10.997Z"
+          }
+        },
+        {
+          "url": "https://www.theverge.com/policy/1036749/trump-ai-chip-data-center-us-philippines-pax-silica",
+          "title": "Trump\u2019s latest land grab is an AI hub in the Philippines",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "852f5f02-b1d2-4d27-bcf9-1765b6398d72",
+            "canonical_url": "https://www.theverge.com/policy/1036749/trump-ai-chip-data-center-us-philippines-pax-silica",
+            "published_at": "2026-11-18T19:40:36.000Z",
+            "fetched_at": "2026-11-18T20:00:11.824Z"
+          }
+        },
+        {
+          "url": "https://www.theverge.com/policy/1036935/congress-forced-arbitration-deepfakes-defiance-act",
+          "title": "Tech lawsuits defined 2026 \u2014 and lawmakers want more",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "ed162331-c245-45c4-af2e-dc8e3210c5e0",
+            "canonical_url": "https://www.theverge.com/policy/1036935/congress-forced-arbitration-deepfakes-defiance-act",
+            "published_at": "2026-11-18T19:07:29.000Z",
+            "fetched_at": "2026-11-18T19:30:12.569Z"
+          }
+        },
+        {
+          "url": "https://www.techmeme.com/261119/p21",
+          "title": "Germany and Austria submit a proposal urging the EU to require TikTok to find a local owner for its European operations to combat TikTok's ties to Beijing (Bloomberg)",
+          "status": "exact-url-absent",
+          "storedItem": null
+        },
+        {
+          "url": "https://www.techmeme.com/261119/p20",
+          "title": "Google is mandating Android app support for foldables starting in April 2027, saying developers must meet Tier 3 standards by filling display areas and more (Jay Peters/The Verge)",
+          "status": "exact-url-absent",
+          "storedItem": null
+        },
+        {
+          "url": "https://www.techmeme.com/261119/p19",
+          "title": "Snap launches Easy Lens CLI on Mac, Windows, and Linux, letting developers build AR Lenses using external AI coding tools like Claude Code (Aisha Malik/TechCrunch)",
+          "status": "exact-url-absent",
+          "storedItem": null
+        },
+        {
+          "url": "https://www.techmeme.com/261119/p17",
+          "title": "A look at Jeff Bezos' AI startup Prometheus, which raised $18B and employs ~250 people; sources say it is building an end-to-end agentic AI engineering system (Rebecca Heilweil/Fast Company)",
+          "status": "exact-url-absent",
+          "storedItem": null
+        },
+        {
+          "url": "https://www.techmeme.com/261119/p15",
+          "title": "Alibaba reports Q2 revenue up 10% to ~$40.7B, above est., and net profit up 3x to ~$9.68B, above ~$3.6B est., as its AI and e-commerce profitability improves (Tracy Qu/Wall Street Journal)",
+          "status": "exact-url-absent",
+          "storedItem": null
+        },
+        {
+          "url": "https://www.techmeme.com/261119/p14",
+          "title": "Sources: Moonshot AI cancelled a $150M contract with a Southeast Asian neocloud to rent access to Nvidia AI chips in an Indonesian data center, after US rules (The Information)",
+          "status": "exact-url-absent",
+          "storedItem": null
+        },
+        {
+          "url": "https://www.techmeme.com/261119/p12",
+          "title": "Filings: Anthropic sold $1.1B of stock to retail investors in the UK, the EU, Norway, and Switzerland in its record IPO; UK investors bought 3.6M+ shares (Pablo Mayo Cerqueiro/Bloomberg)",
+          "status": "exact-url-absent",
+          "storedItem": null
+        },
+        {
+          "url": "https://www.techmeme.com/261119/p11",
+          "title": "Sources: TSMC and Samsung have suspended some chip shipments to Chinese customers while they apply for US Commerce Department licenses, after new US curbs (Financial Times)",
+          "status": "exact-url-absent",
+          "storedItem": null
+        },
+        {
+          "url": "https://www.techmeme.com/261119/p9",
+          "title": "College students are increasingly pushing back against campus AI mandates, demanding opt-outs from AI-required assignments and an end to enterprise licenses (Dana Goldstein/New York Times)",
+          "status": "exact-url-absent",
+          "storedItem": null
+        },
+        {
+          "url": "https://www.techmeme.com/261119/p8",
+          "title": "Association for Advancing Automation: North American companies ordered ~11K robots in Q3 2026, up 25% YoY, as they seek to ease labor shortages in manufacturing (Christian Davies/Financial Times)",
+          "status": "exact-url-absent",
+          "storedItem": null
+        },
+        {
+          "url": "https://www.techmeme.com/261119/p29",
+          "title": "Anthropic-backed pro-AI safety nonprofit Public First Action's PACs spent $25M+ in 12 states to help elect eight of the 13 House and Senate candidates it backed (Clara Ence Morse/Washington Post)",
+          "status": "exact-url-absent",
+          "storedItem": null
+        },
+        {
+          "url": "https://www.techmeme.com/261119/p27",
+          "title": "Temu owner PDD reports Q3 revenue flat YoY at ~$16.2B, below ~$17.3B est., and net profit up 0.7% to ~$4.43B, above ~$3.7B est., as Temu's user base shrinks (Tracy Qu/Wall Street Journal)",
+          "status": "exact-url-absent",
+          "storedItem": null
+        },
+        {
+          "url": "https://www.techmeme.com/261119/p26",
+          "title": "Canva adds a toggle to let free and paid users disable generative AI features like Magic Expand, following user frustration over the platform's AI push (Emma Roth/The Verge)",
+          "status": "exact-url-absent",
+          "storedItem": null
+        },
+        {
+          "url": "https://www.techmeme.com/261119/p25",
+          "title": "GTA VI's 5,000-strong team eschewed AI and procedural generation in favor of handcrafted \"fidelity\", with 30,000 unique NPCs and an in-game video game system (Joseph Bernstein/New York Times)",
+          "status": "exact-url-absent",
+          "storedItem": null
+        },
+        {
+          "url": "https://www.techmeme.com/261119/p24",
+          "title": "IEA expects global data center investment to hit $4T by 2030; fewer than 100 major AI projects would require a combined 50GW of power, matching peak UK demand (Will Mathis/Bloomberg)",
+          "status": "exact-url-absent",
+          "storedItem": null
+        },
+        {
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1037126/canva-ai-features-off-button",
+          "title": "Canva adds an AI \u2018off\u2019 button",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "14055b80-5853-478d-b003-6830c291de42",
+            "canonical_url": "https://www.theverge.com/ai-artificial-intelligence/1037126/canva-ai-features-off-button",
+            "published_at": "2026-11-19T12:30:00.000Z",
+            "fetched_at": "2026-11-19T13:00:11.721Z"
+          }
+        },
+        {
+          "url": "https://www.techmeme.com/261119/p30",
+          "title": "Google partners with Jeff Bezos' Blue Origin to launch TPU-powered AI server satellites aboard the New Glenn rocket in Q1 2029, as part of Project Suncatcher (Emma Roth/The Verge)",
+          "status": "exact-url-absent",
+          "storedItem": null
+        },
+        {
+          "url": "https://www.theverge.com/tech/1037535/google-blue-origin-project-suncatcher-2029",
+          "title": "Blue Origin will launch Google\u2019s AI server satellites in 2029",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "b7916dbc-1f2f-4d9e-85b9-48c7169520cf",
+            "canonical_url": "https://www.theverge.com/tech/1037535/google-blue-origin-project-suncatcher-2029",
+            "published_at": "2026-11-19T13:53:38.000Z",
+            "fetched_at": "2026-11-19T14:00:11.051Z"
+          }
+        },
+        {
+          "url": "https://www.techmeme.com/261119/p31",
+          "title": "A UK tribunal rules against the UK Home Office, saying it must acknowledge issuing a secret \"technical capability notice\" to Apple to bypass its encryption (Tim Bradshaw/Financial Times)",
+          "status": "exact-url-absent",
+          "storedItem": null
+        },
+        {
+          "url": "https://www.techmeme.com/261119/p32",
+          "title": "The European Commission confirms a cyberattack that disrupted systems for 10+ days; CERT-EU says international hackers used AI penetration testing tool ARTEX (Gerardo Fortuna/Politico)",
+          "status": "exact-url-absent",
+          "storedItem": null
+        },
+        {
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1037459/anthropic-ipo-safe-ai-reputation-power-structure",
+          "title": "With the biggest IPO of all time, Anthropic\u2019s \u2018good guy\u2019 reputation is on the line",
+          "status": "first-collected-after-cutoff",
+          "storedItem": {
+            "id": "db6a2b28-9e2c-4759-8fdd-7310dd5f7211",
+            "canonical_url": "https://www.theverge.com/ai-artificial-intelligence/1037459/anthropic-ipo-safe-ai-reputation-power-structure",
+            "published_at": "2026-11-19T14:25:37.000Z",
+            "fetched_at": "2026-11-19T15:00:11.445Z"
+          }
+        },
+        {
+          "url": "https://www.techmeme.com/261119/p33",
+          "title": "Sources: Anthropic's IPO left 50%+ of bidding institutional investors with zero shares; allocations heavily favored US investors, shutting out foreign orders (Bloomberg)",
+          "status": "exact-url-absent",
+          "storedItem": null
+        }
+      ]
+    },
+    {
+      "topic": "U.S. news & politics",
+      "sourceFile": "2026-11-19-us-reference-evidence.json",
+      "sourceSha256": "07c19eaa870e050442d57894d1f3c89b74b3fed920276d4b82eab5efde7ea684",
+      "windowEnd": "2026-11-19T15:00:00.000Z",
+      "importantArticleCount": 19,
+      "counts": {
+        "collected-before-cutoff": 19
+      },
+      "articles": [
+        {
+          "url": "https://www.npr.org/2026/11/18/nx-s1-6043185/democrats-nominate-jeffries-for-speaker-prep-investigations-into-trumps-orbit",
+          "title": "Democrats nominate Jeffries for speaker, prep investigations into Trump's orbit",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "9ecac277-ff80-4c06-9462-a70d7af67e91",
+            "canonical_url": "https://www.npr.org/2026/11/18/nx-s1-6043185/democrats-nominate-jeffries-for-speaker-prep-investigations-into-trumps-orbit",
+            "published_at": "2026-11-18T22:01:19.000Z",
+            "fetched_at": "2026-11-19T02:12:35.547Z"
+          }
+        },
+        {
+          "url": "https://www.npr.org/2026/11/18/nx-s1-6044209/drug-deaths-overdose-drop-trump-biden-fentanyl",
+          "title": "As overdose deaths fall, White House makes misleading claims about who deserves credit",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "36973b2e-eb4f-4ab4-9a0a-119ff4aed7bf",
+            "canonical_url": "https://www.npr.org/2026/11/18/nx-s1-6044209/drug-deaths-overdose-drop-trump-biden-fentanyl",
+            "published_at": "2026-11-18T18:18:16.000Z",
+            "fetched_at": "2026-11-18T18:42:35.499Z"
+          }
+        },
+        {
+          "url": "https://www.npr.org/2026/11/18/nx-s1-6043183/hakeem-jeffries-house-democrats-leadership-votes",
+          "title": "Democrats formally nominate Hakeem Jeffries for speaker of the House",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "002a3b7d-da6c-483e-9302-299b088cd273",
+            "canonical_url": "https://www.npr.org/2026/11/18/nx-s1-6043183/hakeem-jeffries-house-democrats-leadership-votes",
+            "published_at": "2026-11-18T15:56:30.000Z",
+            "fetched_at": "2026-11-18T16:12:35.487Z"
+          }
+        },
+        {
+          "url": "https://www.npr.org/2026/11/18/g-s1-154147/robert-garcia-house-democrats-investigations-trump-administration",
+          "title": "House Democrat warns 13 Trump allies to save their records for upcoming investigations",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "f739a9d6-5ef7-4c4d-a95a-3d67f9c86eba",
+            "canonical_url": "https://www.npr.org/2026/11/18/g-s1-154147/robert-garcia-house-democrats-investigations-trump-administration",
+            "published_at": "2026-11-18T15:01:32.000Z",
+            "fetched_at": "2026-11-18T15:12:35.566Z"
+          }
+        },
+        {
+          "url": "https://www.theguardian.com/us-news/live/2026/nov/18/donald-trump-mary-peltola-alaska-hakeem-jeffries-democrats-republicans-congress-house-senate-midterms-latest-news-updates",
+          "title": "Trump downplays US outages and Nvidia security concerns in remarks before China summit \u2013 as it happened",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "e931fea9-f7c9-4a0a-8640-5c56a4e3c20c",
+            "canonical_url": "https://www.theguardian.com/us-news/live/2026/nov/18/donald-trump-mary-peltola-alaska-hakeem-jeffries-democrats-republicans-congress-house-senate-midterms-latest-news-updates",
+            "published_at": "2026-11-18T11:44:53.000Z",
+            "fetched_at": "2026-11-18T12:01:48.636Z"
+          }
+        },
+        {
+          "url": "https://www.theguardian.com/us-news/2026/nov/18/california-atmospheric-river-flooding",
+          "title": "Record-breaking rain lashes California\u2019s Bay area as \u2018atmospheric river\u2019 arrives",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "c6b32eb5-0ee0-4f63-81b1-5af78195aa3b",
+            "canonical_url": "https://www.theguardian.com/us-news/2026/nov/18/california-atmospheric-river-flooding",
+            "published_at": "2026-11-18T19:18:18.000Z",
+            "fetched_at": "2026-11-18T19:31:48.610Z"
+          }
+        },
+        {
+          "url": "https://www.theguardian.com/us-news/2026/nov/18/fergie-chambers-extradition-request-translation",
+          "title": "US admits \u2018substantial\u2019 change to extradition request translation for leftist activist",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "115c4cd9-be28-4443-b29d-8d5a2bfa3232",
+            "canonical_url": "https://www.theguardian.com/us-news/2026/nov/18/fergie-chambers-extradition-request-translation",
+            "published_at": "2026-11-18T19:45:30.000Z",
+            "fetched_at": "2026-11-18T20:01:48.646Z"
+          }
+        },
+        {
+          "url": "https://www.theguardian.com/us-news/2026/nov/18/trump-national-science-foundation-nominee",
+          "title": "Senate committee rejects Trump nominee to lead National Science Foundation",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "54030182-2e94-454d-8cc4-d9282a5371c3",
+            "canonical_url": "https://www.theguardian.com/us-news/2026/nov/18/trump-national-science-foundation-nominee",
+            "published_at": "2026-11-18T17:46:34.000Z",
+            "fetched_at": "2026-11-18T18:01:48.593Z"
+          }
+        },
+        {
+          "url": "https://www.theguardian.com/us-news/2026/nov/18/jay-clayton-ai-tech-outages-infrastructure",
+          "title": "US senators urge White House AI chief to fix vulnerabilities after mass outages",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "c86d82f6-0ff6-4605-b5ef-6be6ebb36e99",
+            "canonical_url": "https://www.theguardian.com/us-news/2026/nov/18/jay-clayton-ai-tech-outages-infrastructure",
+            "published_at": "2026-11-18T15:53:10.000Z",
+            "fetched_at": "2026-11-18T16:07:18.184Z"
+          }
+        },
+        {
+          "url": "https://www.theguardian.com/us-news/2026/nov/18/hakeem-jeffries-house-speaker-nomination",
+          "title": "Democrats nominate Hakeem Jeffries as first Black House speaker despite progressives\u2019 concerns",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "85166d17-1f49-4f4b-996f-de7be0071807",
+            "canonical_url": "https://www.theguardian.com/us-news/2026/nov/18/hakeem-jeffries-house-speaker-nomination",
+            "published_at": "2026-11-18T15:55:22.000Z",
+            "fetched_at": "2026-11-18T16:31:48.636Z"
+          }
+        },
+        {
+          "url": "https://www.theguardian.com/us-news/2026/nov/18/robert-garcia-trump-records-investigations",
+          "title": "Trump family and allies told to preserve records as Democrats prepare sweeping investigations",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "a79c5634-0ff3-4d57-b5a9-fce5b738728d",
+            "canonical_url": "https://www.theguardian.com/us-news/2026/nov/18/robert-garcia-trump-records-investigations",
+            "published_at": "2026-11-18T15:52:41.000Z",
+            "fetched_at": "2026-11-18T16:31:48.636Z"
+          }
+        },
+        {
+          "url": "https://www.theguardian.com/us-news/2026/nov/18/howard-lutnick-nvidia-cantor-fitzgerald",
+          "title": "Democrats demand answers from Howard Lutnick about Nvidia and his family\u2019s business",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "f69d74a3-123a-41ba-a43f-4835d6df1bf7",
+            "canonical_url": "https://www.theguardian.com/us-news/2026/nov/18/howard-lutnick-nvidia-cantor-fitzgerald",
+            "published_at": "2026-11-18T16:48:29.000Z",
+            "fetched_at": "2026-11-18T17:01:48.553Z"
+          }
+        },
+        {
+          "url": "https://www.theguardian.com/technology/2026/nov/18/senate-democrats-nudify-apps-apple-google",
+          "title": "Senators criticize Apple and Google for letting teens access \u2018nudify\u2019 apps despite parental controls",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "90cea3a5-7983-4db4-8c1d-7484e950f16a",
+            "canonical_url": "https://www.theguardian.com/technology/2026/nov/18/senate-democrats-nudify-apps-apple-google",
+            "published_at": "2026-11-18T16:39:25.000Z",
+            "fetched_at": "2026-11-18T17:01:48.553Z"
+          }
+        },
+        {
+          "url": "https://www.theguardian.com/us-news/video/2026/nov/18/markwayne-mullin-defends-taking-government-plane-to-college-football-game-amid-nationwide-grounding-video",
+          "title": "Mullin defends taking government plane to college football game amid nationwide grounding \u2013 video",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "adc67afe-e937-4e62-8511-8088c35d0683",
+            "canonical_url": "https://www.theguardian.com/us-news/video/2026/nov/18/markwayne-mullin-defends-taking-government-plane-to-college-football-game-amid-nationwide-grounding-video",
+            "published_at": "2026-11-18T19:29:03.000Z",
+            "fetched_at": "2026-11-18T20:01:48.646Z"
+          }
+        },
+        {
+          "url": "https://www.theguardian.com/us-news/live/2026/nov/19/hakeem-jeffries-us-politics-demicrats-republicans-latest-news-updates",
+          "title": "Hakeem Jeffries on brink of House history as he tells Democrats to \u2018fight Maga, not each other\u2019 \u2013 US politics live",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "1ccd82b2-4f8b-4633-9010-af0254c567cf",
+            "canonical_url": "https://www.theguardian.com/us-news/live/2026/nov/19/hakeem-jeffries-us-politics-demicrats-republicans-latest-news-updates",
+            "published_at": "2026-11-19T11:01:31.000Z",
+            "fetched_at": "2026-11-19T11:31:48.542Z"
+          }
+        },
+        {
+          "url": "https://www.theguardian.com/us-news/2026/nov/19/childrens-health-defense-meta-rfk-jr",
+          "title": "Anti-vaccine group once led by RFK Jr says Meta removed posts after Guardian report",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "8aaf7b2b-d9ef-4b6e-a011-c393fc707639",
+            "canonical_url": "https://www.theguardian.com/us-news/2026/nov/19/childrens-health-defense-meta-rfk-jr",
+            "published_at": "2026-11-19T12:00:07.000Z",
+            "fetched_at": "2026-11-19T12:31:48.577Z"
+          }
+        },
+        {
+          "url": "https://www.theguardian.com/us-news/2026/nov/18/rfk-jr-childrens-health-defense-meta",
+          "title": "Anti-vaccine group once led by RFK Jr back on Facebook and Instagram after being banned",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "661cc527-f3bb-4209-909d-806135920126",
+            "canonical_url": "https://www.theguardian.com/us-news/2026/nov/18/rfk-jr-childrens-health-defense-meta",
+            "published_at": "2026-11-18T17:13:23.000Z",
+            "fetched_at": "2026-11-18T17:31:48.623Z"
+          }
+        },
+        {
+          "url": "https://www.npr.org/2026/11/19/g-s1-154344/up-first-newsletter-house-democrats-trump-xi-putin-anthropic",
+          "title": "Anthropic raises more than $100B in IPO. And, Dems nominate Jeffries for House speaker",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "8e0a10aa-d86c-424b-a0f2-695ff28a9cd7",
+            "canonical_url": "https://www.npr.org/2026/11/19/g-s1-154344/up-first-newsletter-house-democrats-trump-xi-putin-anthropic",
+            "published_at": "2026-11-19T12:26:01.000Z",
+            "fetched_at": "2026-11-19T12:37:18.354Z"
+          }
+        },
+        {
+          "url": "https://www.theguardian.com/us-news/2026/nov/19/kristine-blanche-health-website",
+          "title": "Wife of Trump ally Todd Blanche promoted treatments with unproven medical claims",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "ac03d1db-1468-4499-9320-41584b8e569d",
+            "canonical_url": "https://www.theguardian.com/us-news/2026/nov/19/kristine-blanche-health-website",
+            "published_at": "2026-11-19T12:39:20.000Z",
+            "fetched_at": "2026-11-19T13:01:48.581Z"
+          }
+        }
+      ]
+    },
+    {
+      "topic": "World news & politics",
+      "sourceFile": "2026-11-19-world-reference-evidence.json",
+      "sourceSha256": "a23bd0fa6348ce0a1da292dbd6aa4d33cbfa9400f1943f9bec2d65761ac23198",
+      "windowEnd": "2026-11-19T15:00:00.000Z",
+      "importantArticleCount": 35,
+      "counts": {
+        "collected-before-cutoff": 34,
+        "first-collected-after-cutoff": 1
+      },
+      "articles": [
+        {
+          "url": "https://www.bbc.co.uk/news/videos/c8p3vw4q6nzzo?at_campaign=rss&at_medium=RSS",
+          "title": "Inside the old gas pipeline where Ukraine is fighting an underground war with Russia",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "dee89117-b5f1-4711-9d4f-103d5a80e3cd",
+            "canonical_url": "https://www.bbc.co.uk/news/videos/c8p3vw4q6nzzo?at_campaign=rss&at_medium=RSS",
+            "published_at": "2026-11-18T17:00:40.000Z",
+            "fetched_at": "2026-11-18T17:29:50.616Z"
+          }
+        },
+        {
+          "url": "https://www.bbc.co.uk/news/articles/c32l507ev4v4o?at_campaign=rss&at_medium=RSS",
+          "title": "'The drones don't fly here' - BBC reports from Ukraine's new front line",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "ef4c0052-236a-4f0f-8917-4d62e184964f",
+            "canonical_url": "https://www.bbc.co.uk/news/articles/c32l507ev4v4o?at_campaign=rss&at_medium=RSS",
+            "published_at": "2026-11-18T17:00:04.000Z",
+            "fetched_at": "2026-11-18T17:29:50.616Z"
+          }
+        },
+        {
+          "url": "https://www.bbc.co.uk/news/articles/cm879dqn3e1jo?at_campaign=rss&at_medium=RSS",
+          "title": "Putin vows 'far more painful' response to Ukraine's strikes on Crimean Bridge",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "81636d62-05ae-4e53-9bf1-23d9e1ead656",
+            "canonical_url": "https://www.bbc.co.uk/news/articles/cm879dqn3e1jo?at_campaign=rss&at_medium=RSS",
+            "published_at": "2026-11-19T01:05:03.000Z",
+            "fetched_at": "2026-11-19T01:29:50.588Z"
+          }
+        },
+        {
+          "url": "https://www.bbc.co.uk/news/articles/cw8r7510degno?at_campaign=rss&at_medium=RSS",
+          "title": "Israeli military completes ground operation in Gaza beyond Yellow Line",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "5bb6fedb-9559-4944-bcdc-e94d25351787",
+            "canonical_url": "https://www.bbc.co.uk/news/articles/cw8r7510degno?at_campaign=rss&at_medium=RSS",
+            "published_at": "2026-11-18T20:14:57.000Z",
+            "fetched_at": "2026-11-18T20:29:50.561Z"
+          }
+        },
+        {
+          "url": "https://www.bbc.co.uk/news/articles/cq20xg80ly47o?at_campaign=rss&at_medium=RSS",
+          "title": "Russian arrested for spying on US defence company Palantir over Ukraine support",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "d43a0dd6-7595-48f4-8a7e-064b39a8a29a",
+            "canonical_url": "https://www.bbc.co.uk/news/articles/cq20xg80ly47o?at_campaign=rss&at_medium=RSS",
+            "published_at": "2026-11-18T23:28:03.000Z",
+            "fetched_at": "2026-11-18T23:59:50.666Z"
+          }
+        },
+        {
+          "url": "https://www.bbc.co.uk/news/videos/ckvg28jy77z5o?at_campaign=rss&at_medium=RSS",
+          "title": "New video shows explosions moments before part of Crimea Bridge collapses",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "4f83968c-f455-46bf-a1de-fe2fa904bbef",
+            "canonical_url": "https://www.bbc.co.uk/news/videos/ckvg28jy77z5o?at_campaign=rss&at_medium=RSS",
+            "published_at": "2026-11-18T17:09:43.000Z",
+            "fetched_at": "2026-11-18T18:29:50.540Z"
+          }
+        },
+        {
+          "url": "https://www.theguardian.com/global-development/2026/nov/19/women-girls-rights-rape-sexual-violence-africa-marriage-unfpa",
+          "title": "One in four women globally unable to refuse sex within marriage, says UN",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "02dc0118-046c-4b01-8821-fa316c7d9535",
+            "canonical_url": "https://www.theguardian.com/global-development/2026/nov/19/women-girls-rights-rape-sexual-violence-africa-marriage-unfpa",
+            "published_at": "2026-11-19T04:00:16.000Z",
+            "fetched_at": "2026-11-19T04:37:18.238Z"
+          }
+        },
+        {
+          "url": "https://www.theguardian.com/us-news/2026/nov/18/florida-pastor-guilty-haiti-president-assassination",
+          "title": "Florida pastor found guilty over 2021 assassination of Haitian president",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "ea6d4d37-9337-466f-9c4f-7833c7636109",
+            "canonical_url": "https://www.theguardian.com/us-news/2026/nov/18/florida-pastor-guilty-haiti-president-assassination",
+            "published_at": "2026-11-18T22:31:41.000Z",
+            "fetched_at": "2026-11-18T23:01:48.587Z"
+          }
+        },
+        {
+          "url": "https://www.theguardian.com/world/2026/nov/18/pete-hegseth-venezuela-nicolas-maduro-military",
+          "title": "Hegseth uses Venezuela visit to boast of Maduro\u2019s capture by US military",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "a30b3cf2-516b-445f-9e56-a32f433c7534",
+            "canonical_url": "https://www.theguardian.com/world/2026/nov/18/pete-hegseth-venezuela-nicolas-maduro-military",
+            "published_at": "2026-11-18T20:24:19.000Z",
+            "fetched_at": "2026-11-18T20:37:18.226Z"
+          }
+        },
+        {
+          "url": "https://www.theguardian.com/world/live/2026/nov/18/apec-summit-live-updates-xi-putin-trump-world-leaders-gather-in-china",
+          "title": "Apec summit as it happened: Xi welcomes Trump on China visit as Putin claims Europe in \u2018humiliating decline\u2019",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "58de135a-b537-4b57-abf5-e9d732d7fbaa",
+            "canonical_url": "https://www.theguardian.com/world/live/2026/nov/18/apec-summit-live-updates-xi-putin-trump-world-leaders-gather-in-china",
+            "published_at": "2026-11-18T03:53:27.000Z",
+            "fetched_at": "2026-11-18T04:07:18.263Z"
+          }
+        },
+        {
+          "url": "https://www.theguardian.com/business/2026/nov/19/unemployment-rate-jumps-highest-level-five-years-job-figures",
+          "title": "Australia may have \u2018one foot in recession\u2019 as unemployment surges to five-year high",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "ea0c2824-adf9-4f1a-b7e1-24caeca6d5c3",
+            "canonical_url": "https://www.theguardian.com/business/2026/nov/19/unemployment-rate-jumps-highest-level-five-years-job-figures",
+            "published_at": "2026-11-19T00:47:27.000Z",
+            "fetched_at": "2026-11-19T01:07:18.228Z"
+          }
+        },
+        {
+          "url": "https://www.theguardian.com/world/2026/nov/19/mike-lynch-superyacht-bayesian-vulnerability-to-high-winds-report",
+          "title": "Mike Lynch\u2019s superyacht had unidentified vulnerability to high winds, report finds",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "1d21ba90-eea0-424c-b24f-0b44f5e841e0",
+            "canonical_url": "https://www.theguardian.com/world/2026/nov/19/mike-lynch-superyacht-bayesian-vulnerability-to-high-winds-report",
+            "published_at": "2026-11-19T00:01:11.000Z",
+            "fetched_at": "2026-11-19T00:37:18.225Z"
+          }
+        },
+        {
+          "url": "https://www.theguardian.com/world/2026/nov/19/kerch-bridge-crimea-russia-attacked-again-ukraine",
+          "title": "Crimea bridge has been attacked again, says Russian-installed governor",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "ec99ead7-dd2a-4167-bc9f-7206b3cd2844",
+            "canonical_url": "https://www.theguardian.com/world/2026/nov/19/kerch-bridge-crimea-russia-attacked-again-ukraine",
+            "published_at": "2026-11-18T23:27:37.000Z",
+            "fetched_at": "2026-11-19T01:07:18.228Z"
+          }
+        },
+        {
+          "url": "https://www.theguardian.com/world/2026/nov/18/eu-loan-ukraine-cash-crisis-defences-von-der-leyen-kyiv",
+          "title": "EU proposes \u20ac45bn loan for Ukraine to avert cash crisis and boost defences",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "fa8f8e79-fb0c-47af-8b1e-0f5424d69692",
+            "canonical_url": "https://www.theguardian.com/world/2026/nov/18/eu-loan-ukraine-cash-crisis-defences-von-der-leyen-kyiv",
+            "published_at": "2026-11-18T14:27:22.000Z",
+            "fetched_at": "2026-11-18T15:07:18.221Z"
+          }
+        },
+        {
+          "url": "https://www.theguardian.com/politics/2026/nov/18/eu-uk-reset-summit-talks-burnham-brexit",
+          "title": "EU \u2018to close door\u2019 to talks on long-term UK ties until Burnham has decided on Brexit",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "26523521-378d-4241-afe6-e59c996b2620",
+            "canonical_url": "https://www.theguardian.com/politics/2026/nov/18/eu-uk-reset-summit-talks-burnham-brexit",
+            "published_at": "2026-11-18T19:17:19.000Z",
+            "fetched_at": "2026-11-18T19:37:18.257Z"
+          }
+        },
+        {
+          "url": "https://www.theguardian.com/world/2026/nov/18/israeli-tanks-cross-yellow-line-boundary-into-hamas-controlled-central-gaza",
+          "title": "Israeli tanks cross \u2018yellow line\u2019 boundary into Hamas-controlled central Gaza",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "205376d4-0d90-4c18-b308-48a111e3fc70",
+            "canonical_url": "https://www.theguardian.com/world/2026/nov/18/israeli-tanks-cross-yellow-line-boundary-into-hamas-controlled-central-gaza",
+            "published_at": "2026-11-18T23:25:25.000Z",
+            "fetched_at": "2026-11-19T00:07:18.182Z"
+          }
+        },
+        {
+          "url": "https://www.theguardian.com/society/2026/nov/18/leaseholders-in-england-and-wales-to-have-ground-rent-capped-in-2028",
+          "title": "Leaseholders in England and Wales to have ground rent capped in 2028",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "36bed4ac-d17e-46d4-99a7-c4f23abaf33d",
+            "canonical_url": "https://www.theguardian.com/society/2026/nov/18/leaseholders-in-england-and-wales-to-have-ground-rent-capped-in-2028",
+            "published_at": "2026-11-18T22:30:09.000Z",
+            "fetched_at": "2026-11-18T23:07:18.220Z"
+          }
+        },
+        {
+          "url": "https://www.bbc.co.uk/news/articles/c58j484089ewo?at_campaign=rss&at_medium=RSS",
+          "title": "Dozens missing after boat carrying 100 migrants sinks off Senegal's coast",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "0620a0d9-2268-4a24-b090-db9c406db1c4",
+            "canonical_url": "https://www.bbc.co.uk/news/articles/c58j484089ewo?at_campaign=rss&at_medium=RSS",
+            "published_at": "2026-11-19T09:02:52.000Z",
+            "fetched_at": "2026-11-19T09:59:50.643Z"
+          }
+        },
+        {
+          "url": "https://www.bbc.co.uk/news/articles/c920xgxp5785o?at_campaign=rss&at_medium=RSS",
+          "title": "Survivors of Uganda's deadly landslide seek justice at the UN",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "e5b7d67b-bf0f-43ee-95fc-a93aafd19178",
+            "canonical_url": "https://www.bbc.co.uk/news/articles/c920xgxp5785o?at_campaign=rss&at_medium=RSS",
+            "published_at": "2026-11-19T09:21:54.000Z",
+            "fetched_at": "2026-11-19T09:59:50.643Z"
+          }
+        },
+        {
+          "url": "https://www.theguardian.com/world/2026/nov/19/datacentres-to-create-70-more-carbon-emissions-by-2030-iea-report-warns",
+          "title": "Datacentres to create 70% more carbon emissions by 2030, IEA report warns",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "a60aa27c-7dec-4ef8-8781-cab3f8d02b41",
+            "canonical_url": "https://www.theguardian.com/world/2026/nov/19/datacentres-to-create-70-more-carbon-emissions-by-2030-iea-report-warns",
+            "published_at": "2026-11-19T05:00:18.000Z",
+            "fetched_at": "2026-11-19T05:37:18.344Z"
+          }
+        },
+        {
+          "url": "https://www.theguardian.com/world/live/2026/nov/19/russia-ukraine-war-coalition-of-the-willing-europe-latest-news-updates",
+          "title": "Ukraine\u2019s allies meet in Berlin with air defence, energy and financial support on the agenda \u2013 Europe live",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "f31cd2fb-c778-4427-8057-d9861bc7532d",
+            "canonical_url": "https://www.theguardian.com/world/live/2026/nov/19/russia-ukraine-war-coalition-of-the-willing-europe-latest-news-updates",
+            "published_at": "2026-11-19T08:47:59.000Z",
+            "fetched_at": "2026-11-19T09:07:18.272Z"
+          }
+        },
+        {
+          "url": "https://www.theguardian.com/world/2026/nov/19/genocide-rohingya-international-court-of-justice-ruling-myanmar",
+          "title": "Myanmar committed genocide against Rohingya minority, world\u2019s top court rules",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "2a106d79-8643-4af6-8537-209787055a54",
+            "canonical_url": "https://www.theguardian.com/world/2026/nov/19/genocide-rohingya-international-court-of-justice-ruling-myanmar",
+            "published_at": "2026-11-19T11:08:44.000Z",
+            "fetched_at": "2026-11-19T11:37:18.265Z"
+          }
+        },
+        {
+          "url": "https://www.theguardian.com/world/2026/nov/19/bangladesh-violent-protest-sheikh-hasina-planned-return",
+          "title": "Violent protests and killings in Bangladesh ahead of exiled Sheikh Hasina\u2019s planned return",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "23c75f5a-c7aa-47b1-a9a0-30d04c4e1914",
+            "canonical_url": "https://www.theguardian.com/world/2026/nov/19/bangladesh-violent-protest-sheikh-hasina-planned-return",
+            "published_at": "2026-11-19T06:58:33.000Z",
+            "fetched_at": "2026-11-19T07:37:18.160Z"
+          }
+        },
+        {
+          "url": "https://www.theguardian.com/uk-news/2026/nov/19/covid-inquiry-uk-report-lack-of-early-border-controls-virus-spread",
+          "title": "Lack of early border controls made UK \u2018extremely vulnerable\u2019 to Covid, inquiry finds",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "f01b9f46-35ef-4b66-9721-4dc9c2a22360",
+            "canonical_url": "https://www.theguardian.com/uk-news/2026/nov/19/covid-inquiry-uk-report-lack-of-early-border-controls-virus-spread",
+            "published_at": "2026-11-19T12:13:45.000Z",
+            "fetched_at": "2026-11-19T12:37:18.256Z"
+          }
+        },
+        {
+          "url": "https://www.bbc.co.uk/news/articles/cmwy8pyqlq5vo?at_campaign=rss&at_medium=RSS",
+          "title": "Venezuela signs military deal with US less than a year after Maduro's removal",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "5b3b315a-9179-49e1-be6c-5f1a29f15233",
+            "canonical_url": "https://www.bbc.co.uk/news/articles/cmwy8pyqlq5vo?at_campaign=rss&at_medium=RSS",
+            "published_at": "2026-11-19T13:31:23.000Z",
+            "fetched_at": "2026-11-19T13:59:50.605Z"
+          }
+        },
+        {
+          "url": "https://www.bbc.co.uk/news/articles/cm9q84gp0gr3o?at_campaign=rss&at_medium=RSS",
+          "title": "US consortium wins huge Kenya mining deal, beating Chinese rivals",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "28993160-00f5-4f4a-b70a-0f7415b508d2",
+            "canonical_url": "https://www.bbc.co.uk/news/articles/cm9q84gp0gr3o?at_campaign=rss&at_medium=RSS",
+            "published_at": "2026-11-19T12:56:30.000Z",
+            "fetched_at": "2026-11-19T13:29:50.584Z"
+          }
+        },
+        {
+          "url": "https://www.theguardian.com/world/2026/nov/19/danish-mps-approve-greenland-security-pact-us",
+          "title": "Danish MPs approve Greenland security pact with US",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "9175888b-9b4b-4b13-a70a-03a52e31e83c",
+            "canonical_url": "https://www.theguardian.com/world/2026/nov/19/danish-mps-approve-greenland-security-pact-us",
+            "published_at": "2026-11-19T12:33:52.000Z",
+            "fetched_at": "2026-11-19T13:07:18.196Z"
+          }
+        },
+        {
+          "url": "https://www.theguardian.com/world/2026/nov/19/car-rams-into-palestinian-residents-four-times-in-israeli-city-kafr-qasim",
+          "title": "Eight injured after driver in Israel repeatedly rams car into Palestinians",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "c3c105bb-b7bc-4640-95da-7c0cf864a856",
+            "canonical_url": "https://www.theguardian.com/world/2026/nov/19/car-rams-into-palestinian-residents-four-times-in-israeli-city-kafr-qasim",
+            "published_at": "2026-11-19T12:36:37.000Z",
+            "fetched_at": "2026-11-19T13:07:18.196Z"
+          }
+        },
+        {
+          "url": "https://www.theguardian.com/uk-news/2026/nov/19/lawyers-urgent-review-lucy-letby-convictions-after-expert-witness-revelations",
+          "title": "Lawyer calls for urgent review of Letby convictions after expert witness revelations",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "47e1ef9d-e495-4b97-baeb-17d7de13d197",
+            "canonical_url": "https://www.theguardian.com/uk-news/2026/nov/19/lawyers-urgent-review-lucy-letby-convictions-after-expert-witness-revelations",
+            "published_at": "2026-11-19T13:24:54.000Z",
+            "fetched_at": "2026-11-19T13:37:18.240Z"
+          }
+        },
+        {
+          "url": "https://www.theguardian.com/world/2026/nov/19/imf-head-warns-ai-demand-push-up-interest-rates-apec",
+          "title": "AI demand will push up interest rates around the world, IMF head warns",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "cec121b3-858b-4191-956c-ec02ab8f7b95",
+            "canonical_url": "https://www.theguardian.com/world/2026/nov/19/imf-head-warns-ai-demand-push-up-interest-rates-apec",
+            "published_at": "2026-11-19T12:51:16.000Z",
+            "fetched_at": "2026-11-19T13:07:18.196Z"
+          }
+        },
+        {
+          "url": "https://www.theguardian.com/us-news/2026/nov/19/first-thing-trump-xi-and-putin-hold-historic-trilateral-meeting-in-china",
+          "title": "First Thing: Trump, Xi and Putin hold historic trilateral meeting in China",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "e573f5a9-c4c7-48ae-894f-9b380499794a",
+            "canonical_url": "https://www.theguardian.com/us-news/2026/nov/19/first-thing-trump-xi-and-putin-hold-historic-trilateral-meeting-in-china",
+            "published_at": "2026-11-19T12:31:41.000Z",
+            "fetched_at": "2026-11-19T13:01:48.581Z"
+          }
+        },
+        {
+          "url": "https://www.theguardian.com/uk-news/2026/nov/19/un-warns-misuse-security-laws-uk-palestine-action-ban",
+          "title": "UN warns against misuse of security laws as UK weighs Palestine Action ban",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "887073f3-a31f-4d00-9103-9331711c647f",
+            "canonical_url": "https://www.theguardian.com/uk-news/2026/nov/19/un-warns-misuse-security-laws-uk-palestine-action-ban",
+            "published_at": "2026-11-19T13:43:15.000Z",
+            "fetched_at": "2026-11-19T14:07:18.189Z"
+          }
+        },
+        {
+          "url": "https://www.theguardian.com/australia-news/2026/nov/20/australian-music-industry-rejects-proposal-to-give-musicians-exemption-ai-scraping",
+          "title": "Australian music industry rejects \u2018divide and conquer\u2019 proposal to give musicians exemption from AI scraping",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "26d72da6-d3d6-4c3b-bef6-c88cb9a0a287",
+            "canonical_url": "https://www.theguardian.com/australia-news/2026/nov/20/australian-music-industry-rejects-proposal-to-give-musicians-exemption-ai-scraping",
+            "published_at": "2026-11-19T14:00:52.000Z",
+            "fetched_at": "2026-11-19T14:37:18.230Z"
+          }
+        },
+        {
+          "url": "https://www.theguardian.com/world/2026/nov/19/five-takeaways-from-putin-trump-xi-apec-shenzhen-summit",
+          "title": "\u2018Really making history\u2019: five takeaways from the meeting between Trump, Xi and Putin",
+          "status": "first-collected-after-cutoff",
+          "storedItem": {
+            "id": "35e355e9-7779-4886-92c9-38d5927d0814",
+            "canonical_url": "https://www.theguardian.com/world/2026/nov/19/five-takeaways-from-putin-trump-xi-apec-shenzhen-summit",
+            "published_at": "2026-11-19T14:32:03.000Z",
+            "fetched_at": "2026-11-19T15:07:18.251Z"
+          }
+        },
+        {
+          "url": "https://www.bbc.co.uk/news/articles/cm702q0lg50po?at_campaign=rss&at_medium=RSS",
+          "title": "Florida pastor found guilty over role in assassination of Haitian president",
+          "status": "collected-before-cutoff",
+          "storedItem": {
+            "id": "be9333de-36ce-4789-9fa0-7046a39afc56",
+            "canonical_url": "https://www.bbc.co.uk/news/articles/cm702q0lg50po?at_campaign=rss&at_medium=RSS",
+            "published_at": "2026-11-19T11:44:57.000Z",
+            "fetched_at": "2026-11-19T14:59:50.611Z"
+          }
+        }
+      ]
+    }
+  ],
+  "publisherAliasChecks": [
+    {
+      "url": "https://www.techmeme.com/261119/p33",
+      "publisherUrl": "https://www.bloomberg.com/news/articles/2026-11-19/anthropic-ipo-said-to-give-nothing-to-most-institutional-buyers",
+      "storedItem": null,
+      "interpretation": "Exact alias lookup only; absent URL does not rule out alternate publisher URL identity or semantic event coverage."
+    },
+    {
+      "url": "https://www.techmeme.com/261119/p32",
+      "publisherUrl": "https://www.politico.eu/newsletter/brussels-playbook/cyberattack-hits-the-commission/",
+      "storedItem": null,
+      "interpretation": "Exact alias lookup only; absent URL does not rule out alternate publisher URL identity or semantic event coverage."
+    },
+    {
+      "url": "https://www.techmeme.com/261119/p31",
+      "publisherUrl": "https://www.ft.com/content/46a5cf3c-a827-477f-b72f-e7415565e729",
+      "storedItem": null,
+      "interpretation": "Exact alias lookup only; absent URL does not rule out alternate publisher URL identity or semantic event coverage."
+    },
+    {
+      "url": "https://www.techmeme.com/261119/p30",
+      "publisherUrl": "https://www.theverge.com/tech/1037535/google-blue-origin-project-suncatcher-2029",
+      "storedItem": {
+        "id": "b7916dbc-1f2f-4d9e-85b9-48c7169520cf",
+        "canonical_url": "https://www.theverge.com/tech/1037535/google-blue-origin-project-suncatcher-2029",
+        "published_at": "2026-11-19T13:53:38.000Z",
+        "fetched_at": "2026-11-19T14:00:11.051Z"
+      },
+      "interpretation": "Exact alias lookup only; absent URL does not rule out alternate publisher URL identity or semantic event coverage."
+    },
+    {
+      "url": "https://www.techmeme.com/261119/p29",
+      "publisherUrl": "https://www.washingtonpost.com/technology/2026/11/19/anthropic-gave-40m-an-ai-safety-group-most-candidates-it-backed-won/",
+      "storedItem": null,
+      "interpretation": "Exact alias lookup only; absent URL does not rule out alternate publisher URL identity or semantic event coverage."
+    }
+  ]
+}
