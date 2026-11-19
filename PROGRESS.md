@@ -142,3 +142,12 @@
 - pnpm format/lint:fix and full pnpm check pass: 1,207 unit tests/332 integration passes/four expected skips. pnpm build and handbook pass (19 pages/21 diagrams/39 tables); git diff check passes. Logs /tmp/2949-*.log.
 - API/worker rebuilt and restarted; health database/Redis pass, final alerts clear. Production selection unchanged; live app aligned with this change. Commit/push follow.
 - Sources healthy, all 14 monitored services healthy, digest queue zero failures. Next: resolve remaining event memberships, five-topic recall/causes, then three reviews and measured root-cause fix.
+
+## 2026-11-19: iteration 2950 — reconcile Gaming reference collection census
+
+- Clean main at 7e7b3655; no inherited work. Initial alerts clear; health database/Redis pass. Evidence/docs only; no production writes or provider calls.
+- Correct three stale per-article collection-unknown records using the exact pre-cutoff URL lookup already preserved in iteration 2947; retain unknown historical triage rather than infer rejection.
+- All 12 important Gaming article URLs were collected: five reach three selected clusters, two established omissions have known stages, five unresolved event memberships now have an explicit saved-ID queue. Collection failure ruled out for this reference set.
+- Exact offline assertions pass for all IDs, three pre-cutoff lookups, exhaustive disjoint 5/2/5 partition, three selected clusters, 18 unchanged exclusions and null recall. No new event omission or scoring change.
+- Sources healthy; all 14 monitored services healthy; digest queue zero failures. Runtime unchanged, so no rebuild/restart needed; live application remains aligned with main.
+- pnpm format/lint:fix and full pnpm check pass: 1,207 unit tests/332 integration passes/four expected skips; API build and handbook pass (19 pages/21 diagrams/39 tables). Logs /tmp/2950-*.log. Final diff/health/alerts checks and commit/push follow. Next: resolve the five Gaming semantic memberships and remaining topic matches, finish five-topic recall/causes, then three reviews and measured root-cause fix.

@@ -5,7 +5,7 @@
   "windowEnd": "2026-11-19T15:00:00.000Z",
   "method": "Exact publisher URL identity into saved candidate/selected-cluster evidence; existing semantic triage retained, no inferred cross-URL grouping. Importance assessments are agent editorial judgements, not model scores.",
   "recall": null,
-  "pending": "All article importance decisions complete. Cross-URL launch, reception, performance and labor event memberships remain unresolved, preventing a complete event denominator. Absent from a bounded pool is not proof of never collected.",
+  "pending": "All 12 important article URLs were collected before cutoff. Five important articles reach three saved selected clusters; two established event omissions have known stages. Five remaining article-to-event memberships need semantic matching before a complete event denominator and recall can be assigned.",
   "finalInputIds": [
     "9270bc8d-a8d4-46bf-8b93-e3497f0c8ff8",
     "c872b24e-762b-4c47-af90-f2f7adc23041",
@@ -111,8 +111,15 @@
       "selectedClusters": [],
       "assessment": "important",
       "editorJudgement": "Major release reception and audience milestone; launch association needs semantic validation.",
-      "candidate": null,
-      "stage": "not in bounded newest-200 capture; collection status unknown",
+      "candidate": {
+        "id": "6689274b-49fd-4ead-a41c-c7f5f358636f",
+        "triage": null,
+        "finalRepresentative": false,
+        "identitySource": "collectionLookupAudit exact canonical URL; collected before cutoff",
+        "publishedAt": "2026-11-18T15:24:20.000Z",
+        "fetchedAt": "2026-11-18T15:29:50.728Z"
+      },
+      "stage": "collected before cutoff; historical triage and semantic coverage unresolved",
       "finalEditorInput": null
     },
     {
@@ -207,8 +214,15 @@
       "selectedClusters": [],
       "assessment": "important",
       "editorJudgement": "Console performance limitation affects purchase expectations; membership unresolved.",
-      "candidate": null,
-      "stage": "not in bounded newest-200 capture; collection status unknown",
+      "candidate": {
+        "id": "b4a98fdc-5c24-4b72-b903-d4e2ff4369f8",
+        "triage": null,
+        "finalRepresentative": false,
+        "identitySource": "collectionLookupAudit exact canonical URL; collected before cutoff",
+        "publishedAt": "2026-11-18T18:17:50.000Z",
+        "fetchedAt": "2026-11-18T18:41:28.523Z"
+      },
+      "stage": "collected before cutoff; historical triage and semantic coverage unresolved",
       "finalEditorInput": null
     },
     {
@@ -303,8 +317,15 @@
       "selectedClusters": [],
       "assessment": "important",
       "editorJudgement": "Audience record; do not count independently from the reception reference until matched.",
-      "candidate": null,
-      "stage": "not in bounded newest-200 capture; collection status unknown",
+      "candidate": {
+        "id": "15cab3b5-b204-401c-9adb-3a73476c18e9",
+        "triage": null,
+        "finalRepresentative": false,
+        "identitySource": "collectionLookupAudit exact canonical URL; collected before cutoff",
+        "publishedAt": "2026-11-18T15:42:50.000Z",
+        "fetchedAt": "2026-11-18T16:11:28.594Z"
+      },
+      "stage": "collected before cutoff; historical triage and semantic coverage unresolved",
       "finalEditorInput": null
     },
     {
@@ -1025,5 +1046,75 @@
       }
     ],
     "conclusion": "All three articles were collected before edition cutoff. Never-collected is ruled out for these URLs. No saved merge, final representative or selected coverage contains their IDs. Current cache absence does not establish historical triage failure, and related launch coverage still needs semantic matching. No additional event omission or recall claimed."
+  },
+  "collectionReconciliation": {
+    "iteration": 2950,
+    "method": "Reconcile per-reference records with preserved exact-URL collectionLookupAudit, existing triage records and immutable final editor input. No new database query, provider request or semantic inference.",
+    "importantArticleCount": 12,
+    "collectedImportantArticleCount": 12,
+    "selectedReferenceArticleCount": 5,
+    "reachedSelectedClusterCount": 3,
+    "knownOmissionArticles": [
+      {
+        "id": "f54bd57c-d206-49be-8b86-4082d6f1852b",
+        "url": "https://www.gamesindustry.biz/us-senate-hearing-examines-child-safety-on-roblox-considers-bipartisan-bill-to-bypass-forced-arbitration",
+        "stage": "collected but not shortlisted"
+      },
+      {
+        "id": "9270bc8d-a8d4-46bf-8b93-e3497f0c8ff8",
+        "url": "https://www.gamesindustry.biz/007-first-light-wins-goty-at-2026-tiga-awards-dovetail-games-takes-home-four-accolades-including-best-publisher",
+        "stage": "shortlisted but dropped by editor"
+      }
+    ],
+    "unresolvedEventMemberships": [
+      {
+        "id": "6689274b-49fd-4ead-a41c-c7f5f358636f",
+        "url": "https://www.gamesindustry.biz/gta-6-arrives-to-record-review-scores-and-streaming-audiences",
+        "title": "GTA 6 arrives to record review scores and streaming audiences",
+        "triage": null,
+        "nextEvidenceNeeded": "Existing semantic grouping or embedding membership connecting this article to the selected launch/labor evidence, or establishing a separate event. Absence from returned merges alone is insufficient."
+      },
+      {
+        "id": "b4a98fdc-5c24-4b72-b903-d4e2ff4369f8",
+        "url": "https://www.eurogamer.net/ps5-pro-not-powerful-enough-gta-6-60fps",
+        "title": "Even the PS5 Pro is \"not powerful enough\" to run GTA 6 at 60FPS or 40FPS, Rockstar says",
+        "triage": null,
+        "nextEvidenceNeeded": "Existing semantic grouping or embedding membership connecting this article to the selected launch/labor evidence, or establishing a separate event. Absence from returned merges alone is insufficient."
+      },
+      {
+        "id": "15cab3b5-b204-401c-9adb-3a73476c18e9",
+        "url": "https://www.eurogamer.net/grand-theft-auto-6-streaming-record-broken",
+        "title": "GTA 6 breaks the all-time livestream viewer record hours before it's available to play for most of the world",
+        "triage": null,
+        "nextEvidenceNeeded": "Existing semantic grouping or embedding membership connecting this article to the selected launch/labor evidence, or establishing a separate event. Absence from returned merges alone is insufficient."
+      },
+      {
+        "id": "7234d33b-c12c-475b-ae91-f15cb7244d8a",
+        "url": "https://www.eurogamer.net/gta-6-rockstar-developers-layoffs-worries",
+        "title": "GTA 6 developers at Rockstar are worried about being laid off after shipping \"the biggest game of all time\"",
+        "triage": {
+          "id": "7234d33b-c12c-475b-ae91-f15cb7244d8a",
+          "event": "GTA 6 shipped; Rockstar layoff fears",
+          "rationale": "Major release; reports developer layoff worries",
+          "relevance": 9,
+          "importance": 7
+        },
+        "nextEvidenceNeeded": "Existing semantic grouping or embedding membership connecting this article to the selected launch/labor evidence, or establishing a separate event. Absence from returned merges alone is insufficient."
+      },
+      {
+        "id": "fb1fe8f9-5787-46ae-b812-4878b2fff972",
+        "url": "https://www.eurogamer.net/gta-6-grand-theft-auto-6-launch-day-live-blog",
+        "title": "Grand Theft Auto 6 launch day live - news and reaction as GTA 6 arrives around the world",
+        "triage": {
+          "id": "fb1fe8f9-5787-46ae-b812-4878b2fff972",
+          "event": "GTA 6 worldwide launch",
+          "rationale": "Live coverage of major GTA 6 release",
+          "relevance": 10,
+          "importance": 9
+        },
+        "nextEvidenceNeeded": "Existing semantic grouping or embedding membership connecting this article to the selected launch/labor evidence, or establishing a separate event. Absence from returned merges alone is insufficient."
+      }
+    ],
+    "limits": "Article counts are not event counts. Collected status does not prove admission to triage/grouping. Retain null recall; no new misses or causes inferred."
   }
 }
