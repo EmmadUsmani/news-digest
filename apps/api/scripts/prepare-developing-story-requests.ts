@@ -64,12 +64,25 @@ export async function prepareDevelopingRequests(
             },
           )
         : null;
+    const historicalOccurrences = item.history.reduce(
+      (sum, edition) => sum + edition.stories.length,
+      0,
+    );
     results.push({
       editionId: item.editionId,
       topicId: item.topicId,
       windowEnd: item.windowEnd,
       inputSha256: replayFingerprint(item),
       occurrences: developingEvidence(item.stories, item.history).length,
+      // Capacity scenarios, not reconstructed production pools or paid admission.
+      capacity: {
+        historicalOccurrences,
+        maximumCurrentStories: Math.max(0, 40 - historicalOccurrences),
+        scenarios: [5, 10, 20, 40].map((currentStories) => ({
+          currentStories,
+          fitsOccurrenceLimit: currentStories + historicalOccurrences <= 40,
+        })),
+      },
       status: captured ? 'request-ready' : 'unavailable',
       unavailableReason: captured
         ? null

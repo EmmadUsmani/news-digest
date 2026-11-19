@@ -207,3 +207,25 @@ relationship to the later resignation; it is not labelled a match.
   matching controls preserve other candidate fields and leave inputs unchanged.
 - No provider calls, activation or saved-edition changes. Semantic review,
   production pool/budget admission and generation wiring remain open.
+
+## Full-shortlist capacity decision — iteration 2893
+
+- Request preparation now reports historical occurrence count, remaining current
+  capacity and 5/10/20/40-current-story scenarios. These are capacity scenarios,
+  not reconstructed candidate pools, request-cost estimates or semantic results.
+- All 35 Nov 12–18 saved windows fit five current stories. Ten fit only 12/35;
+  twenty fit 7/35; forty fit 1/35. Empty history still means no matching request.
+- At ten current stories: Tech 0/7, NBA 0/7, Gaming 0/7, World 5/7,
+  U.S. 7/7. Historical occurrences respectively span 31–33, 33–34, 35,
+  25–35 and 0–20. The U.S. empty-history case is included in capacity only.
+- Production ranking normally admits up to ten editor candidates
+  (`editorialShortlist` and Tech admission); scored joint shortlists also cap
+  at ten. The existing 30-request/$0.118047 saved-selection receipt therefore
+  does not establish full-shortlist admission. Do not wire that approach into
+  production: mature topics would silently lose developing context.
+- Keep all seven editions and the 40-occurrence safety limit. Next design step:
+  establish a bounded selected-story matching/editor flow or another existing
+  semantic approach before production admission; no extra provider calls,
+  higher caps, history truncation or changed matching rules authorized here.
+- Receipt `/tmp/2893-capacity.json`; three offline request tests pass, including
+  seven five-story editions that fit five current stories and reject ten.

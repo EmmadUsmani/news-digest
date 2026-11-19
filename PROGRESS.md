@@ -118,3 +118,13 @@
 - Verification: targeted editor tests 9/9; pnpm format, lint:fix, check (1,171 unit / 332 integration passes, four expected skips), build and handbook (19 pages/21 diagrams/39 tables) pass. Logs /tmp/2892-*.log; git diff --check clear. Latest reader five topics/25 stories.
 - TASKS and saved review updated; no affected source, UI or handbook behavior. Full semantic review, production pool/budget admission and generation wiring remain open; scheduled missed-story/NBA/Tech review after 15:00 UTC.
 - Commit/push and API/worker/docs restart follow verification.
+
+## 2026-11-19: iteration 2893 — developing full-shortlist capacity decision
+
+- Clean main at d7ec7140; no inherited work. Alerts/health clear; 38 monitored sources healthy, Destructoid inactive. Scheduled digest queue has zero failures, next run 15:00 UTC.
+- Offline request tool now reports history size, remaining current-story capacity and 5/10/20/40-current-story scenarios without changing matching or truncating history.
+- All 35 Nov 12–18 windows fit five current stories; only 12 fit ten, seven fit twenty and one fits forty. At ten: Tech/NBA/Gaming 0/7 each, World 5/7, U.S. 7/7 (includes empty history as capacity only).
+- Full-shortlist integration rejected under current 40-occurrence limit: saved selected-story request costs cannot establish production admission. Next: bounded matching/editor design, semantic review and budget admission; feature inactive, no provider calls.
+- Verification: targeted request tests 3/3; pnpm format, lint:fix, check pass (1,172 unit / 332 integration, four expected skips); pnpm build and handbook (19 pages/21 diagrams/39 tables) pass. git diff --check clear. Logs /tmp/2893-*.log; receipt /tmp/2893-capacity.json.
+- Latest reader five topics/25 stories. TASKS and saved review updated; no source/UI/handbook-system change. Scheduled missed-story/NBA/Tech acceptance remains after 15:00 UTC.
+- Commit/push and API/worker/docs restart follow verification.

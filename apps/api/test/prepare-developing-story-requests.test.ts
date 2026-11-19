@@ -87,3 +87,31 @@ void test('oversized and empty history pools do not become ready requests or zer
     assert.equal(item.inputBound, null);
   }
 });
+
+void test('capacity scenarios retain every historical occurrence and expose shortlist overflow', async () => {
+  const item = structuredClone(fixture.cases[0]);
+  const story = item.stories[0];
+  item.history = Array.from({ length: 7 }, (_, i) => ({
+    ...item.history[0],
+    editionId: `edition-${i}`,
+    stories: Array.from({ length: 5 }, (_, j) => ({
+      ...story,
+      id: `story-${j}`,
+    })),
+  }));
+  const report = await prepareDevelopingRequests(
+    [item, { ...item, history: [] }],
+    model,
+  );
+  assert.equal(report.cases[0].capacity.historicalOccurrences, 35);
+  assert.equal(report.cases[0].capacity.maximumCurrentStories, 5);
+  assert.deepEqual(
+    report.cases[0].capacity.scenarios.map((s) => s.fitsOccurrenceLimit),
+    [true, false, false, false],
+  );
+  assert.equal(report.cases[1].capacity.maximumCurrentStories, 40);
+  assert.ok(
+    report.cases[1].capacity.scenarios.every((s) => s.fitsOccurrenceLimit),
+  );
+  assert.equal(report.cases[1].unavailableReason, 'no-historical-stories');
+});
