@@ -210,3 +210,150 @@ void test('reference trace retains early observations when capture crosses windo
   assert.equal(failed.feeds[0].windowEnded, false);
   assert.equal(failed.feeds[0].error, 'HTTP 503');
 });
+
+void test('optional saved snapshot traces editor admission without inferring collection gaps or misses', () => {
+  const droppedId = '00000000-0000-4000-8000-000000000002';
+  const prompt = {
+    topic: { id },
+    candidates: [
+      { id, title: 'Selected event', url: 'https://example.com/lead' },
+      {
+        id: droppedId,
+        title: 'Unselected event',
+        url: 'https://example.com/other?utm_source=publisher',
+        clusterEvidence: [{ id: 'member-without-url' }],
+      },
+    ],
+  };
+  const snapshot = {
+    ...edition,
+    method: 'editorial-v1',
+    topics: [
+      {
+        ...edition.topics[0],
+        candidateCount: 10,
+        stories: edition.topics[0].stories.map((story) => ({
+          ...story,
+          excerpt: 'Saved original',
+          score: 1,
+          reasons: [],
+        })),
+        editorial: {
+          mode: 'ai',
+          model: 'saved-model',
+          reason: 'Saved result',
+          brief: [],
+          candidatePrompt: JSON.stringify(prompt),
+          triage: [
+            {
+              id: droppedId,
+              importance: 8,
+              relevance: 9,
+              event: 'Saved event',
+              rationale: 'Original triage reason',
+            },
+          ],
+          unscoredIds: [],
+        },
+      },
+    ],
+  };
+  const before = JSON.stringify({ capture, edition, snapshot });
+  const report = traceReferenceStories(capture, edition, snapshot);
+  const stories = report.feeds[0].stories!;
+  assert.equal(stories[2].status, 'needs-event-review');
+  assert.deepEqual(stories[2].editorInput, {
+    available: true,
+    membersWithoutUrl: 1,
+    matchingCandidates: [
+      {
+        id: droppedId,
+        title: 'Unselected event',
+        selected: false,
+        triage: snapshot.topics[0].editorial.triage[0],
+      },
+    ],
+  });
+  assert.equal(stories[0].editorInput!.matchingCandidates[0].selected, true);
+  assert.equal(stories[1].editorInput!.matchingCandidates.length, 0);
+  assert.equal(JSON.stringify({ capture, edition, snapshot }), before);
+  assert.throws(
+    () =>
+      traceReferenceStories(capture, edition, { ...snapshot, id: droppedId }),
+    /Snapshot and reader/,
+  );
+  assert.throws(
+    () =>
+      traceReferenceStories(capture, edition, { ...snapshot, windowEnd: date }),
+    /Snapshot and reader/,
+  );
+  for (const candidatePrompt of [
+    undefined,
+    '{',
+    JSON.stringify({ ...prompt, topic: { id: droppedId } }),
+    JSON.stringify({
+      ...prompt,
+      candidates: [prompt.candidates[0], prompt.candidates[0]],
+    }),
+  ]) {
+    const result = traceReferenceStories(capture, edition, {
+      ...snapshot,
+      topics: [
+        {
+          ...snapshot.topics[0],
+          editorial: { ...snapshot.topics[0].editorial, candidatePrompt },
+        },
+      ],
+    });
+    assert.deepEqual(result.feeds[0].stories![2].editorInput, {
+      available: false,
+      membersWithoutUrl: null,
+      matchingCandidates: [],
+    });
+  }
+  const supplementalPrompt = {
+    ...prompt,
+    candidates: [
+      {
+        ...prompt.candidates[1],
+        clusterEvidence: [
+          { id: 'supplement', url: 'https://example.com/coverage?a=1&b=2' },
+        ],
+      },
+    ],
+  };
+  const supplemental = traceReferenceStories(capture, edition, {
+    ...snapshot,
+    topics: [
+      {
+        ...snapshot.topics[0],
+        editorial: {
+          ...snapshot.topics[0].editorial,
+          candidatePrompt: JSON.stringify(supplementalPrompt),
+        },
+      },
+    ],
+  });
+  assert.equal(
+    supplemental.feeds[0].stories![1].editorInput!.matchingCandidates[0].id,
+    droppedId,
+  );
+  assert.equal(
+    supplemental.feeds[0].stories![1].editorInput!.matchingCandidates[0]
+      .selected,
+    false,
+  );
+  assert.throws(
+    () =>
+      traceReferenceStories(capture, edition, {
+        ...snapshot,
+        topics: [snapshot.topics[0], snapshot.topics[0]],
+      }),
+    /Ambiguous snapshot/,
+  );
+  const otherTopic = traceReferenceStories(capture, edition, {
+    ...snapshot,
+    topics: [{ ...snapshot.topics[0], id: droppedId }],
+  });
+  assert.equal(otherTopic.feeds[0].stories![2].editorInput!.available, false);
+});

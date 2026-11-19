@@ -30,6 +30,13 @@ The windows must match. This offline report locates reference URLs in the topicâ
 selected representatives and saved cluster coverage, using ingestionâ€™s URL
 normalization. It retains unavailable feeds and unresolved references for review;
 a different URL still needs event matching and is not automatically a miss.
+An optional fourth argument, `snapshot.json`, adds the same edition's saved editor
+input: matching shortlist candidates, whether each was selected, and its saved
+triage scores. Missing or malformed prompts stay unavailable; the report counts
+members without URLs (including older saved prompts). An unmatched URL cannot
+establish a collection or shortlist gap. Snapshot identity and windows must agree
+with the reader edition. This evidence supports cause review after event matching;
+it does not compute recall or label a miss.
 The output is a new private file; no network, database or model calls occur.
 
 These publishers already appear in collection, so this first reference set can

@@ -8,79 +8,7 @@
 
 [Iterations 2881–2890](docs/progress-archive/2026-11-19-iterations-2881-2890.md).
 
-## 2026-11-19: iteration 2891 — developing-link snapshot provenance
-
-- Clean main at 6c576c61; no inherited work. Alerts/health clear; 38 monitored sources pass, Destructoid inactive; digest-generation zero failed jobs, next scheduled 15:00 UTC. Invalid `obs queue` corrected to `obs jobs --queue digest-generation --check`.
-- Snapshot assembly now removes editor-supplied developing metadata and attaches only current validated matches. Unavailable or empty matching cannot retain an unsupported earlier-coverage relationship; editorial prose and input objects are preserved.
-- All five saved editor controls inject incorrect metadata: valid links replace it, unmatched stories discard it. Separate unavailable-matcher control verifies no unsupported link is published. No provider calls, live writes, UI changes or activation.
-- Verification: targeted tests 14/14; pnpm format/lint:fix, build and handbook (19 pages/21 diagrams/39 tables) pass. Full pnpm check passes (1,170 unit / 332 integration, four expected skips). Logs `/tmp/2891-*.log`; git diff --check clear.
-- Latest reader returns five topics/25 stories. TASKS and saved review updated; no source or handbook system change. Full semantic review, production pool/budget admission and generation wiring remain open.
-- Next: continue developing-story admission; scheduled missed-story/NBA/Tech review after 15:00 UTC. Commit/push and API/worker/docs restart follow verification.
-
-## 2026-11-19: iteration 2892 — developing editor context provenance
-
-- Clean main at b187cf70; no inherited work. Alerts/health clear; 38 monitored sources healthy, Destructoid inactive; digest-generation zero failures, next scheduled 15:00 UTC.
-- Prepared developing-story editing now removes inherited earlierCoverage before attaching this run’s validated predecessor. Unmatched candidates cannot carry stale context into rewritten prose; other fields and input objects remain intact.
-- All five saved controls inject incorrect inherited context; validated predecessors replace it, unmatched stories discard it. Dedicated unavailable/empty-match controls pass. No provider calls, saved-edition changes or activation.
-- Verification: targeted editor tests 9/9; pnpm format, lint:fix, check (1,171 unit / 332 integration passes, four expected skips), build and handbook (19 pages/21 diagrams/39 tables) pass. Logs /tmp/2892-*.log; git diff --check clear. Latest reader five topics/25 stories.
-- TASKS and saved review updated; no affected source, UI or handbook behavior. Full semantic review, production pool/budget admission and generation wiring remain open; scheduled missed-story/NBA/Tech review after 15:00 UTC.
-- Commit/push and API/worker/docs restart follow verification.
-
-## 2026-11-19: iteration 2893 — developing full-shortlist capacity decision
-
-- Clean main at d7ec7140; no inherited work. Alerts/health clear; 38 monitored sources healthy, Destructoid inactive. Scheduled digest queue has zero failures, next run 15:00 UTC.
-- Offline request tool now reports history size, remaining current-story capacity and 5/10/20/40-current-story scenarios without changing matching or truncating history.
-- All 35 Nov 12–18 windows fit five current stories; only 12 fit ten, seven fit twenty and one fits forty. At ten: Tech/NBA/Gaming 0/7 each, World 5/7, U.S. 7/7 (includes empty history as capacity only).
-- Full-shortlist integration rejected under current 40-occurrence limit: saved selected-story request costs cannot establish production admission. Next: bounded matching/editor design, semantic review and budget admission; feature inactive, no provider calls.
-- Verification: targeted request tests 3/3; pnpm format, lint:fix, check pass (1,172 unit / 332 integration, four expected skips); pnpm build and handbook (19 pages/21 diagrams/39 tables) pass. git diff --check clear. Logs /tmp/2893-*.log; receipt /tmp/2893-capacity.json.
-- Latest reader five topics/25 stories. TASKS and saved review updated; no source/UI/handbook-system change. Scheduled missed-story/NBA/Tech acceptance remains after 15:00 UTC.
-- Commit/push and API/worker/docs restart follow verification.
-
-## 2026-11-19: iteration 2894 — bounded developing-story design
-
-- Clean main at 34f3f321; no inherited work. Alerts clear, health passes, 38 monitored sources healthy; digest queue zero failures, next scheduled 15:00 UTC.
-- Recorded selection → matching → fixed-selection rewrite decision. Preserve the ten-candidate editor shortlist and seven-edition history; reject shortlist reduction/history splitting. Existing pre-selection helper stays inactive.
-- Defined exact-ID rewrite contract, original-evidence matching, atomic fallback, final brief/social context, actual-selection capacity check and combined ledger admission requirements. Five-story receipt does not cover configured ten-story budgets or rewrite costs.
-- Next concrete step: capture exact rewrite requests and test fixed-selection/failure contracts offline, then semantic and whole-edition budget acceptance. No provider calls, feature activation, source changes or UI changes.
-- Verification: pnpm format, lint:fix, check (1,172 unit / 332 integration pass, four expected skips), build and handbook (19 pages/21 diagrams/39 tables) pass; git diff --check clear. Logs /tmp/2894-*.log.
-- Reader five topics/25 stories. Initial headerless local reader probe returned admission 429; corrected existing smoke-check forwarded-client header passes. No live breakage.
-- TASKS, feature plan and saved review updated; no changed handbook behavior. Commit/push and API/worker/docs restart follow verification. Scheduled missed-story/NBA/Tech review remains after 15:00 UTC.
-
-## 2026-11-19: iteration 2895 — fixed-selection rewrite contract
-
-- Clean main at 8de45aa9; no inherited work. Alerts/health clear, 37 active sources healthy and Destructoid inactive. Digest queue zero failures; next scheduled 15:00 UTC.
-- Added inactive rewrite contract after selection/matching: exact ordered matched IDs, prose-only replacement, mandatory current-evidence guard callback, validated snapshot links and atomic original-selection fallback. Accepted output and evidence are isolated from adapter mutation.
-- Three offline tests cover success, changed/missing/extra/reordered IDs, rationale/evidence injection, refusal, partial guard failure, guard errors, mutation and invalid preflight without calls. Synthetic contract prose establishes no semantic acceptance.
-- Initial full check found unsafe unknown-array narrowing; fixed explicitly. Verification: pnpm format, lint:fix, check (1,175 unit / 332 integration passes, four expected skips), build and final API rebuild pass; targeted 3/3 and handbook (19 pages/21 diagrams/39 tables) pass. Logs /tmp/2895-*.log.
-- TASKS and saved review updated. No provider calls, activation, source/UI changes or affected handbook behavior. Exact provider requests, existing factual-guard integration, semantic review and whole-edition budget admission remain next.
-- Latest reader five topics/25 stories. Commit/push and API/worker/docs restart follow verification. Scheduled missed-story/NBA/Tech review remains after 15:00 UTC.
-
-## 2026-11-19: iteration 2896 — bounded developing rewrite request
-
-- Clean main at 339a8579; no inherited work. Alerts/health pass; active sources healthy, Destructoid inactive. Digest queue has zero failures, next scheduled run 15:00 UTC.
-- Added inactive pure rewrite request builder: configured model/run/topic, distinct purpose, 800 output tokens per match (maximum 8,000), fixed ordered selections and explicit original cluster evidence. Historical comparison is isolated; inherited history/link metadata excluded.
-- Two offline request tests pass: current/history isolation, mutation, ten-story bounds/order and invalid preflight. Synthetic controls establish no semantic acceptance; no provider calls or activation.
-- Saved exact request receipts/cost bounds, existing factual-guard integration, semantic review and whole-edition admission remain next. Daily missed-story/NBA/Tech acceptance remains after 15:00 UTC.
-- Verification: targeted tests 2/2; pnpm format, lint:fix, check (1,177 unit / 332 integration pass, four expected skips), build and handbook (19 pages/21 diagrams/39 tables) pass. git diff --check clear. Latest reader five topics/25 stories; no changed source/UI/handbook behavior.
-- TASKS and saved review updated. Commit/push and API/worker/docs restart follow verification. Logs /tmp/2896-*.log.
-
-## 2026-11-19: iteration 2897 — current-evidence rewrite guard
-
-- Clean main at cda81321; no inherited work. Alerts/health pass; active sources healthy, Destructoid inactive. Digest queue zero failures; next scheduled 15:00 UTC. Latest reader five topics/25 stories.
-- Prepared rewrite validator reuses the selection editor’s bounded current-evidence absence guard, NBA summary exception and editorial prose limits. Historical context is excluded from factual support.
-- Two offline tests cover real-guard integration with atomic fallback, historical-only rejection/current-supported acceptance, attribution stripping in all fields, supplemental support, truncation, IDs and length bounds. This lexical guard does not establish general entailment or semantic acceptance.
-- No provider calls, production activation, source/UI changes or affected handbook behavior. Exact saved request/cost capture, semantic review and whole-edition admission remain next; scheduled acceptance after 15:00 UTC.
-- Verification: targeted 2/2; pnpm format, lint:fix and check pass (1,179 unit / 332 integration tests, four expected skips); handbook 19 pages/21 diagrams/39 tables passes. Build passes; API/worker/docs restarted, health passes and reader retains five topics/25 stories. git diff --check clear. Logs /tmp/2897-*.log.
-- TASKS and saved review updated; no changed handbook behavior. Commit/push follow verification. Scheduled missed-story/NBA/Tech review remains due after 15:00 UTC.
-
-## 2026-11-19: iteration 2898 — bound rewrite input before dispatch
-
-- Clean main at f9d4e09a; no inherited work. Alerts and health pass; 37 active sources healthy, Destructoid inactive. Digest queue zero failures; scheduled review remains after 15:00 UTC.
-- Found rewrite preparation bounded output but not full original evidence input. Added the existing BudgetedLlm UTF-8/framing bound: reject at 100,000 without truncating evidence or partially rewriting selections.
-- Four targeted request tests pass, including exact 99,999/100,000 boundary, Unicode, supplemental/history overflow and atomic contract fallback before dispatch. Reader retains five topics/25 stories.
-- No provider calls, activation, source/UI changes or affected handbook behavior. Matching replay files contain published prose, not complete original editorial evidence; exact rewrite capture must not substitute summaries as source evidence. Saved request/cost capture, semantic review and whole-edition admission remain open.
-- Verification: pnpm format, lint:fix, check (1,181 unit / 332 integration pass, four expected skips), build and handbook (19 pages/21 diagrams/39 tables) pass; git diff --check clear. Logs /tmp/2898-*.log.
-- TASKS and saved review updated; no changed handbook behavior. Commit/push and API/worker/docs restart follow verification; scheduled review remains due after 15:00 UTC.
+[Iterations 2891–2898](docs/progress-archive/2026-11-19-iterations-2891-2898.md).
 
 ## 2026-11-19: iteration 2899 — prepared atomic rewrite orchestration
 
@@ -160,3 +88,13 @@
 - Three targeted offline tests pass, including mixed early/late observations, all-late observations, empty captures and preserved early feed errors. No provider calls or production editorial changes.
 - TASKS and docs/SOURCES.md updated. Scheduled Missed/NBA/Tech review remains due after 15:00 UTC; event matching and importance review remain required before recall.
 - Verification: pnpm format/lint:fix and full pnpm check pass (1,200 unit / 332 integration, four expected skips); pnpm build and handbook pass (19 pages/21 diagrams/39 tables). Logs /tmp/2907-*.log. Final diff check, commit/push and API/worker/docs restart follow; health/alerts rechecked after restart.
+
+## 2026-11-19: iteration 2908 — trace reference URLs into saved editor inputs
+
+- Clean main at 76b0878a; no inherited work. Alerts/health pass; active sources healthy, digest queue zero failures/next 15:00 UTC. Reader serves five topics/25 real saved stories.
+- Offline reference trace accepts an optional same-edition snapshot and reports editor-input URL matches, representative selection status and original triage scores. Supplemental report URLs map to their selectable representative. No semantic matches, automatic misses, collection-gap claims or recall.
+- Snapshot identity/window and unique-topic checks refuse mixed evidence; missing/malformed/cross-topic/duplicate-ID prompts remain unavailable. Members without URLs are counted explicitly; an unmatched URL does not prove shortlist exclusion.
+- Four targeted tests pass. Synthetic CLI reference against the real Nov 18 saved snapshot traces its selected story, exposes 11 editor members without URLs, writes mode 600 and refuses overwrite. The synthetic reference is not a historical/live reference observation. No DB/model/network calls by the trace.
+- TASKS and docs/SOURCES.md updated; older PROGRESS entries archived at the size threshold. No reader/source/handbook behavior change. Scheduled Missed/NBA/Tech review remains due after 15:00 UTC.
+- Verification: pnpm format/lint:fix and full pnpm check pass (1,201 unit / 332 integration, four expected skips); pnpm build passes. Handbook proxy check hit HTTP 429 after rendering; documented --owner-services retry passes (19 pages/21 diagrams/39 tables). Logs /tmp/2908-*.log.
+- Final diff check, commit/push and API/worker/docs restart follow; live health/alerts rechecked after restart. No provider calls or feature activation.
