@@ -1,3 +1,4 @@
+import type { ObserveStoryGrouping } from '../../curation/public/editorial';
 import type { Candidate } from '../domain/rank';
 
 interface GroupingPort {
@@ -12,6 +13,7 @@ interface GroupingPort {
       excerpt: string;
     }[],
     runId: string,
+    observe?: ObserveStoryGrouping,
   ): Promise<string[][]>;
 }
 
@@ -22,6 +24,7 @@ export async function groupShortlist(
   topicId: string,
   shortlist: Candidate[],
   runId: string,
+  observe?: ObserveStoryGrouping,
 ): Promise<(a: Candidate, b: Candidate) => boolean> {
   const separate = () => false;
   if (!grouping || shortlist.length < 2 || shortlist.length > 40)
@@ -38,6 +41,7 @@ export async function groupShortlist(
         excerpt: item.excerpt,
       })),
       runId,
+      observe,
     );
     const ids = new Set(shortlist.map((item) => item.id));
     const memberships = new Map<string, number>();

@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
-import { type DigestPreview } from '@digest/contracts';
+import { type DigestPreview, digestPreviewSchema } from '@digest/contracts';
 import { NotFoundException, ServiceUnavailableException } from '@nestjs/common';
 
 import { PublicPreviewReads } from '../src/public-read/previews';
@@ -29,6 +29,11 @@ const snapshot: DigestPreview = {
         triage: [],
         unscoredIds: [],
         candidatePrompt: 'private-prepared-candidates',
+        storyGrouping: {
+          topicId: id,
+          inputIds: ['private-a', 'private-b'],
+          result: { status: 'validated', groups: [] },
+        },
         storyAdmission: {
           status: 'evaluated',
           reason: 'private-admission',
@@ -43,6 +48,11 @@ const snapshot: DigestPreview = {
 };
 
 void test('prepared preview reads force published storage and expose only reader contracts', async () => {
+  assert.deepEqual(
+    digestPreviewSchema.parse({ ...snapshot, method: 'editorial-v1' }).topics[0]
+      .editorial?.storyGrouping,
+    snapshot.topics[0].editorial?.storyGrouping,
+  );
   const calls: unknown[] = [];
   const reads = new PublicPreviewReads({
     async history(offset, published) {
@@ -83,7 +93,7 @@ void test('prepared preview reads force published storage and expose only reader
   assert.deepEqual(await reads.find(id), latest);
   assert.doesNotMatch(
     JSON.stringify([history, latest]),
-    /private-|candidateCount|method|topicModes|candidatePrompt|storyAdmission/,
+    /private-|candidateCount|method|topicModes|candidatePrompt|storyAdmission|storyGrouping/,
   );
   await assert.rejects(reads.find('missing'), NotFoundException);
   assert.deepEqual(calls, [

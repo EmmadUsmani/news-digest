@@ -6,6 +6,7 @@ import { BudgetedLlm } from '../src/modules/curation/application/budgeted-llm';
 import {
   EventGrouping,
   type GroupingCandidate,
+  type StoryGroupingObservation,
 } from '../src/modules/curation/application/event-grouping';
 import type { LlmLedger } from '../src/modules/curation/domain/llm-ledger.port';
 
@@ -333,4 +334,66 @@ void test('explicit grouping status never treats skipped input or provider failu
     reason: 'provider-error',
   });
   assert.deepEqual(await failing.group('nba', candidates, 'run'), []);
+});
+
+void test('grouping observations retain complete inputs and distinguish singleton success from refusal', async () => {
+  for (const available of [true, false]) {
+    const h = harness('{"groups":[]}', available);
+    const observations: StoryGroupingObservation[] = [];
+    for (const run of ['first', 'second']) {
+      assert.deepEqual(
+        await h.service.group('nba', candidates, run, (value) =>
+          observations.push(value),
+        ),
+        [],
+      );
+    }
+    assert.equal(observations.length, 2);
+    for (const observation of observations) {
+      assert.deepEqual(observation, {
+        topicId: 'nba',
+        inputIds: ['a', 'b', 'c'],
+        result: available
+          ? { status: 'validated', groups: [] }
+          : { status: 'unavailable', reason: 'no-result' },
+      });
+    }
+    assert.equal(h.counts().calls, available ? 1 : 0);
+  }
+});
+
+void test('grouping observations keep merged and omitted identities but reject invalid provider memberships', async () => {
+  for (const text of [
+    '{"groups":[["a","b"]]}',
+    '{"groups":[["a","unknown"]]}',
+  ]) {
+    const h = harness(text);
+    let observation: StoryGroupingObservation | undefined;
+    const result = await h.service.groupWithResult(
+      'nba',
+      candidates,
+      'run',
+      (value) => {
+        observation = value;
+      },
+    );
+    assert.deepEqual(observation, {
+      topicId: 'nba',
+      inputIds: ['a', 'b', 'c'],
+      result,
+    });
+    assert.equal(
+      result.status,
+      text.includes('unknown') ? 'unavailable' : 'validated',
+    );
+    assert.equal(h.counts().calls, 1);
+  }
+  const h = harness('{"groups":[]}');
+  await h.service.groupWithResult(
+    'nba',
+    [candidates[0], candidates[0]],
+    'run',
+    () => assert.fail('invalid input was not submitted'),
+  );
+  assert.equal(h.counts().calls, 0);
 });

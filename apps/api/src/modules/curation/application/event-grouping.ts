@@ -26,6 +26,13 @@ export type StoryGroupingResult =
         | 'provider-error';
     };
 
+export interface StoryGroupingObservation {
+  topicId: string;
+  inputIds: string[];
+  result: StoryGroupingResult;
+}
+export type ObserveStoryGrouping = (value: StoryGroupingObservation) => void;
+
 const schema = z
   .object({
     groups: z.array(z.array(z.string().min(1).max(200)).min(2).max(40)).max(20),
@@ -215,12 +222,40 @@ export class EventGrouping {
     topicId: string,
     candidates: GroupingCandidate[],
     runId: string,
+    observe?: ObserveStoryGrouping,
   ): Promise<string[][]> {
-    const result = await this.groupWithResult(topicId, candidates, runId);
+    const result = await this.groupWithResult(
+      topicId,
+      candidates,
+      runId,
+      observe,
+    );
     return result.status === 'validated' ? result.groups : [];
   }
 
   async groupWithResult(
+    topicId: string,
+    candidates: GroupingCandidate[],
+    runId: string,
+    observe?: ObserveStoryGrouping,
+  ): Promise<StoryGroupingResult> {
+    const result = await this.evaluateGrouping(topicId, candidates, runId);
+    // Save prepared identities and explicit outcomes; a refusal makes no membership claim.
+    // Malformed or over-limit pools never produced a bounded grouping input.
+    if (
+      result.status === 'validated' ||
+      !['small-pool', 'invalid-input'].includes(result.reason)
+    ) {
+      observe?.({
+        topicId,
+        inputIds: candidates.map((item) => item.id),
+        result,
+      });
+    }
+    return result;
+  }
+
+  private async evaluateGrouping(
     topicId: string,
     candidates: GroupingCandidate[],
     runId: string,

@@ -122,3 +122,13 @@
 - Exact offline assertions pass for source hashes, exhaustive important-reference partitions, IDs, cutoff comparisons and 119/2/32 totals. Archived iterations 2937–2940 to keep this file small.
 - API build and handbook pass (19 pages/21 diagrams/39 tables). Sources and all 14 services healthy; digest queue zero failures. pnpm format/lint:fix and full pnpm check pass: 1,207 unit tests/332 integration passes/four expected skips; logs /tmp/2951-*.log.
 - Final offline assertions and git diff check pass. Commit/push and API/worker restart follow; no runtime behavior change. Next: remaining semantic memberships and five-topic recall/causes, then three reviews and measured root-cause fix.
+
+## 2026-11-19: iteration 2952 — retain grouping inputs for missed-story reviews
+
+- Clean main at 0480f8e2; no inherited work. Alerts clear; all 38 sources and 14 services healthy, digest queue zero failures. No provider calls or production data edits.
+- Future private edition snapshots retain bounded per-topic grouping input IDs, validated merges or unavailable reason, including cached results. Both baseline and enabled Tech admission forward the observation without extra requests or selection changes.
+- This closes the missing-input evidence gap for future per-topic reviews; historical Nov 19 semantic memberships and five-topic recall remain unresolved. Joint World/U.S. ownership capture unchanged; no singleton or miss inferred from a refusal.
+- Added offline checks for merged/omitted IDs, validated empty results versus budget refusal, cached observations, invalid responses, both admission paths, publication persistence and public-field removal. Updated affected handbook page and TASKS.md.
+- pnpm format/lint:fix and final pnpm check pass: 1,210 unit tests/332 integration passes/four expected skips; pnpm build passes. Handbook passes (19 pages/39 tables; affected diagram rendered) after trimming the page. Initial direct publication invocation hit the isolation guard; final disposable-container run passes after correcting the new assertion's expected input order. Lint sorting required a formatting correction.
+- Live latest edition remains 7a747d9c, five topics/25 real stories, private grouping fields absent; initial anonymous localhost read hit 429, standard explicit local-probe identity passes. Logs /tmp/2952-*.log.
+- Verified diff clean; commit/push and API/worker restart follow. Next: inspect the next scheduled snapshot's grouping evidence, resolve remaining Nov 19 memberships without paid replay, then finish five-topic recall/causes and three reviews before the measured root-cause fix.

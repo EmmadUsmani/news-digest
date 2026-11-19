@@ -75,7 +75,9 @@ export function storyGroupingEnabled(env: NodeJS.ProcessEnv = process.env) {
 
 export type {
   GroupingCandidate,
+  ObserveStoryGrouping,
   OwnedStoryGroup,
+  StoryGroupingObservation,
   StoryGroupingResult,
   StoryScope,
 } from '../application/event-grouping';

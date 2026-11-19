@@ -508,6 +508,9 @@ export class PostgresPreviewRepository
                   ? undefined
                   : await storyAdmission({
                       grouping: editorialServices.grouping,
+                      observeGrouping: (observation) => {
+                        editorial.storyGrouping = observation;
+                      },
                       topicId: topic.id,
                       tech: usesTechEditorialContext(topic.name),
                       enabled: process.env.TECH_STORY_ADMISSION === '1',

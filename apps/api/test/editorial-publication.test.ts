@@ -12,6 +12,7 @@ import { EventGrouping } from '../src/modules/curation/application/event-groupin
 import { CandidateTriage } from '../src/modules/curation/application/triage';
 import type { LlmPort } from '../src/modules/curation/domain/llm.port';
 import type { LlmLedger } from '../src/modules/curation/domain/llm-ledger.port';
+import type { ObserveStoryGrouping } from '../src/modules/curation/public/editorial';
 import { PostgresPreviewRepository } from '../src/modules/digests/database/preview.repository';
 import type { EditionProgress } from '../src/modules/digests/domain/preview.repository';
 import { readerEdition } from '../src/modules/digests/reader-edition.controller';
@@ -268,8 +269,17 @@ async function harness(
                       _topic: string,
                       items: { id: string }[],
                       runId: string,
+                      observe?: ObserveStoryGrouping,
                     ) {
                       legacyGroupingCalls++;
+                      observe?.({
+                        topicId: _topic,
+                        inputIds: items.map((item) => item.id),
+                        result: {
+                          status: 'validated',
+                          groups: [items.map((item) => item.id)],
+                        },
+                      });
                       assert.equal(items.length, 2);
                       assert.ok(runId);
                       return [items.map((item) => item.id)];
@@ -503,6 +513,26 @@ void test('opted-in publication persists grouped coverage in one edited story sl
   assert.equal(topic.editorial?.mode, 'ai');
   assert.equal(topic.stories.length, 1);
   assert.equal(topic.stories[0].coverage?.length, 2);
+  assert.deepEqual(topic.editorial?.storyGrouping, {
+    topicId: topic.id,
+    inputIds: ['00000000-0000-4000-8000-000000000098', id],
+    result: {
+      status: 'validated',
+      groups: [['00000000-0000-4000-8000-000000000098', id]],
+    },
+  });
+  assert.ok(
+    !JSON.stringify(
+      readerEdition({
+        id: '00000000-0000-4000-8000-000000000001',
+        createdAt: end.toISOString(),
+        windowStart: start.toISOString(),
+        windowEnd: end.toISOString(),
+        method: 'editorial-v1',
+        topics: [topic],
+      }),
+    ).includes('storyGrouping'),
+  );
   assert.deepEqual(
     new Set(topic.stories[0].coverage?.map((item) => item.url)),
     new Set([candidate.url, 'https://example.org/support']),

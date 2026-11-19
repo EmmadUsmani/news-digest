@@ -298,6 +298,28 @@ export const digestPreviewSchema = z.object({
           reason: z.string(),
           brief: z.array(z.string()),
           candidatePrompt: z.string().max(100000).optional(),
+          storyGrouping: z
+            .object({
+              topicId: z.string().min(1),
+              inputIds: z.array(z.string().min(1).max(200)).min(2).max(40),
+              result: z.discriminatedUnion('status', [
+                z.object({
+                  status: z.literal('validated'),
+                  groups: z.array(z.array(z.string())),
+                }),
+                z.object({
+                  status: z.literal('unavailable'),
+                  reason: z.enum([
+                    'small-pool',
+                    'invalid-input',
+                    'input-limit',
+                    'no-result',
+                    'provider-error',
+                  ]),
+                }),
+              ]),
+            })
+            .optional(),
           storyAdmission: z
             .object({
               status: z.enum(['baseline', 'evaluated']),

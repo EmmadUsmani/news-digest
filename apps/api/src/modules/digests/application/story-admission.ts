@@ -1,4 +1,7 @@
-import type { StoryGroupingResult } from '../../curation/public/editorial';
+import type {
+  ObserveStoryGrouping,
+  StoryGroupingResult,
+} from '../../curation/public/editorial';
 import { type Candidate, rank } from '../domain/rank';
 import {
   type AdmissionScore,
@@ -27,10 +30,17 @@ export async function storyAdmission(input: {
   start: Date;
   end: Date;
   runId: string;
+  observeGrouping?: ObserveStoryGrouping;
 }) {
   const { grouping, topicId, shortlist, runId, start, end } = input;
   if (!input.enabled || !input.tech) {
-    const matches = await groupShortlist(grouping, topicId, shortlist, runId);
+    const matches = await groupShortlist(
+      grouping,
+      topicId,
+      shortlist,
+      runId,
+      input.observeGrouping,
+    );
     return { matches, ranked: rank(shortlist, start, end, 10, matches) };
   }
   // Exactly one grouping call, using the same pool, cache and budget as before.
@@ -39,6 +49,7 @@ export async function storyAdmission(input: {
     topicId,
     shortlist,
     runId,
+    input.observeGrouping,
   );
   const { matches } = prepared;
   const first = rank(shortlist, start, end, 20, matches);

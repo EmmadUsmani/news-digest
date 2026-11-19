@@ -71,10 +71,10 @@ article-template, AsciiDoc document bodies or MediaWiki prose for submissions wi
   The optional `TECH_STORY_ADMISSION=1` switch reserves two of the ten editor
   candidates for the highest-importance scored events after successful grouping;
   Enabled on this VM; failed grouping or triage keeps the usual ranking.
-  Private snapshots retain the prepared editor candidate prompt, including
-  unselected reports, for later review. Enabled Tech admission also retains its
-  reserved, displaced and admitted event IDs and reservation scores. Public
-  reader responses omit these private review fields.
+  Private snapshots retain the prepared editor prompt and unselected reports.
+  Per-topic grouping saves input IDs, returned merges and success or refusal.
+  Enabled Tech admission retains reserved, displaced and admitted event IDs
+  and reservation scores. Public reader responses omit private review fields.
 - **Story composition:** the editor keeps separate developments in separate
   stories. Inputs separate the excerpt’s publisher and URL from coverage labels, which cannot establish reporting attribution. Direct follow-ups, reactions and consequences can share a story;
   a shared company or theme alone is insufficient.

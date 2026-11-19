@@ -3,7 +3,12 @@ import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 
 import { recordedTechEvidence } from '../../../scripts/lib/tech-admission-evidence';
-import type { StoryGroupingResult } from '../src/modules/curation/public/editorial';
+import { llmConfig } from '../src/modules/curation/adapters/config';
+import { EventGrouping } from '../src/modules/curation/application/event-grouping';
+import type {
+  StoryGroupingObservation,
+  StoryGroupingResult,
+} from '../src/modules/curation/public/editorial';
 import { storyAdmission } from '../src/modules/digests/application/story-admission';
 import { type Candidate, rank } from '../src/modules/digests/domain/rank';
 
@@ -165,4 +170,40 @@ void test('validated empty grouping differs from unavailable and never changes r
     enabled: true,
   });
   assert.equal(noService.decision?.reason, 'grouping-unavailable');
+});
+
+void test('both admission paths preserve actual grouping observations without changing calls or membership', async () => {
+  for (const enabled of [false, true]) {
+    let calls = 0;
+    const service = new EventGrouping(
+      {
+        async json(_request, validate) {
+          calls++;
+          return validate({ groups });
+        },
+      },
+      llmConfig({}).haiku,
+    );
+    const observations: StoryGroupingObservation[] = [];
+    const result = await storyAdmission({
+      ...input,
+      enabled,
+      grouping: service,
+      observeGrouping: (value) => observations.push(value),
+    });
+    assert.equal(calls, 1);
+    assert.deepEqual(observations, [
+      {
+        topicId: input.topicId,
+        inputIds: input.shortlist.map((item) => item.id),
+        result: { status: 'validated', groups },
+      },
+    ]);
+    const expected = await storyAdmission({
+      ...input,
+      enabled,
+      grouping: service,
+    });
+    assert.deepEqual(result.ranked, expected.ranked);
+  }
 });

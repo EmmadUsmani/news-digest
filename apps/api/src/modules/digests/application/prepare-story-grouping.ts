@@ -1,4 +1,7 @@
-import type { StoryGroupingResult } from '../../curation/public/editorial';
+import type {
+  ObserveStoryGrouping,
+  StoryGroupingResult,
+} from '../../curation/public/editorial';
 import type { Candidate } from '../domain/rank';
 
 export interface GroupingResultPort {
@@ -13,6 +16,7 @@ export interface GroupingResultPort {
       excerpt: string;
     }[],
     runId: string,
+    observe?: ObserveStoryGrouping,
   ): Promise<StoryGroupingResult>;
 }
 
@@ -26,6 +30,7 @@ export async function prepareStoryGrouping(
   topicId: string,
   shortlist: Candidate[],
   runId: string,
+  observe?: ObserveStoryGrouping,
 ): Promise<PreparedGrouping> {
   const unavailable = { status: 'unavailable' as const, matches: () => false };
   const ids = new Set(shortlist.map((item) => item.id));
@@ -49,6 +54,7 @@ export async function prepareStoryGrouping(
         excerpt: item.excerpt,
       })),
       runId,
+      observe,
     );
     if (result.status !== 'validated') return unavailable;
     const memberships = new Map<string, number>();
