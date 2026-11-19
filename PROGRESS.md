@@ -110,3 +110,13 @@
 - Added open tasks for 68–70. Next: capture after publication, use existing clustering/embeddings and editorial judgement, record recall/miss causes in daily review; three editions then one measured root-cause fix. Scheduled NBA/Tech acceptance remains pending.
 - Verification: pnpm format, pnpm lint:fix, standalone script tsc, full pnpm check (1,137 unit/330 integration passes, four expected skips), pnpm build, check-handbook.ts (19 pages/21 diagrams/39 tables) and git diff --check pass. Logs /tmp/2875-*.log. No UI change or paid replay.
 - Rebuilt API/worker/docs restarted active; immediate health probe hit startup, retry obs health --check passes. Alerts clear, digest queue zero failures; next edition 15:00 UTC.
+
+## 2026-11-19: iteration 2876 — expand saved Tech event labels
+
+- Clean main at 5a160a4b; no inherited work. Initial orientation output was too broad; subsequent reads narrowed. Alerts/health clear, 14 monitored services healthy, 38 monitored sources healthy (Destructoid paused), digest queue zero failures; next edition 15:00 UTC.
+- Higher-priority acceptance/missed-story review awaits publication. Used STEERING 69 waiting time for today’s single evaluation commit, adding three Tech event labels to the saved Nov 13 200-candidate pool (five targets → eight).
+- Additive SHA-256-pinned overlay preserves historical fixtures/results. Existing evaluator reports five-slot fallback recall 0/8, unchanged selection: Google schools backlash outside top 20; reported SpaceX investment and renewed Starshield restrictions fail relevance. Agent labels only, not published-AI recall or independently verified news.
+- No tuning to labels, paid replay, budget/provider change, source change, UI change or edition mutation. Joint story/post event-budget comparison remains open. Updated TASKS and RANKING; no affected handbook architecture or source configuration.
+- Verification: offline replay/assertions, standalone script tsc, pnpm format/lint:fix, pnpm build, full handbook check and git diff --check pass. Full pnpm check passes: 1,137 unit and 330 integration tests, four expected skips; logs /tmp/2876-*.log. Invalid obs queues command corrected to obs jobs --queue digest-generation.
+- API/worker/docs rebuilt and restarted; first health probe met startup, retry obs health --check and /healthz pass. Alerts clear.
+- Next: after 15:00 scheduled publication, capture references and include Missed recall/causes in the same daily review; assess NBA/Tech editorial acceptance. No further waiting-time evaluation commit today.

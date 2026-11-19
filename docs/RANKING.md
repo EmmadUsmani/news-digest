@@ -3568,3 +3568,30 @@ budget-fallback Haiku, check explicit marking of a longer synthetic control,
 and verify guidance reaches both routes. Scripted empty outputs do not prove
 semantic selection quality. Scheduled acceptance remains pending; no paid
 replay, budget change or edition mutation.
+
+## Nov 13 Tech additional event labels (iteration 2876)
+
+`pnpm exec tsx scripts/evaluate-additional-tech-events.ts` replays the saved
+200-candidate Tech pool through the existing fallback evaluator. An additive,
+SHA-256-pinned overlay grows its agent-labelled targets from five to eight;
+the historical fixture and its reports remain unchanged.
+
+| Added event                                                 | Supplied evidence                                  | Current fallback result               |
+| ----------------------------------------------------------- | -------------------------------------------------- | ------------------------------------- |
+| Google school Search AI opt-out backlash                    | Chicago headline plus detailed protest report      | Both eligible; outside top 20         |
+| Reported SpaceX Texas/Arizona data-center investment        | NYT headline, reported $74 billion plan            | Relevance rejects: no required phrase |
+| Ukraine reports renewed Starshield drone speed restrictions | Attributed Zelenskyy statement and technical limit | Relevance rejects: no required phrase |
+
+Five-slot fallback event recall is 0/8 (previous labels 0/5); selection is
+identical before and after adding labels. The three additional targets are
+all missed. SpaceX investment is separate from satellite restrictions, power
+costs and attacks on data centers. The school pair concerns the same policy
+dispute. Reasons and article IDs are saved in
+`apps/api/test/fixtures/ranking-tech-2026-11-13-additional-events.json`.
+
+These are agent judgements of supplied reporting, not independent labels or
+verification of its claims. The saved observations were exported Nov 14 and
+are not the exact scheduled input pool. This measures fallback selection,
+not the published AI edition or its recall. No tuning, paid replay or
+production change follows these labels; owner review and the bounded
+Nov 12–18 story/post event-budget comparison remain open.

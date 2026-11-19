@@ -1,0 +1,25 @@
+{
+  "provenance": "Agent judgement of saved reporting only; not independent labels or verification of publisher claims. Additive overlay leaves historical evaluation unchanged.",
+  "fixture": "ranking-tech-2026-11-13.json",
+  "fixtureSha256": "23185639ded781b12625861c0a061a823ac60e041dec209a50c7e8a9623a5e6e",
+  "events": [
+    {
+      "name": "Google school Search AI opt-out backlash",
+      "reason": "School access to Search without AI and the resulting protests affect deployment of AI to students. Chicago headline and detailed protest report describe the same policy dispute.",
+      "ids": [
+        "64de06af-1ceb-400a-987d-c447d97e4611",
+        "ffa99cab-a4ae-4b14-81a8-cdb3593e2f2a"
+      ]
+    },
+    {
+      "name": "Reported SpaceX Texas and Arizona data-center investment",
+      "reason": "The saved NYT headline reports a $74 billion infrastructure plan, a material computing investment. Do not merge with power-cost analysis or attacks on existing data centers. Headline-only evidence; amount is a reported claim.",
+      "ids": ["5d07fe9c-0b3a-4834-9520-c05263c69103"]
+    },
+    {
+      "name": "Ukraine reports renewed Starshield drone speed restrictions",
+      "reason": "The supplied reporting describes a renewed technical restriction on satellite connectivity for drones, with a specific speed limit attributed to Zelenskyy. Separate from data-center investment despite the shared company. Allegation remains attributed.",
+      "ids": ["4615c5b7-7f17-4f54-b8ba-2d33d07c7e21"]
+    }
+  ]
+}
