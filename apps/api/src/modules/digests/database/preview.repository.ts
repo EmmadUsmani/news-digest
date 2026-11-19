@@ -18,6 +18,8 @@ import {
   DrizzleQueryError,
   eq,
   isNotNull,
+  isNull,
+  lt,
   ne,
   sql,
 } from 'drizzle-orm';
@@ -56,6 +58,7 @@ import {
 } from '../application/politics-stories';
 import { storyAdmission } from '../application/story-admission';
 import { articleTriageInput } from '../domain/article-triage-input';
+import { developingHistory } from '../domain/developing-history';
 import { DigestNotifications } from '../domain/digest-published';
 import { newEditionPublication } from '../domain/edition-publication';
 import {
@@ -108,6 +111,40 @@ export class PostgresPreviewRepository
   }
   cost(id: string) {
     return readEditionCost(this.db, id);
+  }
+  // Bounded evidence read only; matching and generation admission stay with callers.
+  async developingHistory(target: Parameters<typeof developingHistory>[1]) {
+    if (!Number.isFinite(Date.parse(target.publishedAt)))
+      throw new Error('Invalid target publication time');
+    const rows = await this.orm
+      .select({
+        id: digestPreviews.id,
+        profileId: digestPreviews.profileId,
+        publishedAt: digestPreviews.publishedAt,
+        snapshot: digestPreviews.snapshot,
+      })
+      .from(digestPreviews)
+      .where(
+        and(
+          target.profileId === null
+            ? isNull(digestPreviews.profileId)
+            : eq(digestPreviews.profileId, target.profileId),
+          this.publicationFilter(true),
+          ne(digestPreviews.id, target.id),
+          lt(digestPreviews.publishedAt, target.publishedAt),
+          sql`${digestPreviews.snapshot}->'topics' @> ${JSON.stringify([{ id: target.topicId }])}::jsonb`,
+        ),
+      )
+      .orderBy(desc(digestPreviews.publishedAt), asc(digestPreviews.id))
+      .limit(7);
+    return developingHistory(
+      rows.map(({ snapshot, ...row }) => ({
+        ...row,
+        publishedAt: new Date(row.publishedAt!).toISOString(),
+        topics: (snapshot as DigestPreview).topics,
+      })),
+      target,
+    );
   }
   async latest(publishedOnly = false): Promise<DigestPreview | null> {
     const [row] = await this.orm

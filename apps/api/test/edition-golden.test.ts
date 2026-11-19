@@ -1044,3 +1044,124 @@ for (const [entryIndex, label, automaticRepair, repairBudgetRefused] of [
     }
   });
 }
+
+void test('developing history reads only seven earlier published same-profile topic snapshots', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const adapter = new PostgresPreviewRepository();
+  const inserted: string[] = [];
+  const topicId = crypto.randomUUID();
+  const target = {
+    id: crypto.randomUUID(),
+    profileId: null,
+    topicId,
+    publishedAt: '2095-02-01T00:00:00Z',
+  };
+  const expected: {
+    editionId: string;
+    publishedAt: string;
+    stories: { id: string; title: string; summary: string }[];
+  }[] = [];
+  try {
+    // Invalid/newer/foreign rows must be filtered before LIMIT, not after it.
+    const cases = [
+      ...Array.from({ length: 9 }, (_, i) => ({ day: i + 1 })),
+      { day: 29, profileId: '00000000-0000-4000-8000-000000000001' },
+      { day: 28, kind: 'test', unpublished: true },
+      { day: 27, unpublished: true },
+      { day: 26, otherTopic: true },
+      { day: 25, id: target.id },
+      { day: 1, future: true },
+      { day: 1, equal: true },
+    ];
+    for (const item of cases) {
+      const options = item as typeof item & {
+        profileId?: string;
+        kind?: string;
+        unpublished?: boolean;
+        otherTopic?: boolean;
+        id?: string;
+        future?: boolean;
+        equal?: boolean;
+      };
+      const id = options.id ?? crypto.randomUUID();
+      inserted.push(id);
+      const publishedAt = options.equal
+        ? target.publishedAt
+        : `2095-${options.future ? '03' : '01'}-${String(item.day).padStart(2, '0')}T00:00:00.000Z`;
+      const stories = [
+        {
+          id: crypto.randomUUID(),
+          title: `Saved ${item.day}`,
+          summary: 'Exact saved evidence',
+        },
+      ];
+      await adapter.db.query(
+        `INSERT INTO digest_previews
+        (id, profile_id, created_at, window_start, window_end, snapshot, kind, published_at)
+        VALUES ($1,$2,$3,$3,$3::timestamptz + interval '1 day',$4,$5,$6)`,
+        [
+          id,
+          options.profileId ?? null,
+          '2095-04-01T00:00:00Z', // Creation time must not determine history order.
+          {
+            topics: [
+              {
+                id: options.otherTopic ? crypto.randomUUID() : topicId,
+                stories,
+              },
+            ],
+          },
+          options.kind ?? 'scheduled',
+          options.unpublished ? null : publishedAt,
+        ],
+      );
+      if (Object.keys(item).length === 1)
+        expected.unshift({ editionId: id, publishedAt, stories });
+    }
+    assert.deepEqual(
+      await adapter.developingHistory(target),
+      expected.slice(0, 7),
+    );
+    assert.deepEqual(
+      await adapter.developingHistory({
+        ...target,
+        topicId: crypto.randomUUID(),
+      }),
+      [],
+    );
+    const foreign = await adapter.developingHistory({
+      ...target,
+      profileId: '00000000-0000-4000-8000-000000000001',
+    });
+    assert.equal(foreign.length, 1);
+    assert.equal(foreign[0].stories[0].title, 'Saved 29');
+    await assert.rejects(
+      adapter.developingHistory({ ...target, publishedAt: 'invalid' }),
+      /Invalid target/,
+    );
+  } finally {
+    // Match the scope test above: remove null-owner fixtures before migration tests.
+    // This is only reachable in the explicitly asserted disposable database.
+    const cleanup = await adapter.db.connect();
+    try {
+      await cleanup.query('BEGIN');
+      await cleanup.query(
+        'ALTER TABLE digest_previews DISABLE TRIGGER immutable_digest_preview',
+      );
+      await cleanup.query(
+        'DELETE FROM digest_previews WHERE id=ANY($1::uuid[])',
+        [inserted],
+      );
+      await cleanup.query(
+        'ALTER TABLE digest_previews ENABLE TRIGGER immutable_digest_preview',
+      );
+      await cleanup.query('COMMIT');
+    } catch (error) {
+      await cleanup.query('ROLLBACK');
+      throw error;
+    } finally {
+      cleanup.release();
+    }
+    await adapter.onModuleDestroy();
+  }
+});

@@ -85,3 +85,13 @@
 - Verification: targeted tests 4/4, pnpm format, pnpm lint:fix, pnpm build (atomic web publication), handbook check (19 pages/21 diagrams/39 tables), git diff --check pass. Full pnpm check passes (1,153 unit / 330 integration, four expected skips); logs /tmp/2882-*.log.
 - API/worker/docs restart after commit/push so services match main; final health check required.
 - Next: semantic acceptance and production integration, then reader label and real-edition acceptance; Nov 19 missed-story/NBA/Tech scheduled review after 15:00 UTC. Destructoid remains blocked.
+
+## 2026-11-19: iteration 2883 — database-backed developing-story history
+
+- Clean main at 04550c52; no inherited work. Alerts clear and `pnpm obs health --check` passes. Scheduled Nov 19 review still waits for 15:00 UTC; today's item 69 evaluation already used.
+- Added bounded repository history read: same profile/topic, strictly earlier publication, excludes self/test/unpublished rows, publication-time order and seven-edition limit. Filters precede LIMIT; publication timestamps normalized to ISO.
+- Isolated PostgreSQL coverage includes nine valid editions and foreign-profile/topic, self, equal/future time, test/unpublished rows; checks exact prose, order, empty results and invalid cutoff. Generation does not call it yet; no paid calls or published-edition changes.
+- Initial verification exposed invalid fixture windows, forbidden immutable-row cleanup and database timestamp formatting; corrected fixtures, used existing isolated trigger-safe cleanup (null-owner fixtures otherwise break the later migration test) and normalized adapter output. No production failure or inherited work discarded.
+- Verification: pnpm format/lint:fix, pnpm check unit 1,153/1,153 plus typecheck/lint/format/boundaries; final isolated integration rerun 331 passes/four expected skips. pnpm build passes; handbook 19 pages/21 diagrams/39 tables passes; logs /tmp/2883-*.log.
+- TASKS and saved review updated; no affected handbook architecture or source changes. Semantic acceptance, generation/editor/persistence wiring and reader label remain open; Destructoid remains blocked.
+- Final source/queue checks: 38 sources healthy; digest queue zero failures, next run 15:00 UTC. API/worker/docs restart and final health follow commit/push.

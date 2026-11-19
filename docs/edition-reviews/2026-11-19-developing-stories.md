@@ -58,3 +58,14 @@ relationship to the later resignation; it is not labelled a match.
   serialization and the story contract. Later link mutation leaves the copy intact.
 - Production generation does not call the helper yet. No stored edition changes,
   semantic provider calls or public reader changes; matching acceptance stays open.
+
+## Database history preparation — iteration 2883
+
+- The repository can read the previous seven published same-profile/topic editions
+  directly. Publication, profile, topic and strict cutoff filters precede the SQL
+  limit; creation time does not determine order. Test editions are excluded.
+- An isolated PostgreSQL test covers more than seven valid editions plus newer,
+  equal-time, unpublished, test, other-topic, other-profile and self rows. It
+  verifies exact saved prose, ordering, empty history and invalid cutoff rejection.
+- Generation does not call this loader yet. Semantic matching acceptance and
+  production integration remain open; no live provider or published-edition writes.
