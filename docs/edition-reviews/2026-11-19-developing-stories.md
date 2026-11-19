@@ -196,3 +196,14 @@ relationship to the later resignation; it is not labelled a match.
   ordinary prose survives and the editor result is not mutated.
 - No provider calls, production activation, saved-edition changes or semantic
   acceptance. Full semantic review and production pool/budget admission remain.
+
+## Editor context provenance — iteration 2892
+
+- Candidate input may contain earlier-coverage context from a previous attempt.
+  Prepared orchestration now removes it before attaching this run’s validated
+  predecessor, preventing unsupported context from influencing rewritten prose.
+- All five saved controls inject incorrect inherited context: validated links
+  replace it and unmatched candidates receive none. Unavailable and empty
+  matching controls preserve other candidate fields and leave inputs unchanged.
+- No provider calls, activation or saved-edition changes. Semantic review,
+  production pool/budget admission and generation wiring remain open.

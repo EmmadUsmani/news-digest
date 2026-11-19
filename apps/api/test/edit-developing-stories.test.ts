@@ -58,7 +58,13 @@ for (const item of fixture.cases) {
           publishedAt: item.windowEnd,
           runId: 'offline',
         },
-        candidates: item.stories,
+        candidates: item.stories.map((story) => ({
+          ...story,
+          earlierCoverage: {
+            headline: 'Unvalidated inherited context',
+            summary: 'This must not influence the editor.',
+          },
+        })),
         history: item.history,
         async edit(candidates) {
           assert.equal(calls, 1);
@@ -243,4 +249,53 @@ void test('editor cannot publish its own earlier-coverage relationship when matc
     stories: [{ id: 'current', headline: 'Current reporting' }],
   });
   assert.deepEqual(editorStory, before);
+});
+
+void test('unavailable or empty matching removes inherited editor context without mutating candidates', async () => {
+  const candidates = [
+    {
+      id: 'current',
+      title: 'Current reporting',
+      publisher: 'Original outlet',
+      earlierCoverage: { headline: 'Stale headline', summary: 'Stale summary' },
+    },
+  ];
+  const before = structuredClone(candidates);
+  for (const grouping of [
+    null,
+    {
+      async groupWithResult() {
+        return { status: 'validated' as const, groups: [] };
+      },
+    },
+  ]) {
+    await editDevelopingStories({
+      grouping,
+      target: {
+        topicId: 'tech',
+        publishedAt: '2026-11-19T12:00:00Z',
+        runId: 'offline',
+      },
+      candidates,
+      history: [
+        {
+          editionId: 'previous',
+          publishedAt: '2026-11-18T12:00:00Z',
+          stories: [{ id: 'old', title: 'Earlier reporting', summary: null }],
+        },
+      ],
+      async edit(received) {
+        assert.deepEqual(received, [
+          {
+            id: 'current',
+            title: 'Current reporting',
+            publisher: 'Original outlet',
+          },
+        ]);
+        assert.equal(Object.hasOwn(received[0], 'earlierCoverage'), false);
+        return { stories: [{ id: 'current' }] };
+      },
+    });
+    assert.deepEqual(candidates, before);
+  }
 });

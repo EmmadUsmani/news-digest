@@ -35,16 +35,19 @@ export async function editDevelopingStories<
   );
   const byId = new Map(links.map((link) => [link.storyId, link]));
   const candidates = input.candidates.map((candidate) => {
+    // Context is derived from this run's validated matches, never caller state.
+    const clean = { ...candidate } as T & { earlierCoverage?: EarlierCoverage };
+    delete clean.earlierCoverage;
     const link = byId.get(candidate.id);
     return link
       ? {
-          ...candidate,
+          ...clean,
           earlierCoverage: {
             headline: link.previousHeadline,
             summary: link.previousSummary,
           },
         }
-      : { ...candidate };
+      : clean;
   });
   const result = await input.edit(candidates);
   if (!result) return null;

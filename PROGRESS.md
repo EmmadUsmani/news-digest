@@ -109,3 +109,12 @@
 - Verification: targeted tests 14/14; pnpm format/lint:fix, build and handbook (19 pages/21 diagrams/39 tables) pass. Full pnpm check passes (1,170 unit / 332 integration, four expected skips). Logs `/tmp/2891-*.log`; git diff --check clear.
 - Latest reader returns five topics/25 stories. TASKS and saved review updated; no source or handbook system change. Full semantic review, production pool/budget admission and generation wiring remain open.
 - Next: continue developing-story admission; scheduled missed-story/NBA/Tech review after 15:00 UTC. Commit/push and API/worker/docs restart follow verification.
+
+## 2026-11-19: iteration 2892 — developing editor context provenance
+
+- Clean main at b187cf70; no inherited work. Alerts/health clear; 38 monitored sources healthy, Destructoid inactive; digest-generation zero failures, next scheduled 15:00 UTC.
+- Prepared developing-story editing now removes inherited earlierCoverage before attaching this run’s validated predecessor. Unmatched candidates cannot carry stale context into rewritten prose; other fields and input objects remain intact.
+- All five saved controls inject incorrect inherited context; validated predecessors replace it, unmatched stories discard it. Dedicated unavailable/empty-match controls pass. No provider calls, saved-edition changes or activation.
+- Verification: targeted editor tests 9/9; pnpm format, lint:fix, check (1,171 unit / 332 integration passes, four expected skips), build and handbook (19 pages/21 diagrams/39 tables) pass. Logs /tmp/2892-*.log; git diff --check clear. Latest reader five topics/25 stories.
+- TASKS and saved review updated; no affected source, UI or handbook behavior. Full semantic review, production pool/budget admission and generation wiring remain open; scheduled missed-story/NBA/Tech review after 15:00 UTC.
+- Commit/push and API/worker/docs restart follow verification.
