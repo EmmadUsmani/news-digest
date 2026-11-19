@@ -281,3 +281,9 @@ relationship to the later resignation; it is not labelled a match.
 - Exact boundary controls accept 99,999 and reject 100,000; Unicode, oversized supplemental evidence and historical comparison are covered. Accepted evidence is retained exactly, without truncation or partial requests.
 - Integration with the fixed-selection contract confirms preparation refusal occurs before dispatch and preserves the exact accepted selection, including unmatched stories, without links or validation calls.
 - No provider calls or activation. Saved exact request/cost capture remains open: the matching-only replay inputs contain published prose, not the original complete editorial evidence required for exact rewrite reconstruction. Do not substitute published summaries as source evidence. Semantic review and whole-edition budget admission remain required.
+
+## Iteration 2899 — prepared rewrite orchestration
+
+- Added inactive orchestration through the curation public API: prepare the full request, dispatch once through a caller-supplied LlmPort, parse strict JSON and apply existing current-evidence validation through the atomic fixed-selection contract. Run/topic/model attribution and execution deadline propagate to the port.
+- Offline fake-port controls cover successful matched-only rewriting with retained rationale/unmatched stories; refusal, malformed/fenced JSON, partial output, injected fields, absence-guard rejection and port failure all preserve the exact original selection without retries. Empty matches and oversized evidence cause no dispatch.
+- Generation does not invoke this helper. A future caller must supply the budgeted port after whole-edition admission. No provider calls, activation or semantic acceptance. Exact saved original-evidence request capture, semantic review and combined matching/rewrite admission remain open.

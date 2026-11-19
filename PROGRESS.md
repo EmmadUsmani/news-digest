@@ -174,3 +174,12 @@
 - No provider calls, activation, source/UI changes or affected handbook behavior. Matching replay files contain published prose, not complete original editorial evidence; exact rewrite capture must not substitute summaries as source evidence. Saved request/cost capture, semantic review and whole-edition admission remain open.
 - Verification: pnpm format, lint:fix, check (1,181 unit / 332 integration pass, four expected skips), build and handbook (19 pages/21 diagrams/39 tables) pass; git diff --check clear. Logs /tmp/2898-*.log.
 - TASKS and saved review updated; no changed handbook behavior. Commit/push and API/worker/docs restart follow verification; scheduled review remains due after 15:00 UTC.
+
+## 2026-11-19: iteration 2899 — prepared atomic rewrite orchestration
+
+- Clean main at 81a41d74; no inherited work. Alerts/health and active sources pass. Digest-generation queue zero failures; next scheduled 15:00 UTC. Reader five topics/25 stories.
+- Added inactive orchestration across the curation public boundary: bounded request, one attributed LlmPort dispatch with execution context, strict JSON parsing and current-evidence validation through the atomic fixed-selection contract.
+- Three fake-port tests cover matched-only success/metadata preservation, refusal/malformed output/injected fields/guard or port errors without retry, and no dispatch for empty matches or oversized evidence. No provider calls or generation activation.
+- Verification: pnpm format, lint:fix, typecheck, build and handbook (19 pages/21 diagrams/39 tables) pass; full pnpm check passes (1,184 unit / 332 integration, four expected skips). Logs /tmp/2899-*.log.
+- Exact saved original-evidence requests, semantic review and whole-edition budget admission remain open. No source/UI or handbook behavior changes; scheduled missed-story/NBA/Tech review remains after 15:00 UTC.
+- Final git diff --check clear. Commit/push and API/worker/docs restart follow verification; no feature activation.
