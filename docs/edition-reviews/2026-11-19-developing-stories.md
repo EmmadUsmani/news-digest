@@ -261,3 +261,10 @@ relationship to the later resignation; it is not labelled a match.
 - No provider implementation, generation activation or paid calls. Next: exact
   request capture with original cluster evidence, factual-guard integration,
   semantic review and combined whole-edition budget admission.
+
+## Iteration 2896 — prepared rewrite request
+
+- Added a pure request builder for the fixed-selection rewrite contract, with configured model, run/topic attribution, distinct `developing-rewrite` purpose and 800 output tokens per matched story (maximum 8,000). No dispatch or retry path.
+- Explicitly projects selected prose, original current cluster evidence and validated earlier headline/summary. Inherited evidence history and snapshot link IDs are excluded; original evidence is retained without truncation.
+- Instructions require exact ordered IDs, current-evidence factual support and atomic refusal when an update cannot be supported. Tests cover evidence isolation, model mutation, ten-story order/output bounds and invalid selection preflight. These are synthetic transport controls, not semantic acceptance.
+- Saved exact request capture/reservation receipts, existing factual guards, semantic review and combined edition-budget admission remain required before activation. No provider calls or production wiring.

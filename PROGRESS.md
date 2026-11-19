@@ -147,3 +147,12 @@
 - Initial full check found unsafe unknown-array narrowing; fixed explicitly. Verification: pnpm format, lint:fix, check (1,175 unit / 332 integration passes, four expected skips), build and final API rebuild pass; targeted 3/3 and handbook (19 pages/21 diagrams/39 tables) pass. Logs /tmp/2895-*.log.
 - TASKS and saved review updated. No provider calls, activation, source/UI changes or affected handbook behavior. Exact provider requests, existing factual-guard integration, semantic review and whole-edition budget admission remain next.
 - Latest reader five topics/25 stories. Commit/push and API/worker/docs restart follow verification. Scheduled missed-story/NBA/Tech review remains after 15:00 UTC.
+
+## 2026-11-19: iteration 2896 — bounded developing rewrite request
+
+- Clean main at 339a8579; no inherited work. Alerts/health pass; active sources healthy, Destructoid inactive. Digest queue has zero failures, next scheduled run 15:00 UTC.
+- Added inactive pure rewrite request builder: configured model/run/topic, distinct purpose, 800 output tokens per match (maximum 8,000), fixed ordered selections and explicit original cluster evidence. Historical comparison is isolated; inherited history/link metadata excluded.
+- Two offline request tests pass: current/history isolation, mutation, ten-story bounds/order and invalid preflight. Synthetic controls establish no semantic acceptance; no provider calls or activation.
+- Saved exact request receipts/cost bounds, existing factual-guard integration, semantic review and whole-edition admission remain next. Daily missed-story/NBA/Tech acceptance remains after 15:00 UTC.
+- Verification: targeted tests 2/2; pnpm format, lint:fix, check (1,177 unit / 332 integration pass, four expected skips), build and handbook (19 pages/21 diagrams/39 tables) pass. git diff --check clear. Latest reader five topics/25 stories; no changed source/UI/handbook behavior.
+- TASKS and saved review updated. Commit/push and API/worker/docs restart follow verification. Logs /tmp/2896-*.log.
