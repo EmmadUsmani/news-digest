@@ -72,7 +72,7 @@ article-template, AsciiDoc document bodies or MediaWiki prose for submissions wi
   candidates for the highest-importance scored events after successful grouping;
   Enabled on this VM; failed grouping or triage keeps the usual ranking.
   Private snapshots retain the prepared editor prompt and unselected reports.
-  Per-topic grouping saves input IDs, returned merges and success or refusal.
+  Per-topic grouping saves input IDs and URLs, returned merges and success or refusal.
   Enabled Tech admission retains reserved, displaced and admitted event IDs
   and reservation scores. Public reader responses omit private review fields.
 - **Story composition:** the editor keeps separate developments in separate

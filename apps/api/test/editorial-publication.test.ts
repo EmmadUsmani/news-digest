@@ -516,6 +516,13 @@ void test('opted-in publication persists grouped coverage in one edited story sl
   assert.deepEqual(topic.editorial?.storyGrouping, {
     topicId: topic.id,
     inputIds: ['00000000-0000-4000-8000-000000000098', id],
+    inputArticles: [
+      {
+        id: '00000000-0000-4000-8000-000000000098',
+        url: 'https://example.org/support',
+      },
+      { id, url: candidate.url },
+    ],
     result: {
       status: 'validated',
       groups: [['00000000-0000-4000-8000-000000000098', id]],

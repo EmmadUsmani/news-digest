@@ -188,6 +188,33 @@ export function traceReferenceStories(
             selectedClusters,
             ...(snapshot
               ? {
+                  groupingInput: (() => {
+                    const grouping = savedTopic?.editorial?.storyGrouping;
+                    if (
+                      !grouping?.inputArticles ||
+                      grouping.topicId !== topic?.id
+                    )
+                      return null;
+                    const articles = grouping.inputArticles;
+                    if (
+                      articles.length !== grouping.inputIds.length ||
+                      new Set(articles.map((article) => article.id)).size !==
+                        articles.length ||
+                      articles.some(
+                        (article) => !grouping.inputIds.includes(article.id),
+                      )
+                    )
+                      return null;
+                    const matchingIds = articles
+                      .filter((article) =>
+                        identityUrls.includes(canonicalUrl(article.url) ?? ''),
+                      )
+                      .map((article) => article.id);
+                    return {
+                      matchingIds,
+                      result: grouping.result,
+                    };
+                  })(),
                   editorInput: {
                     available: input !== null,
                     // Supplemental evidence in old prompts often lacks URLs. No

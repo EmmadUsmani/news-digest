@@ -282,6 +282,61 @@ void test('optional saved snapshot traces editor admission without inferring col
       },
     ],
   };
+  const grouping = {
+    topicId: id,
+    inputIds: [id, droppedId],
+    inputArticles: [
+      { id, url: 'https://example.com/lead' },
+      { id: droppedId, url: 'https://example.com/other' },
+    ],
+    result: { status: 'validated', groups: [[id, droppedId]] },
+  };
+  const groupedSnapshot = (storyGrouping: unknown) => ({
+    ...snapshot,
+    topics: [
+      {
+        ...snapshot.topics[0],
+        editorial: { ...snapshot.topics[0].editorial, storyGrouping },
+      },
+    ],
+  });
+  const grouped = traceReferenceStories(
+    capture,
+    edition,
+    groupedSnapshot(grouping),
+  ).feeds[0].stories!;
+  assert.deepEqual(grouped[2].groupingInput, {
+    matchingIds: [droppedId],
+    result: grouping.result,
+  });
+  assert.equal(grouped[2].status, 'needs-event-review');
+  const unavailable = { status: 'unavailable', reason: 'no-result' };
+  assert.deepEqual(
+    traceReferenceStories(
+      capture,
+      edition,
+      groupedSnapshot({ ...grouping, result: unavailable }),
+    ).feeds[0].stories![2].groupingInput,
+    {
+      matchingIds: [droppedId],
+      result: unavailable,
+    },
+  );
+  for (const invalid of [
+    { ...grouping, inputArticles: undefined },
+    { ...grouping, topicId: droppedId },
+    {
+      ...grouping,
+      inputArticles: [grouping.inputArticles[0], grouping.inputArticles[0]],
+    },
+    { ...grouping, inputIds: [id, 'unknown'] },
+  ]) {
+    assert.equal(
+      traceReferenceStories(capture, edition, groupedSnapshot(invalid)).feeds[0]
+        .stories![2].groupingInput,
+      null,
+    );
+  }
   const before = JSON.stringify({ capture, edition, snapshot });
   const report = traceReferenceStories(capture, edition, snapshot);
   const stories = report.feeds[0].stories!;

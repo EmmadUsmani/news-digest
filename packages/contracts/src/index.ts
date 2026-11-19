@@ -302,6 +302,16 @@ export const digestPreviewSchema = z.object({
             .object({
               topicId: z.string().min(1),
               inputIds: z.array(z.string().min(1).max(200)).min(2).max(40),
+              inputArticles: z
+                .array(
+                  z.object({
+                    id: z.string().min(1).max(200),
+                    url: z.string().url(),
+                  }),
+                )
+                .min(2)
+                .max(40)
+                .optional(),
               result: z.discriminatedUnion('status', [
                 z.object({
                   status: z.literal('validated'),

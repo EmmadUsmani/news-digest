@@ -132,3 +132,14 @@
 - pnpm format/lint:fix and final pnpm check pass: 1,210 unit tests/332 integration passes/four expected skips; pnpm build passes. Handbook passes (19 pages/39 tables; affected diagram rendered) after trimming the page. Initial direct publication invocation hit the isolation guard; final disposable-container run passes after correcting the new assertion's expected input order. Lint sorting required a formatting correction.
 - Live latest edition remains 7a747d9c, five topics/25 real stories, private grouping fields absent; initial anonymous localhost read hit 429, standard explicit local-probe identity passes. Logs /tmp/2952-*.log.
 - Verified diff clean; commit/push and API/worker restart follow. Next: inspect the next scheduled snapshot's grouping evidence, resolve remaining Nov 19 memberships without paid replay, then finish five-topic recall/causes and three reviews before the measured root-cause fix.
+
+## 2026-11-19: iteration 2953 — preserve grouping input URL identities
+
+- Clean main at 09d8843d; no inherited work. Initial alerts clear; 38 sources/14 monitored services healthy, digest queue zero failures.
+- Future private per-topic grouping observations retain exact input article IDs and URLs, including reports absent from the editor prompt. Missing input lookups omit the optional identity map without changing grouping/selection.
+- Offline reference tracing joins canonical reference/publisher URLs to saved input IDs and retains validated/refused outcomes; absent, cross-topic, duplicate or inconsistent maps remain unknown. No provider calls, paid replay or historical backfill.
+- Publication checks pin both saved identities and public-field removal; offline trace checks cover canonical joins, refusal, legacy snapshots and invalid maps. Targeted trace 6/6 passes after rebuilding contracts (initial stale build stripped the new field).
+- pnpm format/lint:fix run; pnpm build and affected handbook check pass (19 pages/one diagram/39 tables). Full pnpm check passes: 1,210 unit tests/332 integration passes/four expected skips; logs /tmp/2953-*.log. No diagrams or UI changed.
+- Live latest edition 7a747d9c still serves five topics/25 real stories with private grouping data absent. Incorrect initial queue alias rejected; corrected digest-generation check passes.
+- Updated daily review, TASKS and pipeline handbook. Nov 19 semantic memberships/five-topic event recall remain unresolved; next use the scheduled identity capture to complete future review joins, then three reviews and measured root-cause fix.
+- Final diff/checks pass; commit/push and API/worker restart follow. No production data edits or source configuration changes.

@@ -509,7 +509,21 @@ export class PostgresPreviewRepository
                   : await storyAdmission({
                       grouping: editorialServices.grouping,
                       observeGrouping: (observation) => {
-                        editorial.storyGrouping = observation;
+                        const inputArticles = observation.inputIds.flatMap(
+                          (id) => {
+                            const article = shortlist.find(
+                              (item) => item.id === id,
+                            );
+                            return article ? [{ id, url: article.url }] : [];
+                          },
+                        );
+                        editorial.storyGrouping = {
+                          ...observation,
+                          ...(inputArticles.length ===
+                          observation.inputIds.length
+                            ? { inputArticles }
+                            : {}),
+                        };
                       },
                       topicId: topic.id,
                       tech: usesTechEditorialContext(topic.name),
