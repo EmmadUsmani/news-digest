@@ -3,6 +3,7 @@ import {
   type DevelopingRequestCaptures,
 } from '../../apps/api/src/modules/curation/application/developing-captured-requests';
 import { developingEditionBudget } from './developing-edition-budget';
+import { protectedContextPlan } from './protected-context-plan';
 import { protectedWorkManifest } from './protected-work-manifest';
 type BudgetInput = Parameters<typeof developingEditionBudget>[0];
 
@@ -91,5 +92,35 @@ export function developingProtectedCapturedPlan(
     ...result,
     status:
       obligations.status === 'input-limit' ? 'input-limit' : result.status,
+  };
+}
+
+// Derive supplied-context bounds before the same offline budget gate. Neither
+// caller-declared inventory nor these size bounds establish runtime admission.
+export async function developingContextCapturedPlan(
+  input: DevelopingRequestCaptures & {
+    protectedContexts: Pick<
+      Parameters<typeof protectedContextPlan>[0],
+      'expected' | 'contexts'
+    >;
+    budget: Omit<
+      BudgetInput,
+      'requests' | 'protectedMicros' | 'protectedModelMicros'
+    >;
+  },
+) {
+  if ('protectedRequests' in input || 'protectedInventory' in input)
+    throw new Error('Ambiguous protected work inputs');
+  const inventory = await protectedContextPlan({
+    ...input.protectedContexts,
+    editionId: input.editionId,
+    topicIds: input.topicIds,
+  });
+  return {
+    ...developingProtectedCapturedPlan({
+      ...input,
+      protectedRequests: inventory.requests,
+    }),
+    protectedSlotCount: inventory.slotCount,
   };
 }

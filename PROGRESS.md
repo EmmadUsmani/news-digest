@@ -170,3 +170,13 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build (logs /tmp/3023-{target,format,lint,check,build}.log). Final results and reader/service gates follow.
 - Full checks/build pass: 1,262 unit tests, 335 integration passes/four expected skips; typecheck/lint/format/boundaries pass. Reader gate verifies real Nov 19 content: 25 stories/22 posts. Diff clean; commit/push and API/worker restart follow.
 - Next: complete dynamic morning inventory/admission and semantic acceptance; Nov 20–22 recall reviews await scheduled editions.
+
+## 2026-11-20: iteration 3024 — derive protected bounds from supplied contexts
+
+- Clean main at e4a9b2f2; no inherited work. Alerts clear, /healthz healthy, API/worker active. Nov 20 edition not due.
+- Added offline context composition for article/social triage, topic/joint grouping, story and social editors. Bounds come from production request builders and pass declared-inventory validation before feature costing.
+- Zero-call contexts still require edition/topic coverage; missing, duplicate, unexpected and foreign contexts refuse. Mixed context/inventory/flat request inputs refuse. Caller inputs remain unchanged.
+- Targeted context and captured-plan tests pass (11), including editor repairs/fallback and a protected-cost budget refusal. No provider calls or production activation; dynamic completeness, actual admission and semantic acceptance remain open.
+- Verification: pnpm exec tsx --test apps/api/test/protected-context-plan.test.ts apps/api/test/developing-captured-plan.test.ts; pnpm format; pnpm lint:fix; pnpm check; pnpm build. Logs /tmp/3024-{target,format,lint,check,build}.log. Final results below.
+- No source/schema/UI/handbook behavior change. Next: complete dynamic morning admission; review Nov 20–22 after publication. Developing stories stays inactive.
+- Full checks/build pass: 1,265 unit tests; 335 integration passes/four expected skips; typecheck/lint/format/boundaries pass. Reader gate verifies real Nov 19 content: 25 stories/22 posts. Diff clean; commit/push and API/worker restart follow.

@@ -13,6 +13,7 @@ import { test } from 'node:test';
 import { checkDevelopingCapturedPlan } from '../../../scripts/check-developing-captured-plan';
 import {
   developingCapturedPlan,
+  developingContextCapturedPlan,
   developingInventoryCapturedPlan,
   developingProtectedCapturedPlan,
 } from '../../../scripts/lib/developing-captured-plan';
@@ -345,4 +346,57 @@ void test('file inventory refusal preserves existing evidence and never falls ba
   } finally {
     rmSync(directory, { recursive: true, force: true });
   }
+});
+
+void test('context-derived protected bounds feed the captured feature budget gate', async () => {
+  const context: Parameters<
+    typeof developingContextCapturedPlan
+  >[0]['protectedContexts'] = {
+    expected: [
+      { stage: 'article-triage', topicIds: ['a'], contextId: 'articles' },
+    ],
+    contexts: [
+      {
+        stage: 'triage',
+        contextId: 'articles',
+        input: {
+          model: request.model,
+          kind: 'article',
+          args: [
+            { id: 'a', name: 'Tech', description: '', guidance: '' },
+            [{ id: 'item', title: 'Launch', sources: ['Publisher'] }],
+            'edition',
+          ],
+        },
+      },
+    ],
+  };
+  const {
+    protectedMicros: _shared,
+    protectedModelMicros: _models,
+    ...budget
+  } = plan.budget;
+  const input = { ...plan, budget, protectedContexts: context };
+  const before = structuredClone(input);
+  const result = await developingContextCapturedPlan(input);
+  assert.equal(result.protectedSlotCount, 1);
+  assert.equal(result.protectedRequestCount, 2);
+  assert.ok(result.protectedMicros > 0);
+  assert.equal(result.status, 'shared-budget-refused');
+  assert.deepEqual(input, before);
+  await assert.rejects(
+    developingContextCapturedPlan({
+      ...input,
+      protectedContexts: { ...context, contexts: [] },
+    }),
+    /Missing/,
+  );
+  await assert.rejects(
+    developingContextCapturedPlan({ ...input, ...{ protectedRequests: [] } }),
+    /Ambiguous/,
+  );
+  await assert.rejects(
+    developingContextCapturedPlan({ ...input, ...{ protectedInventory: {} } }),
+    /Ambiguous/,
+  );
 });

@@ -72,6 +72,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 3024: Offline context-derived protected plan now composes all four production request estimators, validates declared inventory and feeds captured feature budget preflight. Missing/foreign contexts and ambiguous inputs refuse; no runtime admission or activation.
+
 - [x] 3023: Offline captured-plan CLI validates declared protected stage/topic/context inventory before deriving costs; missing contexts and ambiguous flat-plus-inventory inputs refuse without replacing evidence. Dynamic completeness and semantic acceptance remain open; developing stories stays inactive.
 
 - [x] 3022: Offline protected inventory binds request purposes to each stage and distinguishes single-topic from joint grouping; substituted/unknown purposes refuse. Complete morning admission and semantic acceptance remain open; developing stories stays inactive.
