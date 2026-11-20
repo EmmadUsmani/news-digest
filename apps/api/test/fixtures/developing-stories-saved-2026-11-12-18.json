@@ -1,5 +1,5 @@
 {
-  "provenance": "Exact saved published snapshot evidence exported by iteration 2877; manual agent labels, not model responses or independent acceptance. Only reviewedStoryId is labelled in each case; other current stories are unreviewed. Iteration 2902 adds Nov 18 Gaming and U.S. cases from the iteration 2901 export, with exact bounded original editorial evidence and immutable prompt hashes; no model matching or generated rewrites.",
+  "provenance": "Exact saved published snapshot evidence exported by iteration 2877; manual agent labels, not model responses or independent acceptance. Per-case reviews identify labelled selections; otherwise only reviewedStoryId is labelled. Other selections are unreviewed. Iteration 2902 adds Nov 18 Gaming and U.S. cases from the iteration 2901 export, with exact bounded original editorial evidence and immutable prompt hashes; no model matching or generated rewrites. Iteration 3054 replaces the unsupported Nov 17 chip-policy nonmatch with four reviewed explicit nonmatches; chip-policy continuity is unresolved. Per-case reviews supersede the legacy single-story label.",
   "cases": [
     {
       "editionId": "93aefc45-33d7-4639-ad53-78e316a40f14",
@@ -1286,8 +1286,26 @@
           ]
         }
       ],
-      "reviewedStoryId": "9035014e-9153-4f61-98f7-392dfbcec7d9",
-      "expectedPredecessors": []
+      "reviewedStoryId": "9c7e4cb7-5793-476d-8b7e-f8330e920bf9",
+      "expectedPredecessors": [],
+      "reviews": [
+        {
+          "storyId": "9c7e4cb7-5793-476d-8b7e-f8330e920bf9",
+          "expectedPredecessors": []
+        },
+        {
+          "storyId": "3fe26e31-cf37-4e38-b139-aeae61404d00",
+          "expectedPredecessors": []
+        },
+        {
+          "storyId": "b6b8d342-b240-4c74-9667-cdadb17bc45d",
+          "expectedPredecessors": []
+        },
+        {
+          "storyId": "b03cbe03-4be2-4910-a06d-bbea40028526",
+          "expectedPredecessors": []
+        }
+      ]
     },
     {
       "editionId": "cd357e84-9383-4e10-b60c-c8318da4b314",

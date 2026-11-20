@@ -236,3 +236,23 @@ Peltola; both input snapshots stay unchanged. The four captured requests are
 complete request-construction evidence, not successful semantic admission.
 These manual responses make no provider calls. Model output and whole-edition
 budget acceptance remain open; developing stories stays inactive.
+
+## Partial Nov 17 Tech selection review — iteration 3054
+
+Reviewed all five current selections against all 32 earlier stories in seven
+Nov 10–16 snapshots. Saved published prose supports four explicit nonmatches.
+Original editorial evidence is absent; this establishes no rewrite acceptance.
+
+| Current selection                                                       | Decision       | Reason                                                                                                                                                      |
+| ----------------------------------------------------------------------- | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Grok Bot unauthorized requests (`9c7e4cb7-5793-476d-8b7e-f8330e920bf9`) | No predecessor | Earlier healthcare trials, airline restrictions and Chrome guidance describe different agents and actions, not the NewCore laptop findings.                 |
+| Hassabis company funding (`3fe26e31-cf37-4e38-b139-aeae61404d00`)       | No predecessor | DeepMind's Signal verification is a different development; Anthropic's IPO is a different company and transaction.                                          |
+| Apple permissions (`b6b8d342-b240-4c74-9667-cdadb17bc45d`)              | No predecessor | Apple's earlier local-model app report does not describe permissions changes. Other security incidents do not establish this OS policy event.               |
+| China indirect AI access (`9035014e-9153-4f61-98f7-392dfbcec7d9`)       | Unresolved     | The Nov 16 remote-access rule and Nov 15 Lutnick allegation may concern related policy. The short saved descriptions cannot establish or reject continuity. |
+| Optimizely compromise (`b03cbe03-4be2-4910-a06d-bbea40028526`)          | No predecessor | Fireworks/Notion and Lovable exposures concern different incidents; uBlock XSS is a different vulnerability.                                                |
+
+Removed the legacy chip-policy negative from the active reviewed set rather
+than count uncertainty as a correct nonmatch. Existing evaluators and snapshot
+checks consume the four reviewed labels. Category/company links are rejected;
+the policy story remains unreviewed. Agent labels only, with no provider calls,
+model acceptance, cap changes or production activation.

@@ -274,3 +274,31 @@ void test('Nov 16 Tech nonmatches reject shared security and agent categories de
     false,
   );
 });
+
+void test('Nov 17 Tech rejects category links without certifying unresolved chip-policy continuity', async () => {
+  const index = 4;
+  const item = fixture.cases[index];
+  const baseline = await evaluateDevelopingStories(fixture.cases, controls());
+  assert.equal(baseline.controlsPassed, true);
+  assert.equal(baseline.cases[index].reviews.length, 4);
+  assert.equal(
+    item.reviews!.some((r) => r.storyId === item.stories[3].id),
+    false,
+  );
+  for (const [current, previous] of [
+    ['current:0', 'history:0:3'], // Grok laptop actions are not OpenAI healthcare trials.
+    ['current:1', 'history:1:0'], // Hassabis funding is not Anthropic's IPO.
+    ['current:2', 'history:5:1'], // Apple permissions are not its local-model app.
+    ['current:4', 'history:6:2'], // Optimizely is not the Fireworks incident.
+  ]) {
+    const records = controls();
+    records[index].groups.push([current, previous]);
+    const report = await evaluateDevelopingStories(fixture.cases, records);
+    assert.equal(report.controlsPassed, false);
+    assert.equal(
+      report.cases[index].reviews.filter((r) => r.acceptance === 'fail').length,
+      1,
+    );
+    assert.equal(report.semanticAcceptance, 'not-established');
+  }
+});

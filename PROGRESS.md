@@ -184,3 +184,15 @@ Earlier entries: [pre-3038 archive](docs/progress-archive/2026-11-20-pre-3038.md
 - Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build (/tmp/3053-*.log); final results follow.
 - No UI/source/schema/runtime changes. Next: Nov 20 scheduled review after 15:00 UTC, including per-topic event recall and miss causes.
 - Full check/build pass: 1,309 unit and 336 integration passes/four expected skips; typecheck, lint, formatting and boundaries green. Commit/push and API/worker restart follow.
+
+## 2026-11-20: iteration 3054 — correct Nov 17 developing-story reference
+
+- Clean main at b5cd2df9; no inherited work. Alerts clear; healthz database/Redis pass; API/worker active.
+- Reviewed all five Nov 17 Tech selections against 32 earlier stories; four explicit nonmatches added.
+- Replaced unsupported chip-policy negative with unresolved status: saved policy descriptions cannot establish or reject continuity.
+- Existing replay/snapshot checks consume the four labels; false agent, funding, Apple and compromise links fail. Manual labels only; production inactive.
+- Targeted: pnpm exec tsx --test apps/api/test/evaluate-developing-stories.test.ts apps/api/test/developing-saved-evidence.test.ts — 38 pass.
+- Reader: pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-19T15:00:00Z — five topics, 25 real stories/22 posts pass.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build (/tmp/3054-*.log); final results below.
+- No provider calls, cap, UI, source, schema or runtime changes. Next: Nov 20 scheduled review after 15:00 UTC, including per-topic event recall and miss causes.
+- Full check/build pass: 1,313 unit and 336 integration passes/four expected skips; typecheck, lint, formatting and boundaries green. Commit/push and API/worker restart follow.
