@@ -378,3 +378,9 @@ relationship to the later resignation; it is not labelled a match.
 - Added an inactive coordinator that stages topic enrichment and returns it only when every eligible topic succeeds. A refusal restores every original selected array and stops subsequent dispatch. Duplicate/blank topic IDs and mixed run IDs refuse before matching.
 - Offline controls cover valid absence, fallback selection, invalid identities, and a successful rewrite discarded after a later matching refusal. Existing production generation remains unwired.
 - Atomicity covers returned stories only: completed provider charges are not rolled back. Whole-edition reservation, saved-edition semantic acceptance and activation remain open. No provider calls or UI/source/schema/handbook changes.
+
+## Iteration 2998 — validate the complete edition before dispatch
+
+- Extracted the existing topic input checks into a shared pure preparation function. The inactive edition coordinator runs it for every topic before matching any topic. Missing/duplicate evidence, excess history capacity and unavailable matching in a later topic now refuse without earlier dispatch.
+- Offline controls assert zero matching calls and original array identity for each refusal; the earlier successful-rewrite/later-runtime-refusal control still exercises output rollback. Ineligible topics remain successful no-ops.
+- This avoids preventable partial charges from invalid inputs; it does not reserve the whole budget or establish semantic acceptance. Generation remains unwired; no provider calls.

@@ -102,3 +102,12 @@
 - pnpm format, pnpm lint:fix, full pnpm check and pnpm build pass: 1,222 unit tests, 333 integration passes/four expected skips. Logs /tmp/2997-{target,format,lint,check,build}.log. No provider calls or UI/source/schema/handbook changes.
 - Live latest 7a747d9c retains five topics/25 real stories/22 posts. Updated TASKS and developing evidence. Final diff check, commit/push and API/worker restart follow.
 - Next: whole-edition budget admission and semantic acceptance; Nov 20–22 missed-event recall reviews after scheduled editions. Today's evaluation commit is already used.
+
+## 2026-11-20: iteration 2998 — validate every developing topic before spending
+
+- Clean main at 90ef01e7; no inherited work. Alerts clear, health database/Redis pass; enabled sources collecting, Destructoid inactive. Digest queue has zero failures; next edition Nov 20 15:00 UTC.
+- Shared pure topic preparation now runs across the entire inactive edition before matching starts. Missing/duplicate evidence, excess history and unavailable matching in later topics refuse with zero earlier matching dispatches and preserve every accepted array.
+- Ten targeted tests pass, including the existing successful-rewrite/later-runtime-refusal rollback control. No provider calls or activation; whole-edition budget reservation and semantic acceptance remain open.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build; logs /tmp/2998-{target,format,lint,check,build}.log. All pass: 1,223 unit tests, 333 integration passes/four expected skips; build passes.
+- Live reader probe retains edition 7a747d9c, five topics/25 stories/22 posts. Default local rate-limit bucket returns 429; explicit local-probe forwarded visitor succeeds. No UI/source/schema/handbook changes.
+- Next: whole-edition budget admission and semantic acceptance; Nov 20–22 recall reviews after scheduled editions. Today's evaluation commit already used.

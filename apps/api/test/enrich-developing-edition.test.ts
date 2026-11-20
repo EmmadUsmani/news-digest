@@ -154,10 +154,60 @@ void test('later matching refusal discards an earlier successful rewrite', async
   const successful = await enrichDevelopingEdition([first]);
   assert.equal(successful.status, 'completed');
   assert.equal(successful.topics[0].stories[0].title, 'Updated');
-  const second = { ...topic('nba'), grouping: null };
+  const second = {
+    ...topic('nba'),
+    grouping: {
+      async groupWithResult() {
+        return { status: 'unavailable' as const };
+      },
+    },
+  };
   const refused = await enrichDevelopingEdition([first, second]);
   assert.equal(refused.status, 'unchanged');
   assert.equal(rewrites, 2);
   assert.equal(refused.topics[0].stories, first.selected);
   assert.equal(refused.topics[1].stories, second.selected);
+});
+
+void test('invalid later topic refuses the edition before any matching dispatch', async () => {
+  let calls = 0;
+  const first = {
+    ...topic('tech'),
+    grouping: {
+      async groupWithResult() {
+        calls++;
+        return { status: 'validated' as const, groups: [] };
+      },
+    },
+  };
+  const missing = { ...topic('nba'), evidence: [] };
+  const duplicate = {
+    ...topic('nba'),
+    selected: [...missing.selected, ...missing.selected],
+  };
+  const overCapacity = {
+    ...topic('nba'),
+    history: [
+      {
+        ...topic('nba').history[0],
+        stories: Array.from(
+          { length: 40 },
+          () => topic('nba').history[0].stories[0],
+        ),
+      },
+    ],
+  };
+  for (const [invalid, reason] of [
+    [missing, 'ambiguous-or-missing-evidence'],
+    [duplicate, 'ambiguous-or-missing-evidence'],
+    [overCapacity, 'history-capacity'],
+    [{ ...topic('nba'), grouping: null }, 'matching-unavailable'],
+  ] as const) {
+    const result = await enrichDevelopingEdition([first, invalid]);
+    assert.equal(result.status, 'unchanged');
+    assert.equal(result.reason, reason);
+    assert.equal(result.topics[0].stories, first.selected);
+    assert.equal(result.topics[1].stories, invalid.selected);
+  }
+  assert.equal(calls, 0);
 });

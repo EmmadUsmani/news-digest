@@ -1,4 +1,7 @@
-import { enrichSelectedDevelopingStories } from './enrich-selected-developing-stories';
+import {
+  enrichSelectedDevelopingStories,
+  prepareSelectedDevelopingStories,
+} from './enrich-selected-developing-stories';
 
 type TopicInput = Parameters<typeof enrichSelectedDevelopingStories>[0];
 
@@ -21,6 +24,18 @@ export async function enrichDevelopingEdition<T extends TopicInput>(
     new Set(topics.map((topic) => topic.runId)).size > 1
   ) {
     return unchanged('invalid-edition');
+  }
+  for (const topic of topics) {
+    const preparation = prepareSelectedDevelopingStories(topic);
+    if (
+      ![
+        'ready',
+        'non-ai-selection',
+        'empty-selection',
+        'empty-history',
+      ].includes(preparation)
+    )
+      return unchanged(preparation);
   }
   const staged = [];
   for (const topic of topics) {
