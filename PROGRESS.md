@@ -151,3 +151,13 @@
 - Live reader 7a747d9c retains five topics/25 stories/22 posts. Detailed failed-job query correctly unavailable in public mode; pnpm obs jobs --check confirms scheduled queue status. No UI/source/schema/handbook changes.
 - Next: runtime exact-request capture composition and complete protected-obligation derivation, then saved-edition semantic acceptance; Nov 20–22 recall reviews follow scheduled editions. Developing enrichment remains inactive.
 - Final pnpm check passes: 1,245 unit tests, 335 integration passes/four expected skips; production build passes. Formatting/lint/boundaries/typechecks pass; git diff --check clean. Commit/push and API/worker restart follow.
+
+## 2026-11-20: iteration 3009 — connect capture coverage to runtime admission
+
+- Clean main at b9d69165; no inherited work. Alerts/health pass; enabled sources healthy, Destructoid inactive. Digest queue zero failures; next run Nov 20 15:00 UTC.
+- Extracted shared edition/topic/stage/request coverage validation from the offline budget checker and connected it to inactive atomic reserved execution. Supplied capture requests are copied before admission; offline and runtime use identical checks.
+- Runtime refuses missing topic/stage coverage, unavailable captures, stage substitution and foreign additional requests before ledger/provider/execution work. Complete synthetic matching/rewrite dispatch settles both holds and releases protected work at cleanup.
+- Targeted offline tests: 24 pass. No provider calls, cap changes or activation; no UI/source/schema/handbook changes.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build. Logs /tmp/3009-{target,format,lint,check,build}.log; final results below.
+- Next: derive captures from actual edition execution and complete protected obligations, then saved semantic/whole-edition acceptance. Supplied capture validation alone does not establish completeness of protected work. Nov 20–22 recall reviews await scheduled editions.
+- Final checks pass: 1,246 unit tests, 335 integration passes/four expected skips, production build; diff check clean. Live reader 7a747d9c retains five topics/25 stories/22 posts. Commit/push and API/worker restart follow.

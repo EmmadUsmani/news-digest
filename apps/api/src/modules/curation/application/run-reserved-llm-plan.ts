@@ -1,6 +1,10 @@
 import type { LlmPort, LlmRequest } from '../domain/llm.port';
 import type { LlmLedger } from '../domain/llm-ledger.port';
 import { BudgetedLlm } from './budgeted-llm';
+import {
+  developingCapturedRequests,
+  type DevelopingRequestCaptures,
+} from './developing-captured-requests';
 import { reserveLlmPlan } from './reserved-llm-plan';
 
 // Inactive composition: admit before constructing edition services, and finish
@@ -45,4 +49,28 @@ export async function runReservedLlmPlan<T>(input: {
   }
   await plan.releaseUnused();
   return { status: 'completed', value };
+}
+
+// Prepared only: supplied protected obligations still need complete derivation.
+// Invalid captures must fail before reserving funds or constructing services.
+export async function runCapturedDevelopingLlmPlan<T>(input: {
+  captures: DevelopingRequestCaptures;
+  ledger: LlmLedger;
+  provider: LlmPort;
+  protectedRequests: readonly LlmRequest[];
+  execute: (llm: BudgetedLlm) => Promise<T>;
+}): Promise<
+  { status: 'admission-refused' } | { status: 'completed'; value: T }
+> {
+  let requests: LlmRequest[];
+  try {
+    requests = developingCapturedRequests(input.captures);
+  } catch {
+    return { status: 'admission-refused' };
+  }
+  return runReservedLlmPlan({
+    ...input,
+    editionId: input.captures.editionId,
+    requests,
+  });
 }

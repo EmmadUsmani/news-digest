@@ -3,7 +3,10 @@ import { test } from 'node:test';
 
 import { BudgetedLlm } from '../src/modules/curation/application/budgeted-llm';
 import { reserveLlmPlan } from '../src/modules/curation/application/reserved-llm-plan';
-import { runReservedLlmPlan } from '../src/modules/curation/application/run-reserved-llm-plan';
+import {
+  runCapturedDevelopingLlmPlan,
+  runReservedLlmPlan,
+} from '../src/modules/curation/application/run-reserved-llm-plan';
 import {
   type LlmPort,
   type LlmRequest,
@@ -607,4 +610,61 @@ void test('edition scope requires an explicit nonblank expected edition', async 
     );
     assert.deepEqual(h.counts(), { batches: 0, dispatches: 0 });
   }
+});
+
+void test('runtime capture admission rejects incomplete plans before reservation or execution', async () => {
+  const capture = (purpose: string) => ({
+    editionId: 'offline',
+    topicId: 'tech',
+    status: 'request-ready',
+    request: { ...request, purpose },
+  });
+  const captures = {
+    editionId: 'offline',
+    topicIds: ['tech'],
+    matching: [capture('story-grouping-v3')],
+    rewrites: [capture('developing-rewrite')],
+    additionalRequests: [],
+  };
+  for (const invalid of [
+    { ...captures, rewrites: [] },
+    { ...captures, matching: captures.rewrites },
+    { ...captures, topicIds: ['tech', 'nba'] },
+    {
+      ...captures,
+      matching: [{ ...captures.matching[0], status: 'unavailable' }],
+    },
+    { ...captures, additionalRequests: [{ ...request, runId: 'foreign' }] },
+  ]) {
+    const h = harness();
+    const result = await runCapturedDevelopingLlmPlan({
+      captures: invalid,
+      ledger: h.ledger,
+      provider: h.provider,
+      protectedRequests: [],
+      execute: async () => assert.fail('Must not execute'),
+    });
+    assert.deepEqual(result, { status: 'admission-refused' });
+    assert.deepEqual(h.counts(), { batches: 0, dispatches: 0 });
+  }
+  const h = harness();
+  const result = await runCapturedDevelopingLlmPlan({
+    captures,
+    ledger: h.ledger,
+    provider: h.provider,
+    protectedRequests: [{ ...request, purpose: 'morning-editor' }],
+    execute: async (llm) => {
+      for (const item of [...captures.matching, ...captures.rewrites])
+        assert.equal(
+          (await llm.jsonOutcome(item.request, validate, { repair: false }))
+            .status,
+          'complete',
+        );
+      return 'accepted';
+    },
+  });
+  assert.deepEqual(result, { status: 'completed', value: 'accepted' });
+  assert.deepEqual(h.counts(), { batches: 1, dispatches: 2 });
+  assert.deepEqual(h.settled, ['0', '1']);
+  assert.deepEqual(h.released, ['2']);
 });
