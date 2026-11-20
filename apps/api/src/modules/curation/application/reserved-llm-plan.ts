@@ -1,6 +1,6 @@
-import { costMicros } from '../domain/budget';
 import type { LlmRequest } from '../domain/llm.port';
 import type { LlmLedger } from '../domain/llm-ledger.port';
+import { llmReservation } from './llm-reservation';
 
 // Unlike cache identity, admission binds attribution and every price as well.
 function identity(request: LlmRequest): string {
@@ -31,31 +31,9 @@ export async function reserveLlmPlan(
   // this scope. The caller must release the scope before resuming that work.
   const entries = [...requests, ...protectedRequests].map((original, index) => {
     const request = { ...original, model: { ...original.model } };
-    const bound =
-      Buffer.byteLength(request.instructions + request.prompt, 'utf8') + 2048;
-    if (
-      bound >= 100000 ||
-      !Number.isSafeInteger(request.maxOutputTokens) ||
-      request.maxOutputTokens < 1 ||
-      request.maxOutputTokens > 16000
-    )
+    const { inputBound, estimate } = llmReservation(request);
+    if (inputBound >= 100000)
       throw new Error('Invalid reserved request bounds');
-    const estimate = costMicros(
-      {
-        input: bound,
-        cacheWrite: 0,
-        cacheRead: 0,
-        output: request.maxOutputTokens,
-      },
-      {
-        ...request.model,
-        input: Math.max(
-          request.model.input,
-          request.model.cacheWrite,
-          request.model.cacheRead,
-        ),
-      },
-    );
     return {
       request,
       estimate,

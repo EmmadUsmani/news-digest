@@ -1,3 +1,4 @@
+import { llmReservation } from '../../apps/api/src/modules/curation/application/llm-reservation';
 // Offline preflight only. This does not acquire ledger reservations or dispatch.
 import {
   budgetAllowance,
@@ -78,31 +79,9 @@ export function developingEditionBudget(input: {
   let featureMicros = 0;
   let oversized = false;
   for (const request of input.requests) {
-    if (
-      !Number.isSafeInteger(request.maxOutputTokens) ||
-      request.maxOutputTokens < 1 ||
-      request.maxOutputTokens > 16000
-    )
-      throw new Error('Invalid output limit');
-    const bound =
-      Buffer.byteLength(request.instructions + request.prompt, 'utf8') + 2048;
-    oversized ||= bound >= 100000;
+    const { inputBound, estimate: reserve } = llmReservation(request);
+    oversized ||= inputBound >= 100000;
     const price = request.model;
-    // Validate original rates before Math.max can hide a negative input or
-    // cache rate behind a valid higher rate.
-    costMicros({ input: 0, output: 0, cacheRead: 0, cacheWrite: 0 }, price);
-    const reserve = costMicros(
-      {
-        input: bound,
-        output: request.maxOutputTokens,
-        cacheRead: 0,
-        cacheWrite: 0,
-      },
-      {
-        ...price,
-        input: Math.max(price.input, price.cacheRead, price.cacheWrite),
-      },
-    );
     featureMicros = amount(featureMicros + reserve);
     modelCosts.set(price.id, amount((modelCosts.get(price.id) ?? 0) + reserve));
   }

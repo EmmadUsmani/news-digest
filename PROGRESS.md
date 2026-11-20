@@ -109,3 +109,13 @@ Earlier entries: [through iteration 3019](docs/progress-archive/2026-11-20-itera
 - Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build (logs /tmp/3030-{target,format,lint,check,build}.log). Final results below.
 - No provider calls, activation, source/schema/UI or handbook behavior changes. Developing stories remains inactive pending budget and semantic acceptance; Nov 20–22 reviews remain next.
 - Full checks/build pass: 1,271 unit tests; 335 integration passes/four expected skips. Initial check caught progress-entry formatting, corrected before passing rerun. Pre-restart reader probe returned 429; post-restart verification follows.
+
+## 2026-11-20: iteration 3031 — share runtime and preflight reservation pricing
+
+- Clean main at 3ed9ff68; no inherited work. Alerts clear, healthz passes, API/worker active; Nov 20 edition not due.
+- Live dispatch, atomic admission and offline edition budget now use one conservative request estimator, including Unicode/framing allowance and original-price validation.
+- Fixes negative input/cache rates hidden by a higher valid rate in live/atomic admission; all invalid rates refuse before reservations or provider dispatch.
+- Targeted suites pass 27 tests. Initial direct invocation included three DB tests requiring the isolated runner; full pnpm check runs those correctly.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build (logs /tmp/3031-{target,format,lint,check,build}.log). Final results below.
+- No external calls, cap changes, feature activation, source/schema/UI or handbook behavior changes. Developing stories remains inactive; Nov 20–22 reviews remain next.
+- Full checks/build pass: 1,272 unit tests; 335 integration passes/four expected skips; typecheck/lint/format/boundaries pass. Reader gate verifies real Nov 19 content: 25 stories/22 posts. Commit/push and API/worker restart follow.

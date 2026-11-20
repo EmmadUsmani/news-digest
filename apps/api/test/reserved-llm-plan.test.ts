@@ -668,3 +668,31 @@ void test('runtime capture admission rejects incomplete plans before reservation
   assert.deepEqual(h.settled, ['0', '1']);
   assert.deepEqual(h.released, ['2']);
 });
+
+void test('invalid original prices refuse both atomic and live admission before any hold or dispatch', async () => {
+  for (const rate of ['input', 'cacheRead', 'cacheWrite', 'output'] as const) {
+    for (const value of [-1, NaN, Infinity]) {
+      const h = harness();
+      let holds = 0;
+      h.ledger.reserve = async () => {
+        holds++;
+        return 'unexpected';
+      };
+      const invalid = {
+        ...request,
+        model: { ...request.model, [rate]: value },
+      };
+      await assert.rejects(
+        reserveLlmPlan(h.ledger, [invalid]),
+        /Invalid token usage or pricing/,
+      );
+      const live = new BudgetedLlm(h.provider, h.ledger);
+      await assert.rejects(
+        live.json(invalid, validate, { repair: false }),
+        /Invalid token usage or pricing/,
+      );
+      assert.equal(holds, 0);
+      assert.deepEqual(h.counts(), { batches: 0, dispatches: 0 });
+    }
+  }
+});

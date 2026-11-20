@@ -14,6 +14,7 @@ import type { RejectedEditorStore } from '../domain/rejected-editor.port';
 import { currentLlmExecution } from './execution-context';
 import { inferenceAdmission } from './inference-admission';
 import { llmFingerprint } from './llm-fingerprint';
+import { llmReservation } from './llm-reservation';
 import { admitAfterSettlement } from './settlement-admission';
 import {
   LlmValidationFailure,
@@ -253,25 +254,8 @@ export class BudgetedLlm {
       )
         return { status: 'provider-call-failed' };
       const current = attempt ? llmRepairRequest(request, feedback) : request;
-      const bound =
-        Buffer.byteLength(current.instructions + current.prompt, 'utf8') + 2048;
-      if (bound >= 100000) return { status: 'input-limit' };
-      const estimate = costMicros(
-        {
-          input: bound,
-          cacheWrite: 0,
-          cacheRead: 0,
-          output: current.maxOutputTokens,
-        },
-        {
-          ...current.model,
-          input: Math.max(
-            current.model.input,
-            current.model.cacheWrite,
-            current.model.cacheRead,
-          ),
-        },
-      );
+      const { inputBound, estimate } = llmReservation(current);
+      if (inputBound >= 100000) return { status: 'input-limit' };
       let id: string | null;
       if (
         this.settlement &&
