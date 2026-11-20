@@ -141,3 +141,14 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build (logs /tmp/3016-{format,lint,check,build}.log); final results below.
 - No UI/source/schema/handbook behavior change. Next: complete remaining morning plan and semantic acceptance; Nov 20–22 recall reviews await scheduled editions.
 - Final checks/build pass: 1,252 unit tests, 335 integration passes/four expected skips; typecheck/lint/format/boundaries pass. Reader gate verifies real Nov 19 edition (25 stories/22 posts); disk 61%, diff clean. Lint initially rejected two unnecessary async declarations; corrected before the passing run. Commit/push and API/worker restart follow.
+
+## 2026-11-20: iteration 3017 — protect remaining story editing
+
+- Clean main at 6eefc43e; no inherited work. Alerts clear, /healthz passes, API/worker active; Nov 20 scheduled edition not yet due.
+- Added offline supplied-context story obligations through the real ShortlistEditor: Sonnet/Haiku initial and repair requests. Haiku bounds include both possible retained Sonnet validation hints, which null-response capture alone omits.
+- Targeted test exercises actual BudgetedLlm dispatches for all five topic paths, invalid JSON/schema and unsupported absence; UTF-8 instruction/prompt bounds dominate. Quiet input emits no obligations; duplicate shortlist rejects, inputs unchanged and execution capture callback untouched.
+- Supplied-context bounds only: remaining topic/platform/triage coverage and dynamic contexts still need complete morning admission. Developing stories stays inactive; no provider calls, cap changes or public behavior changes.
+- Verification: pnpm exec tsx --test apps/api/test/protected-story-obligations.test.ts (one pass); pnpm format; pnpm lint:fix; pnpm check; pnpm build (logs /tmp/3017-{format,lint,check,build}.log). Final results follow.
+- Reader gate: pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-19T15:00:00Z verifies real Nov 19 edition, 25 stories/22 posts. No UI/source/schema/handbook changes.
+- Next: complete remaining morning plan and semantic acceptance; Nov 20–22 recall reviews await scheduled editions.
+- Full checks/build pass: 1,253 unit tests, 335 integration passes/four expected skips; typecheck/lint/format/boundaries pass. Disk 61%, diff clean. Commit/push and API/worker restart follow.
