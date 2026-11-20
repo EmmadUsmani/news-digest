@@ -189,3 +189,12 @@
 - Verification: pnpm exec tsx --test apps/api/test/developing-edition-budget.test.ts; pnpm format; pnpm lint:fix; pnpm check; pnpm build. Logs /tmp/3025-{target,format,lint,check,build}.log; final results below.
 - No source/schema/UI/handbook behavior change. Developing stories remains inactive pending complete morning admission and semantic acceptance; Nov 20–22 reviews await publication.
 - Full checks/build pass: 1,266 unit tests; 335 integration passes/four expected skips; typecheck/lint/format/boundaries pass. Reader gate verifies real Nov 19 content: 25 stories/22 posts. Diff clean; commit/push and API/worker restart follow.
+
+## 2026-11-20: iteration 3026 — consistent offline spend snapshots
+
+- Clean main at 507419e2; no inherited work. Alerts clear, /healthz passes, API/worker active; Nov 20 edition not due.
+- Offline edition preflight refuses daily spend above monthly spend and summed model spend above shared daily spend, preventing contradictory snapshots from establishing admission.
+- Regression cases include aggregate overflow across two models; valid multiple models and omitted historical models remain accepted. Targeted budget/captured-plan tests pass (13).
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build (logs /tmp/3026-{target,format,lint,check,build}.log). Final results below.
+- No provider calls, runtime activation, source/schema/UI or handbook behavior changes. Developing stories remains inactive; Nov 20–22 reviews await scheduled publication.
+- Full checks/build pass: 1,267 unit tests; 335 integration passes/four expected skips; typecheck/lint/format/boundaries pass. Reader gate confirms real Nov 19 content: 25 stories/22 posts. Commit/push and API/worker restart follow.

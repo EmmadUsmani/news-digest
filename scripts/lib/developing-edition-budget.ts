@@ -36,6 +36,15 @@ export function developingEditionBudget(input: {
   )
     throw new Error('Model obligations exceed shared obligations');
   const allowance = budgetAllowance(input.now, input.totals, input.caps);
+  const modelSpent = Object.values(input.modelToday).reduce(
+    (sum, value) => amount(sum + value),
+    0,
+  );
+  if (
+    input.totals.today > input.totals.month ||
+    modelSpent > input.totals.today
+  )
+    throw new Error('Inconsistent edition budget snapshot');
   const byModel: Record<string, number> = {};
   let featureMicros = 0;
   let oversized = false;

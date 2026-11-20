@@ -72,6 +72,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 3026: Offline edition preflight refuses contradictory shared/per-model spend snapshots; multi-model totals and omitted historical-model spend remain supported. No runtime activation.
+
 - [x] 3025: Offline edition preflight validates original model rates before conservative pricing; negative or nonfinite input/cache/output rates refuse, valid zero rates remain accepted. No runtime activation.
 
 - [x] 3024: Offline context-derived protected plan now composes all four production request estimators, validates declared inventory and feeds captured feature budget preflight. Missing/foreign contexts and ambiguous inputs refuse; no runtime admission or activation.

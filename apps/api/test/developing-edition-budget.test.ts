@@ -35,11 +35,19 @@ void test('combined requests preserve edition funds and use conservative Unicode
     'shared-budget-refused',
   );
   assert.equal(
-    developingEditionBudget({ ...plan, modelToday: { editor: 197 } }).status,
+    developingEditionBudget({
+      ...plan,
+      totals: { month: 197, today: 197 },
+      modelToday: { editor: 197 },
+    }).status,
     'model-budget-refused',
   );
   assert.equal(
-    developingEditionBudget({ ...plan, modelToday: { editor: 196 } }).status,
+    developingEditionBudget({
+      ...plan,
+      totals: { month: 196, today: 196 },
+      modelToday: { editor: 196 },
+    }).status,
     'fits-supplied-plan',
   );
 });
@@ -118,4 +126,34 @@ void test('preflight rejects invalid original prices before selecting the conser
   });
   assert.equal(free.featureMicros, 0);
   assert.equal(free.requiredMicros, plan.protectedMicros);
+});
+
+void test('preflight refuses contradictory shared and per-model spend snapshots', () => {
+  for (const snapshot of [
+    { totals: { month: 100, today: 101 }, modelToday: { editor: 0 } },
+    { totals: { month: 100, today: 100 }, modelToday: { editor: 101 } },
+    {
+      totals: { month: 100, today: 100 },
+      modelToday: { editor: 60, triage: 41 },
+    },
+  ]) {
+    assert.throws(
+      () => developingEditionBudget({ ...plan, ...snapshot }),
+      /Inconsistent edition budget snapshot/,
+    );
+  }
+  // Other models and unlisted historical models can account for shared spend.
+  for (const modelToday of [
+    { editor: 60, triage: 40 },
+    { editor: 60, triage: 20 },
+  ]) {
+    assert.equal(
+      developingEditionBudget({
+        ...plan,
+        totals: { month: 200, today: 100 },
+        modelToday,
+      }).status,
+      'fits-supplied-plan',
+    );
+  }
 });
