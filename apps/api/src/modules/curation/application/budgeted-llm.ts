@@ -317,6 +317,12 @@ export class BudgetedLlm {
         'LLM budget decision',
       );
       if (!id) return { status: 'budget-refused' };
+      // Reservation I/O can outlive scope cleanup or request mutation. This
+      // hold was consumed, but no provider call has started: release it safely.
+      if (this.ledger.allowsRequest && !this.ledger.allowsRequest(current)) {
+        await this.ledger.fail(id, 'request-admission-changed', false, false);
+        return { status: 'budget-refused' };
+      }
       let response;
       try {
         response = await this.llm.complete(current, execution);

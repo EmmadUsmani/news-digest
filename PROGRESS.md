@@ -166,3 +166,14 @@ Earlier entries: [through iteration 3019](docs/progress-archive/2026-11-20-itera
 - Read-only scheduled reader check verifies real Nov 19 five-topic edition: 25 stories/22 posts. Nov 20 edition due 15:00 UTC; Nov 20–22 reviews remain next.
 - Final pnpm check/build pass: 1,279 unit tests; 336 integration passes/four expected skips. Typecheck/lint/format/boundaries green.
 - Commit/push and API/worker restart follow; post-restart health and scheduled reader verification required.
+
+## 2026-11-20: iteration 3036 — recheck admission before reserved dispatch
+
+- Clean main at e86669da; no inherited work. Alerts clear, healthz passes; 38 source checks healthy, digest queue zero failed jobs; next edition 15:00 UTC.
+- Found reservation completion could resume after scope closure or request mutation and still start a provider call.
+- BudgetedLlm now rechecks scoped admission immediately before dispatch and safely releases consumed, undispatched holds on refusal.
+- Targeted reserved-plan suite: 28 passes, including delayed reservation closure/mutation controls and unchanged successful dispatch; no provider calls.
+- No activation, caps, sources, schema, UI or handbook behavior changes. Semantic and whole-edition acceptance remain open; Nov 20–22 reviews remain next.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build (logs /tmp/3036-{format,lint,check,build}.log). Final results follow.
+- Initial lint rejected an unbound test-harness method; bound it and reran verification. Final pnpm check/build pass: 1,280 unit tests; 336 integration passes/four expected skips.
+- Read-only scheduled reader gate verifies real Nov 19 edition: five topics, 25 stories/22 posts. Commit/push and API/worker restart follow; post-restart health/reader verification required.

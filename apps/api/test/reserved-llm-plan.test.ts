@@ -901,3 +901,53 @@ void test('coalesced caller rechecks its own identity while admitted caller succ
   assert.deepEqual(h.counts(), { batches: 1, dispatches: 0 });
   assert.deepEqual(h.released, ['0']);
 });
+
+void test('reservation completion rechecks scope and identity before dispatch and releases consumed holds', async () => {
+  for (const change of ['close', 'identity', 'none']) {
+    const h = harness();
+    const mutable = { ...request, model: { ...request.model } };
+    const plan = await reserveLlmPlan(h.ledger, [mutable]);
+    assert.ok(plan);
+    const reserve = plan.ledger.reserve.bind(plan.ledger);
+    let finishReserve!: () => void;
+    let started!: () => void;
+    const reserved = new Promise<void>((resolve) => {
+      started = resolve;
+    });
+    plan.ledger.reserve = async (candidate, estimate) => {
+      const id = await reserve(candidate, estimate);
+      started();
+      await new Promise<void>((resolve) => {
+        finishReserve = resolve;
+      });
+      return id;
+    };
+    const llm = new BudgetedLlm(h.provider, plan.ledger);
+    let validations = 0;
+    const pending = llm.jsonOutcome(
+      mutable,
+      (value) => {
+        validations++;
+        return value;
+      },
+      { repair: false },
+    );
+    await reserved;
+    if (change === 'close') await plan.releaseUnused();
+    if (change === 'identity') mutable.topicId = 'foreign';
+    finishReserve();
+    assert.equal(
+      (await pending).status,
+      change === 'none' ? 'complete' : 'budget-refused',
+    );
+    await plan.releaseUnused();
+    assert.equal(validations, change === 'none' ? 1 : 0);
+    assert.deepEqual(h.counts(), {
+      batches: 1,
+      dispatches: change === 'none' ? 1 : 0,
+    });
+    assert.deepEqual(h.released, change === 'none' ? [] : ['0']);
+    assert.deepEqual(h.settled, change === 'none' ? ['0'] : []);
+    assert.deepEqual(h.uncertain, []);
+  }
+});
