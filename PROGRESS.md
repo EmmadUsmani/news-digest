@@ -180,3 +180,12 @@
 - Targeted tests: pnpm exec tsx --test apps/api/test/capture-developing-execution.test.ts (three pass). Full verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; logs /tmp/3011-{target,format,lint,check,build}.log. Final results below.
 - No UI/source/schema/handbook behavior changed. Next: complete protected obligations and broader saved-edition plans, then semantic/whole-edition acceptance; Nov 20–22 recall reviews await scheduled editions.
 - Final pnpm check passes: 1,249 unit tests, 335 integration passes/four expected skips; format/lint/typecheck/boundaries pass. Production build passes; diff check clean. Local health passes; reader endpoint initially returned HTTP 429 and the public HTTPS hostname was unreachable from this VM. Commit/push and post-restart verification follow.
+
+## 2026-11-20: iteration 3012 — combined saved-edition refusal capture
+
+- Clean main at a6bdf218; no inherited work. Alerts and health pass; sources healthy, digest queue zero failures, next scheduled edition Nov 20 15:00 UTC. Old ingestion/social failure counts unchanged.
+- Composed saved Nov 18 Peltola/Zelda inputs through one actual edition coordinator. Both matching responses finish before the first rewrite; scripted null stops the second rewrite and preserves both full accepted arrays by identity.
+- Strict capture validation rejects the resulting missing second rewrite. Independent topic captures cannot stand in for a complete combined execution plan after an early refusal. Offline transport evidence only; no provider calls, activation or cap changes.
+- Targeted command: pnpm exec tsx --test apps/api/test/capture-developing-execution.test.ts (three pass). Full verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; logs /tmp/3012-{target,format,lint,check,build}.log.
+- No UI/source/schema/handbook behavior changes. Next: complete protected obligations and complete saved-edition plans, semantic review and whole-edition admission; Nov 20–22 recall reviews await scheduled editions.
+- Final checks pass: 1,249 unit tests, 335 integration passes/four expected skips; formatting/lint/typecheck/boundaries and production build pass. Diff check clean. Reader endpoint still returns HTTP 429 locally; health passes. Commit/push and post-restart health verification follow.
