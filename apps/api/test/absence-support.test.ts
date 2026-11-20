@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 
 import { assertAbsenceSupport } from '../src/modules/curation/application/absence-support';
@@ -154,4 +155,47 @@ void test('warning extraction refuses changes to attribution, modality, scope an
       () => assertAbsenceSupport(supported, [summitWarningEvidence], field),
       LlmValidationFailure,
     );
+});
+
+void test('Nov 20 Tech and Gaming retained failures require complete source sentences', () => {
+  const fixtures = JSON.parse(
+    readFileSync(
+      new URL('./fixtures/editorial-absence-2026-11-20.json', import.meta.url),
+      'utf8',
+    ),
+  ) as {
+    topic: string;
+    model: string;
+    attempt: string;
+    field: 'headline' | 'summary';
+    text: string;
+    evidence: string[];
+  }[];
+  assert.equal(fixtures.length, 8);
+  for (const fixture of fixtures) {
+    assert.throws(
+      () => assertAbsenceSupport(fixture.text, fixture.evidence, fixture.field),
+      (error: unknown) =>
+        error instanceof LlmValidationFailure &&
+        error.code === 'unsupported-absence' &&
+        error.field === fixture.field,
+      `${fixture.topic} ${fixture.model} ${fixture.attempt}: ${fixture.text}`,
+    );
+    // The retained evidence remains admissible verbatim; the guard rejects
+    // the changed scope/attribution or paraphrase, not the underlying report.
+    for (const source of fixture.evidence) {
+      assert.doesNotThrow(() =>
+        assertAbsenceSupport(source, fixture.evidence, fixture.field),
+      );
+    }
+    assert.throws(
+      () =>
+        assertAbsenceSupport(
+          'The company has not confirmed a launch date.',
+          fixture.evidence,
+          fixture.field,
+        ),
+      LlmValidationFailure,
+    );
+  }
 });
