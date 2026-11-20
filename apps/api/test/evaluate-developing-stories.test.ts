@@ -123,7 +123,7 @@ void test('a correct nearest predecessor cannot hide a wrong older member', asyn
 });
 
 void test('complete saved topic reviews detect false links and missed additional continuations', async () => {
-  const index = fixture.cases.findIndex((item) => item.reviews?.length === 5);
+  const index = fixture.cases.findIndex((item) => item.topicName === 'Gaming');
   const item = fixture.cases[index];
   const baseline = await evaluateDevelopingStories(fixture.cases, controls());
   assert.equal(baseline.controlsPassed, true);
@@ -175,7 +175,7 @@ void test('complete review labels reject duplicates, missing history and conflic
     'unordered',
   ] as const) {
     const cases = structuredClone(fixture.cases);
-    const item = cases.find((entry) => entry.reviews?.length === 5)!;
+    const item = cases.find((entry) => entry.topicName === 'Gaming')!;
     const labels = item.reviews!;
     if (variant === 'duplicate') labels.push(labels[0]);
     if (variant === 'unknown-current') labels[0].storyId = 'missing';
@@ -197,4 +197,21 @@ void test('complete review labels reject duplicates, missing history and conflic
       variant,
     );
   }
+});
+
+void test('complete Tech review rejects a Google research link while legacy Nvidia nonmatch passes', async () => {
+  const index = fixture.cases.findIndex(
+    (item) => item.reviews?.length === 5 && item.topicName === 'Tech & AI',
+  );
+  const records = controls();
+  records[index].groups = [['current:3', 'history:5:1']];
+  const report = await evaluateDevelopingStories(fixture.cases, records);
+  assert.equal(report.controlsPassed, false);
+  assert.equal(report.cases[index].review?.acceptance, 'pass');
+  assert.equal(
+    report.cases[index].reviews.find(
+      (review) => review.storyId === fixture.cases[index].stories[3].id,
+    )?.acceptance,
+    'fail',
+  );
 });

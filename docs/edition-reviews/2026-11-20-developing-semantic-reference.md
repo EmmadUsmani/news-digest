@@ -126,3 +126,23 @@ nonmatch now fails the case even when the older Zelda control still passes.
 Duplicate, foreign, conflicting or chronologically reversed labels reject.
 These controls exercise matching acceptance only: Zelda's rewrite must still
 refuse, manual partitions are not model outputs, and production stays inactive.
+
+## Complete Tech selection review — iteration 3049
+
+Reviewed all five Nov 18 Tech selections against all seven saved history
+snapshots (32 earlier stories). This is a matching review of published prose;
+original current editorial evidence is unavailable in this control, so it
+cannot establish rewrite support. All five are explicit nonmatches.
+
+| Current story                                                           | Decision and closest misleading alternative                                                                                                                                                                                                                                         |
+| ----------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Quad9 departure (`b81f2c7c-09fc-4eee-af3f-d5181df887e8`)                | No earlier Quad9, DNS-blocking or French streaming-rights case. Italy's Meta data-access fine is a different company, jurisdiction and dispute.                                                                                                                                     |
+| Java4Shell (`c0fe2700-9668-4942-a596-660a48e7412a`)                     | No earlier OpenJDK/Base64 disclosure. uBlock XSS, Optimizely compromise, Lovable exposure and Linux kernel bugs concern different vulnerabilities or incidents.                                                                                                                     |
+| Nvidia China shipments (`eeecaefc-46dd-4508-a9ca-f3d5ad8ef07a`)         | Retain legacy nonmatch. Earlier remote-access rules and indirect-access policy describe restrictions, not the reported halt of licensed physical Hopper shipments. Nvidia leadership coverage is a separate event; no saved prose establishes the shipment halt as its consequence. |
+| AI Overviews click experiment (`012c76c0-9cf0-491a-9be8-2472bbc370e4`)  | No earlier click study. Google smartglasses, TPU changes, security reporting and Signal verification have different products or research questions.                                                                                                                                 |
+| Coding-agent review bottleneck (`14d13174-1de8-4849-86b2-782462cce594`) | No earlier 718-firm study. Chrome's coding guidance and Claude parallel-worker release share the agent category, but neither reports this adoption/review study.                                                                                                                    |
+
+The fixture records these five labels. Existing matching and snapshot checks
+consume them; a false Google-study/smartglasses link fails even while the
+legacy Nvidia negative passes. These are agent judgements, not model outputs.
+No rewrite acceptance, live activation or provider spend follows from them.

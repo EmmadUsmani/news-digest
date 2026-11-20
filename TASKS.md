@@ -72,6 +72,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 3049: Reviewed every Nov 18 Tech selection against 32 earlier stories; five explicit nonmatches now feed existing replay/snapshot checks. False Google-study link rejected; original evidence absent, so rewrite/model acceptance remains open.
+
 - [x] 3048: Saved snapshot/JSON contract checks now cover every reviewed U.S./Gaming selection with simultaneous GTA/Zelda memberships and explicit nonmatches; all IDs/order and independent link copies preserved. Manual controls only; semantic/budget acceptance remains open.
 
 - [x] 3047: Saved end-to-end developing capture now includes both reviewed Gaming continuations (GTA and Zelda), checks every linked rewrite input and exercises complete three-link admission/atomic refusal. Scripted transport only; semantic/budget acceptance remains open.

@@ -483,6 +483,28 @@
           ]
         }
       ],
+      "reviews": [
+        {
+          "storyId": "b81f2c7c-09fc-4eee-af3f-d5181df887e8",
+          "expectedPredecessors": []
+        },
+        {
+          "storyId": "c0fe2700-9668-4942-a596-660a48e7412a",
+          "expectedPredecessors": []
+        },
+        {
+          "storyId": "eeecaefc-46dd-4508-a9ca-f3d5ad8ef07a",
+          "expectedPredecessors": []
+        },
+        {
+          "storyId": "012c76c0-9cf0-491a-9be8-2472bbc370e4",
+          "expectedPredecessors": []
+        },
+        {
+          "storyId": "14d13174-1de8-4849-86b2-782462cce594",
+          "expectedPredecessors": []
+        }
+      ],
       "reviewedStoryId": "eeecaefc-46dd-4508-a9ca-f3d5ad8ef07a",
       "expectedPredecessors": [],
       "rationale": "Shipment cessation is a distinct action. Shared Nvidia leadership or China chip-policy context does not establish a direct continuation of the resignation or the US remote-access rule."

@@ -125,3 +125,15 @@ Earlier entries: [pre-3038 archive](docs/progress-archive/2026-11-20-pre-3038.md
 - Scheduled reader gate: pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-19T15:00:00Z — five topics, 25 real stories/22 posts pass.
 - Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build (/tmp/3048-*.log); final results below.
 - Full check/build pass: 1,297 unit passes; 336 integration passes/four expected skips; typecheck, lint, formatting and boundaries green. Commit/push and API/worker restart follow; Nov 20 review due after 15:00 UTC.
+
+## 2026-11-20: iteration 3049 — complete saved Tech matching reference
+
+- Clean main at 106db510; no inherited work. Alerts clear; healthz database/Redis pass; API/worker active.
+- Reviewed five Nov 18 Tech selections against all 32 earlier stories in seven history snapshots; all are explicit nonmatches, including separate Nvidia shipment/policy/leadership events.
+- Added labels to existing fixture and reasons to semantic reference; original current evidence absent, so no rewrite-support claim. Production remains inactive; no paid calls/cap changes.
+- Existing evaluator and snapshot checks consume all five labels. False Google experiment/smartglasses link fails while legacy Nvidia control passes; Gaming tests now identify topic explicitly.
+- Targeted: pnpm exec tsx --test apps/api/test/evaluate-developing-stories.test.ts apps/api/test/developing-saved-evidence.test.ts — 27 pass.
+- Reader: pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-19T15:00:00Z — five topics, 25 real stories/22 posts pass.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build (/tmp/3049-*.log); results below.
+- Next: Nov 20 scheduled daily review after 15:00 UTC; retain semantic and whole-edition budget gates.
+- Full check/build pass: 1,302 unit passes; 336 integration passes/four expected skips; typecheck, lint, format and boundaries green. Original fixture inputs unchanged. Commit/push and API/worker restart follow.
