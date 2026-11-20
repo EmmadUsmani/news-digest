@@ -7,6 +7,7 @@ import { reserveLlmPlan } from './reserved-llm-plan';
 // cleanup before returning anything that a caller could publish. The caller
 // still owns complete request capture and protected-obligation derivation.
 export async function runReservedLlmPlan<T>(input: {
+  editionId: string;
   ledger: LlmLedger;
   provider: LlmPort;
   requests: readonly LlmRequest[];
@@ -15,6 +16,13 @@ export async function runReservedLlmPlan<T>(input: {
 }): Promise<
   { status: 'admission-refused' } | { status: 'completed'; value: T }
 > {
+  if (
+    !input.editionId.trim() ||
+    [...input.requests, ...input.protectedRequests].some(
+      (request) => request.runId !== input.editionId,
+    )
+  )
+    return { status: 'admission-refused' };
   const plan = await reserveLlmPlan(
     input.ledger,
     input.requests,

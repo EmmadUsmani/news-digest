@@ -333,6 +333,7 @@ void test('plan runner admits all phases before execution and closes ports befor
   let retained: BudgetedLlm | undefined;
   const rewrite = { ...request, purpose: 'rewrite' };
   const result = await runReservedLlmPlan({
+    editionId: request.runId,
     ...h,
     requests: [request, rewrite],
     protectedRequests: [{ ...request, purpose: 'social' }],
@@ -373,6 +374,7 @@ void test('plan runner never constructs execution after atomic admission refusal
     reasons: ['daily-cap'],
   });
   const result = await runReservedLlmPlan({
+    editionId: request.runId,
     ...h,
     requests: [request],
     protectedRequests: [{ ...request, purpose: 'social' }],
@@ -391,6 +393,7 @@ void test('plan runner cleans remaining obligations on execution failure while r
   const failure = new Error('edition stopped');
   await assert.rejects(
     runReservedLlmPlan({
+      editionId: request.runId,
       ...h,
       requests: [request, { ...request, purpose: 'rewrite' }],
       protectedRequests: [{ ...request, purpose: 'social' }],
@@ -421,6 +424,7 @@ void test('plan runner withholds results when cleanup fails and preserves both e
     };
     await assert.rejects(
       runReservedLlmPlan({
+        editionId: request.runId,
         ...h,
         requests: [request],
         protectedRequests: [{ ...request, purpose: 'social' }],
@@ -460,6 +464,7 @@ void test('reserved runner composes edition-wide matching and cleans no-link or 
       },
     ];
     const result = await runReservedLlmPlan({
+      editionId: request.runId,
       ...h,
       requests: [
         ...matching,
@@ -557,4 +562,49 @@ void test('scope rejects settlement and failure for protected, unused and foreig
     /consumed feature/,
   );
   assert.deepEqual(h.released, ['1', '2']);
+});
+
+void test('edition scope refuses foreign feature and protected work before admission', async () => {
+  const invalid = ['', ' ', 'foreign-edition'];
+  for (const runId of invalid) {
+    for (const field of ['requests', 'protectedRequests'] as const) {
+      const h = harness();
+      let executions = 0;
+      const result = await runReservedLlmPlan({
+        editionId: request.runId,
+        ledger: h.ledger,
+        provider: h.provider,
+        requests: [request],
+        protectedRequests: [{ ...request, purpose: 'social' }],
+        [field]: [{ ...request, runId }],
+        execute: async () => {
+          executions++;
+        },
+      });
+      assert.deepEqual(result, { status: 'admission-refused' });
+      assert.deepEqual(h.counts(), { batches: 0, dispatches: 0 });
+      assert.equal(executions, 0);
+      assert.deepEqual(h.released, []);
+    }
+  }
+});
+
+void test('edition scope requires an explicit nonblank expected edition', async () => {
+  for (const editionId of ['', ' ', 'different-edition']) {
+    const h = harness();
+    assert.deepEqual(
+      await runReservedLlmPlan({
+        editionId,
+        ledger: h.ledger,
+        provider: h.provider,
+        requests: [request],
+        protectedRequests: [],
+        execute: async () => {
+          throw new Error('Must not construct edition services');
+        },
+      }),
+      { status: 'admission-refused' },
+    );
+    assert.deepEqual(h.counts(), { batches: 0, dispatches: 0 });
+  }
 });

@@ -141,3 +141,13 @@
 - Live reader retains 7a747d9c, five topics/25 real stories/22 posts. Direct loopback reader probe hit shared rate limiting; existing local-probe forwarding identity succeeds. No UI/source/schema/handbook changes.
 - Next: runtime exact-request capture composition and complete protected-obligation derivation, then saved-edition semantic acceptance. Nov 20–22 recall reviews follow scheduled editions. Developing enrichment remains inactive.
 - Final diff check passes; commit/push and API/worker restart follow. Complete exact runtime capture and protected-plan derivation remain unverified.
+
+## 2026-11-20: iteration 3008 — edition-bound runtime admission
+
+- Clean main at 474db237; no inherited work. Alerts/health and enabled sources pass; Destructoid remains inactive. Digest queue zero failures, next run Nov 20 15:00 UTC; public counts retain 20 ingestion/four social failures with healthy current sources.
+- Inactive reserved execution now requires an explicit expected edition and refuses blank/foreign feature or protected request run IDs before atomic reservation or service construction. Offline capture validation alone no longer supplies this runtime guarantee.
+- All 18 targeted offline tests pass, including six invalid feature/protected plans and three invalid expected editions; no reservation, dispatch, execution callback or release occurs on refusal. Existing successful lifecycle/composition controls pass. No provider calls, cap changes or activation.
+- Verification: pnpm exec tsx --test apps/api/test/reserved-llm-plan.test.ts; pnpm format; pnpm lint:fix; pnpm check; pnpm build. Final results recorded below. Logs /tmp/3008-{target,format,lint,check,build}.log.
+- Live reader 7a747d9c retains five topics/25 stories/22 posts. Detailed failed-job query correctly unavailable in public mode; pnpm obs jobs --check confirms scheduled queue status. No UI/source/schema/handbook changes.
+- Next: runtime exact-request capture composition and complete protected-obligation derivation, then saved-edition semantic acceptance; Nov 20–22 recall reviews follow scheduled editions. Developing enrichment remains inactive.
+- Final pnpm check passes: 1,245 unit tests, 335 integration passes/four expected skips; production build passes. Formatting/lint/boundaries/typechecks pass; git diff --check clean. Commit/push and API/worker restart follow.
