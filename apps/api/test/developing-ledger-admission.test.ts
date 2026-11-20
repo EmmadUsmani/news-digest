@@ -329,7 +329,7 @@ void test('protected plan holds block competitors until scope cleanup in Postgre
   const protectedRequest = {
     ...request,
     purpose: 'morning-editor',
-    model: { ...request.model, output: 6 },
+    model: { ...request.model, id: 'offline-morning-editor', output: 6 },
   };
   try {
     const plan = await reserveLlmPlan(ledger, [request], [protectedRequest]);

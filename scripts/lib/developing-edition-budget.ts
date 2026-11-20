@@ -1,10 +1,11 @@
+import { validateEditionModelPrices } from '../../apps/api/src/modules/curation/domain/model-plan-prices';
+export { validateEditionModelPrices } from '../../apps/api/src/modules/curation/domain/model-plan-prices';
 import { llmReservation } from '../../apps/api/src/modules/curation/application/llm-reservation';
 // Offline preflight only. This does not acquire ledger reservations or dispatch.
 import {
   budgetAllowance,
   type BudgetCaps,
   type BudgetTotals,
-  costMicros,
   modelBudgetAvailable,
 } from '../../apps/api/src/modules/curation/domain/budget';
 import type { LlmRequest } from '../../apps/api/src/modules/curation/domain/llm.port';
@@ -12,25 +13,6 @@ import type { LlmRequest } from '../../apps/api/src/modules/curation/domain/llm.
 function validateModelId(id: string) {
   if (typeof id !== 'string' || !id.trim())
     throw new Error('Invalid edition model identity');
-}
-
-// One snapshot must price each model consistently across all planned work.
-export function validateEditionModelPrices(requests: readonly LlmRequest[]) {
-  const prices = new Map<string, string>();
-  for (const { model } of requests) {
-    validateModelId(model.id);
-    costMicros({ input: 0, output: 0, cacheRead: 0, cacheWrite: 0 }, model);
-    const signature = JSON.stringify([
-      model.input,
-      model.output,
-      model.cacheRead,
-      model.cacheWrite,
-    ]);
-    const previous = prices.get(model.id);
-    if (previous !== undefined && previous !== signature)
-      throw new Error('Conflicting edition model prices');
-    prices.set(model.id, signature);
-  }
 }
 
 export function developingEditionBudget(input: {

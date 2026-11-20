@@ -1,5 +1,6 @@
 import type { LlmRequest } from '../domain/llm.port';
 import type { LlmLedger } from '../domain/llm-ledger.port';
+import { validateEditionModelPrices } from '../domain/model-plan-prices';
 import { llmReservation } from './llm-reservation';
 
 // Unlike cache identity, admission binds attribution and every price as well.
@@ -27,6 +28,7 @@ export async function reserveLlmPlan(
   protectedRequests: readonly LlmRequest[] = [],
 ): Promise<{ ledger: LlmLedger; releaseUnused(): Promise<void> } | null> {
   if (!ledger.reserveBatch || !requests.length) return null;
+  validateEditionModelPrices([...requests, ...protectedRequests]);
   // Protected obligations share the transaction, but cannot be spent through
   // this scope. The caller must release the scope before resuming that work.
   const entries = [...requests, ...protectedRequests].map((original, index) => {

@@ -696,3 +696,65 @@ void test('invalid original prices refuse both atomic and live admission before 
     }
   }
 });
+
+void test('atomic plans reject inconsistent model prices across feature and protected work before holds', async () => {
+  for (const rate of ['input', 'cacheRead', 'cacheWrite', 'output'] as const) {
+    for (const protectedWork of [false, true]) {
+      const h = harness();
+      const changed = {
+        ...request,
+        purpose: 'later-work',
+        model: { ...request.model, [rate]: request.model[rate] + 1 },
+      };
+      await assert.rejects(
+        reserveLlmPlan(
+          h.ledger,
+          protectedWork ? [request] : [request, changed],
+          protectedWork ? [changed] : [],
+        ),
+        /Conflicting edition model prices/,
+      );
+      assert.deepEqual(h.counts(), { batches: 0, dispatches: 0 });
+    }
+  }
+  for (const id of ['', '   ']) {
+    const h = harness();
+    await assert.rejects(
+      reserveLlmPlan(
+        h.ledger,
+        [request],
+        [{ ...request, model: { ...request.model, id } }],
+      ),
+      /Invalid edition model identity/,
+    );
+    assert.deepEqual(h.counts(), { batches: 0, dispatches: 0 });
+  }
+});
+
+void test('atomic plans support consistent repeated prices and distinct models', async () => {
+  const h = harness();
+  const other = {
+    ...request,
+    purpose: 'other-model',
+    model: { ...request.model, id: 'other', output: 7 },
+  };
+  const plan = await reserveLlmPlan(
+    h.ledger,
+    [request, { ...request }],
+    [other],
+  );
+  assert.ok(plan);
+  const llm = new BudgetedLlm(h.provider, plan.ledger);
+  assert.equal(
+    (await llm.jsonOutcome(request, validate, { repair: false })).status,
+    'complete',
+  );
+  assert.equal(
+    (await llm.jsonOutcome(request, validate, { repair: false })).status,
+    'complete',
+  );
+  await plan.releaseUnused();
+  assert.deepEqual(h.counts(), { batches: 1, dispatches: 2 });
+  assert.deepEqual(h.settled, ['0', '1']);
+  assert.deepEqual(h.released, ['2']);
+});

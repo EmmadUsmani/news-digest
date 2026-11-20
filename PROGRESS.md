@@ -119,3 +119,14 @@ Earlier entries: [through iteration 3019](docs/progress-archive/2026-11-20-itera
 - Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build (logs /tmp/3031-{target,format,lint,check,build}.log). Final results below.
 - No external calls, cap changes, feature activation, source/schema/UI or handbook behavior changes. Developing stories remains inactive; Nov 20–22 reviews remain next.
 - Full checks/build pass: 1,272 unit tests; 335 integration passes/four expected skips; typecheck/lint/format/boundaries pass. Reader gate verifies real Nov 19 content: 25 stories/22 posts. Commit/push and API/worker restart follow.
+
+## 2026-11-20: iteration 3032 — consistent atomic plan prices
+
+- Clean main at f0ec2ea1; no inherited changes. Alerts clear, healthz passes and API/worker active; Nov 20 edition not due.
+- Moved model-plan price validation into the domain and shared it between offline preflight and atomic admission, covering feature and protected requests together.
+- Conflicting rates for one model or blank model identities now refuse before any batch holds. Consistent repeated requests and differently priced distinct models remain supported.
+- Targeted reservation/offline budget/captured-plan suites: 39 passes, including all four conflicting rate positions and both feature/protected placement; no provider calls.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build (logs /tmp/3032-{target,format,lint,check,build}.log). Final results below.
+- No source/schema/UI/handbook behavior changes. Developing stories remains inactive pending complete morning admission and semantic acceptance; Nov 20–22 reviews remain next.
+- First full check caught an inconsistent synthetic protected-plan fixture (two prices for one model); gave its separately priced protected editor a distinct model ID. All 1,274 unit tests passed; full verification rerun follows.
+- Final pnpm check/build pass: 1,274 unit tests; 335 integration passes/four expected skips. Source checks pass; digest queue has no failed jobs. Reader gate verifies real Nov 19 content: 25 stories/22 posts. Commit/push and API/worker restart follow.
