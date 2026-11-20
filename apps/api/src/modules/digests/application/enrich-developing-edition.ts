@@ -25,6 +25,19 @@ export async function enrichDevelopingEdition<T extends TopicInput>(
     publicationTimes.some((time) => !Number.isFinite(time)) ||
     new Set(publicationTimes).size > 1 ||
     topics.some((topic) => !topic.runId.trim()) ||
+    topics.some(
+      (topic) =>
+        topic.history.length > 7 ||
+        new Set(topic.history.map((edition) => edition.editionId)).size !==
+          topic.history.length ||
+        topic.history.some(
+          (edition, index) =>
+            !edition.editionId.trim() ||
+            (index > 0 &&
+              Date.parse(edition.publishedAt) >
+                Date.parse(topic.history[index - 1].publishedAt)),
+        ),
+    ) ||
     topics.some((topic, index) =>
       topic.history.some(
         (edition) =>

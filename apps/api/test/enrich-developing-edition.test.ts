@@ -293,3 +293,52 @@ void test('edition chronology refuses invalid inputs before dispatch and accepts
   assert.equal(accepted.status, 'completed');
   assert.equal(calls, 2);
 });
+
+void test('edition rejects ambiguous or unordered history before any topic dispatch', async () => {
+  let calls = 0;
+  const first = {
+    ...topic('tech'),
+    grouping: {
+      async groupWithResult() {
+        calls++;
+        return { status: 'validated' as const, groups: [] };
+      },
+    },
+  };
+  const recent = first.history[0];
+  const older = {
+    ...recent,
+    editionId: 'older',
+    publishedAt: '2026-11-18T15:00:00Z',
+  };
+  const histories = [
+    [older, recent],
+    [recent, { ...older, editionId: recent.editionId }],
+    [{ ...recent, editionId: ' ' }],
+    Array.from({ length: 8 }, (_, index) => ({
+      ...recent,
+      editionId: `previous-${index}`,
+    })),
+  ];
+  for (const history of histories) {
+    const second = { ...first, topicId: 'nba', history };
+    const result = await enrichDevelopingEdition([first, second]);
+    assert.equal(result.status, 'unchanged');
+    assert.equal(result.reason, 'invalid-edition');
+    assert.equal(result.topics[0].stories, first.selected);
+    assert.equal(result.topics[1].stories, second.selected);
+  }
+  assert.equal(calls, 0);
+  for (const history of [
+    [recent, older],
+    [recent, { ...older, publishedAt: '2026-11-19T10:00:00-05:00' }],
+    Array.from({ length: 7 }, (_, index) => ({
+      ...recent,
+      editionId: `previous-${index}`,
+    })),
+  ]) {
+    const result = await enrichDevelopingEdition([{ ...first, history }]);
+    assert.equal(result.status, 'completed');
+  }
+  assert.equal(calls, 3);
+});
