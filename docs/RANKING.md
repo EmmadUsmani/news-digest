@@ -3595,3 +3595,17 @@ are not the exact scheduled input pool. This measures fallback selection,
 not the published AI edition or its recall. No tuning, paid replay or
 production change follows these labels; owner review and the bounded
 Nov 12–18 story/post event-budget comparison remain open.
+
+## Nov 20 joint story/post evaluation (iteration 2995)
+
+[Nov 18 comparison](edition-reviews/2026-11-18-joint-event-comparison.md) adds
+44 exact saved publication slots with 37 agent-labelled topic-events across
+all five topics. The existing NBA breadth evaluator also checks joint prose
+hashes, all 19 retained full post texts and unchanged story/event membership.
+A manual subset retains 37 events in 40 slots. NBA largest-event share falls
+33.33%→14.29% and U.S. 22.22%→12.50%; Gaming rises 30%→33.33% after removing
+the WoW repeat while keeping distinct nominations facts. Reject simple
+deletion as sufficient for deployment; no selector change or model replay.
+These are published-event retention labels, not important-event recall.
+Nov 12–17 and material-fact-preserving selection comparison remain open.
+One waiting-time evaluation commit used for Nov 20; no paid calls or tuning.

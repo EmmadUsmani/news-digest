@@ -1,0 +1,388 @@
+{
+  "editionId": "cd357e84-9383-4e10-b60c-c8318da4b314",
+  "windowEnd": "2026-11-18T15:00:00.000Z",
+  "basis": "Agent editorial labels of saved published prose; not independent truth, model output, pool recall or a deployed selection. Largest-event counts include distinct facts about one event. Prefer retaining materially distinct facts over optimizing the share alone. Story prose comes from the saved Nov 18 public projection; post prose uses the retained full texts in 2026-11-18-bluesky-selection.json (public display text can shorten URLs).",
+  "topics": [
+    {
+      "topic": "Tech & AI",
+      "slots": [
+        {
+          "id": "b81f2c7c-09fc-4eee-af3f-d5181df887e8",
+          "kind": "story",
+          "text": "Quad9 to stop serving France after court fine over pirate-streaming domain blocking\nSwiss non-profit Quad9, which runs the free 9.9.9.9 DNS resolver, will stop answering DNS queries from France on Tuesday, November 24, 2026. The excerpt says a Paris court fined Quad9 for refusing to block a list of pirate sports-streaming domains on behalf of beIN Sports. It also states that around 20 similar cases are pending in France, and Cloudflare called the departure \"a canary in the coal mine.\"",
+          "textSha256": "fdd7659d19dbb86db35782b7ff348929665b6011f1509d1ff07593c26f56eb00",
+          "event": "quad9-france",
+          "retain": true
+        },
+        {
+          "id": "c0fe2700-9668-4942-a596-660a48e7412a",
+          "kind": "story",
+          "text": "Java4Shell disclosure details critical RCE flaw in OpenJDK Base64 decoder\nA disclosure describes Java4Shell (CVE-2026-114938), a memory-corruption vulnerability in OpenJDK's Base64 decoder. The disclosure says it scores 9.2 out of 10 (critical) under CVSS 4.0 and calls OpenJDK the most popular Java runtime.",
+          "textSha256": "f2edebfa483dec21d6c1626eaab291e366769326fe81a124feb379142fb6bfaa",
+          "event": "java4shell",
+          "retain": true
+        },
+        {
+          "id": "eeecaefc-46dd-4508-a9ca-f3d5ad8ef07a",
+          "kind": "story",
+          "text": "Nvidia stops shipping licensed Hopper AI chips to China, interim CEO says\nThe Verge reports that Nvidia has stopped sending its advanced AI chips to China, despite White House approval it received in December last year. Interim CEO Colette Kress said during an earnings call on Tuesday that Nvidia has stopped shipping licensed Hopper data center products to China.",
+          "textSha256": "e8b361c56e886559a9490e2fc674107d30b295705db448df4fd6efdb3f682df7",
+          "event": "nvidia-china-shipments",
+          "retain": true
+        },
+        {
+          "id": "012c76c0-9cf0-491a-9be8-2472bbc370e4",
+          "kind": "story",
+          "text": "Randomized experiment finds Google AI Overviews cut clicks to websites by about 40%\nResearchers hid AI Overviews from some US desktop users in a randomized experiment. Comparing those users with users who still saw Overviews, they found an Overview cut clicks to outside websites by about 40%. The excerpt says Overviews now appear on more than half the US keywords DataForSEO tracks, up from 6% two years ago.",
+          "textSha256": "1a7d13f55027538711632c195c7045c909fac7ff1734a635191b1f87b70cac2d",
+          "event": "ai-overviews-clicks",
+          "retain": true
+        },
+        {
+          "id": "14d13174-1de8-4849-86b2-782462cce594",
+          "kind": "story",
+          "text": "Harvard working paper finds AI coding agents shift bottleneck to code review\nA job-market working paper by Harvard Ph.D. candidates Fiona Chen and James Stratton, covering 718 firms, found engineers at firms that adopted AI coding agents added about 30% more code. The same paper found that getting code through review took 49% longer.",
+          "textSha256": "05e7ef4834e38ce8fb936c332a71fec8773443660641a1a468cc3ff3c64f02de",
+          "event": "coding-review-study",
+          "retain": true
+        },
+        {
+          "id": "x:2122709767248347579",
+          "kind": "post",
+          "text": "\"Advanced artificial intelligence models in simulated scenarios regularly misidentified civilians, ambulances, surrendering soldiers and a school in Iran as military targets...\" \"Claude Opus 5.5, targeted the school more often than any other...\" pic.twitter.com/sUhVzgjTWS",
+          "textSha256": "5918ca46dca734bb711ec32ed62af0aae833b477b3ff199beaa8e19e214dac3e",
+          "event": "ai-military-target-study",
+          "retain": true
+        },
+        {
+          "id": "x:2122749379287388570",
+          "kind": "post",
+          "text": "Introducing Stitch AI: put agents to work, native inside the Stitch operating system. Stitch AI fetches data, runs tasks and changes configuration across the platform, under the bank’s own permissions and regulatory constraints. pic.twitter.com/xIjAQ5UoAU",
+          "textSha256": "22d588b9dcd0fd0f0c67419757488b1e59f271757fd0843180b183888607b5df",
+          "event": "stitch-ai-launch",
+          "retain": true
+        },
+        {
+          "id": "bluesky:at://did:plc:wnovqylk7dhhl4otvtjp5mch/app.bsky.feed.post/3n2l6xlegqs2x",
+          "kind": "post",
+          "text": "while unreal and unity's workflows and engine teams have been leaning more into AI usage meanwhile in addition to godot's contributor policy https://godotengine.org/article/contribution-policy-2026/ they clarified an already strict rule to keep AI out of the forum, reddit, discord and youtube\nhttps://forum.godotengine.org/guidelines",
+          "textSha256": "9d442caf3ad444c7567aeb27728bee27ca9e9bd194040587fae766d392d558ac",
+          "event": "godot-ai-policy",
+          "retain": true
+        }
+      ]
+    },
+    {
+      "topic": "NBA",
+      "slots": [
+        {
+          "id": "73ac0388-4e54-4eaa-a517-cc1501b19b95",
+          "kind": "story",
+          "text": "LeBron James passes Jason Kidd for third on NBA assists list as Sixers reach 12-3\nLeBron James passed Hall of Famer Jason Kidd for third place on the NBA's career assists list in a win over Indiana. His playmaking milestone came during a two-game winning stretch for Philadelphia.",
+          "textSha256": "e10bb39ebf6d061547e256c3587010f0d2ecb771c9cbc38c786228279ed8190f",
+          "event": "lebron-assists",
+          "retain": true
+        },
+        {
+          "id": "0b1e615c-de17-420c-bbb4-0f9aba434016",
+          "kind": "story",
+          "text": "Short-handed Pistons end Spurs’ 12-game streak as Harper limps off with groin injury\nMissing four regulars, Detroit came back from 14 down to beat San Antonio 105-93 and end the league-best Spurs streak. The Spurs also lost Dylan Harper, their second-leading scorer, to a groin injury in the final minute, and his status remains unclear.",
+          "textSha256": "910a8ea09e700025ad3df2218dcb2add4811d688a1c47cfeea3882db5810afed",
+          "event": "pistons-spurs",
+          "retain": true
+        },
+        {
+          "id": "6c0c70f1-2242-45d0-aa48-3cae40d444f0",
+          "kind": "story",
+          "text": "Jaylen Brown Out Wednesday With Hamstring Strain\nJaylen Brown is set to miss the Philadelphia 76ers' matchup against the Orlando Magic on Wednesday with a left hamstring strain. Brown will be re-evaluated before Saturday's game against the Bucks. Brown suffered the injury late in the fourth quarter of Monday's win over the Nets. Brown is averaging 22.6 points and 6.6 rebounds on the year.",
+          "textSha256": "2ab3d4e6f9ad9919de1876e1255e03df2843ddb736bd220bf69efa2be8638a94",
+          "event": "brown-injury",
+          "retain": true
+        },
+        {
+          "id": "2bcd0619-b9dc-44b0-a5ae-fff1e6d04f7c",
+          "kind": "story",
+          "text": "Warriors changes coming after second straight blowout loss without Steph Curry\nNEW ORLEANS — When you lose in blowout fashion to a red-hot team that was in the NBA Finals five months ago, that’s one thing. When it’s followed by an almost-as-disastrous defeat to a bottom-of-the-barrel squad that had dropped its past six games, something’s got to give. “Especially in the fashion that we’ve lost,” guard De’Anthony Melton said, “expect things to change. As they should, given the last two losses, how we lost.” Golden State Warriors head coach Steve Kerr looks on during an NBA basketball game against the New Orleans Pelicans in New Orleans, Monday, Nov. 16, 2026. …",
+          "textSha256": "ed90e002bd7fe42692397d8cfb8cc5a09532cd43aefd4504e8866e5e3a59fb9e",
+          "event": "warriors-losses",
+          "retain": true
+        },
+        {
+          "id": "6482e82c-1fcf-4f7b-8916-65d776c4097f",
+          "kind": "story",
+          "text": "Rough Hawks injury news: CJ McCollum out 4 weeks (calf strain), Asa Newell likely out for season (toe)\nThis is rough injury news for Atlanta, which at 8-6 sits tied for the 4/5 seeds in the East: • Guard CJ McCollum suffered a strained left calf and will be reevaluated in four weeks, the team announced. • Big man Asa Newell has surgery to repair a left great toe hyperextension, and while the Hawks' announcement says he will be re-evaluated in four months, that will be mid-March, weeks away from the end of the regular season (April 11). It's unlikely we see Newell again this season. …",
+          "textSha256": "ef1c353006f512194fdfebf8cb14b31b70a2296d8ce2c567e467f1c4a19a11ac",
+          "event": "hawks-injuries",
+          "retain": true
+        },
+        {
+          "id": "x:2122843917619962256",
+          "kind": "post",
+          "text": "Stephen A. Smith reveals that Steph Curry believes his ongoing injuries and cartilage damage in his right knee mean his current contract could be his last. \"That this may very well be his last contract.\" \"I have to tell y'all right now that that news makes me sad.\" \"He's a… pic.twitter.com/GA6URToEEU",
+          "textSha256": "6116191bd5e125ae7e96086483cfd29c41461c3fea8c5b7d415ad4d9e2115857",
+          "event": "curry-contract-report",
+          "retain": true
+        },
+        {
+          "id": "x:2122948491668508965",
+          "kind": "post",
+          "text": "BREAKING: THE LAKERS HAVE WON 9 STRAIGHT GAMES CONTENDERS. 🔥🔥🔥 pic.twitter.com/5gIizKlwjU",
+          "textSha256": "b0bc24ace7a769921ec79ca00c6bf9693585651a20b5c010a35b4d89d3028e5b",
+          "event": "lakers-game",
+          "retain": false,
+          "reason": "Use the more detailed duo-statistics post as the game representative, following iteration 2773."
+        },
+        {
+          "id": "x:2122943233454113131",
+          "kind": "post",
+          "text": "GRIMES SENDS IT TO OT pic.twitter.com/GXk6V5Bbbj",
+          "textSha256": "65901f3c80d27ebec0d2188b20efaaa4ce12918c0ef63ff1d2647368bd14183c",
+          "event": "lakers-game",
+          "retain": false,
+          "reason": "Overtime teaser is not standalone; retain the reviewed duo-statistics representative."
+        },
+        {
+          "id": "bluesky:at://did:plc:fqsmj7o5mbb7n7oav2kkjuid/app.bsky.feed.post/3n2lckid4sk2n",
+          "kind": "post",
+          "text": "Luka Dončić & Quentin Grimes for the Lakers last night:\n\n83 points\n15 threes made\n12 rebounds\n10 assists\n\nNo other teammate duo in NBA history has combined to reach those marks in a game.\n\n(via OptaSports)\n#NBA",
+          "textSha256": "174e9cc85a4d250cb6d3a797128fe51b0b34f56eb5fc98d833deb2aef09ac615",
+          "event": "lakers-game",
+          "retain": true
+        }
+      ]
+    },
+    {
+      "topic": "Gaming",
+      "slots": [
+        {
+          "id": "c6df3e62-727d-422a-ab7f-599d6c275524",
+          "kind": "story",
+          "text": "GTA 6 launches to universal critical acclaim; Take-Two shares jump in pre-market trading\nAfter a 13-year wait, Grand Theft Auto 6 has been met with universal acclaim, and recent data shows over 17 million pre-orders generating more than $1.6 billion in revenue. GameSpot reports Take-Two shares were up close to 7% in pre-market trading after the reviews landed.",
+          "textSha256": "db7a5751e1889c04cb68a7fd44b709c8153ad3fd1cd9a101910aa8b623172a04",
+          "event": "gta-launch-reviews",
+          "retain": true
+        },
+        {
+          "id": "8fcf7d0a-c535-421d-b5fe-9fad257bd160",
+          "kind": "story",
+          "text": "Firaxis lays off about 60 employees, a third of its workforce\nTake-Two studio Firaxis, maker of Civilization and the XCOM revivals, is cutting around a third of its workforce, affecting approximately 60 employees. According to Bloomberg's Jason Schreier, a 2K Games spokesperson confirmed that studio head Heather Hazen is leaving.",
+          "textSha256": "38db11a1162dcb150d116b3c88dad58f14e2b050e0098418d782b4d198d81dbe",
+          "event": "firaxis-layoffs",
+          "retain": true
+        },
+        {
+          "id": "d2663bb3-11a8-4726-b6a5-5994526a97ee",
+          "kind": "story",
+          "text": "Build a Rocket Boy plans litigation against alleged \"saboteurs\" to recoup £61.7m debt\nMindsEye developer Build a Rocket Boy owes £61.7 million in debt. It plans to recoup the money by pursuing litigation against alleged \"saboteurs\".",
+          "textSha256": "7ce62370afcf68319e013cb618ae7337a3a5c23ad47f37dfd5dd2f6d70c0b010",
+          "event": "mindseye-litigation",
+          "retain": true
+        },
+        {
+          "id": "83af0341-6dc7-4de0-b8b1-2a76740ad032",
+          "kind": "story",
+          "text": "WoW: Forever hits record launch numbers, with more weekly players than in 15 years\nWorld of Warcraft: Forever had the biggest concurrent player launch in the MMO's history, according to the report. Executive producer Holly Longdale said over 15 million characters have been logged, and that the game has more people playing weekly than Blizzard has seen in 15 years.",
+          "textSha256": "77af5a67adb8acb77b4031899c375fa00aca842ef8a8f59b2c93b820123d92c8",
+          "event": "wow-player-milestone",
+          "retain": true
+        },
+        {
+          "id": "801716f5-d084-4c3a-9908-4d1ef84be82c",
+          "kind": "story",
+          "text": "Zelda: Ocarina of Time remake is the best-selling physical game in the US for 2026\nAccording to Circana's Mat Piscatella, the Ocarina of Time remake became the best-selling physical video game in the US for 2026, selling over one million copies as of November 7th. GamingBolt says Nintendo's remake has sold over 5.2 million copies in four days.",
+          "textSha256": "779661bf391d9550239251b4003d08da62f3095ffc9206a711f3a795adeacd23",
+          "event": "zelda-sales",
+          "retain": true
+        },
+        {
+          "id": "x:2122863683881619685",
+          "kind": "post",
+          "text": "Sony Interactive has issued a PS5 system software update that is required before playing Grand Theft Auto VI. Players should download this update prior to midnight on November 19 so that they’re ready to play on launch day, November 19.",
+          "textSha256": "9b67a52477a43e949ae13fcd9573ddaa0cab044e7659a043006eeb0ed1e75f0b",
+          "event": "gta-ps5-update",
+          "retain": true
+        },
+        {
+          "id": "x:2122843024791314913",
+          "kind": "post",
+          "text": "Another fun statistic for you! #WoWForever has more people playing weekly than we've seen in World of Warcraft in 15 years! Thank you all for joining us in Azeroth. We're doing this together, for Forever! 💙♾️",
+          "textSha256": "f22299b2186f3b4f637ce28a7ac64a334cea3df9ff873bf1f49476d8924402d7",
+          "event": "wow-player-milestone",
+          "retain": false,
+          "reason": "Same weekly-player milestone as the selected WoW story; no new figure or period."
+        },
+        {
+          "id": "x:2122737283799589123",
+          "kind": "post",
+          "text": "The Game Awards Nominations - Best Performance: • Angela Sant’Albano - ‘Resident Evil: Requiem’ • Liam McIntyre, ‘Wolverine’ • Manni L. Perez, ‘GTA 6’ • Patrick Gibson, ‘007: First Light’ • Rahul Kohli, ‘Saros’ See the full nominees list: pic.twitter.com/W0IrARtWwB",
+          "textSha256": "30c4159429c636a801c092b7ebd2f985fd94874a47a8643a15c02d648068b487",
+          "event": "game-awards-nominations",
+          "retain": true
+        },
+        {
+          "id": "bluesky:at://did:plc:n63mepo7bg7ggrjgzha3gmbq/app.bsky.feed.post/3n2jw42ptg227",
+          "kind": "post",
+          "text": "gta6 being nominated for game of the year (and every other major category) and voting opening before it's even out really is the most game awards moment of all time",
+          "textSha256": "193f02e0902967f79cb29c83663878afd4175d3dc9fb2b4501710ccb95a890f7",
+          "event": "game-awards-nominations",
+          "retain": true
+        },
+        {
+          "id": "bluesky:at://did:plc:4nci4ly3xu3nau7hzr373bte/app.bsky.feed.post/3n2jmghnumr2m",
+          "kind": "post",
+          "text": "CONTROL Resonant has been nominated in six categories in The Game Awards, including Game of the Year.\n\nThank you so much for the honor! If you enjoyed your time with the game, please consider voting for us: http://thegameawards.com\n\n#CONTROLResonant ",
+          "textSha256": "920986fa2a852d87688f59bd0d9e495855925d0fa2929d66514d06dc7f3aaab6",
+          "event": "game-awards-nominations",
+          "retain": true
+        }
+      ]
+    },
+    {
+      "topic": "World news & politics",
+      "slots": [
+        {
+          "id": "2e56befe-11d4-4fd2-85d6-9a5251af2b92",
+          "kind": "story",
+          "text": "Trump shakes hands with Putin and Xi ahead of China summit\nPresident Trump shook hands with Russian President Putin and Chinese President Xi ahead of talks in China. The three leaders are due to meet together for the first time on Thursday during a closely watched summit, according to Al Jazeera, BBC World and NPR Politics.",
+          "textSha256": "0886a5a9ce6402f024745cba0ba44147d08b34624047e11e0243fffc3dc220bc",
+          "event": "china-summit",
+          "retain": true
+        },
+        {
+          "id": "a3aca46a-8765-4917-a87d-71a73bbca5dd",
+          "kind": "story",
+          "text": "Analysts warn US-Iran 'status quo' could break out into war\nIran and the US have continued to exchange strikes in recent days, but all-out war has so far been avoided, according to Al Jazeera and BBC World. Analysts warn the situation could escalate into war.",
+          "textSha256": "8c4169006650a27e53047132f833b97d0510918e9f3f1963309e9a1c9e76ba78",
+          "event": "us-iran-strikes",
+          "retain": true
+        },
+        {
+          "id": "ce8063d2-f235-4a8d-9908-ee5f24937485",
+          "kind": "story",
+          "text": "Israel begins operation in central Gaza as Palestinians flee refugee camp\nPalestinians fled a refugee camp as Israel began an operation in central Gaza, Al Jazeera reports. The Israeli army says the operation west of the 'Yellow Line' aims to 'eliminate a threat'.",
+          "textSha256": "6d159969ecc2af64d284c1d1806cb07bd8e376ef83e32d74124df7c408700147",
+          "event": "central-gaza-operation",
+          "retain": true
+        },
+        {
+          "id": "7b9c7612-9572-4ce9-9a1d-71c0c5602dbc",
+          "kind": "story",
+          "text": "Ukraine hit Crimean bridge in two waves of strikes after weeks-long operation\nAl Jazeera reports that a weeks-long operation was behind two waves of strikes on Putin's prized bridge. The strikes used long-range missiles and drones developed in Ukraine.",
+          "textSha256": "166458b1baf3dc717d0103c4d40533a9a56963bb56c4f7a521e4c56949c9443e",
+          "event": "crimean-bridge-strikes",
+          "retain": true
+        },
+        {
+          "id": "0f1db589-579f-43ff-b62f-a19541eb610e",
+          "kind": "story",
+          "text": "Israel delays building contracts for E1 West Bank settlement after UK sanctions\nIsrael has postponed issuing contracts for building a large West Bank settlement seen as likely to render a two-state solution unviable, The Guardian reports. The delay came days after the UK imposed sanctions on building firms operating in the area.",
+          "textSha256": "ec8985dac8dfb959612bc3c77d97f5742d083526183ae1c096a569cb2fc332b2",
+          "event": "e1-contract-delay",
+          "retain": true
+        },
+        {
+          "id": "x:2122734533636391411",
+          "kind": "post",
+          "text": "This winter, more than 1,000 air defence missiles and over a dozen air defence radars will be delivered to Ukraine as part of a £240 million package. This vital equipment will help strengthen Ukraine's air defences and protect against Russia's relentless attacks.",
+          "textSha256": "f6e549f42841699b3b93c174fe2aa8f7c1204add01497766c3579638a571b6ec",
+          "event": "uk-ukraine-air-defence",
+          "retain": true
+        },
+        {
+          "id": "bluesky:at://did:plc:yazbevg3wkzp5llnzb44tqgh/app.bsky.feed.post/3n2lliylqgc22",
+          "kind": "post",
+          "text": "⚡️️ European Commission approves proposal to provide additional $49.5 billion to Ukraine.\n\nThe European Commission on Nov. 18 approved a set of legislative proposals to provide up to €45 billion ($49.5 billion) in additional financial support to Ukraine in 2027.",
+          "textSha256": "e7e49965df8927bb9f617930f09e3752cd35ac4f7c41c036f1d1ada20615f9d9",
+          "event": "eu-ukraine-finance",
+          "retain": true
+        },
+        {
+          "id": "bluesky:at://did:plc:4aqzua5vsewimmusg66fyajl/app.bsky.feed.post/3n2liomgias2f",
+          "kind": "post",
+          "text": "The Kremlin says Putin briefed Xi Jinping on the war in Ukraine. Peskov confirmed Ukraine will dominate Putin's discussions with Trump and Xi at the summit in China. A formal Putin-Trump meeting now appears unlikely, while work continues on a joint trilateral statement. #Ukraine",
+          "textSha256": "9ecf84b25d70617e00003866dd91e565f9128671caab2df8f11f35f4a995acc0",
+          "event": "china-summit",
+          "retain": true
+        }
+      ]
+    },
+    {
+      "topic": "U.S. news & politics",
+      "slots": [
+        {
+          "id": "d9db8b34-bcd4-4faa-b4a2-5e8da08cf90c",
+          "kind": "story",
+          "text": "Democrat Mary Peltola wins Alaska Senate seat, beating Republican incumbent Dan Sullivan\nDemocrat Mary Peltola defeated Republican incumbent Dan Sullivan in the Alaska Senate race, according to Al Jazeera, BBC World and NPR Politics. The excerpt says it was the last U.S. Senate contest resolved in this year's midterm elections and that Democrats flipped nine GOP-held seats to retake the chamber.",
+          "textSha256": "75bcf1bb2285785f9a2252a84d6dba10cff5646119bcb7f1b267774d65fadae6",
+          "event": "peltola-win",
+          "retain": true
+        },
+        {
+          "id": "035d48b9-8ad0-4036-8c10-c4a8b6a36062",
+          "kind": "story",
+          "text": "Republicans could expedite bill to make big oil immune to lawsuits, warn experts\nThe Guardian US reports that GOP lawmakers are rushing high-priority bills before newly elected Democrats are sworn in. Climate groups fear a bill could pass by the end of the year giving fossil fuel companies immunity from lawsuits and from legislation holding them accountable for the climate crisis, and hundreds of elected leaders and climate groups urged Democratic leadership to reject any such proposal.",
+          "textSha256": "6b6d3a960685ce34a108d58eda54ed5029111164fe0a274b4568e89956fafb3b",
+          "event": "oil-lawsuit-immunity",
+          "retain": true
+        },
+        {
+          "id": "c745047f-ca45-451e-a394-51bd2a512c2c",
+          "kind": "story",
+          "text": "US loses long-held measles elimination status, according to PAHO declaration\nThe Pan American Health Organization declared measles resurgent in the United States, Bolivia and Mexico on Tuesday, meaning the virus has spread continuously for 12 months, according to The Guardian US. Public health leaders quoted by the outlet expressed grief and alarm and condemned what they called significant damage by the Trump administration.",
+          "textSha256": "f050dc05d8ed7b4f69c2f265210a6bff2864ce5d216aa9d5a55be528ef60033d",
+          "event": "measles-status",
+          "retain": true
+        },
+        {
+          "id": "312033e7-edd4-4c6e-8321-5e8520e2cbdf",
+          "kind": "story",
+          "text": "Florida labels CAIR a terrorist organization, prompting lawsuit from CAIR-Florida\nUnder a new process, Florida designated the Council on American-Islamic Relations (CAIR) a domestic terrorist organization, according to The Guardian US. CAIR-Florida is suing state officials, and the outlet reports the designation meant the group had to shut its doors to victims of harassment and discrimination.",
+          "textSha256": "ad0fdaf8eb295894018badb2ae8d7df1377f407e76c65c1c96a8a125efbaa0e2",
+          "event": "florida-cair",
+          "retain": true
+        },
+        {
+          "id": "a65dbed7-11c0-460e-91a3-0299239a345d",
+          "kind": "story",
+          "text": "White House withdraws nomination of Heidi Overton to lead FDA\nThe White House has dropped its nomination of Heidi Overton to lead the Food and Drug Administration, a White House official told The Guardian US. Trump nominated Overton, a physician and prominent abortion opponent, in August, and the withdrawal came a day before a key Senate health committee vote.",
+          "textSha256": "80b1a4de5aad47d29cc0f81669098b465982917380370c3d2138704c1ff8dc1a",
+          "event": "fda-nomination-withdrawal",
+          "retain": true
+        },
+        {
+          "id": "x:2122782448409038947",
+          "kind": "post",
+          "text": "🚨 JUST IN: Senate Leader John Thune says there's a LOT he wants to get done, but DEMOCRATS are holding it up, so he can't \"FUNDING the government...Defense Authorization, FISA, Farm Bill, a WHOLE bunch of things require cooperation by Democrats, which at this point, DOESN'T… pic.twitter.com/jDel0epr8N",
+          "textSha256": "2e50fd0686c6aa981b44dcc5d857bd158570642dcb7ba4a51843b3023d2cce51",
+          "event": "senate-agenda",
+          "retain": true
+        },
+        {
+          "id": "x:2122737549353357451",
+          "kind": "post",
+          "text": "Jeffries calls for Trump admin to host a bicameral briefing on the recent Microsoft outage, FAA ground stop and NSA server issue",
+          "textSha256": "dfbdd985da78a3edb415e85bb4e615c1bbc759f468d416bb4fe708d88a87f57b",
+          "event": "outage-briefing-request",
+          "retain": true
+        },
+        {
+          "id": "bluesky:at://did:plc:tzu3epnnjzjnoqycxrlf45hf/app.bsky.feed.post/3n2km6msps52r",
+          "kind": "post",
+          "text": "BREAKING: Mary Peltola wins election to the U.S. Senate from Alaska, projects the AP. Her win will give Democrats 56 seats in the new Congress.",
+          "textSha256": "ff050203061c233f46ee0fdc83617d2f7e46603cd4902e6995c2139a6dfe937f",
+          "event": "peltola-win",
+          "retain": false,
+          "reason": "Repeats the selected Alaska result; chamber total adds detail to the same result, not a distinct event."
+        },
+        {
+          "id": "bluesky:at://did:plc:udnac33pmf2iwcblpeai5a5p/app.bsky.feed.post/3n2lpe2ddlk2i",
+          "kind": "post",
+          "text": "Dan Koh: Congress Shouldn't Be a Get Rich Scheme!\n\nPublic service is supposed to serve the people, not politicians' stock portfolios.\nDan Koh says he is joining 50 incoming Democrats in demanding a ban on stock trading by members of Congress.",
+          "textSha256": "815cdfe757477c6b9f20af21b7f1328fdd0544c3b06d5da6d5a49865a8cf0a76",
+          "event": "congress-stock-ban",
+          "retain": true
+        }
+      ]
+    }
+  ]
+}

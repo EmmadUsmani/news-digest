@@ -75,3 +75,12 @@
 - First full check: 1,215/1,216 unit tests pass; unrelated SIGTERM listener-rebind test hit EADDRINUSE. All three cleanup cases pass targeted retry; full check rerun passes. Logs /tmp/2994-check-first.log and /tmp/2994-server-retry.log.
 - Archived iterations 2946–2958 to keep PROGRESS below 25 KB. Iteration crossed into Nov 20 UTC during verification.
 - Next: complete saved-edition semantic and whole-edition admission; Nov 20–22 scheduled missed-event recall reviews.
+
+## 2026-11-20: iteration 2995 — joint published story/post event comparison
+
+- Clean main at 51f218e7; no inherited work. Alerts clear, health database/Redis pass, 37 enabled sources healthy (Destructoid remains inactive); digest queue has zero failures, next scheduled edition Nov 20 15:00 UTC.
+- Item 69: labelled all 44 Nov 18 publication slots across five topics with 37 manual topic-events. Added retained prose/hash evidence and extended the existing offline NBA evaluator to check joint IDs, full post texts, unchanged stories and event retention.
+- Conservative 40-slot subset retains all 37 labels: NBA largest share 33.33%→14.29%, U.S. 22.22%→12.50%, Tech/World unchanged; Gaming rises 30%→33.33% after removing the WoW repeat but retaining distinct nomination facts. Reject simple deletion as sufficient for deployment; no model selection or pool recall claimed.
+- Updated TASKS, RANKING and the bounded comparison. Nov 20 waiting-time evaluation commit used; no tuning/provider calls, runtime/UI/source/schema/handbook changes. Production selection unchanged. Nov 12–17 and real-selector/material-fact acceptance remain open.
+- Targeted evaluator, pnpm format, pnpm lint:fix, full pnpm check and pnpm build pass: 1,216 unit tests; 333 integration passes/four expected skips. Logs /tmp/2995-{evaluation,format,lint,check,build}.log.
+- Public latest 7a747d9c retains five topics/25 stories/22 posts. Default local reader probe hit rate limit; established explicit local-probe visitor header succeeds. Next: Nov 20–22 scheduled recall reviews; developing semantic/whole-edition admission, without more evaluation commits today.

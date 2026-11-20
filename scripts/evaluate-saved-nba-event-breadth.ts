@@ -97,3 +97,90 @@ console.log(
     productionSelectionChanged: false,
   }),
 );
+
+// Joint story/post comparison uses saved prose, with editorial event labels.
+// It is deliberately separate from the model selector and cannot tune it.
+const joint = JSON.parse(
+  readFileSync(new URL('2026-11-18-joint-event-labels.json', root), 'utf8'),
+) as {
+  editionId: string;
+  topics: {
+    topic: string;
+    slots: {
+      id: string;
+      kind: 'story' | 'post';
+      text: string;
+      textSha256: string;
+      event: string;
+      retain: boolean;
+    }[];
+  }[];
+};
+assert.equal(joint.editionId, saved.editionId);
+assert.equal(joint.topics.length, 5);
+assert.equal(new Set(joint.topics.map((topic) => topic.topic)).size, 5);
+const comparison = joint.topics.map(({ topic, slots }) => {
+  const savedTopic = saved.topics.find((item) => item.topic === topic);
+  assert.ok(savedTopic);
+  assert.deepEqual(
+    slots
+      .filter((slot) => slot.kind === 'post')
+      .map((slot) => slot.text)
+      .sort(),
+    [...savedTopic.otherPostTexts, ...savedTopic.posts]
+      .map((post) => post.text)
+      .sort(),
+    `Joint posts differ from retained publication: ${topic}`,
+  );
+  assert.equal(new Set(slots.map((slot) => slot.id)).size, slots.length);
+  assert.equal(slots.filter((slot) => slot.kind === 'story').length, 5);
+  for (const slot of slots) {
+    assert.ok(slot.event.trim());
+    assert.equal(
+      createHash('sha256').update(slot.text).digest('hex'),
+      slot.textSha256,
+      `Joint saved text drift: ${slot.id}`,
+    );
+  }
+  const retained = slots.filter((slot) => slot.retain);
+  assert.ok(
+    slots.filter((slot) => slot.kind === 'story').every((slot) => slot.retain),
+  );
+  assert.deepEqual(
+    [...new Set(retained.map((slot) => slot.event))].sort(),
+    [...new Set(slots.map((slot) => slot.event))].sort(),
+    `Lost labelled event: ${topic}`,
+  );
+  function concentration(items: typeof slots) {
+    const counts = new Map<string, number>();
+    for (const slot of items)
+      counts.set(slot.event, (counts.get(slot.event) ?? 0) + 1);
+    const largest = Math.max(...counts.values());
+    return {
+      slots: items.length,
+      events: counts.size,
+      largest,
+      largestShare: largest / items.length,
+    };
+  }
+  return {
+    topic,
+    before: concentration(slots),
+    after: concentration(retained),
+  };
+});
+assert.equal(joint.topics.flatMap((topic) => topic.slots).length, 44);
+assert.equal(
+  joint.topics.flatMap((topic) => topic.slots).filter((slot) => slot.retain)
+    .length,
+  40,
+);
+console.log(
+  JSON.stringify({
+    mode: 'offline-manual-joint-event-comparison',
+    editionId: joint.editionId,
+    comparison,
+    providerCalls: 0,
+    productionSelectionChanged: false,
+  }),
+);
