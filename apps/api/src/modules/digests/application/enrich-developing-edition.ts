@@ -20,6 +20,18 @@ export async function enrichDevelopingEdition<T extends TopicInput>(
       stories: topic.selected,
     })),
   });
+  const historyTimes = new Map<string, number>();
+  for (const topic of topics) {
+    for (const edition of topic.history) {
+      const time = Date.parse(edition.publishedAt);
+      if (
+        historyTimes.has(edition.editionId) &&
+        historyTimes.get(edition.editionId) !== time
+      )
+        return unchanged('invalid-edition');
+      historyTimes.set(edition.editionId, time);
+    }
+  }
   const publicationTimes = topics.map((topic) => Date.parse(topic.publishedAt));
   if (
     publicationTimes.some((time) => !Number.isFinite(time)) ||

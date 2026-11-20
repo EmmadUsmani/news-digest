@@ -46,3 +46,14 @@ Earlier entries: [pre-3038 archive](docs/progress-archive/2026-11-20-pre-3038.md
 - Archived older progress and completed task detail to keep orientation files smaller; open priorities unchanged.
 - Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build all pass (logs /tmp/3041-*.log). 1,285 unit passes; 336 integration passes/four expected skips.
 - Read-only Nov 19 scheduled reader gate passes: five topics, 25 stories/22 posts. Commit/push and API/worker restart follow; post-restart health/reader verification required.
+
+## 2026-11-20: iteration 3042 — consistent shared historical editions
+
+- Clean main at 42c7e590; no inherited work. Alerts clear, healthz passes; disk 62%. Historical failed check-only units remain, no active service alert.
+- Inactive developing coordinator now refuses conflicting timestamps for one historical edition across topics before dispatch, preserving every original selection.
+- Equivalent timezone representations and different historical edition IDs remain accepted. Developing stories stays inactive; no paid replay or cap change.
+- Targeted coordinator suite: eight passes, including zero-dispatch refusal and accepted controls.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build (logs /tmp/3042-*.log); final results below.
+- Read-only scheduled reader gate verifies Nov 19 publication: five topics, 25 real stories/22 posts. Next reviews Nov 20–22 after 15:00 UTC.
+- Final check/build pass: 1,286 unit passes; 336 integration passes/four expected skips; typecheck, lint, formatting and boundaries green.
+- API/worker restarted active; post-restart healthz and reader gate pass, alerts clear. Commit/push follows; production feature remains inactive.

@@ -342,3 +342,35 @@ void test('edition rejects ambiguous or unordered history before any topic dispa
   }
   assert.equal(calls, 3);
 });
+
+void test('shared history editions require consistent publication times across topics', async () => {
+  let calls = 0;
+  const topics = ['tech', 'nba'].map((id) => ({
+    ...topic(id),
+    grouping: {
+      async groupWithResult() {
+        calls++;
+        return { status: 'validated' as const, groups: [] };
+      },
+    },
+  }));
+  topics[1].history[0].publishedAt = '2026-11-18T15:00:00Z';
+  const refused = await enrichDevelopingEdition(topics);
+  assert.equal(refused.status, 'unchanged');
+  assert.equal(refused.reason, 'invalid-edition');
+  assert.equal(calls, 0);
+  refused.topics.forEach((item, index) =>
+    assert.equal(item.stories, topics[index].selected),
+  );
+
+  // Equivalent timezone representations describe the same immutable edition.
+  topics[1].history[0].publishedAt = '2026-11-19T10:00:00-05:00';
+  assert.equal((await enrichDevelopingEdition(topics)).status, 'completed');
+  assert.equal(calls, 2);
+
+  // Different topics may also have histories drawn from different editions.
+  topics[1].history[0].editionId = 'another-previous';
+  topics[1].history[0].publishedAt = '2026-11-18T15:00:00Z';
+  assert.equal((await enrichDevelopingEdition(topics)).status, 'completed');
+  assert.equal(calls, 4);
+});

@@ -72,6 +72,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 3042: Inactive developing-edition admission rejects conflicting publication times for the same historical edition across topics; equivalent timezone representations and distinct editions remain supported.
+
 - [x] 3041: Inactive developing-edition admission refuses unordered, duplicate, blank or over-seven-edition history before dispatch; accepted chronological histories retain support.
 
 [Completed implementation history through 3040](docs/progress-archive/2026-11-20-task-detail-3040.md).
