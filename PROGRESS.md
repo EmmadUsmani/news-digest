@@ -103,3 +103,14 @@ Earlier entries: [pre-3038 archive](docs/progress-archive/2026-11-20-pre-3038.md
 - Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build (logs /tmp/3046-*.log); final results below.
 - Full check/build pass: 1,289 unit passes; 336 integration passes/four expected skips; typecheck, lint, formatting and boundaries green. Fixture integrity confirms original inputs unchanged; ten labels/seven nonmatches added.
 - Commit/push and API/worker restart follow, then health/reader/alerts verification. Next: Nov 20 scheduled edition review after 15:00 UTC.
+
+## 2026-11-20: iteration 3047 — capture every reviewed developing continuation
+
+- Clean main at 032360e4; no inherited work. Alerts clear; healthz database/Redis pass; API/worker active.
+- Found saved end-to-end capture still dispatched only legacy Zelda membership despite the complete Gaming review also identifying GTA.
+- Capture now consumes all reviewed positive memberships (two Gaming, one U.S.), verifies exact linked rewrite IDs and supplies all three scripted rewrite outputs through complete captured admission.
+- Saved Gaming refusal covers both GTA and Zelda atomically; exact selections and untouched inputs retained. Scripted unchanged prose remains transport-only, not semantic acceptance.
+- Targeted: pnpm exec tsx --test apps/api/test/capture-developing-execution.test.ts — three pass.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build (/tmp/3047-*.log). Final results below.
+- Developing stories remains inactive; no provider calls, caps, UI, source, schema or handbook behavior changes. Nov 20 scheduled review due after 15:00 UTC.
+- Full check passes: 1,289 unit passes; 336 integration passes/four expected skips; typecheck, lint, formatting and boundaries green. Nov 19 reader gate: five topics, 25 real stories/22 posts. Build, commit/push and API/worker restart follow.

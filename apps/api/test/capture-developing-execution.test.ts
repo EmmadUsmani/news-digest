@@ -127,7 +127,7 @@ void test('no-link and refused executions never fabricate rewrite coverage', asy
   }
 });
 
-void test('saved Peltola and Zelda captures bind complete admitted execution and atomic refusal', async () => {
+void test('saved Peltola, GTA and Zelda captures bind complete admitted execution and atomic refusal', async () => {
   type Topic = Parameters<typeof enrichDevelopingEdition>[0][number];
   const fixture = JSON.parse(
     readFileSync(
@@ -148,6 +148,10 @@ void test('saved Peltola and Zelda captures bind complete admitted execution and
       selected?: Topic['selected'];
       originalEditorialEvidence?: { evidence: Topic['evidence'] };
       expectedPredecessors: { editionId: string; storyId: string }[];
+      reviews: {
+        storyId: string;
+        expectedPredecessors: { editionId: string; storyId: string }[];
+      }[];
     }[];
   };
   const cases = fixture.cases.filter(
@@ -164,18 +168,28 @@ void test('saved Peltola and Zelda captures bind complete admitted execution and
       (story) => story.id === item.reviewedStoryId,
     );
     assert.ok(currentIndex >= 0);
-    const references = item.expectedPredecessors.map((previous) => {
-      const editionIndex = item.history.findIndex(
-        (edition) => edition.editionId === previous.editionId,
-      );
-      assert.ok(editionIndex >= 0);
-      const storyIndex = item.history[editionIndex].stories.findIndex(
-        (story) => story.id === previous.storyId,
-      );
-      assert.ok(storyIndex >= 0);
-      return `history:${editionIndex}:${storyIndex}`;
-    });
-    assert.ok(references.length > 0);
+    const groups = item.reviews
+      .filter((label) => label.expectedPredecessors.length > 0)
+      .map((label) => {
+        const index = selected.findIndex((story) => story.id === label.storyId);
+        assert.ok(index >= 0);
+        return [
+          `current:${index}`,
+          ...label.expectedPredecessors.map((previous) => {
+            const editionIndex = item.history.findIndex(
+              (edition) => edition.editionId === previous.editionId,
+            );
+            assert.ok(editionIndex >= 0);
+            const storyIndex = item.history[editionIndex].stories.findIndex(
+              (story) => story.id === previous.storyId,
+            );
+            assert.ok(storyIndex >= 0);
+            return `history:${editionIndex}:${storyIndex}`;
+          }),
+        ];
+      });
+    assert.equal(groups.length, item.topicName === 'Gaming' ? 2 : 1);
+    const matchingResponse = JSON.stringify({ groups });
     editionTopics.push({
       ...item,
       selected,
@@ -184,22 +198,13 @@ void test('saved Peltola and Zelda captures bind complete admitted execution and
       runId: item.editionId,
       editorialMode: 'ai',
     });
-    editionMatches.push(
-      JSON.stringify({
-        groups: [[`current:${currentIndex}`, ...references]],
-      }),
-    );
+    editionMatches.push(matchingResponse);
     const run = (rewriteResponse = 'null') =>
       captureDevelopingExecution({
         editionId: item.editionId,
         topicIds: [item.topicId],
         // Manual memberships and scripted refusal test transport only, never semantics.
-        responses: [
-          JSON.stringify({
-            groups: [[`current:${currentIndex}`, ...references]],
-          }),
-          rewriteResponse,
-        ],
+        responses: [matchingResponse, rewriteResponse],
         async execute(port) {
           const models = llmConfig({});
           const llm = new BudgetedLlm(port, {
@@ -252,6 +257,15 @@ void test('saved Peltola and Zelda captures bind complete admitted execution and
       requests[1].prompt.includes(
         JSON.stringify(original.excerpt).slice(1, -1),
       ),
+    );
+    const rewriteStories = JSON.parse(requests[1].prompt).stories;
+    assert.deepEqual(
+      rewriteStories.map(
+        (story: { selected: { id: string } }) => story.selected.id,
+      ),
+      item.reviews
+        .filter((label) => label.expectedPredecessors.length > 0)
+        .map((label) => label.storyId),
     );
     assert.equal(requests[0].model.id, llmConfig({}).haiku.id);
     assert.equal(requests[1].model.id, llmConfig({}).sonnet.id);
@@ -332,15 +346,19 @@ void test('saved Peltola and Zelda captures bind complete admitted execution and
   const responses = [
     ...editionMatches,
     ...cases.map((item) => {
-      const story = item.selected!.find((s) => s.id === item.reviewedStoryId)!;
-      return JSON.stringify([
-        {
-          id: story.id,
-          title: story.title,
-          summary: story.summary,
-          whyItMatters: story.whyItMatters,
-        },
-      ]);
+      return JSON.stringify(
+        item.reviews
+          .filter((label) => label.expectedPredecessors.length > 0)
+          .map((label) => {
+            const story = item.selected!.find((s) => s.id === label.storyId)!;
+            return {
+              id: story.id,
+              title: story.title,
+              summary: story.summary,
+              whyItMatters: story.whyItMatters,
+            };
+          }),
+      );
     }),
   ];
   const executeBudgeted = (llm: BudgetedLlm) => {
