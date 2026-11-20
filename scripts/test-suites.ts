@@ -30,6 +30,7 @@ const integration = new Set([
   'console.test.ts',
   'digests.test.ts',
   'development-spend-database.test.ts',
+  'developing-ledger-admission.test.ts',
   'edition-jobs.test.ts',
   'edition-golden.test.ts',
   'edition-timing.test.ts',
