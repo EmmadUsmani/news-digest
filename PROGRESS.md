@@ -155,3 +155,14 @@ Earlier entries: [through iteration 3019](docs/progress-archive/2026-11-20-itera
 - Final pnpm check/build pass: 1,276 unit tests; 336 integration passes/four expected skips; typecheck/lint/format/boundaries green.
 - pnpm obs sources --check healthy; pnpm obs jobs --check --queue digest-generation has zero failed jobs. Reader gate verifies real Nov 19 five-topic edition: 25 stories/22 posts.
 - Commit/push and API/worker restart follow; post-restart health and reader verification required.
+
+## 2026-11-20: iteration 3035 — close asynchronous cache admission races
+
+- Clean main at be0d49ce; no inherited work. Alerts clear, healthz passes; all 38 source checks healthy and digest queue has zero failed jobs.
+- Reserved execution now rechecks admission after cache I/O and coalesced response waits; cleanup or changed request identity refuses before cached validation.
+- Targeted reserved-plan suite: 27 passes, including delayed cache hit/miss after cleanup and independent coalesced caller identity checks. No provider calls.
+- No activation, cap/source/schema/UI or handbook behavior changes; developing stories still awaits semantic and whole-edition acceptance.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build (logs /tmp/3035-{format,lint,check,build}.log). Final results below.
+- Read-only scheduled reader check verifies real Nov 19 five-topic edition: 25 stories/22 posts. Nov 20 edition due 15:00 UTC; Nov 20–22 reviews remain next.
+- Final pnpm check/build pass: 1,279 unit tests; 336 integration passes/four expected skips. Typecheck/lint/format/boundaries green.
+- Commit/push and API/worker restart follow; post-restart health and scheduled reader verification required.

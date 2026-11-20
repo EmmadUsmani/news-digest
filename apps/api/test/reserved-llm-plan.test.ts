@@ -821,3 +821,83 @@ void test('atomic plans support consistent repeated prices and distinct models',
   assert.deepEqual(h.settled, ['0', '1']);
   assert.deepEqual(h.released, ['2']);
 });
+
+void test('cache lookup and coalesced callers refuse after reserved scope cleanup', async () => {
+  for (const cached of [undefined, { ok: true }]) {
+    const h = harness();
+    let finishCache!: (value: unknown) => void;
+    h.ledger.cached = () =>
+      new Promise((resolve) => {
+        finishCache = resolve;
+      });
+    const plan = await reserveLlmPlan(h.ledger, [request]);
+    assert.ok(plan);
+    const llm = new BudgetedLlm(h.provider, plan.ledger);
+    let validations = 0;
+    const check = (value: unknown) => {
+      validations++;
+      return value;
+    };
+    const first = llm.jsonOutcome(request, check, { repair: false });
+    const second = llm.jsonOutcome(request, check, { repair: false });
+    await plan.releaseUnused();
+    finishCache(cached);
+    assert.deepEqual(await Promise.all([first, second]), [
+      { status: 'budget-refused' },
+      { status: 'budget-refused' },
+    ]);
+    assert.equal(validations, 0);
+    assert.deepEqual(h.counts(), { batches: 1, dispatches: 0 });
+    assert.deepEqual(h.released, ['0']);
+  }
+});
+
+void test('request identity is rechecked after asynchronous cache lookup', async () => {
+  const h = harness();
+  let finishCache!: (value: unknown) => void;
+  h.ledger.cached = () =>
+    new Promise((resolve) => {
+      finishCache = resolve;
+    });
+  const mutable = { ...request, model: { ...request.model } };
+  const plan = await reserveLlmPlan(h.ledger, [mutable]);
+  assert.ok(plan);
+  const llm = new BudgetedLlm(h.provider, plan.ledger);
+  const pending = llm.jsonOutcome(
+    mutable,
+    () => assert.fail('Must not validate'),
+    { repair: false },
+  );
+  mutable.topicId = 'foreign';
+  finishCache({ ok: true });
+  assert.deepEqual(await pending, { status: 'budget-refused' });
+  await plan.releaseUnused();
+  assert.deepEqual(h.counts(), { batches: 1, dispatches: 0 });
+  assert.deepEqual(h.released, ['0']);
+});
+
+void test('coalesced caller rechecks its own identity while admitted caller succeeds', async () => {
+  const h = harness();
+  let finishCache!: (value: unknown) => void;
+  h.ledger.cached = () =>
+    new Promise((resolve) => {
+      finishCache = resolve;
+    });
+  const plan = await reserveLlmPlan(h.ledger, [request]);
+  assert.ok(plan);
+  const llm = new BudgetedLlm(h.provider, plan.ledger);
+  const other = { ...request };
+  const first = llm.jsonOutcome(request, validate, { repair: false });
+  const second = llm.jsonOutcome(
+    other,
+    () => assert.fail('Must not validate'),
+    { repair: false },
+  );
+  other.topicId = 'foreign';
+  finishCache({ ok: true });
+  assert.deepEqual(await first, { status: 'complete', value: { ok: true } });
+  assert.deepEqual(await second, { status: 'budget-refused' });
+  await plan.releaseUnused();
+  assert.deepEqual(h.counts(), { batches: 1, dispatches: 0 });
+  assert.deepEqual(h.released, ['0']);
+});

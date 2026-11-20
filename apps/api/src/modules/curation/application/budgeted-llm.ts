@@ -198,6 +198,8 @@ export class BudgetedLlm {
     const existing = pending.get(pendingKey);
     if (existing) {
       const result = await existing;
+      if (this.ledger.allowsRequest && !this.ledger.allowsRequest(request))
+        return { status: 'budget-refused' };
       return result.status === 'complete'
         ? { status: 'complete', value: validate(result.value) }
         : result;
@@ -225,6 +227,9 @@ export class BudgetedLlm {
     execution?: LlmExecutionContext,
   ): Promise<LlmJsonOutcome<T>> {
     const cached = await this.ledger.cached(key);
+    // Cache I/O can outlive scope cleanup or a caller's request mutation.
+    if (this.ledger.allowsRequest && !this.ledger.allowsRequest(request))
+      return { status: 'budget-refused' };
     if (cached !== undefined) {
       try {
         return { status: 'complete', value: validate(cached) };

@@ -72,6 +72,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 3035: Inactive reserved execution rechecks request admission after asynchronous cache lookup and coalesced response waits; closed scopes and changed identities refuse before validation or dispatch.
+
 - [x] 3034: Inactive reserved execution checks exact request identity before cache and in-flight reuse; foreign/protected requests and closed scopes refuse without dispatch. Valid admitted cache reuse remains supported.
 
 - [x] 3033: Captured developing execution verified against isolated PostgreSQL: all feature/protected holds precede dispatch, over-cap plans leave no rows, cleanup finishes before return and uncertain dispatched spend stays held. No activation.
