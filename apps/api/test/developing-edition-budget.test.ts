@@ -157,3 +157,29 @@ void test('preflight refuses contradictory shared and per-model spend snapshots'
     );
   }
 });
+
+void test('one edition refuses conflicting rates for one model but permits distinct models', () => {
+  for (const rate of ['input', 'output', 'cacheRead', 'cacheWrite'] as const) {
+    const changed = { ...request, model: { ...request.model, [rate]: 10 } };
+    for (const requests of [
+      [request, changed],
+      [changed, request],
+    ]) {
+      assert.throws(
+        () => developingEditionBudget({ ...plan, requests }),
+        /Conflicting edition model prices/,
+      );
+    }
+    assert.equal(
+      developingEditionBudget({
+        ...plan,
+        caps: { monthly: 1000000, dailyMax: 1000000 },
+        requests: [
+          request,
+          { ...changed, model: { ...changed.model, id: 'other' } },
+        ],
+      }).status,
+      'fits-supplied-plan',
+    );
+  }
+});

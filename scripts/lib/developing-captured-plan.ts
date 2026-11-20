@@ -2,7 +2,10 @@ import {
   developingCapturedRequests,
   type DevelopingRequestCaptures,
 } from '../../apps/api/src/modules/curation/application/developing-captured-requests';
-import { developingEditionBudget } from './developing-edition-budget';
+import {
+  developingEditionBudget,
+  validateEditionModelPrices,
+} from './developing-edition-budget';
 import { protectedContextPlan } from './protected-context-plan';
 import { protectedWorkManifest } from './protected-work-manifest';
 type BudgetInput = Parameters<typeof developingEditionBudget>[0];
@@ -67,6 +70,7 @@ export function developingProtectedCapturedPlan(
     input.protectedRequests.some((request) => request.runId !== input.editionId)
   )
     throw new Error('Protected request edition differs');
+  validateEditionModelPrices([...requests, ...input.protectedRequests]);
   const allocation = input.budget.caps.modelAllocation;
   const obligations = developingEditionBudget({
     ...input.budget,

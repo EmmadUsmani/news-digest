@@ -72,6 +72,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 3028: Offline edition preflight rejects conflicting prices for one model across feature and protected work; distinct models remain supported. No runtime activation.
+
 - [x] 3027: Offline captured-plan CLI derives protected costs from supplied contexts; missing or ambiguous contexts refuse without replacing evidence. No runtime activation.
 
 - [x] 3026: Offline edition preflight refuses contradictory shared/per-model spend snapshots; multi-model totals and omitted historical-model spend remain supported. No runtime activation.

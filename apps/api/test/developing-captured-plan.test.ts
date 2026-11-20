@@ -438,3 +438,23 @@ void test('context-derived protected bounds feed the captured feature budget gat
     /Ambiguous/,
   );
 });
+
+void test('protected and feature requests share one consistent model price snapshot', () => {
+  for (const rate of ['input', 'output', 'cacheRead', 'cacheWrite'] as const) {
+    assert.throws(
+      () =>
+        developingProtectedCapturedPlan({
+          ...plan,
+          protectedRequests: [
+            { ...request, model: { ...request.model, [rate]: 10 } },
+          ],
+        }),
+      /Conflicting edition model prices/,
+    );
+  }
+  assert.equal(
+    developingProtectedCapturedPlan({ ...plan, protectedRequests: [request] })
+      .status,
+    'fits-supplied-plan',
+  );
+});

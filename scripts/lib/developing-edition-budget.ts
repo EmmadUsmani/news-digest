@@ -8,6 +8,24 @@ import {
 } from '../../apps/api/src/modules/curation/domain/budget';
 import type { LlmRequest } from '../../apps/api/src/modules/curation/domain/llm.port';
 
+// One snapshot must price each model consistently across all planned work.
+export function validateEditionModelPrices(requests: readonly LlmRequest[]) {
+  const prices = new Map<string, string>();
+  for (const { model } of requests) {
+    costMicros({ input: 0, output: 0, cacheRead: 0, cacheWrite: 0 }, model);
+    const signature = JSON.stringify([
+      model.input,
+      model.output,
+      model.cacheRead,
+      model.cacheWrite,
+    ]);
+    const previous = prices.get(model.id);
+    if (previous !== undefined && previous !== signature)
+      throw new Error('Conflicting edition model prices');
+    prices.set(model.id, signature);
+  }
+}
+
 export function developingEditionBudget(input: {
   now: Date;
   totals: BudgetTotals;
@@ -45,6 +63,7 @@ export function developingEditionBudget(input: {
     modelSpent > input.totals.today
   )
     throw new Error('Inconsistent edition budget snapshot');
+  validateEditionModelPrices(input.requests);
   const byModel: Record<string, number> = {};
   let featureMicros = 0;
   let oversized = false;
