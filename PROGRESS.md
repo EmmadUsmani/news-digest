@@ -84,3 +84,12 @@
 - Updated TASKS, RANKING and the bounded comparison. Nov 20 waiting-time evaluation commit used; no tuning/provider calls, runtime/UI/source/schema/handbook changes. Production selection unchanged. Nov 12–17 and real-selector/material-fact acceptance remain open.
 - Targeted evaluator, pnpm format, pnpm lint:fix, full pnpm check and pnpm build pass: 1,216 unit tests; 333 integration passes/four expected skips. Logs /tmp/2995-{evaluation,format,lint,check,build}.log.
 - Public latest 7a747d9c retains five topics/25 stories/22 posts. Default local reader probe hit rate limit; established explicit local-probe visitor header succeeds. Next: Nov 20–22 scheduled recall reviews; developing semantic/whole-edition admission, without more evaluation commits today.
+
+## 2026-11-20: iteration 2996 — separate matching refusal from valid absence
+
+- Clean main at 86891f25; no inherited work. Alerts clear; database/Redis health passes, monitored services active, 37 enabled sources healthy; Destructoid remains inactive. Digest queue has zero failures; next edition Nov 20 15:00 UTC.
+- Prepared matching now returns explicit validated/unavailable outcomes. Inactive enrichment reports matching-refused for unavailable/failed/invalid matching, while valid empty memberships remain a successful no-link outcome. Existing link-only consumers retain compatibility.
+- Offline controls distinguish valid absence from transport/refusal, unknown occurrences, singleton groups and repeated memberships. Enrichment preserves the accepted array and never rewrites valid no-link topics; real deadline refusal now exposes matching-refused.
+- Targeted matching/enrichment tests pass (9). pnpm format and pnpm lint:fix pass; pnpm build passes. Full pnpm check passes: 1,218 unit tests and 333 integration passes/four expected skips. Logs /tmp/2996-{target,format,lint,check,build}.log.
+- Updated TASKS and developing evidence. This prerequisite does not establish atomic whole-edition admission or semantic quality; generation remains unwired. No provider calls, feature activation or UI/source/schema/handbook changes.
+- Final diff check passes; commit/push and API/worker restart follow. Live latest 7a747d9c retains five topics/25 real stories/22 posts. Next: whole-edition admission and semantic review; Nov 20–22 recall reviews after each scheduled edition. Today's evaluation commit is already used.

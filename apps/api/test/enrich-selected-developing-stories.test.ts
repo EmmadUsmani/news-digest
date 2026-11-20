@@ -194,7 +194,7 @@ void test('fallback, missing or ambiguous evidence and capacity refusal make no 
     },
   });
   assert.equal(result.stories, selected);
-  assert.equal('reason' in result && result.reason, 'no-validated-links');
+  assert.equal('reason' in result && result.reason, 'matching-refused');
 });
 
 void test('selected enrichment retains accepted stories across real budget-wrapper admission and settlement outcomes', async () => {
@@ -439,9 +439,32 @@ void test('one execution deadline bounds real semantic matching and rewriting wi
       assert.equal(
         'reason' in result && result.reason,
         scenario === 'expired-before-match'
-          ? 'no-validated-links'
+          ? 'matching-refused'
           : 'rewrite-refused',
       );
     }
   }
+});
+
+void test('validated matching without a predecessor is a successful no-op, not a refusal', async () => {
+  const result = await enrichSelectedDevelopingStories({
+    ...config,
+    evidence: completeEvidence,
+    editorialMode: 'ai',
+    history,
+    publishedAt: '2026-11-18T15:00:00Z',
+    grouping: {
+      async groupWithResult() {
+        return { status: 'validated', groups: [] };
+      },
+    },
+    llm: {
+      async complete(): Promise<never> {
+        assert.fail('no rewrite without links');
+      },
+    },
+  });
+  assert.equal(result.status, 'unchanged');
+  assert.equal(result.stories, selected);
+  assert.equal('reason' in result && result.reason, 'no-validated-links');
 });

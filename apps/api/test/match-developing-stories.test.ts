@@ -1,7 +1,10 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
-import { matchDevelopingStories } from '../src/modules/digests/application/match-developing-stories';
+import {
+  matchDevelopingStories,
+  matchDevelopingStoriesWithResult,
+} from '../src/modules/digests/application/match-developing-stories';
 import type { GroupingResultPort } from '../src/modules/digests/application/prepare-story-grouping';
 
 const target = {
@@ -96,4 +99,64 @@ void test('missing evidence and oversized pools never invoke the provider or tru
     await matchDevelopingStories(port, target, current, large),
     [],
   );
+});
+
+void test('edition admission distinguishes valid absence from matching refusal', async () => {
+  for (const groups of [[], [['history:0:0', 'current:0']]]) {
+    const result = await matchDevelopingStoriesWithResult(
+      {
+        async groupWithResult() {
+          return { status: 'validated', groups };
+        },
+      },
+      target,
+      current,
+      history,
+    );
+    assert.equal(result.status, 'validated');
+    assert.equal(result.links.length, groups.length);
+  }
+  for (const groups of [
+    [['current:0', 'unknown']],
+    [['current:0']],
+    [
+      ['current:0', 'history:0:0'],
+      ['current:0', 'history:0:0'],
+    ],
+  ]) {
+    const result = await matchDevelopingStoriesWithResult(
+      {
+        async groupWithResult() {
+          return { status: 'validated', groups };
+        },
+      },
+      target,
+      current,
+      history,
+    );
+    assert.equal(result.status, 'unavailable');
+    assert.deepEqual(result.links, []);
+  }
+  for (const port of [
+    null,
+    {
+      async groupWithResult() {
+        return { status: 'unavailable' as const, reason: 'no-result' as const };
+      },
+    },
+    {
+      async groupWithResult(): Promise<never> {
+        throw new Error('transport');
+      },
+    },
+  ]) {
+    const result = await matchDevelopingStoriesWithResult(
+      port,
+      target,
+      current,
+      history,
+    );
+    assert.equal(result.status, 'unavailable');
+    assert.deepEqual(result.links, []);
+  }
 });

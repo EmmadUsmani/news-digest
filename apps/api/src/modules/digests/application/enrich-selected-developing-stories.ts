@@ -1,5 +1,5 @@
 import type { developingHistory } from '../domain/developing-history';
-import { matchDevelopingStories } from './match-developing-stories';
+import { matchDevelopingStoriesWithResult } from './match-developing-stories';
 import type { GroupingResultPort } from './prepare-story-grouping';
 import { rewriteSelectedDevelopingStories } from './rewrite-selected-developing-stories';
 
@@ -50,12 +50,14 @@ export async function enrichSelectedDevelopingStories<
     const source = evidence.get(id)!;
     return { id, title: source.title, summary: source.excerpt ?? '' };
   });
-  const links = await matchDevelopingStories(
+  const matching = await matchDevelopingStoriesWithResult(
     input.grouping,
     input,
     current,
     input.history,
   );
+  if (matching.status !== 'validated') return fallback('matching-refused');
+  const links = matching.links;
   if (!links.length) return fallback('no-validated-links');
   const result = await rewriteSelectedDevelopingStories({ ...input, links });
   return result.status === 'rewritten' ? result : fallback('rewrite-refused');
