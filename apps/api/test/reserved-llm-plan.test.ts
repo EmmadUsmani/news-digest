@@ -1033,3 +1033,41 @@ void test('pending provider input and settlement retain admitted prices after ca
   assert.deepEqual(h.released, []);
   assert.deepEqual(h.uncertain, []);
 });
+
+void test('ordinary reservation and provider dispatch share input despite mutation during admission', async () => {
+  const h = harness();
+  const mutable = { ...request, model: { ...request.model } };
+  let reserved: LlmRequest | undefined;
+  h.ledger.reserve = async (candidate) => {
+    reserved = candidate;
+    await Promise.resolve();
+    mutable.prompt = 'changed during reservation';
+    mutable.maxOutputTokens = 16000;
+    mutable.model.id = 'foreign-model';
+    mutable.model.output = 1000;
+    return 'ordinary';
+  };
+  let settledCost: number | undefined;
+  h.ledger.settle = async (_id, _usage, cost) => {
+    settledCost = cost;
+  };
+  const llm = new BudgetedLlm(
+    {
+      complete: async (candidate) => {
+        assert.deepEqual(reserved, request);
+        assert.deepEqual(candidate, request);
+        return {
+          text: '{"ok":true}',
+          usage: { input: 2, output: 2, cacheWrite: 0, cacheRead: 0 },
+        };
+      },
+    },
+    h.ledger,
+  );
+  assert.equal(
+    (await llm.jsonOutcome(mutable, validate, { repair: false })).status,
+    'complete',
+  );
+  assert.equal(settledCost, 8);
+  assert.deepEqual(h.released, []);
+});

@@ -261,7 +261,9 @@ export class BudgetedLlm {
       )
         return { status: 'provider-call-failed' };
       const current = attempt ? llmRepairRequest(request, feedback) : request;
-      const { inputBound, estimate } = llmReservation(current);
+      // Bind reservation and dispatch before asynchronous admission begins.
+      const admitted = { ...current, model: { ...current.model } };
+      const { inputBound, estimate } = llmReservation(admitted);
       if (inputBound >= 100000) return { status: 'input-limit' };
       let id: string | null;
       if (
@@ -279,7 +281,7 @@ export class BudgetedLlm {
             pendingOriginalHolds: (model, ids) =>
               this.ledger.pendingOriginalHolds!(model, ids),
           },
-          current,
+          admitted,
           estimate,
           { ...this.settlement, scheduled: true, execution, now: this.now },
         );
@@ -300,7 +302,7 @@ export class BudgetedLlm {
           'LLM settlement admission',
         );
       } else {
-        id = await this.ledger.reserve(current, estimate);
+        id = await this.ledger.reserve(admitted, estimate);
       }
       this.log.info(
         {
@@ -333,7 +335,7 @@ export class BudgetedLlm {
       }
       // Keep provider input and settlement prices bound to the admitted request
       // even if its caller mutates the original while completion is pending.
-      const dispatched = { ...current, model: { ...current.model } };
+      const dispatched = admitted;
       let response;
       try {
         response = await this.llm.complete(dispatched, execution);

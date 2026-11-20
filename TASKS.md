@@ -72,6 +72,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 3039: Ordinary admission snapshots request/model before asynchronous reservation; reservation, provider input and settlement retain identical fields under caller mutation. Offline regression passes.
+
 - [x] 3038: Provider dispatch snapshots admitted request fields and model prices; caller mutation during completion cannot alter provider input or settlement costs. Offline pending-completion regression passes.
 
 - [x] 3037: Budgeted dispatch rechecks the execution deadline after reservation I/O and releases expired, undispatched holds; exact-deadline and invalid-deadline controls pass.
