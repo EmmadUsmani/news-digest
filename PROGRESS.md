@@ -114,3 +114,14 @@ Earlier entries: [pre-3038 archive](docs/progress-archive/2026-11-20-pre-3038.md
 - Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build (/tmp/3047-*.log). Final results below.
 - Developing stories remains inactive; no provider calls, caps, UI, source, schema or handbook behavior changes. Nov 20 scheduled review due after 15:00 UTC.
 - Full check passes: 1,289 unit passes; 336 integration passes/four expected skips; typecheck, lint, formatting and boundaries green. Nov 19 reader gate: five topics, 25 real stories/22 posts. Build, commit/push and API/worker restart follow.
+
+## 2026-11-20: iteration 3048 — persist complete reviewed developing memberships
+
+- Clean main at c2810de2; no inherited work. Alerts clear; healthz database/Redis pass; API/worker active.
+- Snapshot/JSON contract tests still covered only one legacy story per saved topic; now consume all reviewed selections, including nonmatches and simultaneous Gaming continuations.
+- Every reviewed predecessor, edition count, absent label, selected ID/order and independent link copy is checked through snapshot serialization.
+- Targeted: pnpm exec tsx --test apps/api/test/developing-saved-evidence.test.ts — 16 pass.
+- Manual memberships only; developing stories remains inactive pending model semantics and whole-edition budget acceptance. No paid calls or cap changes.
+- Scheduled reader gate: pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-19T15:00:00Z — five topics, 25 real stories/22 posts pass.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build (/tmp/3048-*.log); final results below.
+- Full check/build pass: 1,297 unit passes; 336 integration passes/four expected skips; typecheck, lint, formatting and boundaries green. Commit/push and API/worker restart follow; Nov 20 review due after 15:00 UTC.
