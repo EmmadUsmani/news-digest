@@ -18,6 +18,10 @@ export type ReplayCase = {
   history: Parameters<typeof developingLinks>[1];
   reviewedStoryId?: string;
   expectedPredecessors?: { editionId: string; storyId: string }[];
+  reviews?: {
+    storyId: string;
+    expectedPredecessors: { editionId: string; storyId: string }[];
+  }[];
 };
 
 export function replayFingerprint(item: ReplayCase) {
@@ -93,41 +97,89 @@ export async function evaluateDevelopingStories(
       item.stories,
       item.history,
     );
-    const reviewed = item.reviewedStoryId !== undefined;
+    const labels =
+      item.reviews ??
+      (item.reviewedStoryId !== undefined && item.expectedPredecessors
+        ? [
+            {
+              storyId: item.reviewedStoryId,
+              expectedPredecessors: item.expectedPredecessors,
+            },
+          ]
+        : []);
     if (
-      reviewed &&
-      (!item.stories.some((s) => s.id === item.reviewedStoryId) ||
-        !item.expectedPredecessors)
+      (item.reviewedStoryId !== undefined && !item.expectedPredecessors) ||
+      new Set(labels.map((label) => label.storyId)).size !== labels.length ||
+      labels.some(
+        (label) => !item.stories.some((story) => story.id === label.storyId),
+      )
     )
       throw new Error('Invalid review labels');
-    const actual = links.find((link) => link.storyId === item.reviewedStoryId);
-    const expected = item.expectedPredecessors ?? [];
+    if (item.reviews && item.reviewedStoryId !== undefined) {
+      const legacy = labels.find(
+        (label) => label.storyId === item.reviewedStoryId,
+      );
+      if (
+        !legacy ||
+        JSON.stringify(legacy.expectedPredecessors) !==
+          JSON.stringify(item.expectedPredecessors)
+      )
+        throw new Error('Conflicting review labels');
+    }
     const evidence = developingEvidence(item.stories, item.history);
-    const currentReference = evidence.find(
-      (x) => x.editionId === null && x.story.id === item.reviewedStoryId,
-    )?.reference;
-    const membership = record?.groups.find(
-      (group) => currentReference && group.includes(currentReference),
-    );
-    const predecessors = evidence
-      .filter((x) => x.editionId !== null && membership?.includes(x.reference))
-      .map((x) => ({ editionId: x.editionId!, storyId: x.story.id }));
-    const identities = (items: typeof predecessors) =>
-      items.map((x) => JSON.stringify([x.editionId, x.storyId])).sort();
-    const exactMembership =
-      JSON.stringify(identities(predecessors)) ===
-      JSON.stringify(identities(expected));
-    // Labels list all matching historical occurrences, newest first.
+    const reviews = labels.map((label) => {
+      const expected = label.expectedPredecessors;
+      const identities = (items: typeof expected) =>
+        items.map((x) => JSON.stringify([x.editionId, x.storyId])).sort();
+      if (
+        new Set(identities(expected)).size !== expected.length ||
+        expected.some(
+          (p, index) =>
+            !evidence.some(
+              (x) => x.editionId === p.editionId && x.story.id === p.storyId,
+            ) ||
+            (index > 0 &&
+              item.history.findIndex((h) => h.editionId === p.editionId) <
+                item.history.findIndex(
+                  (h) => h.editionId === expected[index - 1].editionId,
+                )),
+        )
+      )
+        throw new Error('Invalid review labels');
+      const actual = links.find((link) => link.storyId === label.storyId);
+      const currentReference = evidence.find(
+        (x) => x.editionId === null && x.story.id === label.storyId,
+      )?.reference;
+      const membership = record?.groups.find(
+        (group) => currentReference && group.includes(currentReference),
+      );
+      const predecessors = evidence
+        .filter(
+          (x) => x.editionId !== null && membership?.includes(x.reference),
+        )
+        .map((x) => ({ editionId: x.editionId!, storyId: x.story.id }));
+      const exactMembership =
+        JSON.stringify(identities(predecessors)) ===
+        JSON.stringify(identities(expected));
+      const passes =
+        valid &&
+        called &&
+        exactMembership &&
+        (expected.length
+          ? actual?.previousEditionId === expected[0].editionId &&
+            actual.previousStoryId === expected[0].storyId &&
+            actual.editionCount === expected.length + 1
+          : actual === undefined);
+      return {
+        storyId: label.storyId,
+        expected,
+        predecessors,
+        acceptance: passes ? 'pass' : 'fail',
+      };
+    });
+    const reviewed = reviews.length > 0;
     const passes =
-      reviewed &&
-      valid &&
-      called &&
-      exactMembership &&
-      (expected.length
-        ? actual?.previousEditionId === expected[0].editionId &&
-          actual.previousStoryId === expected[0].storyId &&
-          actual.editionCount === expected.length + 1
-        : actual === undefined);
+      reviewed && reviews.every((review) => review.acceptance === 'pass');
     report.push({
       editionId: item.editionId,
       topicId: item.topicId,
@@ -140,9 +192,10 @@ export async function evaluateDevelopingStories(
             : 'replayed',
       acceptance: reviewed ? (passes ? 'pass' : 'fail') : 'unreviewed',
       links,
-      review: reviewed
-        ? { storyId: item.reviewedStoryId, expected, predecessors }
-        : null,
+      review:
+        reviews.find((review) => review.storyId === item.reviewedStoryId) ??
+        null,
+      reviews,
     });
   }
   return {

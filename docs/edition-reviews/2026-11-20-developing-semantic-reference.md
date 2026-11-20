@@ -111,3 +111,18 @@ Gaming request acceptable. Together with the complete U.S. review, this covers
 all ten evidence-backed current selections in these two saved topic cases;
 other topic/windows remain unaccepted. These are manual agent decisions, not
 model outputs. Production stays inactive pending semantic and budget acceptance.
+
+## Executable matching controls — iteration 3046
+
+The saved fixture now carries all five reviewed selections for each of the
+U.S. and Gaming cases. The existing offline matching evaluator checks each
+label against the same recorded partition: exact historical membership,
+nearest predecessor and edition count for continuations; no link for each
+explicit nonmatch. Legacy single-story controls remain supported.
+
+All ten reviewed selections pass the manually constructed matching control.
+Removing the GTA continuation or adding an unrelated predecessor to a Gaming
+nonmatch now fails the case even when the older Zelda control still passes.
+Duplicate, foreign, conflicting or chronologically reversed labels reject.
+These controls exercise matching acceptance only: Zelda's rewrite must still
+refuse, manual partitions are not model outputs, and production stays inactive.

@@ -25,23 +25,26 @@ function controls() {
       editionId: item.editionId,
       topicId: item.topicId,
       inputSha256: replayFingerprint(item),
-      groups: item.expectedPredecessors!.length
-        ? [
-            [
+      groups: (
+        item.reviews ?? [
+          {
+            storyId: item.reviewedStoryId!,
+            expectedPredecessors: item.expectedPredecessors!,
+          },
+        ]
+      )
+        .filter((label) => label.expectedPredecessors.length)
+        .map((label) => [
+          evidence.find(
+            (x) => x.editionId === null && x.story.id === label.storyId,
+          )!.reference,
+          ...label.expectedPredecessors.map(
+            (p) =>
               evidence.find(
-                (x) =>
-                  x.editionId === null && x.story.id === item.reviewedStoryId,
+                (x) => x.editionId === p.editionId && x.story.id === p.storyId,
               )!.reference,
-              ...item.expectedPredecessors!.map(
-                (p) =>
-                  evidence.find(
-                    (x) =>
-                      x.editionId === p.editionId && x.story.id === p.storyId,
-                  )!.reference,
-              ),
-            ],
-          ]
-        : [],
+          ),
+        ]),
     };
   });
 }
@@ -51,7 +54,7 @@ void test('manual positive and negative controls pass offline replay; all linked
   assert.equal(report.controlsPassed, true);
   assert.equal(
     report.cases.reduce((n, c) => n + c.links.length, 0),
-    5,
+    6,
   );
   assert.ok(report.cases.every((c) => c.status === 'replayed'));
 });
@@ -117,4 +120,81 @@ void test('a correct nearest predecessor cannot hide a wrong older member', asyn
   const report = await evaluateDevelopingStories(fixture.cases, records);
   assert.equal(report.controlsPassed, false);
   assert.equal(report.cases[index].acceptance, 'fail');
+});
+
+void test('complete saved topic reviews detect false links and missed additional continuations', async () => {
+  const index = fixture.cases.findIndex((item) => item.reviews?.length === 5);
+  const item = fixture.cases[index];
+  const baseline = await evaluateDevelopingStories(fixture.cases, controls());
+  assert.equal(baseline.controlsPassed, true);
+  assert.equal(baseline.cases[index].reviews.length, 5);
+  assert.equal(baseline.cases[index + 1].reviews.length, 5);
+  assert.equal(baseline.semanticAcceptance, 'not-established');
+  // Keep the legacy Zelda control correct while omitting the separately reviewed GTA update.
+  const omitted = controls();
+  omitted[index].groups.shift();
+  const missed = await evaluateDevelopingStories(fixture.cases, omitted);
+  assert.equal(missed.controlsPassed, false);
+  assert.equal(missed.cases[index].review?.acceptance, 'pass');
+  assert.equal(missed.cases[index].reviews[0].acceptance, 'fail');
+
+  const wrong = controls();
+  const evidence = developingEvidence(item.stories, item.history);
+  const nonmatch = item.reviews!.find(
+    (label) => !label.expectedPredecessors.length,
+  )!;
+  const used = new Set(wrong[index].groups.flat());
+  const unrelated = evidence.find(
+    (entry) => entry.editionId !== null && !used.has(entry.reference),
+  )!;
+  wrong[index].groups.push([
+    evidence.find(
+      (entry) =>
+        entry.editionId === null && entry.story.id === nonmatch.storyId,
+    )!.reference,
+    unrelated.reference,
+  ]);
+  const falseLink = await evaluateDevelopingStories(fixture.cases, wrong);
+  assert.equal(falseLink.controlsPassed, false);
+  assert.equal(falseLink.cases[index].review?.acceptance, 'pass');
+  assert.equal(
+    falseLink.cases[index].reviews.find(
+      (review) => review.storyId === nonmatch.storyId,
+    )?.acceptance,
+    'fail',
+  );
+});
+
+void test('complete review labels reject duplicates, missing history and conflicting legacy labels', async () => {
+  for (const variant of [
+    'duplicate',
+    'unknown-current',
+    'unknown-history',
+    'duplicate-history',
+    'conflict',
+    'unordered',
+  ] as const) {
+    const cases = structuredClone(fixture.cases);
+    const item = cases.find((entry) => entry.reviews?.length === 5)!;
+    const labels = item.reviews!;
+    if (variant === 'duplicate') labels.push(labels[0]);
+    if (variant === 'unknown-current') labels[0].storyId = 'missing';
+    if (variant === 'unknown-history')
+      labels[0].expectedPredecessors[0].storyId = 'missing';
+    if (variant === 'duplicate-history')
+      labels[0].expectedPredecessors.push(labels[0].expectedPredecessors[0]);
+    if (variant === 'conflict') item.expectedPredecessors = [];
+    if (variant === 'unordered') {
+      const label = labels.find(
+        (entry) => entry.expectedPredecessors.length > 1,
+      )!;
+      label.expectedPredecessors.reverse();
+      item.expectedPredecessors = structuredClone(label.expectedPredecessors);
+    }
+    await assert.rejects(
+      evaluateDevelopingStories(cases, controls()),
+      /review labels/i,
+      variant,
+    );
+  }
 });

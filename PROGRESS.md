@@ -91,3 +91,15 @@ Earlier entries: [pre-3038 archive](docs/progress-archive/2026-11-20-pre-3038.md
 - Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build (logs /tmp/3045-*.log); final results follow.
 - Full check/build pass: 1,287 unit passes; 336 integration passes/four expected skips; typecheck, lint, formatting and boundaries green.
 - Nov 19 scheduled reader gate passes: five topics, 25 real stories/22 posts. Commit/push and API/worker restart follow, then health/reader/alerts verification. Nov 20 review awaits 15:00 UTC.
+
+## 2026-11-20: iteration 3046 — execute complete saved developing matching reviews
+
+- Clean main at bc933647; no inherited work. Alerts clear; healthz database/Redis pass; API/worker active.
+- Existing offline developing evaluator now checks multiple labelled selections per case; saved Nov 18 Gaming/U.S. controls cover all ten reviewed selections, including seven explicit nonmatches.
+- Each continuation requires exact historical membership, nearest predecessor and edition count. Duplicate/foreign/reversed labels or conflicting legacy labels reject.
+- Targeted test: pnpm exec tsx --test apps/api/test/evaluate-developing-stories.test.ts — six pass; omitted GTA and false nonmatch links fail while the legacy Zelda control passes.
+- Manual control partitions only; Zelda rewrite refusal, actual model semantics and whole-edition budget acceptance remain open. Production inactive; no paid calls, cap, UI, source or handbook behavior change.
+- Read-only scheduled reader gate passes Nov 19: five topics, 25 real stories/22 posts. Nov 20 review remains due after 15:00 UTC.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build (logs /tmp/3046-*.log); final results below.
+- Full check/build pass: 1,289 unit passes; 336 integration passes/four expected skips; typecheck, lint, formatting and boundaries green. Fixture integrity confirms original inputs unchanged; ten labels/seven nonmatches added.
+- Commit/push and API/worker restart follow, then health/reader/alerts verification. Next: Nov 20 scheduled edition review after 15:00 UTC.
