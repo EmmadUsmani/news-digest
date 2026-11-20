@@ -20,7 +20,19 @@ export async function enrichDevelopingEdition<T extends TopicInput>(
       stories: topic.selected,
     })),
   });
+  const publicationTimes = topics.map((topic) => Date.parse(topic.publishedAt));
   if (
+    publicationTimes.some((time) => !Number.isFinite(time)) ||
+    new Set(publicationTimes).size > 1 ||
+    topics.some((topic) => !topic.runId.trim()) ||
+    topics.some((topic, index) =>
+      topic.history.some(
+        (edition) =>
+          edition.editionId === topic.runId ||
+          !Number.isFinite(Date.parse(edition.publishedAt)) ||
+          Date.parse(edition.publishedAt) >= publicationTimes[index],
+      ),
+    ) ||
     new Set(topics.map((topic) => topic.topicId)).size !== topics.length ||
     topics.some((topic) => !topic.topicId.trim()) ||
     new Set(topics.map((topic) => topic.runId)).size > 1

@@ -251,3 +251,45 @@ void test('invalid later topic refuses the edition before any matching dispatch'
   }
   assert.equal(calls, 0);
 });
+
+void test('edition chronology refuses invalid inputs before dispatch and accepts equivalent instants', async () => {
+  let calls = 0;
+  const first = {
+    ...topic('tech'),
+    grouping: {
+      async groupWithResult() {
+        calls++;
+        return { status: 'validated' as const, groups: [] };
+      },
+    },
+  };
+  const second = { ...first, topicId: 'nba' };
+  const invalidTopics = [
+    { ...second, publishedAt: 'invalid' },
+    { ...second, publishedAt: '2026-11-21T15:00:00Z' },
+    { ...second, runId: ' ' },
+    ...[
+      { editionId: 'edition' },
+      { publishedAt: 'invalid' },
+      { publishedAt: first.publishedAt },
+      { publishedAt: '2026-11-21T15:00:00Z' },
+    ].map((override) => ({
+      ...second,
+      history: [{ ...second.history[0], ...override }],
+    })),
+  ];
+  for (const invalid of invalidTopics) {
+    const result = await enrichDevelopingEdition([first, invalid]);
+    assert.equal(result.status, 'unchanged');
+    assert.equal(result.reason, 'invalid-edition');
+    assert.equal(result.topics[0].stories, first.selected);
+    assert.equal(result.topics[1].stories, invalid.selected);
+  }
+  assert.equal(calls, 0);
+  const accepted = await enrichDevelopingEdition([
+    first,
+    { ...second, publishedAt: '2026-11-20T10:00:00-05:00' },
+  ]);
+  assert.equal(accepted.status, 'completed');
+  assert.equal(calls, 2);
+});

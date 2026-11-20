@@ -121,3 +121,12 @@
 - Live latest 7a747d9c retains five topics/25 stories/22 posts. No provider calls, activation, UI/source/schema/handbook changes. Matching charges remain spent; whole-edition budget reservation and semantic acceptance remain open.
 - Next: whole-edition admission and saved-edition semantic acceptance; Nov 20–22 scheduled recall reviews. Today's evaluation commit is already used.
 - Final diff check passes; commit/push and API/worker restart follow.
+
+## 2026-11-20: iteration 3000 — developing edition chronology guard
+
+- Clean main at 0a8e0030; no inherited work. Alerts clear; health/database/Redis and API/worker pass. Enabled sources collecting; Destructoid remains inactive. Digest queue has zero failures; next edition Nov 20 15:00 UTC.
+- Inactive edition coordinator rejects mixed or invalid publication instants, blank run IDs, same-run history and invalid/current/future history before any matching dispatch. Equivalent instants with different timezone offsets remain valid.
+- Six targeted tests pass; malformed later-topic controls preserve both original arrays with zero dispatch, and equivalent-instant control completes both matches. No provider calls or activation; whole-edition budget admission and semantic acceptance remain open.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build (logs /tmp/3000-{target,format,lint,check,build}.log); all pass: 1,224 unit tests, 333 integration passes/four expected skips; build passes.
+- Live reader retains 7a747d9c, five topics/25 real stories/22 posts. No UI/source/schema/handbook changes. Next: whole-edition budget admission and saved-edition semantic acceptance; Nov 20–22 scheduled recall reviews.
+- Final diff check passes; commit/push and API/worker restart follow.
