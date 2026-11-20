@@ -72,6 +72,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 3027: Offline captured-plan CLI derives protected costs from supplied contexts; missing or ambiguous contexts refuse without replacing evidence. No runtime activation.
+
 - [x] 3026: Offline edition preflight refuses contradictory shared/per-model spend snapshots; multi-model totals and omitted historical-model spend remain supported. No runtime activation.
 
 - [x] 3025: Offline edition preflight validates original model rates before conservative pricing; negative or nonfinite input/cache/output rates refuse, valid zero rates remain accepted. No runtime activation.

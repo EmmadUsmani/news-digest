@@ -124,21 +124,21 @@ void test('stage substitutions and missing topic attribution cannot establish ad
   assert.deepEqual(plan, before);
 });
 
-void test('file preflight emits no report on stage substitution and retains existing evidence', () => {
+void test('file preflight emits no report on stage substitution and retains existing evidence', async () => {
   const directory = mkdtempSync(join(tmpdir(), 'developing-plan-'));
   const input = join(directory, 'input.json');
   const output = join(directory, 'report.json');
   try {
     writeFileSync(input, JSON.stringify({ ...plan, rewrites: plan.matching }));
     const original = readFileSync(input, 'utf8');
-    assert.throws(
+    await assert.rejects(
       () => checkDevelopingCapturedPlan(input, output),
       /purpose differs/,
     );
     assert.equal(existsSync(output), false);
     assert.equal(readFileSync(input, 'utf8'), original);
     writeFileSync(output, 'existing evidence');
-    assert.throws(
+    await assert.rejects(
       () => checkDevelopingCapturedPlan(input, output),
       /purpose differs/,
     );
@@ -146,16 +146,19 @@ void test('file preflight emits no report on stage substitution and retains exis
     writeFileSync(input, JSON.stringify(plan));
     rmSync(output);
     assert.equal(
-      checkDevelopingCapturedPlan(input, output).status,
+      (await checkDevelopingCapturedPlan(input, output)).status,
       'fits-supplied-plan',
     );
-    assert.throws(() => checkDevelopingCapturedPlan(input, output), /EEXIST/);
+    await assert.rejects(
+      () => checkDevelopingCapturedPlan(input, output),
+      /EEXIST/,
+    );
     rmSync(output);
     writeFileSync(
       input,
       JSON.stringify({ ...plan, protectedRequests: [request] }),
     );
-    const derived = checkDevelopingCapturedPlan(input, output);
+    const derived = await checkDevelopingCapturedPlan(input, output);
     assert.equal(derived.requiredMicros, 12294);
     assert.equal(derived.status, 'fits-supplied-plan');
   } finally {
@@ -304,7 +307,7 @@ void test('inventory preflight derives protected costs only after complete conte
   assert.deepEqual(input, before);
 });
 
-void test('file inventory refusal preserves existing evidence and never falls back to flat requests', () => {
+void test('file inventory refusal preserves existing evidence and never falls back to flat requests', async () => {
   const directory = mkdtempSync(join(tmpdir(), 'developing-inventory-'));
   const input = join(directory, 'input.json');
   const output = join(directory, 'report.json');
@@ -318,7 +321,7 @@ void test('file inventory refusal preserves existing evidence and never falls ba
   };
   try {
     writeFileSync(input, JSON.stringify(data));
-    const result = checkDevelopingCapturedPlan(input, output);
+    const result = await checkDevelopingCapturedPlan(input, output);
     assert.equal(result.status, 'fits-supplied-plan');
     assert.equal(
       'protectedSlotCount' in result && result.protectedSlotCount,
@@ -330,13 +333,13 @@ void test('file inventory refusal preserves existing evidence and never falls ba
       { ...data, protectedRequests: [] },
     ]) {
       writeFileSync(input, JSON.stringify(invalid));
-      assert.throws(
+      await assert.rejects(
         () => checkDevelopingCapturedPlan(input, output),
         /Missing|Ambiguous/,
       );
       assert.equal(readFileSync(output, 'utf8'), original);
       rmSync(output);
-      assert.throws(
+      await assert.rejects(
         () => checkDevelopingCapturedPlan(input, output),
         /Missing|Ambiguous/,
       );
@@ -384,6 +387,41 @@ void test('context-derived protected bounds feed the captured feature budget gat
   assert.ok(result.protectedMicros > 0);
   assert.equal(result.status, 'shared-budget-refused');
   assert.deepEqual(input, before);
+  const directory = mkdtempSync(join(tmpdir(), 'developing-context-cli-'));
+  const inputPath = join(directory, 'input.json');
+  const outputPath = join(directory, 'report.json');
+  try {
+    writeFileSync(inputPath, JSON.stringify(input));
+    const report = await checkDevelopingCapturedPlan(inputPath, outputPath);
+    assert.equal(report.status, 'shared-budget-refused');
+    assert.equal(report.requiredMicros, result.requiredMicros);
+    assert.equal(
+      'protectedSlotCount' in report && report.protectedSlotCount,
+      1,
+    );
+    const original = readFileSync(outputPath, 'utf8');
+    for (const invalid of [
+      { ...input, protectedContexts: { ...context, contexts: [] } },
+      { ...input, protectedRequests: [] },
+      { ...input, protectedInventory: {} },
+    ]) {
+      writeFileSync(inputPath, JSON.stringify(invalid));
+      await assert.rejects(
+        checkDevelopingCapturedPlan(inputPath, outputPath),
+        /Missing|Ambiguous/,
+      );
+      assert.equal(readFileSync(outputPath, 'utf8'), original);
+      rmSync(outputPath);
+      await assert.rejects(
+        checkDevelopingCapturedPlan(inputPath, outputPath),
+        /Missing|Ambiguous/,
+      );
+      assert.equal(existsSync(outputPath), false);
+      writeFileSync(outputPath, original);
+    }
+  } finally {
+    rmSync(directory, { recursive: true, force: true });
+  }
   await assert.rejects(
     developingContextCapturedPlan({
       ...input,

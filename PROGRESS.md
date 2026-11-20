@@ -198,3 +198,12 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build (logs /tmp/3026-{target,format,lint,check,build}.log). Final results below.
 - No provider calls, runtime activation, source/schema/UI or handbook behavior changes. Developing stories remains inactive; Nov 20–22 reviews await scheduled publication.
 - Full checks/build pass: 1,267 unit tests; 335 integration passes/four expected skips; typecheck/lint/format/boundaries pass. Reader gate confirms real Nov 19 content: 25 stories/22 posts. Commit/push and API/worker restart follow.
+
+## 2026-11-20: iteration 3027 — honor protected contexts in offline CLI
+
+- Clean main at 104d6f94; no inherited work. Alerts clear, /healthz passes and API/worker active; Nov 20 edition not due.
+- Captured-plan CLI now awaits context-derived production request bounds instead of silently selecting the flat budget path when protectedContexts is supplied.
+- JSON-file regression proves protected costs trigger shared-budget refusal; missing contexts and mixed context/inventory/request inputs refuse without creating or overwriting evidence. Existing flat/inventory file checks now await asynchronous completion.
+- Targeted captured-plan suite: nine passes. Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build (logs /tmp/3027-{target,format,lint,check,build}.log). Final results below.
+- No provider calls, runtime activation, source/schema/UI or handbook behavior changes. Developing stories remains inactive pending complete morning admission and semantic acceptance; Nov 20–22 reviews remain scheduled.
+- Full checks/build pass: 1,267 unit tests; 335 integration passes/four expected skips; typecheck/lint/format/boundaries pass. Reader gate verifies real Nov 19 content: 25 stories/22 posts. Commit/push and API/worker restart follow.
