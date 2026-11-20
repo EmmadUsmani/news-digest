@@ -24,9 +24,12 @@ function identity(request: LlmRequest): string {
 export async function reserveLlmPlan(
   ledger: LlmLedger,
   requests: readonly LlmRequest[],
+  protectedRequests: readonly LlmRequest[] = [],
 ): Promise<{ ledger: LlmLedger; releaseUnused(): Promise<void> } | null> {
   if (!ledger.reserveBatch || !requests.length) return null;
-  const entries = requests.map((original) => {
+  // Protected obligations share the transaction, but cannot be spent through
+  // this scope. The caller must release the scope before resuming that work.
+  const entries = [...requests, ...protectedRequests].map((original, index) => {
     const request = { ...original, model: { ...original.model } };
     const bound =
       Buffer.byteLength(request.instructions + request.prompt, 'utf8') + 2048;
@@ -53,7 +56,12 @@ export async function reserveLlmPlan(
         ),
       },
     );
-    return { request, estimate, identity: identity(request) };
+    return {
+      request,
+      estimate,
+      identity: identity(request),
+      protected: index >= requests.length,
+    };
   });
   const result = await ledger.reserveBatch(entries);
   if (result.status !== 'admitted') return null;
@@ -71,6 +79,7 @@ export async function reserveLlmPlan(
         const key = identity(request);
         const hold = holds.find(
           (candidate) =>
+            !candidate.protected &&
             !candidate.consumed &&
             candidate.identity === key &&
             candidate.estimate === estimate,

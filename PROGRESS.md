@@ -147,3 +147,13 @@
 - Seven targeted offline tests pass using real BudgetedLlm and in-memory ledger/provider; no provider calls, cap changes or activation. Whole-edition orchestration/protected obligations and semantic acceptance remain open.
 - Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass; 1,231 unit tests, 334 integration passes/four expected skips. Initial require-await lint error corrected; final API rebuild passes. Logs /tmp/3002-{target,format,lint,check,build,api-build}.log.
 - Live reader retains 7a747d9c, five topics/25 real stories/22 posts. No UI/source/schema/handbook changes. Final diff check passes; commit/push and API/worker restart follow. Next: edition orchestration; Nov 20–22 scheduled recall reviews.
+
+## 2026-11-20: iteration 3003 — protect remaining edition budget obligations
+
+- Clean main at e3261327; no inherited work. Alerts clear; health/database/Redis and API/worker pass. Enabled sources collecting; Destructoid inactive. Digest queue zero failures; next run Nov 20 15:00 UTC.
+- Inactive reserved-plan composition atomically reserves feature and protected requests together. Protected holds cannot be consumed by feature work, even with identical identities, and release at scope cleanup before ordinary work resumes.
+- Nine targeted offline tests pass. Added isolated PostgreSQL control for protected funds blocking competitors through feature settlement, then release/resumption. No provider calls, cap changes or activation.
+- Verification: pnpm format, pnpm lint:fix and pnpm check pass: 1,233 unit tests, 335 integration passes/four expected skips, including protected-plan PostgreSQL control. pnpm build passes; logs /tmp/3003-{target,format,lint,check,build}.log.
+- Live latest 7a747d9c retains five topics/25 real stories/22 posts. Plain loopback reader probe hit HTTP 429; explicit local probe visitor succeeded. No UI/source/schema/handbook changes.
+- Next: derive complete protected obligations and wire edition orchestration; saved-edition semantic acceptance remains open. Nov 20–22 recall reviews follow scheduled editions.
+- Final diff check passes; commit/push and API/worker restart follow. Complete obligation derivation and feature activation remain unverified.

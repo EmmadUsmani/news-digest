@@ -219,3 +219,70 @@ void test('parallel consumers cannot reuse one hold and concurrent cleanup relea
   await Promise.all([plan.releaseUnused(), plan.releaseUnused()]);
   assert.deepEqual(h.released, ['1']);
 });
+
+void test('protected obligations reserve atomically but cannot be consumed by feature work', async () => {
+  const h = harness();
+  const protectedRequest = { ...request, purpose: 'morning-editor' };
+  const batches: { request: LlmRequest; estimate: number }[][] = [];
+  const plan = await reserveLlmPlan(
+    {
+      ...h.ledger,
+      reserveBatch: async (entries) => {
+        batches.push([...entries]);
+        return { status: 'admitted', ids: entries.map((_, i) => String(i)) };
+      },
+    },
+    [request],
+    [protectedRequest, request],
+  );
+  assert.ok(plan);
+  assert.equal(batches.length, 1);
+  assert.deepEqual(
+    batches[0].map((entry) => entry.request.purpose),
+    ['matching', 'morning-editor', 'matching'],
+  );
+  assert.ok(batches[0].every((entry) => entry.estimate === 4410));
+  const llm = new BudgetedLlm(h.provider, plan.ledger);
+  assert.equal(
+    (await llm.jsonOutcome(protectedRequest, validate)).status,
+    'budget-refused',
+  );
+  assert.equal((await llm.jsonOutcome(request, validate)).status, 'complete');
+  // Even identical protected obligations cannot extend the feature allowance.
+  assert.equal(
+    (await llm.jsonOutcome(request, validate)).status,
+    'budget-refused',
+  );
+  assert.deepEqual(h.released, []);
+  await plan.releaseUnused();
+  assert.deepEqual(h.settled, ['0']);
+  assert.deepEqual(h.released, ['1', '2']);
+  assert.equal(h.counts().dispatches, 1);
+});
+
+void test('protected obligation refusal or invalid bounds prevents feature admission', async () => {
+  const h = harness();
+  const protectedRequest = { ...request, purpose: 'morning-editor' };
+  let batches = 0;
+  const ledger: LlmLedger = {
+    ...h.ledger,
+    reserveBatch: async (entries) => {
+      batches++;
+      assert.equal(entries.length, 2);
+      return { status: 'refused', index: 1, reasons: ['model-allocation'] };
+    },
+  };
+  assert.equal(
+    await reserveLlmPlan(ledger, [request], [protectedRequest]),
+    null,
+  );
+  await assert.rejects(
+    reserveLlmPlan(
+      ledger,
+      [request],
+      [{ ...protectedRequest, maxOutputTokens: 0 }],
+    ),
+  );
+  assert.equal(batches, 1);
+  assert.equal(h.counts().dispatches, 0);
+});

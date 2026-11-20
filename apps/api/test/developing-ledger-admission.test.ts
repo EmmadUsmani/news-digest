@@ -6,6 +6,7 @@ import { database } from '../src/libs/db/connections';
 import { llmConfig } from '../src/modules/curation/adapters/config';
 import { BudgetedLlm } from '../src/modules/curation/application/budgeted-llm';
 import { EventGrouping } from '../src/modules/curation/application/event-grouping';
+import { reserveLlmPlan } from '../src/modules/curation/application/reserved-llm-plan';
 import { PostgresLlmLedger } from '../src/modules/curation/database/llm.ledger';
 import { readUsage } from '../src/modules/curation/database/usage.reader';
 import type { LlmRequest } from '../src/modules/curation/domain/llm.port';
@@ -301,6 +302,73 @@ void test('edition batch reservations roll back refusals and serialize competing
   } finally {
     await db.query(
       "DELETE FROM llm_calls WHERE run_id LIKE 'developing-batch-%'",
+    );
+    await db.end();
+  }
+});
+
+void test('protected plan holds block competitors until scope cleanup in PostgreSQL', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const db = database();
+  const caps = { monthly: 100e6, dailyMax: 100000 };
+  const ledger = new PostgresLlmLedger(db, caps);
+  const request: LlmRequest = {
+    runId: 'developing-protected-plan',
+    purpose: 'feature',
+    instructions: '',
+    prompt: '',
+    maxOutputTokens: 10000,
+    model: {
+      id: 'offline-protected',
+      input: 0,
+      cacheRead: 0,
+      cacheWrite: 0,
+      output: 3,
+    },
+  };
+  const protectedRequest = {
+    ...request,
+    purpose: 'morning-editor',
+    model: { ...request.model, output: 6 },
+  };
+  try {
+    const plan = await reserveLlmPlan(ledger, [request], [protectedRequest]);
+    assert.ok(plan);
+    try {
+      assert.equal((await readUsage(db, caps)).availableMicros, 10000);
+      assert.equal(
+        await ledger.reserve({ ...request, purpose: 'competitor' }, 20000),
+        null,
+      );
+      assert.equal(await plan.ledger.reserve(protectedRequest, 60000), null);
+      const llm = new BudgetedLlm(
+        {
+          complete: async () => ({
+            text: '{"ok":true}',
+            usage: { input: 0, output: 1, cacheRead: 0, cacheWrite: 0 },
+          }),
+        },
+        plan.ledger,
+      );
+      assert.equal(
+        (await llm.jsonOutcome(request, (value) => value)).status,
+        'complete',
+      );
+      assert.equal((await readUsage(db, caps)).availableMicros, 39997);
+      assert.equal(
+        await ledger.reserve({ ...request, purpose: 'competitor' }, 40000),
+        null,
+      );
+    } finally {
+      await plan.releaseUnused();
+    }
+    assert.equal((await readUsage(db, caps)).availableMicros, 99997);
+    const resumed = await ledger.reserve(protectedRequest, 60000);
+    assert.ok(resumed);
+    await ledger.fail(resumed, 'offline-cleanup', false, false);
+  } finally {
+    await db.query(
+      "DELETE FROM llm_calls WHERE run_id='developing-protected-plan'",
     );
     await db.end();
   }
