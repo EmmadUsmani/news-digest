@@ -45,6 +45,9 @@ export async function enrichDevelopingEdition<T extends TopicInput>(
         topic.history.some(
           (edition, index) =>
             !edition.editionId.trim() ||
+            new Set(edition.stories.map((story) => story.id)).size !==
+              edition.stories.length ||
+            edition.stories.some((story) => !story.id.trim()) ||
             (index > 0 &&
               Date.parse(edition.publishedAt) >
                 Date.parse(topic.history[index - 1].publishedAt)),

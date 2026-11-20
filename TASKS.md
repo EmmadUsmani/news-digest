@@ -72,6 +72,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 3043: Inactive developing-edition preflight rejects blank or duplicate story IDs within a historical snapshot before any topic dispatch; recurring IDs across editions/topics remain supported.
+
 - [x] 3042: Inactive developing-edition admission rejects conflicting publication times for the same historical edition across topics; equivalent timezone representations and distinct editions remain supported.
 
 - [x] 3041: Inactive developing-edition admission refuses unordered, duplicate, blank or over-seven-edition history before dispatch; accepted chronological histories retain support.

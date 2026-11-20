@@ -230,10 +230,10 @@ void test('invalid later topic refuses the edition before any matching dispatch'
     history: [
       {
         ...topic('nba').history[0],
-        stories: Array.from(
-          { length: 40 },
-          () => topic('nba').history[0].stories[0],
-        ),
+        stories: Array.from({ length: 40 }, (_, index) => ({
+          ...topic('nba').history[0].stories[0],
+          id: `old-${index}`,
+        })),
       },
     ],
   };
@@ -373,4 +373,46 @@ void test('shared history editions require consistent publication times across t
   topics[1].history[0].publishedAt = '2026-11-18T15:00:00Z';
   assert.equal((await enrichDevelopingEdition(topics)).status, 'completed');
   assert.equal(calls, 4);
+});
+
+void test('ambiguous historical story identities refuse before any topic dispatch', async () => {
+  let calls = 0;
+  const first = {
+    ...topic('tech'),
+    grouping: {
+      async groupWithResult() {
+        calls++;
+        return { status: 'validated' as const, groups: [] };
+      },
+    },
+  };
+  for (const stories of [
+    [{ id: ' ', title: 'Blank', summary: null }],
+    [
+      { id: 'old', title: 'Earlier', summary: null },
+      { id: 'old', title: 'Conflicting occurrence', summary: null },
+    ],
+  ]) {
+    const second = topic('nba');
+    const result = await enrichDevelopingEdition([
+      first,
+      { ...second, history: [{ ...second.history[0], stories }] },
+    ]);
+    assert.equal(result.status, 'unchanged');
+    assert.equal(result.reason, 'invalid-edition');
+    assert.equal(result.topics[0].stories, first.selected);
+    assert.equal(result.topics[1].stories, second.selected);
+  }
+  assert.equal(calls, 0);
+
+  // Snapshot story IDs may legitimately recur in different editions or topics.
+  const valid = topic('nba');
+  valid.history.push({
+    ...valid.history[0],
+    editionId: 'older',
+    publishedAt: '2026-11-18T15:00:00Z',
+  });
+  const accepted = await enrichDevelopingEdition([first, valid]);
+  assert.equal(accepted.status, 'completed');
+  assert.equal(calls, 1);
 });

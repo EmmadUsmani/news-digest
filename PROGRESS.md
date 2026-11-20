@@ -57,3 +57,15 @@ Earlier entries: [pre-3038 archive](docs/progress-archive/2026-11-20-pre-3038.md
 - Read-only scheduled reader gate verifies Nov 19 publication: five topics, 25 real stories/22 posts. Next reviews Nov 20–22 after 15:00 UTC.
 - Final check/build pass: 1,286 unit passes; 336 integration passes/four expected skips; typecheck, lint, formatting and boundaries green.
 - API/worker restarted active; post-restart healthz and reader gate pass, alerts clear. Commit/push follows; production feature remains inactive.
+
+## 2026-11-20: iteration 3043 — refuse ambiguous historical story identities
+
+- Clean main at 04bf97e6; no inherited work. Alerts clear and healthz database/Redis pass; next scheduled review Nov 20 after 15:00 UTC.
+- Inactive developing coordinator now rejects blank or duplicate story IDs within one historical snapshot before any topic matching spend; accepted selections remain intact.
+- Recurring IDs across different historical editions/topics remain valid. Capacity regression now uses distinct IDs, isolating its actual capacity boundary.
+- Targeted command: pnpm exec tsx --test apps/api/test/enrich-developing-edition.test.ts — nine pass, including zero-dispatch refusal and valid recurrence.
+- No activation, paid replay, cap, source, schema, UI or handbook behavior change.
+- Read-only Nov 19 scheduled reader gate passes: five topics, 25 real stories/22 posts.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build (logs /tmp/3043-*.log); final results below.
+- Final check/build pass: 1,287 unit passes; 336 integration passes/four expected skips; typecheck, lint, formatting and boundaries green.
+- API/worker restarted active; post-restart healthz, scheduled reader gate and alerts pass. Commit/push follows; next Nov 20–22 scheduled reviews remain pending.
