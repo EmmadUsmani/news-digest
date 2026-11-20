@@ -72,6 +72,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 3052: Partial Nov 16 Tech developing review adds three event nonmatches alongside Huang continuation; false security/agent category links fail. Chip-rule relationship unresolved; production inactive.
+
 - [x] 3051: Source-bound manual GTA rewrite accepted with claim-by-claim support; launch, stock movement and inherited data-provider claims omitted. Combined Gaming still refuses because Zelda has no new development; model/budget acceptance remains open.
 
 - [x] 3050: Partial NBA developing reference adds Brown/McCollum-Newell injury nonmatches alongside LeBron milestone match. False shared-player/team links fail; Spurs/Warriors remain unresolved without source evidence. Production inactive.

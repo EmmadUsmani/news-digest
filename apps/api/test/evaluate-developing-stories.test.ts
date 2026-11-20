@@ -89,6 +89,7 @@ void test('unreviewed cases cannot certify acceptance; duplicate and orphan reco
   const cases = structuredClone(fixture.cases);
   delete cases[0].reviewedStoryId;
   delete cases[0].expectedPredecessors;
+  delete cases[0].reviews;
   const report = await evaluateDevelopingStories(cases, controls());
   assert.equal(report.controlsPassed, false);
   assert.equal(report.cases[0].acceptance, 'unreviewed');
@@ -243,5 +244,33 @@ void test('NBA injury nonmatches reject shared-player and shared-team links desp
     item.reviews!.filter((review) => !review.expectedPredecessors.length)
       .length,
     2,
+  );
+});
+
+void test('Nov 16 Tech nonmatches reject shared security and agent categories despite correct Nvidia links', async () => {
+  const item = fixture.cases[0];
+  const baseline = await evaluateDevelopingStories(fixture.cases, controls());
+  assert.equal(baseline.cases[0].reviews.length, 4);
+  assert.equal(baseline.controlsPassed, true);
+  for (const [current, previous] of [
+    ['current:1', 'history:3:2'], // Aerospace intrusion is not Google's TPU security hardware.
+    ['current:3', 'history:3:3'], // Healthcare trials are not United's agent-booking restriction.
+    ['current:4', 'history:0:1'], // uBlock XSS is not the Lovable data exposure.
+  ]) {
+    const records = controls();
+    records[0].groups.push([current, previous]);
+    const report = await evaluateDevelopingStories(fixture.cases, records);
+    assert.equal(report.controlsPassed, false);
+    assert.equal(report.cases[0].review?.acceptance, 'pass');
+    assert.equal(
+      report.cases[0].reviews.filter((review) => review.acceptance === 'fail')
+        .length,
+      1,
+    );
+    assert.equal(report.semanticAcceptance, 'not-established');
+  }
+  assert.equal(
+    item.reviews!.some((review) => review.storyId === item.stories[2].id),
+    false,
   );
 });

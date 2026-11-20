@@ -200,3 +200,24 @@ under atomic fallback. The lexical absence guard cannot certify the launch,
 stock-price or data-provider claims: its scope is bounded absence checking,
 not general factual entailment. Model-generated rewrite acceptance and
 whole-edition capacity remain open; production stays inactive.
+
+## Partial Nov 16 Tech selection review — iteration 3052
+
+Reviewed all five saved Nov 16 selections against 31 earlier stories in seven
+Nov 9–15 snapshots. Current published summaries are available; original
+editorial excerpts are absent. Four matching decisions are supportable; this
+review cannot accept a source-supported rewrite.
+
+| Current selection                                                         | Decision                              | Saved evidence                                                                                                                                                                                                   |
+| ------------------------------------------------------------------------- | ------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Huang comeback (`ab16db28-50f4-4d17-9926-f1e8bee0ddd8`)                   | Retain Nov 15 and Nov 14 predecessors | The current summary explicitly follows the resignation and leadership crisis. Existing positive membership remains unchanged.                                                                                    |
+| Google aerospace intrusion (`6a921670-eb4b-4f78-bc30-c48fe065306a`)       | No predecessor                        | Earlier Google TPU security hardware and Signal verification concern different systems and developments. Lovable and Fireworks exposures involve different incidents; none establishes this aerospace intrusion. |
+| Advanced-chip remote-access rule (`9dec3f4b-1b5e-4924-a3ed-b89a3fcb8842`) | Unresolved; no label added            | Nov 15's Lutnick chip-rule allegation and Nov 14's smuggling context lack enough policy detail to distinguish a common rule from separate developments.                                                          |
+| OpenAI healthcare trials (`80d1507a-286d-464d-befc-eb1608cd85d5`)         | No predecessor                        | No earlier healthcare trial. United's booking restriction, Chrome guidance and Claude parallel workers share agent terminology but concern different organizations, products and actions.                        |
+| uBlock element-picker XSS (`afe96a9d-ba74-46ff-a6a3-d39cea8d1a76`)        | No predecessor                        | Lovable passport/message exposure, Fireworks breach, ChatGPT SSH forwarding and Linux kernel bugs are separate vulnerabilities or incidents.                                                                     |
+
+The fixture now adds the three explicit nonmatches alongside the existing Huang
+match. Adversarial category-based links fail while the Huang control passes;
+existing snapshot checks exercise all four decisions. These are manual agent
+labels. The chip-rule selection remains unresolved; model semantics and
+whole-edition budget acceptance remain open. Production stays inactive.

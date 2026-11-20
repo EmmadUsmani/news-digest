@@ -244,7 +244,34 @@
           "storyId": "3c54c5f4-93f9-4e71-aa2c-ba5118fa0fe1"
         }
       ],
-      "rationale": "The comeback report explicitly follows the resignation and leadership crisis described in both earlier summaries."
+      "rationale": "The comeback report explicitly follows the resignation and leadership crisis described in both earlier summaries.",
+      "reviews": [
+        {
+          "storyId": "ab16db28-50f4-4d17-9926-f1e8bee0ddd8",
+          "expectedPredecessors": [
+            {
+              "editionId": "a0fa3916-f1dc-4fbd-8d76-2884d5e01c06",
+              "storyId": "ef668c6e-3bac-4452-919b-90830aad4638"
+            },
+            {
+              "editionId": "b9d55088-892a-4e34-b77c-a398d64c6a9f",
+              "storyId": "3c54c5f4-93f9-4e71-aa2c-ba5118fa0fe1"
+            }
+          ]
+        },
+        {
+          "storyId": "6a921670-eb4b-4f78-bc30-c48fe065306a",
+          "expectedPredecessors": []
+        },
+        {
+          "storyId": "80d1507a-286d-464d-befc-eb1608cd85d5",
+          "expectedPredecessors": []
+        },
+        {
+          "storyId": "afe96a9d-ba74-46ff-a6a3-d39cea8d1a76",
+          "expectedPredecessors": []
+        }
+      ]
     },
     {
       "editionId": "cd357e84-9383-4e10-b60c-c8318da4b314",

@@ -160,3 +160,15 @@ Earlier entries: [pre-3038 archive](docs/progress-archive/2026-11-20-pre-3038.md
 - Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build (/tmp/3051-*.log); results below.
 - No code/UI/source/schema changes or provider calls. Next: Nov 20 scheduled review after 15:00 UTC.
 - Full check/build pass: 1,305 unit passes; 336 integration passes/four expected skips; typecheck, lint, formatting and boundaries green. Commit/push and API/worker restart follow.
+
+## 2026-11-20: iteration 3052 — distinguish Nov 16 Tech continuation events
+
+- Clean main at 900e1c24; no inherited work. Alerts clear; healthz database/Redis pass; API/worker active.
+- Reviewed all five Nov 16 Tech selections against 31 earlier stories; added three explicit nonmatches alongside Huang continuation. Chip-rule relationship unresolved.
+- Original editorial excerpts absent: matching labels only, no rewrite/model acceptance. Production inactive; no paid calls or cap changes.
+- Existing evaluator rejects aerospace/TPU, healthcare/booking and uBlock/Lovable false links despite correct Huang control. Existing snapshot checks consume all four labels.
+- Targeted: pnpm exec tsx --test apps/api/test/evaluate-developing-stories.test.ts apps/api/test/developing-saved-evidence.test.ts; results below.
+- Reader: pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-19T15:00:00Z passes: five topics, 25 real stories/22 posts.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build (/tmp/3052-*.log); final results below.
+- No UI/source/schema changes. Next: Nov 20 scheduled review after 15:00 UTC, with per-topic event recall and miss causes.
+- Full check/build pass: 1,309 unit passes; 336 integration passes/four expected skips; typecheck, lint, formatting and boundaries green. Targeted 34/34 pass. Commit/push and API/worker restart follow.
