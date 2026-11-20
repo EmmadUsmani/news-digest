@@ -54,3 +54,28 @@ Zelda supplies a required refusal. Neither manual membership nor scripted prose
 establishes actual model matching/rewrite acceptance. Production stays inactive.
 Complete protected morning obligations and whole-edition budget admission also
 remain open. No paid replay or cap change was made.
+
+## Complete U.S. selection review — iteration 3044
+
+Reviewed all five Nov 18 U.S. selections against every story in all six
+saved same-topic history snapshots (20 earlier stories; Nov 13 and 14 are
+empty). Current source excerpts come from the same fixture's
+`originalEditorialEvidence`; decisions below use those excerpts and the exact
+saved earlier prose, without fetching articles or calling a provider.
+
+| Current story ID                                              | Decision                                                                     | Evidence and closest misleading alternative                                                                                                                                                                                                                                                                                                 |
+| ------------------------------------------------------------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `d9db8b34-bcd4-4faa-b4a2-5e8da08cf90c` (Peltola)              | Link only to Nov 17 `e81b3ede-a6a3-45a0-8464-9cbcfca958df`; supported update | Same Senate contest moves from conditional result to victory. Nov 15 Kreiss-Tomkins is a different candidate and office; Nov 12 Colom is a different state and race. Use the positive rewrite reference above.                                                                                                                              |
+| `035d48b9-8ad0-4036-8c10-c4a8b6a36062` (oil liability shield) | No predecessor                                                               | Current excerpt concerns possible fossil-fuel lawsuit immunity. Earlier midterm/oversight stories concern immigration enforcement, investigations, party leadership or state legislatures. Shared election context establishes no earlier coverage of this proposal. Preserve the conditional language: no enacted immunity is established. |
+| `c745047f-ca45-451e-a394-51bd2a512c2c` (measles status)       | No predecessor                                                               | Current excerpt reports PAHO's declaration following 12 months of continuous transmission. Nov 15 vaccine-side-effect reimbursement and an NIH research center concern different actions; a shared administration and public-health subject do not make them this event.                                                                    |
+| `312033e7-edd4-4c6e-8321-5e8520e2cbdf` (CAIR-Florida)         | No predecessor                                                               | Current excerpt concerns Florida's designation and CAIR-Florida's lawsuit. Earlier immigration-enforcement criticism and planned congressional oversight cover different policies and proceedings. No saved history names this designation or lawsuit.                                                                                      |
+| `a65dbed7-11c0-460e-91a3-0299239a345d` (Overton)              | No predecessor                                                               | Current excerpt establishes withdrawal of this FDA nomination. The earlier vaccine reimbursement proposal does not concern Overton or this appointment. Shared Trump/health context does not establish continuity.                                                                                                                          |
+
+The complete U.S. reference therefore expects one developing story and four
+unchanged stories, retaining all five IDs and their order. A future captured
+model result must find the Peltola predecessor without linking the four
+negatives; its rewrite must lead with the election outcome and leave the other
+four selections intact. This extends manual review from one to five U.S.
+selections; it does not establish model precision or whole-edition acceptance.
+The six snapshots cover only this topic; no cross-topic match is authorized.
+Production remains inactive, with semantic output and budget acceptance open.

@@ -69,3 +69,14 @@ Earlier entries: [pre-3038 archive](docs/progress-archive/2026-11-20-pre-3038.md
 - Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build (logs /tmp/3043-*.log); final results below.
 - Final check/build pass: 1,287 unit passes; 336 integration passes/four expected skips; typecheck, lint, formatting and boundaries green.
 - API/worker restarted active; post-restart healthz, scheduled reader gate and alerts pass. Commit/push follows; next Nov 20–22 scheduled reviews remain pending.
+
+## 2026-11-20: iteration 3044 — complete saved U.S. semantic reference
+
+- Clean main at b0d38134; no inherited work. Alerts clear; healthz database/Redis pass. Nov 20 scheduled review awaits 15:00 UTC.
+- Reviewed all five Nov 18 U.S. selections against all six available same-topic history snapshots (20 stories), using exact saved prose and original editorial excerpts.
+- One supported Peltola outcome update; four explicit nonmatches, with tempting shared-subject alternatives and source-supported wording limits documented.
+- Reference integrity check passes: five exact current IDs/excerpts, six snapshots, 20 earlier stories and exact Peltola predecessor. Manual agent labels only; no provider calls or model acceptance claim.
+- Developing stories remains inactive pending semantic output and whole-edition budget acceptance. No code, UI, schema, source, caps or handbook behavior changes.
+- Read-only scheduled reader gate passes for Nov 19: five topics, 25 real stories/22 posts. Next daily missed-event reviews remain Nov 20–22.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build (logs /tmp/3044-*.log); final results follow.
+- Final check/build pass: 1,287 unit passes; 336 integration passes/four expected skips; typecheck, lint, formatting and boundaries green. Commit/push and API/worker restart follow, then health/reader/alert verification.
