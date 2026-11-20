@@ -189,7 +189,7 @@ void test('saved Peltola and Zelda captures bind complete admitted execution and
         groups: [[`current:${currentIndex}`, ...references]],
       }),
     );
-    const run = () =>
+    const run = (rewriteResponse = 'null') =>
       captureDevelopingExecution({
         editionId: item.editionId,
         topicIds: [item.topicId],
@@ -198,7 +198,7 @@ void test('saved Peltola and Zelda captures bind complete admitted execution and
           JSON.stringify({
             groups: [[`current:${currentIndex}`, ...references]],
           }),
-          'null',
+          rewriteResponse,
         ],
         async execute(port) {
           const models = llmConfig({});
@@ -257,6 +257,33 @@ void test('saved Peltola and Zelda captures bind complete admitted execution and
     assert.equal(requests[1].model.id, llmConfig({}).sonnet.id);
     assert.deepEqual((await run()).captures, result.captures);
     assert.deepEqual(item, before);
+    if (item.topicName === 'U.S. news & politics') {
+      // Agent-authored reference prose, reviewed against the saved current
+      // evidence. This exercises a real update; it is not a model response.
+      const reference = {
+        id: item.reviewedStoryId,
+        title: 'Mary Peltola wins Alaska Senate race against Dan Sullivan',
+        summary:
+          'Mary Peltola has defeated Republican incumbent Dan Sullivan in Alaska’s Senate race. The final unresolved Senate contest gives Democrats a 56-44 majority after flipping nine Republican-held seats.',
+        whyItMatters:
+          'The result settles the final Senate race and the chamber’s 56-44 balance.',
+      };
+      const updated = await run(JSON.stringify([reference]));
+      assert.equal(updated.value.status, 'completed');
+      const stories = updated.value.topics[0].stories;
+      assert.deepEqual(
+        stories.map((story) => story.id),
+        selected.map((story) => story.id),
+      );
+      for (const [index, story] of stories.entries()) {
+        if (story.id === reference.id) {
+          assert.equal(story.summary, reference.summary);
+          assert.equal(story.title, reference.title);
+          assert.equal(story.whyItMatters, reference.whyItMatters);
+        } else assert.deepEqual(story, selected[index]);
+      }
+      assert.deepEqual(item, before);
+    }
   }
   // Both saved cases belong to the same real edition. Capture the combined
   // coordinator path rather than adding independent per-topic estimates.

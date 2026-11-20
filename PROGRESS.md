@@ -119,3 +119,13 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build (logs /tmp/3014-{format,lint,check,build}.log). Final results recorded below.
 - No production behavior, source, schema or handbook changes. Next: populate complete morning obligations from saved edition execution, semantic review and whole-edition admission; Nov 20–22 recall reviews await scheduled editions.
 - Final rerun passes after formatting a late test edit: 1,250 unit tests, 335 integration passes/four expected skips; typecheck/lint/format/boundaries and production build pass. Scheduled-reader gate verifies real Nov 19 edition (25 stories/22 posts). Disk 62%; diff clean. Commit/push and API/worker restart follow.
+
+## 2026-11-20: iteration 3015 — supported update and repeat-only semantic references
+
+- Clean main at 936cd75a; no inherited work. Alerts clear and local health passes; Nov 20 scheduled edition not yet due.
+- Reviewed exact saved Peltola/Zelda current evidence against prior coverage. Peltola supports a conditional-race → victory update; Zelda adds no milestone beyond Nov 11/17, so the combined successful transport control cannot establish semantic acceptance.
+- Added an agent-authored Peltola reference summary through the actual offline captured coordinator: rewritten fields and all five IDs/order pass, other selections and saved inputs remain unchanged. Scripted response only; no provider calls or activation.
+- Recorded source-bound reference/refusal criteria in docs/edition-reviews/2026-11-20-developing-semantic-reference.md. Actual model quality, protected morning-plan completeness and whole-edition admission remain open.
+- Targeted: pnpm exec tsx --test apps/api/test/capture-developing-execution.test.ts (three pass). Initial identity assertion corrected to compare unchanged successful output values; refusal identity checks remain intact.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build, logs /tmp/3015-{format,lint,check,build}.log. Final results follow.
+- Full checks pass: 1,250 unit tests, 335 integration passes/four expected skips; format/lint/typecheck/boundaries pass. Scheduled-reader gate verifies real Nov 19 edition (25 stories/22 posts). Disk 62%; no UI/source/schema/handbook behavior changes. Build/commit/push and API/worker restart follow.
