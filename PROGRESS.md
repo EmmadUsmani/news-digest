@@ -22,55 +22,7 @@
 
 [Iterations 2995–3004](docs/progress-archive/2026-11-20-iterations-2995-3004.md).
 
-## 2026-11-20: iteration 3005 — admitted edition execution lifecycle
-
-- Clean main at 8b918bb8; no inherited work. Alerts clear; health/database/Redis and all services pass. Enabled sources healthy (Destructoid inactive); digest queue zero failures, next run Nov 20 15:00 UTC.
-- Added inactive reserved-plan runner: atomic feature/protected admission precedes budgeted service construction; unused-hold cleanup completes before returning a result. Execution/cleanup errors retain both causes; uncertain consumed holds remain protected.
-- Fifteen targeted offline tests pass, including real edition coordinator no-link/later-matching-refusal composition, two-phase settlement, admission refusal, closed retained ports, uncertainty and cleanup failure. No provider calls, cap changes or activation.
-- pnpm format and pnpm lint:fix pass; initial test lint failures corrected. pnpm build and final pnpm check pass: 1,239 unit tests, 335 integration passes/four expected skips. Logs /tmp/3005-{target,format,lint-final,check-final,build}.log.
-- Live reader retains 7a747d9c, five topics/25 real stories/22 posts. Archived iterations 2989–2994 to keep PROGRESS small. No UI/source/schema/handbook changes.
-- Next: complete exact-request capture wiring and protected obligation derivation, then saved-edition semantic acceptance. Nov 20–22 recall reviews follow scheduled editions. Production enrichment remains inactive.
-- Final diff check passes; commit/push and API/worker restart follow. Exact-plan derivation and live semantic acceptance remain unverified.
-
-## 2026-11-20: iteration 3006 — enforce reserved-hold ownership
-
-- Clean main at 0656e374; no inherited work. Alerts clear; health/database/Redis pass; enabled sources healthy. Digest queue zero failures, next run Nov 20 15:00 UTC.
-- Inactive reserved ledger now rejects settlement/failure for protected, unused and foreign hold IDs before touching the underlying ledger. Cleanup does not grant execution ownership; consumed feature holds retain normal settlement/failure behavior.
-- All 16 targeted offline tests pass, including attempted cross-scope settlement/failure before and after cleanup and a real BudgetedLlm successful dispatch/settlement. No provider calls, cap changes or activation.
-- pnpm format, pnpm lint:fix and pnpm check pass: 1,240 unit tests, 335 integration passes/four expected skips. Production build passes. Logs /tmp/3006-{target,format,lint,check,build}.log.
-- Public operations expose queue counts only; detailed failed-job probe refused as expected. No UI/source/schema/handbook changes.
-- Live latest 7a747d9c retains five topics/25 real stories/22 posts. Next: exact-request capture and complete protected-obligation derivation, then saved-edition semantic acceptance. Nov 20–22 recall reviews follow scheduled editions. Developing enrichment remains inactive.
-- Final diff check passes; commit/push and API/worker restart follow.
-
-## 2026-11-20: iteration 3007 — edition-bound exact request captures
-
-- Clean main at 7c53c78b; no inherited work. Alerts/health and enabled sources pass; Destructoid remains inactive. Digest queue has zero failures; next run Nov 20 15:00 UTC.
-- Offline matching capture now uses the actual edition ID instead of a placeholder run. Rewrite capture refuses mismatched runs; combined-plan checks require matching, rewrite and additional requests to belong to the expected edition. Blank edition/topic coverage refuses.
-- Thirteen targeted tests pass, including exact matching attribution, foreign/blank runs across both stages and additional work, and rewrite input preservation. Historical placeholder captures require regeneration; no provider calls, cap changes or activation.
-- pnpm format, pnpm lint:fix, pnpm check and pnpm build pass: 1,243 unit tests, 335 integration passes/four expected skips. Logs /tmp/3007-{target,format,lint,check,build}.log.
-- Live reader retains 7a747d9c, five topics/25 real stories/22 posts. Direct loopback reader probe hit shared rate limiting; existing local-probe forwarding identity succeeds. No UI/source/schema/handbook changes.
-- Next: runtime exact-request capture composition and complete protected-obligation derivation, then saved-edition semantic acceptance. Nov 20–22 recall reviews follow scheduled editions. Developing enrichment remains inactive.
-- Final diff check passes; commit/push and API/worker restart follow. Complete exact runtime capture and protected-plan derivation remain unverified.
-
-## 2026-11-20: iteration 3008 — edition-bound runtime admission
-
-- Clean main at 474db237; no inherited work. Alerts/health and enabled sources pass; Destructoid remains inactive. Digest queue zero failures, next run Nov 20 15:00 UTC; public counts retain 20 ingestion/four social failures with healthy current sources.
-- Inactive reserved execution now requires an explicit expected edition and refuses blank/foreign feature or protected request run IDs before atomic reservation or service construction. Offline capture validation alone no longer supplies this runtime guarantee.
-- All 18 targeted offline tests pass, including six invalid feature/protected plans and three invalid expected editions; no reservation, dispatch, execution callback or release occurs on refusal. Existing successful lifecycle/composition controls pass. No provider calls, cap changes or activation.
-- Verification: pnpm exec tsx --test apps/api/test/reserved-llm-plan.test.ts; pnpm format; pnpm lint:fix; pnpm check; pnpm build. Final results recorded below. Logs /tmp/3008-{target,format,lint,check,build}.log.
-- Live reader 7a747d9c retains five topics/25 stories/22 posts. Detailed failed-job query correctly unavailable in public mode; pnpm obs jobs --check confirms scheduled queue status. No UI/source/schema/handbook changes.
-- Next: runtime exact-request capture composition and complete protected-obligation derivation, then saved-edition semantic acceptance; Nov 20–22 recall reviews follow scheduled editions. Developing enrichment remains inactive.
-- Final pnpm check passes: 1,245 unit tests, 335 integration passes/four expected skips; production build passes. Formatting/lint/boundaries/typechecks pass; git diff --check clean. Commit/push and API/worker restart follow.
-
-## 2026-11-20: iteration 3009 — connect capture coverage to runtime admission
-
-- Clean main at b9d69165; no inherited work. Alerts/health pass; enabled sources healthy, Destructoid inactive. Digest queue zero failures; next run Nov 20 15:00 UTC.
-- Extracted shared edition/topic/stage/request coverage validation from the offline budget checker and connected it to inactive atomic reserved execution. Supplied capture requests are copied before admission; offline and runtime use identical checks.
-- Runtime refuses missing topic/stage coverage, unavailable captures, stage substitution and foreign additional requests before ledger/provider/execution work. Complete synthetic matching/rewrite dispatch settles both holds and releases protected work at cleanup.
-- Targeted offline tests: 24 pass. No provider calls, cap changes or activation; no UI/source/schema/handbook changes.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build. Logs /tmp/3009-{target,format,lint,check,build}.log; final results below.
-- Next: derive captures from actual edition execution and complete protected obligations, then saved semantic/whole-edition acceptance. Supplied capture validation alone does not establish completeness of protected work. Nov 20–22 recall reviews await scheduled editions.
-- Final checks pass: 1,246 unit tests, 335 integration passes/four expected skips, production build; diff check clean. Live reader 7a747d9c retains five topics/25 stories/22 posts. Commit/push and API/worker restart follow.
+[Iterations 3005–3009](docs/progress-archive/2026-11-20-iterations-3005-3009.md).
 
 ## 2026-11-20: iteration 3010 — capture real developing execution requests offline
 
@@ -163,3 +115,15 @@
 - Scheduled-reader gate verifies real Nov 19 edition: 25 stories/22 posts; disk 61%. No UI/source/schema/handbook behavior change.
 - Next: finish whole-morning admission and semantic acceptance; Nov 20–22 recall reviews await scheduled editions.
 - Full checks pass: 1,254 unit tests, 335 integration passes/four expected skips; typecheck/lint/format/boundaries pass. Build passes; commit/push and API/worker restart follow.
+
+## 2026-11-20: iteration 3019 — protect remaining story grouping
+
+- Clean main at 835cce79; no inherited work. Alerts clear and /healthz passes; Nov 20 edition not yet due.
+- Added offline supplied-pool grouping obligations through real EventGrouping, covering single-topic grouping and joint U.S./World ownership. Both routes disable repairs and have no model fallback.
+- Invalid/oversized pools throw instead of silently becoming successful zero-cost plans; valid empty/small pools follow production no-call behavior. Execution callbacks/deadlines are excluded from offline accounting.
+- Targeted tests compare exact requests against real BudgetedLlm dispatches for malformed JSON/schema on both routes; Unicode, 40-candidate pools, shared citations, input immutability and rejection controls covered. No provider calls.
+- Initial test fixtures exceeded the input limit and then failed to generate enough distinct shared citations; corrected fixtures before passing verification.
+- Developing stories stays inactive. Dynamic pool/context completeness, complete morning admission and actual semantic model acceptance remain open; Nov 20–22 recall reviews await editions.
+- Verification: pnpm exec tsx --test apps/api/test/protected-grouping-obligations.test.ts (two pass); pnpm format; pnpm lint:fix; pnpm check; pnpm build. Logs /tmp/3019-{target,format,lint,check,build}.log; final results follow.
+- No source/schema/UI/handbook behavior change. Commit/push and API/worker restart follow passing checks.
+- Full checks/build pass: 1,256 unit tests, 335 integration passes/four expected skips; typecheck/lint/format/boundaries pass. Reader gate verifies real Nov 19 edition (25 stories/22 posts); disk 61%, diff clean. Archived iterations 3005–3009 to keep this file below 25 KB.
