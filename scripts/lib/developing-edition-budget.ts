@@ -50,6 +50,9 @@ export function developingEditionBudget(input: {
       Buffer.byteLength(request.instructions + request.prompt, 'utf8') + 2048;
     oversized ||= bound >= 100000;
     const price = request.model;
+    // Validate original rates before Math.max can hide a negative input or
+    // cache rate behind a valid higher rate.
+    costMicros({ input: 0, output: 0, cacheRead: 0, cacheWrite: 0 }, price);
     const reserve = costMicros(
       {
         input: bound,

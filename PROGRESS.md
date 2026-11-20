@@ -180,3 +180,12 @@
 - Verification: pnpm exec tsx --test apps/api/test/protected-context-plan.test.ts apps/api/test/developing-captured-plan.test.ts; pnpm format; pnpm lint:fix; pnpm check; pnpm build. Logs /tmp/3024-{target,format,lint,check,build}.log. Final results below.
 - No source/schema/UI/handbook behavior change. Next: complete dynamic morning admission; review Nov 20–22 after publication. Developing stories stays inactive.
 - Full checks/build pass: 1,265 unit tests; 335 integration passes/four expected skips; typecheck/lint/format/boundaries pass. Reader gate verifies real Nov 19 content: 25 stories/22 posts. Diff clean; commit/push and API/worker restart follow.
+
+## 2026-11-20: iteration 3025 — reject masked invalid preflight prices
+
+- Clean main at 0d95a88f; no inherited work. Alerts clear, /healthz healthy, API/worker active; Nov 20 edition not due.
+- Offline edition preflight now validates original model prices before taking the conservative maximum; negative input/cache rates can no longer be hidden by higher valid rates.
+- Regression matrix rejects negative/nonfinite values in all four price fields; zero-cost models remain accepted and protected funds remain included. Three targeted tests pass; no provider calls or runtime activation.
+- Verification: pnpm exec tsx --test apps/api/test/developing-edition-budget.test.ts; pnpm format; pnpm lint:fix; pnpm check; pnpm build. Logs /tmp/3025-{target,format,lint,check,build}.log; final results below.
+- No source/schema/UI/handbook behavior change. Developing stories remains inactive pending complete morning admission and semantic acceptance; Nov 20–22 reviews await publication.
+- Full checks/build pass: 1,266 unit tests; 335 integration passes/four expected skips; typecheck/lint/format/boundaries pass. Reader gate verifies real Nov 19 content: 25 stories/22 posts. Diff clean; commit/push and API/worker restart follow.

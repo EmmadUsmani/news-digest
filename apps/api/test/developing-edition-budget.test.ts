@@ -84,3 +84,38 @@ void test('monthly headroom, outstanding holds, oversized input and invalid fund
     developingEditionBudget({ ...plan, protectedModelMicros: { editor: -1 } }),
   );
 });
+
+void test('preflight rejects invalid original prices before selecting the conservative rate', () => {
+  for (const rate of ['input', 'output', 'cacheRead', 'cacheWrite'] as const) {
+    for (const invalid of [-1, NaN, Infinity, -Infinity]) {
+      assert.throws(
+        () =>
+          developingEditionBudget({
+            ...plan,
+            requests: [
+              { ...request, model: { ...request.model, [rate]: invalid } },
+            ],
+          }),
+        /Invalid token usage or pricing/,
+        `${rate}=${invalid}`,
+      );
+    }
+  }
+  const free = developingEditionBudget({
+    ...plan,
+    requests: [
+      {
+        ...request,
+        model: {
+          ...request.model,
+          input: 0,
+          output: 0,
+          cacheRead: 0,
+          cacheWrite: 0,
+        },
+      },
+    ],
+  });
+  assert.equal(free.featureMicros, 0);
+  assert.equal(free.requiredMicros, plan.protectedMicros);
+});
