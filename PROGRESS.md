@@ -159,3 +159,14 @@
 - Verification: pnpm exec tsx --test apps/api/test/protected-work-manifest.test.ts; pnpm format; pnpm lint:fix; pnpm check; pnpm build. Logs /tmp/3022-{target,format,lint,check,build}.log.
 - Reader gate verifies the real Nov 19 edition: 25 stories/22 posts. No source/schema/UI/handbook behavior change. Final checks and restart results follow.
 - Full checks/build pass: 1,260 unit tests, 335 integration passes/four expected skips; typecheck/lint/format/boundaries pass. Diff clean. Commit/push and API/worker restart follow.
+
+## 2026-11-20: iteration 3023 — inventory-backed offline budget preflight
+
+- Clean main at 0d898eda; no inherited work. Alerts clear and /healthz passes; Nov 20 edition not due.
+- Connected declared protected-work inventory validation to captured feature-plan costing and the file CLI. Stage/topic/context coverage is checked before cost derivation; explicit zero-call slots count. Flat-plus-inventory inputs refuse as ambiguous.
+- Tests verify derived costs equal the validated flat plan, protected costs can cause shared-budget refusal, and missing contexts refuse without overwriting existing reports or creating new ones. Inputs remain unchanged.
+- Offline only: dynamic inventory completeness, actual reservation and semantic acceptance remain open; developing stories stays inactive. No provider calls or source/schema/UI/handbook behavior changes.
+- Targeted: pnpm exec tsx --test apps/api/test/developing-captured-plan.test.ts passes eight tests.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build (logs /tmp/3023-{target,format,lint,check,build}.log). Final results and reader/service gates follow.
+- Full checks/build pass: 1,262 unit tests, 335 integration passes/four expected skips; typecheck/lint/format/boundaries pass. Reader gate verifies real Nov 19 content: 25 stories/22 posts. Diff clean; commit/push and API/worker restart follow.
+- Next: complete dynamic morning inventory/admission and semantic acceptance; Nov 20–22 recall reviews await scheduled editions.

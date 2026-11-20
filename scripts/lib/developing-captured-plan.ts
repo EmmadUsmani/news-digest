@@ -3,7 +3,38 @@ import {
   type DevelopingRequestCaptures,
 } from '../../apps/api/src/modules/curation/application/developing-captured-requests';
 import { developingEditionBudget } from './developing-edition-budget';
+import { protectedWorkManifest } from './protected-work-manifest';
 type BudgetInput = Parameters<typeof developingEditionBudget>[0];
+
+// Validates declared contexts before deriving costs. Still offline: the caller
+// owns dynamic inventory completeness, and no funds are reserved here.
+export function developingInventoryCapturedPlan(
+  input: DevelopingRequestCaptures & {
+    protectedInventory: Pick<
+      Parameters<typeof protectedWorkManifest>[0],
+      'expected' | 'supplied'
+    >;
+    budget: Omit<
+      BudgetInput,
+      'requests' | 'protectedMicros' | 'protectedModelMicros'
+    >;
+  },
+) {
+  if ('protectedRequests' in input)
+    throw new Error('Ambiguous protected work inputs');
+  const inventory = protectedWorkManifest({
+    ...input.protectedInventory,
+    editionId: input.editionId,
+    topicIds: input.topicIds,
+  });
+  return {
+    ...developingProtectedCapturedPlan({
+      ...input,
+      protectedRequests: inventory.requests,
+    }),
+    protectedSlotCount: inventory.slotCount,
+  };
+}
 
 export function developingCapturedPlan(
   input: DevelopingRequestCaptures & {

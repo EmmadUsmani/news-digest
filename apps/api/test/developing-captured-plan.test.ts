@@ -13,6 +13,7 @@ import { test } from 'node:test';
 import { checkDevelopingCapturedPlan } from '../../../scripts/check-developing-captured-plan';
 import {
   developingCapturedPlan,
+  developingInventoryCapturedPlan,
   developingProtectedCapturedPlan,
 } from '../../../scripts/lib/developing-captured-plan';
 
@@ -237,4 +238,111 @@ void test('request-derived morning protection accounts for shared and allocated-
     }).status,
     'input-limit',
   );
+});
+
+void test('inventory preflight derives protected costs only after complete context validation', () => {
+  const slot = {
+    stage: 'story' as const,
+    topicIds: ['a'],
+    contextId: 'editor',
+  };
+  const empty = {
+    stage: 'social' as const,
+    topicIds: ['b'],
+    contextId: 'bluesky',
+  };
+  const protectedRequest = {
+    ...request,
+    topicId: 'a',
+    purpose: 'shortlist-editor-v14-brief',
+  };
+  const input = {
+    ...plan,
+    protectedInventory: {
+      expected: [slot, empty],
+      supplied: [
+        { slot, requests: [protectedRequest] },
+        { slot: empty, requests: [] },
+      ],
+    },
+  };
+  const before = structuredClone(input);
+  const result = developingInventoryCapturedPlan(input);
+  const flat = developingProtectedCapturedPlan({
+    ...plan,
+    protectedRequests: [protectedRequest],
+  });
+  assert.deepEqual(result, { ...flat, protectedSlotCount: 2 });
+  assert.equal(result.protectedMicros, 2049);
+  assert.equal(
+    developingInventoryCapturedPlan({
+      ...input,
+      budget: { ...input.budget, caps: { monthly: 11000, dailyMax: 11000 } },
+    }).status,
+    'shared-budget-refused',
+  );
+  assert.throws(
+    () =>
+      developingInventoryCapturedPlan({
+        ...input,
+        protectedInventory: {
+          ...input.protectedInventory,
+          supplied: input.protectedInventory.supplied.slice(0, 1),
+        },
+      }),
+    /Missing/,
+  );
+  assert.throws(
+    () =>
+      developingInventoryCapturedPlan({
+        ...input,
+        protectedRequests: [],
+      } as Parameters<typeof developingInventoryCapturedPlan>[0]),
+    /Ambiguous/,
+  );
+  assert.deepEqual(input, before);
+});
+
+void test('file inventory refusal preserves existing evidence and never falls back to flat requests', () => {
+  const directory = mkdtempSync(join(tmpdir(), 'developing-inventory-'));
+  const input = join(directory, 'input.json');
+  const output = join(directory, 'report.json');
+  const slot = { stage: 'social', topicIds: ['a'], contextId: 'x' };
+  const data = {
+    ...plan,
+    protectedInventory: {
+      expected: [slot],
+      supplied: [{ slot, requests: [] }],
+    },
+  };
+  try {
+    writeFileSync(input, JSON.stringify(data));
+    const result = checkDevelopingCapturedPlan(input, output);
+    assert.equal(result.status, 'fits-supplied-plan');
+    assert.equal(
+      'protectedSlotCount' in result && result.protectedSlotCount,
+      1,
+    );
+    const original = readFileSync(output, 'utf8');
+    for (const invalid of [
+      { ...data, protectedInventory: { expected: [slot], supplied: [] } },
+      { ...data, protectedRequests: [] },
+    ]) {
+      writeFileSync(input, JSON.stringify(invalid));
+      assert.throws(
+        () => checkDevelopingCapturedPlan(input, output),
+        /Missing|Ambiguous/,
+      );
+      assert.equal(readFileSync(output, 'utf8'), original);
+      rmSync(output);
+      assert.throws(
+        () => checkDevelopingCapturedPlan(input, output),
+        /Missing|Ambiguous/,
+      );
+      assert.equal(existsSync(output), false);
+      writeFileSync(output, original);
+    }
+  } finally {
+    rmSync(directory, { recursive: true, force: true });
+  }
 });
