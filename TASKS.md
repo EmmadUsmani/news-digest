@@ -72,6 +72,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 3021: Offline protected-work manifest checks exact caller-declared stage/topic/context coverage, including zero-call slots; rejects missing/duplicate/foreign slots and mismatched request attribution. Dynamic inventory completeness and semantic acceptance remain open; developing stories stays inactive.
+
 - [x] 3020: All offline protected-work estimators reject blank edition/topic attribution before preparing requests, including zero-call pools; joint grouping also rejects duplicate topic identities. Whole-morning completeness and semantic acceptance remain open; developing stories stays inactive.
 
 - [x] 2786: Reader labels fallback story text “Source excerpt”; the five real Nov 18 NBA cards retain identical prose and source destinations. Edited summaries stay unlabelled; scheduled NBA editorial acceptance remains open.

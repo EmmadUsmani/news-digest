@@ -137,3 +137,15 @@
 - Verification: pnpm exec tsx --test apps/api/test/protected-obligation-identity.test.ts (pass); pnpm format; pnpm lint:fix; pnpm check; pnpm build. Logs /tmp/3020-{target,format,lint,check,build}.log; final results below.
 - Reader gate: pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-19T15:00:00Z verifies real Nov 19 edition, 25 stories/22 posts. No source/schema/UI/handbook behavior changes.
 - Full checks/build pass: 1,257 unit tests, 335 integration passes/four expected skips; typecheck/lint/format/boundaries pass. Commit/push and API/worker restart follow.
+
+## 2026-11-20: iteration 3021 — declared protected-work coverage
+
+- Clean main at 3775ee03; no inherited work. Alerts clear, /healthz healthy, API/worker running, disk 61%. Nov 20 edition not yet due.
+- Added offline stage/topic/context inventory validation before combining protected request bounds. Missing/duplicate/unexpected slots refuse; explicit zero-call slots count, joint grouping topic order is canonical, and foreign edition/topic attribution refuses. Returned requests are isolated copies.
+- Coverage is only against the caller-declared inventory, not proof of dynamic morning completeness. No production activation, provider calls, source/schema/UI or handbook behavior change; developing stories stays inactive.
+- Targeted tests pass (three): real grouping zero-call bounds, missing platform context, duplicate joint order, foreign attribution and mutation isolation.
+- Verification: pnpm exec tsx --test apps/api/test/protected-work-manifest.test.ts; pnpm format; pnpm lint:fix; pnpm check; pnpm build. Logs /tmp/3021-{target,format,lint,check,build}.log.
+- Reader gate: pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-19T15:00:00Z verifies real Nov 19 edition, 25 stories/22 posts. Final checks and service restart recorded below.
+- Initial full check found new-test import order; autofixed before rerunning the full gate.
+- Next: connect complete dynamic morning inventory and budget admission; semantic acceptance and Nov 20–22 recall reviews remain pending.
+- Final full checks/build pass: 1,259 unit tests; 335 integration passes/four expected skips. Typecheck/lint/format/boundaries pass; diff clean. Commit/push and API/worker restart follow.
