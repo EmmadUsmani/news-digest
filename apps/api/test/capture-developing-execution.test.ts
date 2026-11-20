@@ -7,6 +7,7 @@ import { llmConfig } from '../src/modules/curation/adapters/config';
 import { BudgetedLlm } from '../src/modules/curation/application/budgeted-llm';
 import { developingCapturedRequests } from '../src/modules/curation/application/developing-captured-requests';
 import { EventGrouping } from '../src/modules/curation/application/event-grouping';
+import { runCapturedDevelopingLlmPlan } from '../src/modules/curation/application/run-reserved-llm-plan';
 import type { LlmPort } from '../src/modules/curation/domain/llm.port';
 import { enrichDevelopingEdition } from '../src/modules/digests/application/enrich-developing-edition';
 
@@ -126,7 +127,7 @@ void test('no-link and refused executions never fabricate rewrite coverage', asy
   }
 });
 
-void test('saved Peltola and Zelda execution captures retain original evidence and atomic refusal', async () => {
+void test('saved Peltola and Zelda captures bind complete admitted execution and atomic refusal', async () => {
   type Topic = Parameters<typeof enrichDevelopingEdition>[0][number];
   const fixture = JSON.parse(
     readFileSync(
@@ -299,4 +300,122 @@ void test('saved Peltola and Zelda execution captures retain original evidence a
     () => developingCapturedRequests(combined.captures),
     /Missing edition topic capture/,
   );
+  // Scripted unchanged prose is a transport control, including the repeat-only
+  // Zelda case. It is not an editorially accepted developing-story rewrite.
+  const responses = [
+    ...editionMatches,
+    ...cases.map((item) => {
+      const story = item.selected!.find((s) => s.id === item.reviewedStoryId)!;
+      return JSON.stringify([
+        {
+          id: story.id,
+          title: story.title,
+          summary: story.summary,
+          whyItMatters: story.whyItMatters,
+        },
+      ]);
+    }),
+  ];
+  const executeBudgeted = (llm: BudgetedLlm) => {
+    const models = llmConfig({});
+    return enrichDevelopingEdition(
+      editionTopics.map((topic) => ({
+        ...topic,
+        grouping: new EventGrouping(llm, models.haiku),
+        llm: {
+          async complete(request, execution) {
+            const outcome = await llm.jsonOutcome(request, (value) => value, {
+              repair: false,
+              execution,
+            });
+            if (outcome.status !== 'complete') throw new Error(outcome.status);
+            return {
+              text: JSON.stringify(outcome.value),
+              usage: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
+            };
+          },
+        },
+        model: models.sonnet,
+      })),
+    );
+  };
+  const complete = await captureDevelopingExecution({
+    editionId: cases[0].editionId,
+    topicIds: cases.map((item) => item.topicId),
+    responses,
+    execute: (port) =>
+      executeBudgeted(
+        new BudgetedLlm(port, {
+          reserve: async () => 'offline',
+          settle: async () => {},
+          fail: async () => {},
+          cached: async () => undefined,
+          cache: async () => {},
+        }),
+      ),
+  });
+  assert.equal(complete.value.status, 'completed');
+  assert.equal(complete.responsesConsumed, 4);
+  const completeRequests = developingCapturedRequests(complete.captures);
+  assert.deepEqual(
+    completeRequests.map((request) => request.purpose),
+    [
+      'story-grouping-v3',
+      'story-grouping-v3',
+      'developing-rewrite',
+      'developing-rewrite',
+    ],
+  );
+  const settled: string[] = [];
+  const released: string[] = [];
+  let batches = 0;
+  let dispatched = 0;
+  const admitted = await runCapturedDevelopingLlmPlan({
+    captures: complete.captures,
+    // Empty only in this offline feature-scope control. Morning obligations
+    // still require derivation before any production admission.
+    protectedRequests: [],
+    ledger: {
+      reserveBatch: async (entries) => {
+        batches++;
+        assert.deepEqual(
+          entries.map((entry) => entry.request),
+          completeRequests,
+        );
+        assert.ok(entries.every((entry) => entry.estimate > 0));
+        return {
+          status: 'admitted',
+          ids: entries.map((_, index) => String(index)),
+        };
+      },
+      reserve: async () => {
+        throw new Error('Unexpected second reservation');
+      },
+      settle: async (id) => {
+        settled.push(id);
+      },
+      fail: async (id) => {
+        released.push(id);
+      },
+      cached: async () => undefined,
+      cache: async () => {},
+    },
+    provider: {
+      complete: async (request) => {
+        assert.deepEqual(request, completeRequests[dispatched]);
+        return {
+          text: responses[dispatched++],
+          usage: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
+        };
+      },
+    },
+    execute: executeBudgeted,
+  });
+  assert.equal(admitted.status, 'completed');
+  if (admitted.status === 'completed')
+    assert.deepEqual(admitted.value, complete.value);
+  assert.equal(batches, 1);
+  assert.equal(dispatched, 4);
+  assert.deepEqual(settled, ['0', '1', '2', '3']);
+  assert.deepEqual(released, []);
 });
