@@ -149,3 +149,13 @@
 - Initial full check found new-test import order; autofixed before rerunning the full gate.
 - Next: connect complete dynamic morning inventory and budget admission; semantic acceptance and Nov 20–22 recall reviews remain pending.
 - Final full checks/build pass: 1,259 unit tests; 335 integration passes/four expected skips. Typecheck/lint/format/boundaries pass; diff clean. Commit/push and API/worker restart follow.
+
+## 2026-11-20: iteration 3022 — bind protected inventory to editorial stages
+
+- Clean main at c6fc779d; no inherited work. Alerts clear, /healthz passes, API/worker active; disk 61%. Nov 20 edition not due.
+- Offline inventory now rejects requests with a purpose from another stage, unknown versions, and single-topic/joint grouping route substitutions. Current story/social variants and repair purposes remain accepted.
+- Targeted matrix covers every current stage/purpose combination plus unknown and developing-story substitutions; three targeted tests pass. No provider calls or production activation.
+- Developing stories stays inactive; complete dynamic morning inventory/admission and semantic acceptance remain open. Nov 20–22 recall reviews await scheduled editions.
+- Verification: pnpm exec tsx --test apps/api/test/protected-work-manifest.test.ts; pnpm format; pnpm lint:fix; pnpm check; pnpm build. Logs /tmp/3022-{target,format,lint,check,build}.log.
+- Reader gate verifies the real Nov 19 edition: 25 stories/22 posts. No source/schema/UI/handbook behavior change. Final checks and restart results follow.
+- Full checks/build pass: 1,260 unit tests, 335 integration passes/four expected skips; typecheck/lint/format/boundaries pass. Diff clean. Commit/push and API/worker restart follow.

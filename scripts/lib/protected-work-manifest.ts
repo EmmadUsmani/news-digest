@@ -32,6 +32,17 @@ export function protectedWorkManifest(input: {
     'story',
     'social',
   ]);
+  const purposes: Record<Stage, readonly string[]> = {
+    'article-triage': ['candidate-triage-v1'],
+    'social-triage': ['social-triage-v1'],
+    grouping: ['story-grouping-v3', 'joint-story-grouping-v2'],
+    story: [
+      'shortlist-editor-v14-nba',
+      'shortlist-editor-v15-gaming',
+      'shortlist-editor-v14-brief',
+    ],
+    social: ['bluesky-social-editor-v2', 'social-editor-v2'],
+  };
   const key = (slot: ProtectedWorkSlot) => {
     assertProtectedObligationIdentity(input.editionId, slot.topicIds);
     if (
@@ -65,6 +76,15 @@ export function protectedWorkManifest(input: {
           : request.topicId !== undefined)
       )
         throw new Error('Protected request attribution differs from slot');
+      if (
+        !purposes[capture.slot.stage].includes(request.purpose) ||
+        (capture.slot.stage === 'grouping' &&
+          request.purpose !==
+            (capture.slot.topicIds.length === 1
+              ? 'story-grouping-v3'
+              : 'joint-story-grouping-v2'))
+      )
+        throw new Error('Protected request purpose differs from slot stage');
       requests.push(structuredClone(request));
     }
   }

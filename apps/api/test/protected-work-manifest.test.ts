@@ -93,7 +93,7 @@ void test('protected requests bind to edition and slot topics and return isolate
   const request = {
     runId: 'edition',
     topicId: 'a',
-    purpose: 'story-editor',
+    purpose: 'shortlist-editor-v14-brief',
     instructions: '',
     prompt: 'saved',
     maxOutputTokens: 10,
@@ -135,4 +135,84 @@ void test('protected requests bind to edition and slot topics and return isolate
       }),
     /Invalid/,
   );
+});
+
+void test('protected inventory rejects stage substitution and wrong grouping routes', () => {
+  const routes: {
+    stage: ProtectedWorkSlot['stage'];
+    topics: string[];
+    purposes: string[];
+  }[] = [
+    {
+      stage: 'article-triage',
+      topics: ['a'],
+      purposes: ['candidate-triage-v1'],
+    },
+    { stage: 'social-triage', topics: ['a'], purposes: ['social-triage-v1'] },
+    { stage: 'grouping', topics: ['a'], purposes: ['story-grouping-v3'] },
+    {
+      stage: 'grouping',
+      topics: ['a', 'b'],
+      purposes: ['joint-story-grouping-v2'],
+    },
+    {
+      stage: 'story',
+      topics: ['a'],
+      purposes: [
+        'shortlist-editor-v14-nba',
+        'shortlist-editor-v15-gaming',
+        'shortlist-editor-v14-brief',
+      ],
+    },
+    {
+      stage: 'social',
+      topics: ['a'],
+      purposes: ['social-editor-v2', 'bluesky-social-editor-v2'],
+    },
+  ];
+  const allPurposes = routes.flatMap((route) => route.purposes);
+  for (const route of routes) {
+    const slot: ProtectedWorkSlot = {
+      stage: route.stage,
+      topicIds: route.topics,
+      contextId: 'saved',
+    };
+    for (const purpose of [
+      ...allPurposes,
+      '',
+      'developing-story-match-v1',
+      'shortlist-editor-v999',
+    ]) {
+      const plan = {
+        editionId: 'edition',
+        topicIds: ['a', 'b'],
+        expected: [slot],
+        supplied: [
+          {
+            slot,
+            requests: [
+              {
+                runId: 'edition',
+                topicId: route.topics.length === 1 ? 'a' : undefined,
+                purpose,
+                instructions: '',
+                prompt: 'saved',
+                maxOutputTokens: 10,
+                model: {
+                  id: 'offline',
+                  input: 1,
+                  output: 5,
+                  cacheRead: 0.1,
+                  cacheWrite: 1.25,
+                },
+              },
+            ],
+          },
+        ],
+      };
+      if (route.purposes.includes(purpose))
+        assert.equal(protectedWorkManifest(plan).requests.length, 1);
+      else assert.throws(() => protectedWorkManifest(plan), /purpose differs/);
+    }
+  }
 });
