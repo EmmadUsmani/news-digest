@@ -78,3 +78,15 @@ Earlier entries: [pre-3055 archive](docs/progress-archive/2026-11-20-pre-3055.md
 - pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-20T15:00:00Z passes five topics/25 stories/20 posts; pnpm obs sources --check passes. Review/capture/docs only; no inference, new tooling/schema, runtime or publication changes.
 - pnpm format; pnpm lint:fix; full pnpm check pass: static checks, API build, 1,319 units, 336 integrations/four expected skips (/tmp/3083-check.log). Final document formatting and git diff --check pass; service revision refresh follows push.
 - Next: Nov 21 and 22 daily recall reviews, then tally/fix the largest cause; next scheduled edition must establish v16 model acceptance. No owner input needed.
+
+## 2026-11-20: iteration 3084 — complete Nov 15 Tech continuity reference
+
+- Clean main at 9b4394ab; no inherited work. Alerts clear; health/database/Redis pass; all active sources healthy, Destructoid intentionally inactive.
+- Higher-priority Nov 21–22 recall reviews await scheduled editions; today's item 69 evaluation commit already used. Continued item 70 saved semantic review without provider calls.
+- Reviewed remaining Nov 15 Huang recap against all 32 earlier stories: links Nov 14 departure, Nov 12 transition and Nov 10 probe/succession, excluding chip-category stories.
+- Nov 15 Tech now has all four selections labelled: two continuations/two nonmatches. Recap establishes no fresh development; no original editorial evidence, model or rewrite acceptance. Production remains inactive.
+- Added missing/partial/category-contamination challenges; existing replay and immutable snapshot checks consume the new manual membership.
+- Initial targeted run caught an accidentally changed NBA review-count assertion; restored it before full verification.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (results recorded below). Scheduled-reader passes five topics/25 real stories/20 posts; pnpm obs sources --check passes.
+- Next: Nov 21–22 recall reviews and v16 scheduled editorial acceptance; developing semantic/model and whole-edition budget acceptance remain open. No runtime/schema/source changes.
+- Full pnpm check passes: static checks/API build, 1,321 unit tests, 336 integration tests/four expected skips (/tmp/3084-check.log). Final git diff --check passes; service revision refresh follows push.

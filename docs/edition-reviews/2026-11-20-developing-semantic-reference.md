@@ -276,3 +276,23 @@ not original editorial excerpts or provider responses. Four false-link challenge
 must fail while the IPO control passes; snapshot checks consume both negatives.
 Production remains inactive; semantic output and whole-edition budget acceptance
 remain open. No provider call or cap change.
+
+## Complete Nov 15 Tech matching review — iteration 3084
+
+Reviewed the remaining Huang recap against all 32 earlier stories in seven
+saved snapshots. The recap explicitly revisits the resignation and leadership
+fallout. Its predecessors are Nov 14 departure (`3c54c5f4-93f9-4e71-aa2c-ba5118fa0fe1`),
+Nov 12 CEO transition (`3020ff24-fcbc-489b-8fd1-3e10be2bec00`) and Nov 10 board
+probe/succession (`76e7883c-e928-454d-832f-c70a0c1aea95`). The nearest earlier
+coverage is Nov 14; the continuation spans four editions including the current
+one. Nvidia chip infrastructure, product rivalry and military-supplier stories
+are different events and do not belong in this membership.
+
+All four Nov 15 selections now have manual matching labels: two continuations
+(Anthropic IPO and Huang leadership crisis), two nonmatches. The Huang recap
+establishes no fresh development: a weekly publication date and retrospective
+October 29 attribution cannot supply one. Original editorial excerpts are
+absent, so this adds no supported rewrite or model acceptance. Production stays
+inactive. Existing replay and snapshot controls consume the added membership;
+missing, partial and chip-category-contaminated groups must fail while the IPO
+control still passes. No provider calls or budget changes.

@@ -74,6 +74,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 3084: Complete Nov 15 Tech matching labels: Huang recap links Nov 14/12/10 leadership coverage; no new development established. Missing/partial/chip-category controls fail; production inactive.
+
 - [x] 3055: Nov 15 Tech adds two explicit nonmatches; four security/chip false-link challenges fail while the IPO control passes. Huang recap unreviewed; production inactive.
 
 - [x] 3054: Nov 17 Tech review adds four explicit nonmatches; removed unsupported chip-policy negative from active labels, leaving continuity unresolved. Offline category-link challenges pass; production inactive.

@@ -54,7 +54,7 @@ void test('manual positive and negative controls pass offline replay; all linked
   assert.equal(report.controlsPassed, true);
   assert.equal(
     report.cases.reduce((n, c) => n + c.links.length, 0),
-    6,
+    7,
   );
   assert.ok(report.cases.every((c) => c.status === 'replayed'));
 });
@@ -307,7 +307,7 @@ void test('Nov 15 Tech rejects shared security and chip subjects while retaining
   const index = 3;
   const baseline = await evaluateDevelopingStories(fixture.cases, controls());
   assert.equal(baseline.controlsPassed, true);
-  assert.equal(baseline.cases[index].reviews.length, 3);
+  assert.equal(baseline.cases[index].reviews.length, 4);
   for (const [current, previous] of [
     ['current:1', 'history:4:2'],
     ['current:1', 'history:6:0'],
@@ -324,5 +324,26 @@ void test('Nov 15 Tech rejects shared security and chip subjects while retaining
       1,
     );
     assert.equal(report.semanticAcceptance, 'not-established');
+  }
+});
+
+void test('Nov 15 Huang recap requires every leadership predecessor and rejects chip-category links', async () => {
+  for (const variant of ['missing', 'partial', 'chip']) {
+    const records = controls();
+    const groups = records[3].groups;
+    const index = groups.findIndex((group) => group[0] === 'current:2');
+    assert.ok(index >= 0);
+    if (variant === 'missing') groups.splice(index, 1);
+    if (variant === 'partial') groups[index].pop();
+    if (variant === 'chip') groups[index].push('history:6:2');
+    const report = await evaluateDevelopingStories(fixture.cases, records);
+    assert.equal(report.controlsPassed, false, variant);
+    assert.equal(report.cases[3].review?.acceptance, 'pass');
+    assert.equal(
+      report.cases[3].reviews.find(
+        (r) => r.storyId === fixture.cases[3].stories[2].id,
+      )?.acceptance,
+      'fail',
+    );
   }
 });

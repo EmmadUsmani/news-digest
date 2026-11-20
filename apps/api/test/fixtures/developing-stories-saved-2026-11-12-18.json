@@ -1,5 +1,5 @@
 {
-  "provenance": "Exact saved published snapshot evidence exported by iteration 2877; manual agent labels, not model responses or independent acceptance. Per-case reviews identify labelled selections; otherwise only reviewedStoryId is labelled. Other selections are unreviewed. Iteration 2902 adds Nov 18 Gaming and U.S. cases from the iteration 2901 export, with exact bounded original editorial evidence and immutable prompt hashes; no model matching or generated rewrites. Iteration 3054 replaces the unsupported Nov 17 chip-policy nonmatch with four reviewed explicit nonmatches; chip-policy continuity is unresolved. Per-case reviews supersede the legacy single-story label. Iteration 3055 adds two Nov 15 Tech explicit nonmatches; Huang recap continuity remains unreviewed.",
+  "provenance": "Exact saved published snapshot evidence exported by iteration 2877; manual agent labels, not model responses or independent acceptance. Per-case reviews identify labelled selections; otherwise only reviewedStoryId is labelled. Other selections are unreviewed. Iteration 2902 adds Nov 18 Gaming and U.S. cases from the iteration 2901 export, with exact bounded original editorial evidence and immutable prompt hashes; no model matching or generated rewrites. Iteration 3054 replaces the unsupported Nov 17 chip-policy nonmatch with four reviewed explicit nonmatches; chip-policy continuity is unresolved. Per-case reviews supersede the legacy single-story label. Iteration 3055 adds two Nov 15 Tech explicit nonmatches; Huang recap continuity remains unreviewed. Iteration 3084 completes Nov 15 Tech matching review: Huang recap links to three earlier leadership-crisis editions; saved prose establishes no fresh development or rewrite acceptance.",
   "cases": [
     {
       "editionId": "93aefc45-33d7-4639-ad53-78e316a40f14",
@@ -1072,6 +1072,24 @@
           "storyId": "1a5c3722-6efa-45a3-9b8f-ccb0304856fd",
           "expectedPredecessors": [],
           "rationale": "Alleged Lutnick family-business conflict over weakening chip rules is distinct from Chinese companies cleared to buy Nvidia chips despite alleged military-supplier links. Earlier chip infrastructure and TPU product announcements do not identify this official or conflict."
+        },
+        {
+          "storyId": "ef668c6e-3bac-4452-919b-90830aad4638",
+          "expectedPredecessors": [
+            {
+              "editionId": "b9d55088-892a-4e34-b77c-a398d64c6a9f",
+              "storyId": "3c54c5f4-93f9-4e71-aa2c-ba5118fa0fe1"
+            },
+            {
+              "editionId": "b1be5a12-2972-4eeb-9bff-82cbb10c1b07",
+              "storyId": "3020ff24-fcbc-489b-8fd1-3e10be2bec00"
+            },
+            {
+              "editionId": "dbbf2d66-424c-4c74-ac11-59b04f6830a4",
+              "storyId": "76e7883c-e928-454d-832f-c70a0c1aea95"
+            }
+          ],
+          "rationale": "Weekly recap explicitly revisits Huang resignation and Nvidia leadership fallout: same leadership crisis as Nov 14 departure, Nov 12 CEO transition and Nov 10 board probe/succession. No fresh development is established by the recap. Chip infrastructure, product rivalry and military-supplier allegations are separate events."
         }
       ]
     },
