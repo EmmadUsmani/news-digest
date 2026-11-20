@@ -302,3 +302,27 @@ void test('Nov 17 Tech rejects category links without certifying unresolved chip
     assert.equal(report.semanticAcceptance, 'not-established');
   }
 });
+
+void test('Nov 15 Tech rejects shared security and chip subjects while retaining the IPO control', async () => {
+  const index = 3;
+  const baseline = await evaluateDevelopingStories(fixture.cases, controls());
+  assert.equal(baseline.controlsPassed, true);
+  assert.equal(baseline.cases[index].reviews.length, 3);
+  for (const [current, previous] of [
+    ['current:1', 'history:4:2'],
+    ['current:1', 'history:6:0'],
+    ['current:3', 'history:6:2'],
+    ['current:3', 'history:2:2'],
+  ]) {
+    const records = controls();
+    records[index].groups.push([current, previous]);
+    const report = await evaluateDevelopingStories(fixture.cases, records);
+    assert.equal(report.controlsPassed, false);
+    assert.equal(report.cases[index].review?.acceptance, 'pass');
+    assert.equal(
+      report.cases[index].reviews.filter((r) => r.acceptance === 'fail').length,
+      1,
+    );
+    assert.equal(report.semanticAcceptance, 'not-established');
+  }
+});

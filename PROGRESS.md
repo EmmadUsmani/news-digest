@@ -196,3 +196,17 @@ Earlier entries: [pre-3038 archive](docs/progress-archive/2026-11-20-pre-3038.md
 - Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build (/tmp/3054-*.log); final results below.
 - No provider calls, cap, UI, source, schema or runtime changes. Next: Nov 20 scheduled review after 15:00 UTC, including per-topic event recall and miss causes.
 - Full check/build pass: 1,313 unit and 336 integration passes/four expected skips; typecheck, lint, formatting and boundaries green. Commit/push and API/worker restart follow.
+
+## 2026-11-20: iteration 3055 — reject Nov 15 category-only developing links
+
+- Clean main at ae5126bd; no inherited work. Alerts clear; healthz database/Redis pass; API/worker active.
+- Reviewed Nov 15 Tech selections against 32 earlier stories; Lovable exposure and Lutnick conflict have explicit nonmatches.
+- Existing IPO positive retained; Huang recap not newly labelled. Saved titles/summaries only, not original excerpts or model responses.
+- Four security/chip false-link challenges fail while IPO passes; snapshot checks consume both additional negatives.
+- Targeted: pnpm exec tsx --test apps/api/test/evaluate-developing-stories.test.ts apps/api/test/developing-saved-evidence.test.ts — 41 pass.
+- Reader: pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-19T15:00:00Z — five topics, 25 real stories/22 posts pass.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build (/tmp/3055-*.log); results follow.
+- Production inactive; no provider calls, cap, UI, source, schema or runtime changes.
+- Next: Nov 20 review after 15:00 UTC, including per-topic event recall and miss causes.
+- Full check/build pass: 1,316 unit and 336 integration passes/four expected skips; typecheck, lint, formatting and boundaries green.
+- Build republished unchanged web assets; API/worker restart deferred under the 13:00–16:00 freeze; no runtime source changed. Commit/push follow.

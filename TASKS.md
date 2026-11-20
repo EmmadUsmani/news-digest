@@ -72,6 +72,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 3055: Nov 15 Tech adds two explicit nonmatches; four security/chip false-link challenges fail while the IPO control passes. Huang recap unreviewed; production inactive.
+
 - [x] 3054: Nov 17 Tech review adds four explicit nonmatches; removed unsupported chip-policy negative from active labels, leaving continuity unresolved. Offline category-link challenges pass; production inactive.
 
 - [x] 3053: Reviewed GTA prose passes bounded support but cannot omit Zelda; saved U.S.-first Peltola success followed by Gaming refusal restores all ten selections. Manual responses only; production inactive.

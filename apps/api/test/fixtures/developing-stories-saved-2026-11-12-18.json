@@ -1,5 +1,5 @@
 {
-  "provenance": "Exact saved published snapshot evidence exported by iteration 2877; manual agent labels, not model responses or independent acceptance. Per-case reviews identify labelled selections; otherwise only reviewedStoryId is labelled. Other selections are unreviewed. Iteration 2902 adds Nov 18 Gaming and U.S. cases from the iteration 2901 export, with exact bounded original editorial evidence and immutable prompt hashes; no model matching or generated rewrites. Iteration 3054 replaces the unsupported Nov 17 chip-policy nonmatch with four reviewed explicit nonmatches; chip-policy continuity is unresolved. Per-case reviews supersede the legacy single-story label.",
+  "provenance": "Exact saved published snapshot evidence exported by iteration 2877; manual agent labels, not model responses or independent acceptance. Per-case reviews identify labelled selections; otherwise only reviewedStoryId is labelled. Other selections are unreviewed. Iteration 2902 adds Nov 18 Gaming and U.S. cases from the iteration 2901 export, with exact bounded original editorial evidence and immutable prompt hashes; no model matching or generated rewrites. Iteration 3054 replaces the unsupported Nov 17 chip-policy nonmatch with four reviewed explicit nonmatches; chip-policy continuity is unresolved. Per-case reviews supersede the legacy single-story label. Iteration 3055 adds two Nov 15 Tech explicit nonmatches; Huang recap continuity remains unreviewed.",
   "cases": [
     {
       "editionId": "93aefc45-33d7-4639-ad53-78e316a40f14",
@@ -1051,6 +1051,27 @@
         {
           "editionId": "dbbf2d66-424c-4c74-ac11-59b04f6830a4",
           "storyId": "0226a49f-341b-4343-a97f-ba3934f4870a"
+        }
+      ],
+      "reviews": [
+        {
+          "storyId": "b509c8e8-981c-4116-b97e-becb0b4ae68e",
+          "expectedPredecessors": [
+            {
+              "editionId": "dbbf2d66-424c-4c74-ac11-59b04f6830a4",
+              "storyId": "0226a49f-341b-4343-a97f-ba3934f4870a"
+            }
+          ]
+        },
+        {
+          "storyId": "4c24cf05-adf3-4783-ba95-3bb233e28ed0",
+          "expectedPredecessors": [],
+          "rationale": "Lovable passport/private-message exposure is distinct from Fireworks AI breach, Claude Code public-file password exposure and ChatGPT SSH-agent forwarding. No saved earlier story identifies Lovable or these exposed records."
+        },
+        {
+          "storyId": "1a5c3722-6efa-45a3-9b8f-ccb0304856fd",
+          "expectedPredecessors": [],
+          "rationale": "Alleged Lutnick family-business conflict over weakening chip rules is distinct from Chinese companies cleared to buy Nvidia chips despite alleged military-supplier links. Earlier chip infrastructure and TPU product announcements do not identify this official or conflict."
         }
       ]
     },

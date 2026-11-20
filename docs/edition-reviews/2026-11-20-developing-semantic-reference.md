@@ -256,3 +256,23 @@ than count uncertainty as a correct nonmatch. Existing evaluators and snapshot
 checks consume the four reviewed labels. Category/company links are rejected;
 the policy story remains unreviewed. Agent labels only, with no provider calls,
 model acceptance, cap changes or production activation.
+
+## Partial Nov 15 Tech review — iteration 3055
+
+Compared four current selections with 32 earlier stories in seven snapshots.
+The existing Anthropic IPO continuation remains the positive control. Two
+additional selections have explicit nonmatches:
+
+- Lovable passport/private-message exposure concerns a different product and
+  records from the Fireworks breach, Claude Code password files and ChatGPT
+  SSH-agent forwarding. A shared security category cannot establish continuity.
+- The alleged Lutnick family-business conflict concerns a different action
+  from Chinese chip buyers' alleged military-supplier links. TPU announcements
+  and GPU infrastructure plans also do not report this official or conflict.
+
+The Huang recap is not newly labelled: choosing all relevant earlier leadership
+coverage needs a separate review. These decisions use saved titles and summaries,
+not original editorial excerpts or provider responses. Four false-link challenges
+must fail while the IPO control passes; snapshot checks consume both negatives.
+Production remains inactive; semantic output and whole-edition budget acceptance
+remain open. No provider call or cap change.
