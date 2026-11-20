@@ -161,3 +161,13 @@
 - Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build. Logs /tmp/3009-{target,format,lint,check,build}.log; final results below.
 - Next: derive captures from actual edition execution and complete protected obligations, then saved semantic/whole-edition acceptance. Supplied capture validation alone does not establish completeness of protected work. Nov 20–22 recall reviews await scheduled editions.
 - Final checks pass: 1,246 unit tests, 335 integration passes/four expected skips, production build; diff check clean. Live reader 7a747d9c retains five topics/25 stories/22 posts. Commit/push and API/worker restart follow.
+
+## 2026-11-20: iteration 3010 — capture real developing execution requests offline
+
+- Clean main at efafa441; no inherited work. Alerts/health pass, enabled sources healthy; digest queue zero failures and next scheduled run Nov 20 15:00 UTC.
+- Added offline-only execution capture: supplied response texts are its sole response source. Requests come from the real edition coordinator, EventGrouping and fixed-selection rewrite builders, preserving attribution, prompts and model prices.
+- Two targeted tests pass: successful matching/rewrite capture satisfies shared stage coverage and is deterministic; no-link/missing-response runs never fabricate missing rewrite stages. A failed rewrite still records its attempted request, explicitly distinct from semantic success.
+- No provider calls, cap changes or activation. Reader 7a747d9c retains five topics/25 real stories/22 posts. No UI/source/schema/handbook changes.
+- Verification: pnpm exec tsx --test apps/api/test/capture-developing-execution.test.ts; pnpm format; pnpm lint:fix; pnpm check; pnpm build. Logs /tmp/3010-{target,format,lint,check,build}.log; final results below.
+- Next: use saved-edition inputs for execution captures and derive complete protected obligations, then semantic/whole-edition admission acceptance. Developing enrichment remains inactive; Nov 20–22 recall reviews await scheduled editions.
+- Final pnpm check passes: 1,248 unit tests, 335 integration passes/four expected skips; formatting/lint/typechecks/boundaries pass. Production build passes; diff check clean. Commit/push and API/worker restart follow.
