@@ -72,6 +72,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 3029: Offline edition preflight rejects blank model identities in requests, spend snapshots, protected obligations and allocations. No runtime activation.
+
 - [x] 3028: Offline edition preflight rejects conflicting prices for one model across feature and protected work; distinct models remain supported. No runtime activation.
 
 - [x] 3027: Offline captured-plan CLI derives protected costs from supplied contexts; missing or ambiguous contexts refuse without replacing evidence. No runtime activation.

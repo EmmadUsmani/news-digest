@@ -183,3 +183,26 @@ void test('one edition refuses conflicting rates for one model but permits disti
     );
   }
 });
+
+void test('preflight refuses unbound model identities in requests, spend and allocations', () => {
+  for (const id of ['', '   ', '\t\n']) {
+    const invalid = [
+      { ...plan, requests: [{ ...request, model: { ...request.model, id } }] },
+      { ...plan, modelToday: { editor: 0, [id]: 0 } },
+      { ...plan, protectedModelMicros: { editor: 1000, [id]: 0 } },
+      {
+        ...plan,
+        caps: {
+          ...plan.caps,
+          modelAllocation: { model: id, dailyFraction: 0.5 },
+        },
+      },
+    ];
+    for (const input of invalid)
+      assert.throws(
+        () => developingEditionBudget(input),
+        /Invalid edition model identity/,
+      );
+  }
+  assert.equal(developingEditionBudget(plan).status, 'fits-supplied-plan');
+});

@@ -90,3 +90,13 @@ Earlier entries: [through iteration 3019](docs/progress-archive/2026-11-20-itera
 - Verification: pnpm exec tsx --test apps/api/test/developing-edition-budget.test.ts apps/api/test/developing-captured-plan.test.ts; pnpm format; pnpm lint:fix; pnpm check; pnpm build. Logs /tmp/3028-{target,format,lint,check,build}.log; final results below.
 - No source/schema/UI or handbook behavior change. Developing stories remains inactive pending complete morning admission and semantic acceptance; Nov 20–22 reviews await publication.
 - Full checks/build pass: 1,269 unit tests; 335 integration passes/four expected skips; typecheck/lint/format/boundaries pass. Reader gate verifies real Nov 19 content: 25 stories/22 posts. Older progress archived; no inherited changes. Commit/push and API/worker restart follow.
+
+## 2026-11-20: iteration 3029 — bind offline costs to named models
+
+- Clean main at 32a8df94; no inherited work. Alerts clear, /healthz passes and API/worker active; Nov 20 edition not due.
+- Offline preflight rejects empty/whitespace model IDs in feature/protected requests, spend maps and allocations before budget arithmetic; valid model identities retain existing behavior.
+- Targeted budget/captured-plan suites pass: 16 tests, including three invalid identity variants in all four input positions. No provider calls or runtime activation.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build. Logs /tmp/3029-{target,format,lint,check,build}.log; final results below.
+- Initial localhost reader probe hit HTTP 429 (shared loopback throttle); post-restart content verification follows. No source/schema/UI/handbook behavior change.
+- Developing stories remains inactive pending complete morning admission and semantic acceptance; Nov 20–22 reviews await publication.
+- Full checks/build pass: 1,270 unit tests; 335 integration passes/four expected skips; typecheck/lint/format/boundaries pass. Commit/push and API/worker restart follow.

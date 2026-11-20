@@ -8,10 +8,16 @@ import {
 } from '../../apps/api/src/modules/curation/domain/budget';
 import type { LlmRequest } from '../../apps/api/src/modules/curation/domain/llm.port';
 
+function validateModelId(id: string) {
+  if (typeof id !== 'string' || !id.trim())
+    throw new Error('Invalid edition model identity');
+}
+
 // One snapshot must price each model consistently across all planned work.
 export function validateEditionModelPrices(requests: readonly LlmRequest[]) {
   const prices = new Map<string, string>();
   for (const { model } of requests) {
+    validateModelId(model.id);
     costMicros({ input: 0, output: 0, cacheRead: 0, cacheWrite: 0 }, model);
     const signature = JSON.stringify([
       model.input,
@@ -43,6 +49,10 @@ export function developingEditionBudget(input: {
       throw new Error('Invalid edition budget amount');
     return value;
   };
+  Object.keys(input.modelToday).forEach(validateModelId);
+  Object.keys(input.protectedModelMicros).forEach(validateModelId);
+  if (input.caps.modelAllocation)
+    validateModelId(input.caps.modelAllocation.model);
   amount(input.protectedMicros);
   Object.values(input.modelToday).forEach(amount);
   Object.values(input.protectedModelMicros).forEach(amount);
