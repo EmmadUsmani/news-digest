@@ -172,3 +172,15 @@ Earlier entries: [pre-3038 archive](docs/progress-archive/2026-11-20-pre-3038.md
 - Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build (/tmp/3052-*.log); final results below.
 - No UI/source/schema changes. Next: Nov 20 scheduled review after 15:00 UTC, with per-topic event recall and miss causes.
 - Full check/build pass: 1,309 unit passes; 336 integration passes/four expected skips; typecheck, lint, formatting and boundaries green. Targeted 34/34 pass. Commit/push and API/worker restart follow.
+
+## 2026-11-20: iteration 3053 — execute reviewed developing refusal cases
+
+- Clean main at 9b7a02f0; no inherited work. Alerts clear; healthz database/Redis pass; API/worker active.
+- Existing saved capture now validates the manually reviewed GTA rewrite against current evidence; omitting linked Zelda refuses Gaming with all five selections intact.
+- U.S.-first execution accepts the reviewed Peltola rewrite, then Gaming refusal restores all ten original selections and leaves inputs unchanged.
+- Complete four-request capture is construction evidence only; manual prose is not model acceptance. Production remains inactive; no provider calls or cap changes.
+- Targeted: pnpm exec tsx --test apps/api/test/capture-developing-execution.test.ts — three pass.
+- Reader: pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-19T15:00:00Z — five topics, 25 real stories/22 posts pass.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build (/tmp/3053-*.log); final results follow.
+- No UI/source/schema/runtime changes. Next: Nov 20 scheduled review after 15:00 UTC, including per-topic event recall and miss causes.
+- Full check/build pass: 1,309 unit and 336 integration passes/four expected skips; typecheck, lint, formatting and boundaries green. Commit/push and API/worker restart follow.

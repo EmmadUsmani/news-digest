@@ -6,6 +6,7 @@ import { captureDevelopingExecution } from '../../../scripts/lib/capture-develop
 import { llmConfig } from '../src/modules/curation/adapters/config';
 import { BudgetedLlm } from '../src/modules/curation/application/budgeted-llm';
 import { developingCapturedRequests } from '../src/modules/curation/application/developing-captured-requests';
+import { validateDevelopingRewrite } from '../src/modules/curation/application/developing-rewrite-support';
 import { EventGrouping } from '../src/modules/curation/application/event-grouping';
 import { runCapturedDevelopingLlmPlan } from '../src/modules/curation/application/run-reserved-llm-plan';
 import type { LlmPort } from '../src/modules/curation/domain/llm.port';
@@ -160,6 +161,7 @@ void test('saved Peltola, GTA and Zelda captures bind complete admitted executio
   assert.equal(cases.length, 2);
   const editionTopics: Omit<Topic, 'grouping' | 'llm' | 'model'>[] = [];
   const editionMatches: string[] = [];
+  let peltolaResponse = '';
   for (const item of cases) {
     const selected = item.selected!;
     const evidence = item.originalEditorialEvidence!.evidence;
@@ -271,6 +273,31 @@ void test('saved Peltola, GTA and Zelda captures bind complete admitted executio
     assert.equal(requests[1].model.id, llmConfig({}).sonnet.id);
     assert.deepEqual((await run()).captures, result.captures);
     assert.deepEqual(item, before);
+    if (item.topicName === 'Gaming') {
+      // Source-reviewed manual prose from iteration 3051. A valid GTA update
+      // cannot compensate for the missing Zelda rewrite in a fixed selection.
+      const gta = {
+        id: 'c6df3e62-727d-422a-ab7f-599d6c275524',
+        title:
+          'GTA 6 critical reception report puts pre-orders above 17 million',
+        summary:
+          'GameSpot’s critical-consensus report describes universal acclaim for Grand Theft Auto 6 after a 13-year wait. It cites recent data putting pre-orders above 17 million and associated revenue above $1.6 billion.',
+        whyItMatters:
+          'The report adds a newer pre-order figure and a critical reception update to the earlier sales coverage.',
+      };
+      const current = evidence.find((candidate) => candidate.id === gta.id)!;
+      assert.ok(current);
+      assert.equal(
+        validateDevelopingRewrite(gta, current, item.topicName),
+        true,
+      );
+      const incomplete = await run(JSON.stringify([gta]));
+      assert.equal(incomplete.responsesConsumed, 2);
+      assert.equal(incomplete.value.status, 'unchanged');
+      assert.equal(incomplete.value.reason, 'rewrite-refused');
+      assert.equal(incomplete.value.topics[0].stories, selected);
+      assert.deepEqual(item, before);
+    }
     if (item.topicName === 'U.S. news & politics') {
       // Agent-authored reference prose, reviewed against the saved current
       // evidence. This exercises a real update; it is not a model response.
@@ -282,7 +309,8 @@ void test('saved Peltola, GTA and Zelda captures bind complete admitted executio
         whyItMatters:
           'The result settles the final Senate race and the chamber’s 56-44 balance.',
       };
-      const updated = await run(JSON.stringify([reference]));
+      peltolaResponse = JSON.stringify([reference]);
+      const updated = await run(peltolaResponse);
       assert.equal(updated.value.status, 'completed');
       const stories = updated.value.topics[0].stories;
       assert.deepEqual(
@@ -302,28 +330,29 @@ void test('saved Peltola, GTA and Zelda captures bind complete admitted executio
   // Both saved cases belong to the same real edition. Capture the combined
   // coordinator path rather than adding independent per-topic estimates.
   assert.equal(new Set(cases.map((item) => item.editionId)).size, 1);
+  const executeEdition = async (port: LlmPort, topics = editionTopics) => {
+    const models = llmConfig({});
+    const budgeted = new BudgetedLlm(port, {
+      reserve: async () => 'offline',
+      settle: async () => {},
+      fail: async () => {},
+      cached: async () => undefined,
+      cache: async () => {},
+    });
+    return enrichDevelopingEdition(
+      topics.map((topic) => ({
+        ...topic,
+        grouping: new EventGrouping(budgeted, models.haiku),
+        llm: port,
+        model: models.sonnet,
+      })),
+    );
+  };
   const combined = await captureDevelopingExecution({
     editionId: cases[0].editionId,
     topicIds: cases.map((item) => item.topicId),
     responses: [...editionMatches, 'null'],
-    async execute(port) {
-      const models = llmConfig({});
-      const budgeted = new BudgetedLlm(port, {
-        reserve: async () => 'offline',
-        settle: async () => {},
-        fail: async () => {},
-        cached: async () => undefined,
-        cache: async () => {},
-      });
-      return enrichDevelopingEdition(
-        editionTopics.map((topic) => ({
-          ...topic,
-          grouping: new EventGrouping(budgeted, models.haiku),
-          llm: port,
-          model: models.sonnet,
-        })),
-      );
-    },
+    execute: executeEdition,
   });
   assert.equal(combined.responsesConsumed, 3);
   assert.equal(combined.value.status, 'unchanged');
@@ -341,6 +370,27 @@ void test('saved Peltola, GTA and Zelda captures bind complete admitted executio
     () => developingCapturedRequests(combined.captures),
     /Missing edition topic capture/,
   );
+  // U.S. succeeds first, then Gaming refuses its repeat-only Zelda update.
+  // Roll back the already rewritten U.S. topic as well as Gaming.
+  const reordered = [...editionTopics].reverse();
+  const savedSelections = structuredClone(
+    reordered.map((topic) => topic.selected),
+  );
+  const lateRefusal = await captureDevelopingExecution({
+    editionId: cases[0].editionId,
+    topicIds: reordered.map((topic) => topic.topicId),
+    responses: [...editionMatches].reverse().concat(peltolaResponse, 'null'),
+    execute: (port) => executeEdition(port, reordered),
+  });
+  assert.equal(lateRefusal.responsesConsumed, 4);
+  assert.equal(lateRefusal.value.status, 'unchanged');
+  assert.equal(lateRefusal.value.reason, 'rewrite-refused');
+  assert.equal(lateRefusal.captures.rewrites.length, 2);
+  for (const [index, topic] of reordered.entries()) {
+    assert.equal(lateRefusal.value.topics[index].stories, topic.selected);
+    assert.deepEqual(topic.selected, savedSelections[index]);
+  }
+  assert.equal(developingCapturedRequests(lateRefusal.captures).length, 4);
   // Scripted unchanged prose is a transport control, including the repeat-only
   // Zelda case. It is not an editorially accepted developing-story rewrite.
   const responses = [

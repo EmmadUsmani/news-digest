@@ -221,3 +221,18 @@ match. Adversarial category-based links fail while the Huang control passes;
 existing snapshot checks exercise all four decisions. These are manual agent
 labels. The chip-rule selection remains unresolved; model semantics and
 whole-edition budget acceptance remain open. Production stays inactive.
+
+## Source-reviewed refusal execution — iteration 3053
+
+The existing saved capture now submits the reviewed GTA prose above to the
+bounded current-evidence validator. It passes that lexical check, but sending
+GTA alone for Gaming refuses the whole topic: Zelda is also linked and cannot
+be silently omitted. The original five selections remain unchanged.
+
+A second execution orders U.S. before Gaming. The reviewed Peltola rewrite
+succeeds, then Gaming returns `null` because Zelda has no supported update.
+All ten original selections are restored, including the already rewritten
+Peltola; both input snapshots stay unchanged. The four captured requests are
+complete request-construction evidence, not successful semantic admission.
+These manual responses make no provider calls. Model output and whole-edition
+budget acceptance remain open; developing stories stays inactive.
