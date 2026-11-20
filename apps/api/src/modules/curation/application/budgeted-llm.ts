@@ -323,6 +323,14 @@ export class BudgetedLlm {
         await this.ledger.fail(id, 'request-admission-changed', false, false);
         return { status: 'budget-refused' };
       }
+      if (
+        execution &&
+        (!Number.isFinite(execution.deadline) ||
+          this.now() >= execution.deadline)
+      ) {
+        await this.ledger.fail(id, 'execution-expired', false, false);
+        return { status: 'provider-call-failed' };
+      }
       let response;
       try {
         response = await this.llm.complete(current, execution);

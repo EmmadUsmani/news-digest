@@ -177,3 +177,14 @@ Earlier entries: [through iteration 3019](docs/progress-archive/2026-11-20-itera
 - Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build (logs /tmp/3036-{format,lint,check,build}.log). Final results follow.
 - Initial lint rejected an unbound test-harness method; bound it and reran verification. Final pnpm check/build pass: 1,280 unit tests; 336 integration passes/four expected skips.
 - Read-only scheduled reader gate verifies real Nov 19 edition: five topics, 25 stories/22 posts. Commit/push and API/worker restart follow; post-restart health/reader verification required.
+
+## 2026-11-20: iteration 3037 — release holds when reservation outlives execution
+
+- Clean main at 40c8adf3; no inherited work. Alerts clear, healthz passes, all 38 source checks healthy; digest queue has zero failures and next run 15:00 UTC.
+- BudgetedLlm rechecks execution deadlines after reservation I/O, before provider dispatch; expired or invalid deadlines release undispatched holds instead of relying on adapter refusal.
+- Targeted reserved-plan suite passes 29 tests: before/exactly at/after deadline and invalidated deadline controls; no provider calls.
+- No activation, cap/source/schema/UI or handbook behavior changes; developing stories remains inactive pending semantic and whole-edition acceptance.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build (logs /tmp/3037-{format,lint,check,build}.log). Final results follow.
+- Final pnpm check/build pass: 1,281 unit tests, 336 integration passes/four expected skips; typecheck/lint/format/boundaries green.
+- Read-only scheduled reader gate verifies real Nov 19 edition: five topics, 25 stories/22 posts; disk 61%. Next reviews remain Nov 20–22.
+- Commit/push and API/worker restart follow; post-restart health and reader checks required.

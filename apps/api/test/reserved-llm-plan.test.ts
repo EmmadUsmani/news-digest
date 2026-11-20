@@ -951,3 +951,38 @@ void test('reservation completion rechecks scope and identity before dispatch an
     assert.deepEqual(h.uncertain, []);
   }
 });
+
+void test('reservation completion releases undispatched holds when the execution deadline expires', async () => {
+  for (const afterReserve of [99, 100, 101, Number.NaN]) {
+    const h = harness();
+    const plan = await reserveLlmPlan(h.ledger, [request]);
+    assert.ok(plan);
+    let now = 0;
+    const execution = { deadline: 100 };
+    const reserve = plan.ledger.reserve.bind(plan.ledger);
+    plan.ledger.reserve = async (candidate, estimate) => {
+      const id = await reserve(candidate, estimate);
+      if (Number.isNaN(afterReserve)) execution.deadline = Number.NaN;
+      else now = afterReserve;
+      return id;
+    };
+    const llm = new BudgetedLlm(
+      h.provider,
+      plan.ledger,
+      undefined,
+      undefined,
+      () => now,
+    );
+    const outcome = await llm.jsonOutcome(request, validate, {
+      repair: false,
+      execution,
+    });
+    const expired = afterReserve !== 99;
+    assert.equal(outcome.status, expired ? 'provider-call-failed' : 'complete');
+    await plan.releaseUnused();
+    assert.equal(h.counts().dispatches, expired ? 0 : 1);
+    assert.deepEqual(h.released, expired ? ['0'] : []);
+    assert.deepEqual(h.settled, expired ? [] : ['0']);
+    assert.deepEqual(h.uncertain, []);
+  }
+});

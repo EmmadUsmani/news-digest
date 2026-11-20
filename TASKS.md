@@ -72,6 +72,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 3037: Budgeted dispatch rechecks the execution deadline after reservation I/O and releases expired, undispatched holds; exact-deadline and invalid-deadline controls pass.
+
 - [x] 3036: Inactive reserved execution rechecks admission after reservation completion, before provider dispatch; closed scopes or changed requests release consumed but undispatched holds.
 
 - [x] 3035: Inactive reserved execution rechecks request admission after asynchronous cache lookup and coalesced response waits; closed scopes and changed identities refuse before validation or dispatch.
