@@ -121,3 +121,13 @@
 - Live reader retains 7a747d9c, five topics/25 real stories/22 posts. Archived iterations 2989–2994 to keep PROGRESS small. No UI/source/schema/handbook changes.
 - Next: complete exact-request capture wiring and protected obligation derivation, then saved-edition semantic acceptance. Nov 20–22 recall reviews follow scheduled editions. Production enrichment remains inactive.
 - Final diff check passes; commit/push and API/worker restart follow. Exact-plan derivation and live semantic acceptance remain unverified.
+
+## 2026-11-20: iteration 3006 — enforce reserved-hold ownership
+
+- Clean main at 0656e374; no inherited work. Alerts clear; health/database/Redis pass; enabled sources healthy. Digest queue zero failures, next run Nov 20 15:00 UTC.
+- Inactive reserved ledger now rejects settlement/failure for protected, unused and foreign hold IDs before touching the underlying ledger. Cleanup does not grant execution ownership; consumed feature holds retain normal settlement/failure behavior.
+- All 16 targeted offline tests pass, including attempted cross-scope settlement/failure before and after cleanup and a real BudgetedLlm successful dispatch/settlement. No provider calls, cap changes or activation.
+- pnpm format, pnpm lint:fix and pnpm check pass: 1,240 unit tests, 335 integration passes/four expected skips. Production build passes. Logs /tmp/3006-{target,format,lint,check,build}.log.
+- Public operations expose queue counts only; detailed failed-job probe refused as expected. No UI/source/schema/handbook changes.
+- Live latest 7a747d9c retains five topics/25 real stories/22 posts. Next: exact-request capture and complete protected-obligation derivation, then saved-edition semantic acceptance. Nov 20–22 recall reviews follow scheduled editions. Developing enrichment remains inactive.
+- Final diff check passes; commit/push and API/worker restart follow.

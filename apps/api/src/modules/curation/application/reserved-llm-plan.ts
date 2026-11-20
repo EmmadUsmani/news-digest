@@ -70,6 +70,11 @@ export async function reserveLlmPlan(
     id: result.ids[index],
     consumed: false,
   }));
+  const consumedFeatureIds = new Set<string>();
+  const assertConsumedFeatureHold = (id: string) => {
+    if (!consumedFeatureIds.has(id))
+      throw new Error('Hold does not belong to consumed feature work');
+  };
   let closed = false;
   let releasing: Promise<void> | undefined;
   return {
@@ -86,14 +91,20 @@ export async function reserveLlmPlan(
         );
         if (!hold) return Promise.resolve(null);
         hold.consumed = true;
+        consumedFeatureIds.add(hold.id);
         return Promise.resolve(hold.id);
       },
       cached: (key) =>
         closed ? Promise.resolve(undefined) : ledger.cached(key),
       cache: (key, value) => ledger.cache(key, value),
-      settle: (id, usage, cost) => ledger.settle(id, usage, cost),
-      fail: (id, code, limit, uncertain) =>
-        ledger.fail(id, code, limit, uncertain),
+      settle: async (id, usage, cost) => {
+        assertConsumedFeatureHold(id);
+        await ledger.settle(id, usage, cost);
+      },
+      fail: async (id, code, limit, uncertain) => {
+        assertConsumedFeatureHold(id);
+        await ledger.fail(id, code, limit, uncertain);
+      },
     },
     releaseUnused: () => {
       closed = true;

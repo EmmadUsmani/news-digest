@@ -525,3 +525,36 @@ void test('reserved runner composes edition-wide matching and cleans no-link or 
     assert.deepEqual(h.counts(), { batches: 1, dispatches: 2 });
   }
 });
+
+void test('scope rejects settlement and failure for protected, unused and foreign holds', async () => {
+  const h = harness();
+  const plan = await reserveLlmPlan(
+    h.ledger,
+    [request, { ...request, purpose: 'unused' }],
+    [{ ...request, purpose: 'morning-editor' }],
+  );
+  assert.ok(plan);
+  const usage = { input: 1, output: 1, cacheRead: 0, cacheWrite: 0 };
+  for (const id of ['0', '1', '2', 'foreign']) {
+    await assert.rejects(plan.ledger.settle(id, usage, 1), /consumed feature/);
+    await assert.rejects(
+      plan.ledger.fail(id, 'test', true, false),
+      /consumed feature/,
+    );
+  }
+  assert.deepEqual(h.settled, []);
+  assert.deepEqual(h.released, []);
+  assert.deepEqual(h.uncertain, []);
+  const llm = new BudgetedLlm(h.provider, plan.ledger);
+  assert.deepEqual(await llm.json(request, validate), { ok: true });
+  assert.deepEqual(h.settled, ['0']);
+  await plan.releaseUnused();
+  assert.deepEqual(h.released, ['1', '2']);
+  // Cleanup must not grant execution ownership to an unused feature hold.
+  await assert.rejects(plan.ledger.settle('1', usage, 1), /consumed feature/);
+  await assert.rejects(
+    plan.ledger.fail('2', 'test', false, false),
+    /consumed feature/,
+  );
+  assert.deepEqual(h.released, ['1', '2']);
+});
