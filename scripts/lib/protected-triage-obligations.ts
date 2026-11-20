@@ -5,6 +5,7 @@ import type {
   LlmRequest,
   ModelPrice,
 } from '../../apps/api/src/modules/curation/domain/llm.port';
+import { assertProtectedObligationIdentity } from './protected-obligation-identity';
 
 // Offline all-cache-miss bounds for ONE supplied pool (at most 200 items).
 // Caller owns pool/topic/platform completeness and later dynamic contexts.
@@ -14,6 +15,7 @@ export async function protectedTriageObligations(input: {
   kind: 'article' | 'social';
   args: Pick<Parameters<CandidateTriage['score']>, 0 | 1 | 2>;
 }) {
+  assertProtectedObligationIdentity(input.args[2], [input.args[0].id]);
   const initial: LlmRequest[] = [];
   const triage = new CandidateTriage(
     {

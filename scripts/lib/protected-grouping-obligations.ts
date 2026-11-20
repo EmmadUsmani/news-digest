@@ -3,6 +3,7 @@ import type {
   LlmRequest,
   ModelPrice,
 } from '../../apps/api/src/modules/curation/domain/llm.port';
+import { assertProtectedObligationIdentity } from './protected-obligation-identity';
 
 type GroupingInput =
   | { kind: 'topic'; args: Parameters<EventGrouping['groupWithResult']> }
@@ -13,6 +14,12 @@ type GroupingInput =
 export async function protectedGroupingObligations(
   input: GroupingInput & { model: ModelPrice },
 ) {
+  assertProtectedObligationIdentity(
+    input.args[2],
+    input.kind === 'topic'
+      ? [input.args[0]]
+      : input.args[0].map((topic) => topic.id),
+  );
   const requests: LlmRequest[] = [];
   const grouping = new EventGrouping(
     {

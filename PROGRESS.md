@@ -127,3 +127,13 @@
 - Verification: pnpm exec tsx --test apps/api/test/protected-grouping-obligations.test.ts (two pass); pnpm format; pnpm lint:fix; pnpm check; pnpm build. Logs /tmp/3019-{target,format,lint,check,build}.log; final results follow.
 - No source/schema/UI/handbook behavior change. Commit/push and API/worker restart follow passing checks.
 - Full checks/build pass: 1,256 unit tests, 335 integration passes/four expected skips; typecheck/lint/format/boundaries pass. Reader gate verifies real Nov 19 edition (25 stories/22 posts); disk 61%, diff clean. Archived iterations 3005–3009 to keep this file below 25 KB.
+
+## 2026-11-20: iteration 3020 — refuse unattributed protected work
+
+- Clean main at 8e7a6f21; no inherited work. Alerts clear, /healthz passes, API/worker active; disk 61%.
+- All offline protected estimators now reject blank/whitespace edition and topic IDs before preparing requests, even for empty pools. Joint grouping rejects duplicate topic identities before its zero-call path.
+- Regression exercises story, social, both triage routes and both grouping routes with missing identities and valid zero-call controls; no provider calls or production behavior changes.
+- Developing stories stays inactive; whole-morning pool/context completeness and semantic acceptance remain open. Nov 20–22 recall reviews await scheduled editions.
+- Verification: pnpm exec tsx --test apps/api/test/protected-obligation-identity.test.ts (pass); pnpm format; pnpm lint:fix; pnpm check; pnpm build. Logs /tmp/3020-{target,format,lint,check,build}.log; final results below.
+- Reader gate: pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-19T15:00:00Z verifies real Nov 19 edition, 25 stories/22 posts. No source/schema/UI/handbook behavior changes.
+- Full checks/build pass: 1,257 unit tests, 335 integration passes/four expected skips; typecheck/lint/format/boundaries pass. Commit/push and API/worker restart follow.

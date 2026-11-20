@@ -5,6 +5,7 @@ import type {
   LlmRequest,
   ModelPrice,
 } from '../../apps/api/src/modules/curation/domain/llm.port';
+import { assertProtectedObligationIdentity } from './protected-obligation-identity';
 
 // Offline only. Bounds one supplied social-editor context, including both model
 // attempts and their possible repairs. The repair text is a size bound, not an
@@ -15,6 +16,7 @@ export async function protectedSocialObligations(input: {
   haiku: ModelPrice;
   args: Parameters<SocialPostEditor['editOutcome']>;
 }) {
+  assertProtectedObligationIdentity(input.args[3], [input.args[0].id]);
   const initial: LlmRequest[] = [];
   const editor = new SocialPostEditor(
     {

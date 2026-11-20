@@ -5,6 +5,7 @@ import type {
   LlmRequest,
   ModelPrice,
 } from '../../apps/api/src/modules/curation/domain/llm.port';
+import { assertProtectedObligationIdentity } from './protected-obligation-identity';
 
 // Offline size bounds only, never executable captures or exact ledger holds.
 // Callers still own topic/context completeness and all other morning work.
@@ -13,6 +14,7 @@ export async function protectedStoryObligations(input: {
   haiku: ModelPrice;
   args: Parameters<ShortlistEditor['edit']>;
 }) {
+  assertProtectedObligationIdentity(input.args[3], [input.args[0].id]);
   const initial: LlmRequest[] = [];
   const editor = new ShortlistEditor(
     {
