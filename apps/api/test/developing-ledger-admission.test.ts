@@ -7,6 +7,7 @@ import { llmConfig } from '../src/modules/curation/adapters/config';
 import { BudgetedLlm } from '../src/modules/curation/application/budgeted-llm';
 import { EventGrouping } from '../src/modules/curation/application/event-grouping';
 import { reserveLlmPlan } from '../src/modules/curation/application/reserved-llm-plan';
+import { runCapturedDevelopingLlmPlan } from '../src/modules/curation/application/run-reserved-llm-plan';
 import { PostgresLlmLedger } from '../src/modules/curation/database/llm.ledger';
 import { readUsage } from '../src/modules/curation/database/usage.reader';
 import type { LlmRequest } from '../src/modules/curation/domain/llm.port';
@@ -370,6 +371,166 @@ void test('protected plan holds block competitors until scope cleanup in Postgre
     await db.query(
       "DELETE FROM llm_calls WHERE run_id='developing-protected-plan'",
     );
+    await db.end();
+  }
+});
+
+void test('captured execution in PostgreSQL admits all work, cleans before return and retains uncertain spend', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const db = database();
+  const cacheKeys: string[] = [];
+  try {
+    for (const scenario of [
+      'success',
+      'cached',
+      'uncertain',
+      'refused',
+    ] as const) {
+      const editionId = `developing-captured-${scenario}`;
+      const caps = {
+        monthly: 100e6,
+        dailyMax: scenario === 'refused' ? 99999 : 100000,
+      };
+      const ledger = new PostgresLlmLedger(db, caps);
+      const cache = ledger.cache.bind(ledger);
+      ledger.cache = async (key, value) => {
+        cacheKeys.push(key);
+        await cache(key, value);
+      };
+      const request: LlmRequest = {
+        runId: editionId,
+        topicId: 'tech',
+        purpose: 'story-grouping-v3',
+        instructions: 'Return JSON',
+        prompt: scenario,
+        maxOutputTokens: 10000,
+        model: {
+          id: 'offline-captured',
+          input: 0,
+          cacheRead: 0,
+          cacheWrite: 0,
+          output: 2,
+        },
+      };
+      const rewrite = {
+        ...request,
+        purpose: 'developing-rewrite',
+        prompt: scenario === 'cached' ? request.prompt : `${scenario} rewrite`,
+      };
+      const protectedRequest = {
+        ...request,
+        purpose: 'morning-editor',
+        model: { ...request.model, id: 'offline-protected-editor', output: 6 },
+      };
+      const capture = (item: LlmRequest) => ({
+        editionId,
+        topicId: 'tech',
+        status: 'request-ready',
+        request: item,
+      });
+      let dispatches = 0;
+      let executions = 0;
+      const result = await runCapturedDevelopingLlmPlan({
+        captures: {
+          editionId,
+          topicIds: ['tech'],
+          matching: [capture(request)],
+          rewrites: [capture(rewrite)],
+          additionalRequests: [],
+        },
+        ledger,
+        protectedRequests: [protectedRequest],
+        provider: {
+          async complete() {
+            dispatches++;
+            if (scenario === 'uncertain')
+              throw new Error('offline transport failure');
+            return {
+              text: '{"ok":true}',
+              usage: { input: 0, output: 1, cacheRead: 0, cacheWrite: 0 },
+            };
+          },
+        },
+        async execute(llm) {
+          executions++;
+          // All three holds exist before services can dispatch; no second reservation.
+          assert.equal((await readUsage(db, caps)).availableMicros, 0);
+          assert.equal(
+            await ledger.reserve({ ...request, purpose: 'competitor' }, 1),
+            null,
+          );
+          const match = await llm.jsonOutcome(request, (value) => value, {
+            repair: false,
+          });
+          if (match.status !== 'complete') return match.status;
+          return (
+            await llm.jsonOutcome(rewrite, (value) => value, { repair: false })
+          ).status;
+        },
+      });
+      assert.deepEqual(
+        result,
+        scenario === 'refused'
+          ? { status: 'admission-refused' }
+          : {
+              status: 'completed',
+              value:
+                scenario === 'uncertain' ? 'provider-call-failed' : 'complete',
+            },
+      );
+      assert.equal(executions, scenario === 'refused' ? 0 : 1);
+      assert.equal(
+        dispatches,
+        scenario === 'success' ? 2 : scenario === 'refused' ? 0 : 1,
+      );
+      const rows = await db.query<{
+        purpose: string;
+        status: string;
+        cost: number | null;
+      }>(
+        'SELECT purpose,status,cost_micros::float8 AS cost FROM llm_calls WHERE run_id=$1 ORDER BY purpose',
+        [editionId],
+      );
+      assert.deepEqual(
+        rows.rows,
+        scenario === 'refused'
+          ? []
+          : [
+              {
+                purpose: 'developing-rewrite',
+                status: scenario === 'success' ? 'succeeded' : 'failed',
+                cost: scenario === 'success' ? 2 : null,
+              },
+              { purpose: 'morning-editor', status: 'failed', cost: null },
+              {
+                purpose: 'story-grouping-v3',
+                status: scenario === 'uncertain' ? 'uncertain' : 'succeeded',
+                cost: scenario === 'uncertain' ? null : 2,
+              },
+            ],
+      );
+      // Cleanup completed before returning: only actual spend or the uncertain
+      // dispatched hold remains charged, never the unused rewrite/protected work.
+      assert.equal(
+        (await readUsage(db, caps)).availableMicros,
+        caps.dailyMax -
+          (scenario === 'success'
+            ? 4
+            : scenario === 'cached'
+              ? 2
+              : scenario === 'uncertain'
+                ? 20000
+                : 0),
+      );
+      await db.query('DELETE FROM llm_calls WHERE run_id=$1', [editionId]);
+    }
+  } finally {
+    await db.query(
+      "DELETE FROM llm_calls WHERE run_id LIKE 'developing-captured-%'",
+    );
+    await db.query('DELETE FROM llm_cache WHERE cache_key=ANY($1::text[])', [
+      cacheKeys,
+    ]);
     await db.end();
   }
 });

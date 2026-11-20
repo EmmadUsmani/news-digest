@@ -130,3 +130,15 @@ Earlier entries: [through iteration 3019](docs/progress-archive/2026-11-20-itera
 - No source/schema/UI/handbook behavior changes. Developing stories remains inactive pending complete morning admission and semantic acceptance; Nov 20–22 reviews remain next.
 - First full check caught an inconsistent synthetic protected-plan fixture (two prices for one model); gave its separately priced protected editor a distinct model ID. All 1,274 unit tests passed; full verification rerun follows.
 - Final pnpm check/build pass: 1,274 unit tests; 335 integration passes/four expected skips. Source checks pass; digest queue has no failed jobs. Reader gate verifies real Nov 19 content: 25 stories/22 posts. Commit/push and API/worker restart follow.
+
+## 2026-11-20: iteration 3033 — captured execution PostgreSQL acceptance
+
+- Clean main at 90aff0dc; no inherited work. Alerts clear, /healthz passes and API/worker active; Nov 20 edition not due.
+- Added isolated PostgreSQL integration coverage for the captured execution runner, through real BudgetedLlm and ledger with a synthetic provider.
+- Checks atomic feature/protected admission before dispatch, competitor refusal, exact settlement, cleanup before return, uncertain transport hold retention and over-cap refusal without rows or execution.
+- No external calls, activation, cap/source/schema/UI or handbook behavior changes. Complete morning inventory and semantic acceptance remain open; Nov 20–22 reviews remain next.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build (logs /tmp/3033-{format,lint,check-final,build}.log). Results follow.
+- First full run exposed identical synthetic matching/rewrite prompts taking the valid cache path; separated the dispatch fixture and added explicit cache-hit cleanup coverage. Verification rerun follows.
+- Isolated PostgreSQL file passes all four tests after correcting null uncharged costs; explicit cache reuse confirms unused rewrite release. No production bug found. Final full rerun follows.
+- Final pnpm check/build pass: 1,274 unit tests; 336 integration passes/four expected skips. Read-only check-scheduled-reader.ts 2026-11-19T15:00:00Z (API NODE_PATH and env-file) verifies real five-topic edition: 25 stories/22 posts.
+- Source checks healthy; digest-generation queue zero failed jobs. Commit/push and systemctl --user restart news-digest-{api,worker}.service follow; post-restart health/reader checks required.

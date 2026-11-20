@@ -72,6 +72,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 3033: Captured developing execution verified against isolated PostgreSQL: all feature/protected holds precede dispatch, over-cap plans leave no rows, cleanup finishes before return and uncertain dispatched spend stays held. No activation.
+
 - [x] 3032: Atomic admission and offline preflight share model-plan price validation; conflicting rates or blank model identities refuse before any holds. Consistent repeated requests and distinct models remain supported; no activation.
 
 - [x] 3031: Live dispatch, atomic reservation and offline edition preflight share conservative request pricing; invalid original prices refuse before holds or dispatch. Developing stories remains inactive.
