@@ -80,3 +80,14 @@ Earlier entries: [pre-3038 archive](docs/progress-archive/2026-11-20-pre-3038.md
 - Read-only scheduled reader gate passes for Nov 19: five topics, 25 real stories/22 posts. Next daily missed-event reviews remain Nov 20–22.
 - Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build (logs /tmp/3044-*.log); final results follow.
 - Final check/build pass: 1,287 unit passes; 336 integration passes/four expected skips; typecheck, lint, formatting and boundaries green. Commit/push and API/worker restart follow, then health/reader/alert verification.
+
+## 2026-11-20: iteration 3045 — complete saved Gaming semantic reference
+
+- Clean main at 45b46466; no inherited work. Alerts clear; healthz database/Redis pass; API/worker active.
+- Reviewed all five saved Nov 18 Gaming selections against seven same-topic history snapshots/35 stories and all five original editorial excerpts.
+- GTA pre-order totals support a continuation, with launch/stock/attribution limits; Zelda repeats old milestones and requires whole-request refusal. Three other stories have no predecessor.
+- Complete Gaming reference therefore refuses the combined request; all ten evidence-backed U.S./Gaming selections now have manual decisions. No model acceptance, activation, paid replay or cap change.
+- Inline fixture integrity check passes: five exact selection/excerpt IDs, seven snapshots, 35 earlier stories, all cited current/history IDs valid.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build (logs /tmp/3045-*.log); final results follow.
+- Full check/build pass: 1,287 unit passes; 336 integration passes/four expected skips; typecheck, lint, formatting and boundaries green.
+- Nov 19 scheduled reader gate passes: five topics, 25 real stories/22 posts. Commit/push and API/worker restart follow, then health/reader/alerts verification. Nov 20 review awaits 15:00 UTC.

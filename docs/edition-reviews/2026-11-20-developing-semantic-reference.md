@@ -79,3 +79,35 @@ four selections intact. This extends manual review from one to five U.S.
 selections; it does not establish model precision or whole-edition acceptance.
 The six snapshots cover only this topic; no cross-topic match is authorized.
 Production remains inactive, with semantic output and budget acceptance open.
+
+## Complete Gaming selection review — iteration 3045
+
+Reviewed all five Nov 18 Gaming selections against all seven saved same-topic
+history snapshots (35 earlier stories, Nov 11–17), using the fixture above.
+All five selections have original editorial excerpts. Decisions use only this
+saved evidence; no article fetch or provider call was made.
+
+| Current story ID                                                            | Decision                                                                                                       | Evidence and misleading alternatives                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| --------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `c6df3e62-727d-422a-ab7f-599d6c275524` (GTA 6 reception/pre-orders)         | Supported pre-order continuation to Nov 17 `b785fbdc-f24e-4c25-b671-ee49658ac0be`; rewrite has evidence limits | Earlier reporting estimates 14.94 million pre-orders/$1.45 billion. Current excerpt reports over 17 million/$1.6 billion and universal critical acclaim. These are new reported totals for the same pre-order development. Nov 16 `7ca1dabd-791a-4b23-996f-ed4b113ca992` and Nov 14 `acd5b5c0-4344-485a-9e46-e244803e44f4` concern future sales forecasts, not these observed pre-orders. Leak prosecution, streaming restrictions and missing download codes are separate events despite the same game. |
+| `8fcf7d0a-c535-421d-b5fe-9fad257bd160` (Firaxis layoffs)                    | No predecessor                                                                                                 | Earlier Netflix, Treyarch and Fortis workforce stories concern different employers and actions. Take-Two ownership does not connect these layoffs to GTA sales or Take-Two's earlier refusal to sell itself. Current evidence supports roughly 60 cuts and Heather Hazen's departure.                                                                                                                                                                                                                    |
+| `d2663bb3-11a8-4726-b6a5-5994526a97ee` (Build a Rocket Boy debt/litigation) | No predecessor                                                                                                 | No earlier story concerns MindsEye, this developer or its alleged saboteurs. Raw Power's bankruptcy/assets sale and Sony's pricing lawsuit are different companies and proceedings. Current evidence describes intended litigation, not a successful recovery or a proven act of sabotage.                                                                                                                                                                                                               |
+| `83af0341-6dc7-4de0-b8b1-2a76740ad032` (WoW player milestone)               | No predecessor                                                                                                 | No history story covers this expansion or its player figures. Other games' sales milestones are different events. The excerpt supports over 15 million characters, not 15 million players; retain the attributed 15-year weekly-player comparison rather than the excerpt's inconsistent introductory “over two decades.”                                                                                                                                                                                |
+| `801716f5-d084-4c3a-9908-4d1ef84be82c` (Zelda sales)                        | Same event, no new development; refuse rewrite                                                                 | Nov 17 `1e9fba4b-ef50-4f05-ba7d-c098cf14a8d6` already covers the US physical-sales lead/million-unit milestone; Nov 11 `1b3ecf09-70a5-4a1e-9755-92e5fa56d85b` already covers 5.2 million in four days. The existing refusal reference above applies.                                                                                                                                                                                                                                                     |
+
+For GTA, a source-bound rewrite can lead with the newly reported pre-order
+totals and critical reception. The current excerpt does not establish that the
+game has launched, the selected summary's near-7% stock movement, or that
+Sensor Tower supplied the newer totals. Do not turn the difference between two
+reported figures into an independently verified sales increase. Firaxis's
+excerpt explicitly describes reviews arriving hours before launch, reinforcing
+the need to avoid the selected headline's launch claim.
+
+The complete Gaming reference expects two historical continuations, three
+nonmatches and only one continuation with new evidence. Zelda still requires
+whole-request refusal, preserving every accepted selection and its order under
+the existing atomic fallback. GTA's positive evidence cannot make the combined
+Gaming request acceptable. Together with the complete U.S. review, this covers
+all ten evidence-backed current selections in these two saved topic cases;
+other topic/windows remain unaccepted. These are manual agent decisions, not
+model outputs. Production stays inactive pending semantic and budget acceptance.
