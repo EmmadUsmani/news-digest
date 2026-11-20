@@ -93,3 +93,12 @@
 - Targeted matching/enrichment tests pass (9). pnpm format and pnpm lint:fix pass; pnpm build passes. Full pnpm check passes: 1,218 unit tests and 333 integration passes/four expected skips. Logs /tmp/2996-{target,format,lint,check,build}.log.
 - Updated TASKS and developing evidence. This prerequisite does not establish atomic whole-edition admission or semantic quality; generation remains unwired. No provider calls, feature activation or UI/source/schema/handbook changes.
 - Final diff check passes; commit/push and API/worker restart follow. Live latest 7a747d9c retains five topics/25 real stories/22 posts. Next: whole-edition admission and semantic review; Nov 20–22 recall reviews after each scheduled edition. Today's evaluation commit is already used.
+
+## 2026-11-20: iteration 2997 — atomic developing edition output
+
+- Clean main at 58897d3b; no inherited work. Alerts clear; health database/Redis pass. Sources continue collecting; Destructoid remains inactive. Digest queue has zero failures, next scheduled edition Nov 20 15:00 UTC.
+- Added inactive edition coordinator: stage topic enrichment, discard all staged rewrites on any refusal, and stop later dispatch. Duplicate/blank topic IDs or mixed run IDs refuse before matching. Valid no-link and ineligible topics retain accepted stories.
+- Four offline controls pass, including successful first-topic rewriting followed by a later refusal restoring every original array. Atomicity covers output only; settled provider charges remain. Whole-edition budget reservation and saved-edition semantic acceptance remain open; generation stays unwired.
+- pnpm format, pnpm lint:fix, full pnpm check and pnpm build pass: 1,222 unit tests, 333 integration passes/four expected skips. Logs /tmp/2997-{target,format,lint,check,build}.log. No provider calls or UI/source/schema/handbook changes.
+- Live latest 7a747d9c retains five topics/25 real stories/22 posts. Updated TASKS and developing evidence. Final diff check, commit/push and API/worker restart follow.
+- Next: whole-edition budget admission and semantic acceptance; Nov 20–22 missed-event recall reviews after scheduled editions. Today's evaluation commit is already used.

@@ -372,3 +372,9 @@ relationship to the later resignation; it is not labelled a match.
 - Added explicit validated/unavailable matching results; existing link-only consumers retain their API. The inactive enrichment path now reports `matching-refused` for unavailable, thrown or invalid matching instead of reporting no validated links.
 - Valid empty memberships still produce `no-validated-links`, preserve the accepted array and skip rewriting. Unknown occurrences, singleton groups and repeated memberships refuse the entire response, including otherwise valid links.
 - Offline tests cover successful links, valid absence, invalid partitions, provider refusal/exception and the real budget-wrapper deadline refusal. This is a prerequisite for all-or-nothing edition admission, not whole-edition reservation or activation. No provider calls or generation wiring.
+
+## Iteration 2997 — atomic edition output
+
+- Added an inactive coordinator that stages topic enrichment and returns it only when every eligible topic succeeds. A refusal restores every original selected array and stops subsequent dispatch. Duplicate/blank topic IDs and mixed run IDs refuse before matching.
+- Offline controls cover valid absence, fallback selection, invalid identities, and a successful rewrite discarded after a later matching refusal. Existing production generation remains unwired.
+- Atomicity covers returned stories only: completed provider charges are not rolled back. Whole-edition reservation, saved-edition semantic acceptance and activation remain open. No provider calls or UI/source/schema/handbook changes.
