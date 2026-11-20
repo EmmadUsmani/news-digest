@@ -390,3 +390,10 @@ relationship to the later resignation; it is not labelled a match.
 - Split selected-topic matching from rewriting while retaining the single-topic entry point. The inactive edition coordinator now completes all matching before any rewrite dispatch. A later matching refusal cannot consume an earlier topic's rewrite budget.
 - Offline controls verify all three matching calls precede rewriting; a refused second rewrite restores every accepted array and prevents the third rewrite. Valid no-link and ineligible topics retain their original arrays.
 - Matching charges remain spent on refusal. This staging change does not acquire a whole-edition budget reservation or establish semantic acceptance; generation remains unwired. No provider calls.
+
+## Iteration 3001 — atomic ledger plan admission
+
+- Added an optional ledger batch-reservation capability. The PostgreSQL adapter holds its existing cross-process advisory lock across all entries, applies the existing shared/model/verification/scheduled rules to each, and rolls the transaction back if any entry refuses. Returned reservation IDs follow input order and use existing settlement/release operations.
+- Bounds are 1–64 positive safe-integer estimates for one nonblank run. Refusal exposes only the failing index and reasons, without pending-hold IDs from the rolled-back transaction. Admission logs are emitted only after the complete transaction commits.
+- Isolated PostgreSQL controls cover later shared/model/verification refusals with zero leftover rows, malformed plans, two competing plans with exactly one whole-plan winner, and settlement/release of that winner. No provider calls.
+- This is the reservation primitive only. BudgetedLlm does not yet consume pre-admitted holds; edition orchestration, protected-obligation planning, saved-edition semantic acceptance and activation remain open. Production generation remains unwired.

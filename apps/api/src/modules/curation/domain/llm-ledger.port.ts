@@ -27,7 +27,15 @@ export type LlmReservationResult =
       pendingHoldsOverflow: boolean;
     };
 
+export type LlmBatchReservationResult =
+  | { status: 'admitted'; ids: string[] }
+  | { status: 'refused'; index: number; reasons: LlmRefusalReason[] };
+
 export interface LlmLedger {
+  // Atomic plan admission only; callers must consume/release the returned holds.
+  reserveBatch?(
+    entries: readonly { request: LlmRequest; estimate: number }[],
+  ): Promise<LlmBatchReservationResult>;
   // Optional capability while immediate-admission callers and replay adapters migrate.
   reserveDetailed?(
     request: LlmRequest,

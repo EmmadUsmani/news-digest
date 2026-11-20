@@ -130,3 +130,11 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build (logs /tmp/3000-{target,format,lint,check,build}.log); all pass: 1,224 unit tests, 333 integration passes/four expected skips; build passes.
 - Live reader retains 7a747d9c, five topics/25 real stories/22 posts. No UI/source/schema/handbook changes. Next: whole-edition budget admission and saved-edition semantic acceptance; Nov 20–22 scheduled recall reviews.
 - Final diff check passes; commit/push and API/worker restart follow.
+
+## 2026-11-20: iteration 3001 — atomic developing-plan ledger reservations
+
+- Clean main at 93fe155e; no inherited work. Alerts clear; health/database/Redis, sources and digest-generation queue pass. Latest edition remains 7a747d9c with five topics/25 real stories/22 posts.
+- Added optional reserveBatch capability: one shared ledger lock, existing per-request budget rules, all holds commit together or all roll back on refusal. Single-call reservations retain existing behavior; IDs retain plan order, with normal settlement/release.
+- Isolated PostgreSQL test passes later shared/model/verification refusal rollback, invalid plans, competing whole plans (one winner), and settlement/release. No provider calls, cap changes or feature activation.
+- pnpm format, pnpm lint:fix and pnpm check pass: 1,224 unit tests, 334 integration passes/four expected skips. pnpm build passes. Logs /tmp/3001-{format,lint,check,build}.log. Final diff check passes; commit/push and API/worker restart follow.
+- TASKS and developing evidence updated. No UI/source/schema/handbook changes. Next: BudgetedLlm consumption of pre-admitted holds, whole-edition obligations/semantic acceptance; Nov 20–22 recall reviews after scheduled editions.

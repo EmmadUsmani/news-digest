@@ -199,3 +199,109 @@ void test('five-topic enrichment settles in PostgreSQL and stale preflight canno
     await db.end();
   }
 });
+
+void test('edition batch reservations roll back refusals and serialize competing plans', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const db = database();
+  const config = llmConfig({});
+  const caps = {
+    monthly: 100e6,
+    dailyMax: 100000,
+    modelAllocation: { model: config.sonnet.id, dailyFraction: 0.5 },
+  };
+  const ledger = new PostgresLlmLedger(db, caps);
+  const entry = (runId: string, estimate: number, sonnet = false) => ({
+    estimate,
+    request: {
+      runId,
+      model: sonnet ? config.sonnet : config.haiku,
+      purpose: 'developing-batch-test',
+      instructions: '',
+      prompt: '',
+      maxOutputTokens: 1,
+    },
+  });
+  const count = async (runId: string) =>
+    (await db.query('SELECT id FROM llm_calls WHERE run_id=$1', [runId]))
+      .rowCount;
+  try {
+    const model = await ledger.reserveBatch([
+      entry('developing-batch-model', 30000, true),
+      entry('developing-batch-model', 30000, true),
+    ]);
+    assert.deepEqual(model, {
+      status: 'refused',
+      index: 1,
+      reasons: ['model-allocation'],
+    });
+    assert.equal(await count('developing-batch-model'), 0);
+    const shared = await ledger.reserveBatch([
+      entry('developing-batch-shared', 60000),
+      entry('developing-batch-shared', 60000),
+    ]);
+    assert.deepEqual(shared, {
+      status: 'refused',
+      index: 1,
+      reasons: ['daily-cap'],
+    });
+    assert.equal(await count('developing-batch-shared'), 0);
+    const verification = new PostgresLlmLedger(db, caps, true);
+    assert.deepEqual(
+      await verification.reserveBatch([
+        entry('developing-batch-verification', 30000),
+        entry('developing-batch-verification', 30000),
+      ]),
+      { status: 'refused', index: 1, reasons: ['verification-cap'] },
+    );
+    assert.equal(await count('developing-batch-verification'), 0);
+    for (const entries of [
+      [],
+      [entry('developing-batch-invalid', 0)],
+      [entry('developing-batch-invalid', 1), entry('different-run', 1)],
+      Array.from({ length: 65 }, () => entry('developing-batch-invalid', 1)),
+    ]) {
+      await assert.rejects(
+        ledger.reserveBatch(entries),
+        /Invalid reservation batch/,
+      );
+    }
+    const outcomes = await Promise.all(
+      ['a', 'b'].map((suffix) =>
+        ledger.reserveBatch([
+          entry(`developing-batch-${suffix}`, 30000),
+          entry(`developing-batch-${suffix}`, 30000),
+        ]),
+      ),
+    );
+    assert.equal(
+      outcomes.filter((result) => result.status === 'admitted').length,
+      1,
+    );
+    assert.equal(
+      outcomes.filter((result) => result.status === 'refused').length,
+      1,
+    );
+    for (const [index, outcome] of outcomes.entries()) {
+      assert.equal(
+        await count(`developing-batch-${index === 0 ? 'a' : 'b'}`),
+        outcome.status === 'admitted' ? 2 : 0,
+      );
+      if (outcome.status === 'admitted') {
+        assert.equal(new Set(outcome.ids).size, 2);
+        await ledger.settle(
+          outcome.ids[0],
+          { input: 1, output: 0, cacheRead: 0, cacheWrite: 0 },
+          1,
+        );
+        await ledger.fail(outcome.ids[1], 'unused-plan-hold', false, false);
+      }
+    }
+    const usage = await readUsage(db, caps);
+    assert.equal(usage.availableMicros, 99999);
+  } finally {
+    await db.query(
+      "DELETE FROM llm_calls WHERE run_id LIKE 'developing-batch-%'",
+    );
+    await db.end();
+  }
+});
