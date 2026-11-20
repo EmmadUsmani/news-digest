@@ -171,3 +171,12 @@
 - Verification: pnpm exec tsx --test apps/api/test/capture-developing-execution.test.ts; pnpm format; pnpm lint:fix; pnpm check; pnpm build. Logs /tmp/3010-{target,format,lint,check,build}.log; final results below.
 - Next: use saved-edition inputs for execution captures and derive complete protected obligations, then semantic/whole-edition admission acceptance. Developing enrichment remains inactive; Nov 20–22 recall reviews await scheduled editions.
 - Final pnpm check passes: 1,248 unit tests, 335 integration passes/four expected skips; formatting/lint/typechecks/boundaries pass. Production build passes; diff check clean. Commit/push and API/worker restart follow.
+
+## 2026-11-20: iteration 3011 — saved-edition execution capture
+
+- Clean main at 178a5f36; no inherited work. Alerts/health pass, enabled sources healthy; Destructoid inactive. Digest queue zero failures; next scheduled edition Nov 20 15:00 UTC. Historical public queue counts retain 20 ingestion/four social failures.
+- Actual edition coordinator now has saved Peltola and Zelda capture coverage with their original editorial evidence, full accepted selections and manually labelled predecessors. Matching uses source titles/excerpts; rewrite reaches Sonnet with exact edition/topic attribution. Captures are deterministic and fixture inputs remain unchanged.
+- Scripted null rewrite responses restore the identical accepted arrays in both cases. These are offline transport controls, not semantic matching/rewrite acceptance or whole-edition budget admission. No provider calls, activation or cap changes.
+- Targeted tests: pnpm exec tsx --test apps/api/test/capture-developing-execution.test.ts (three pass). Full verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; logs /tmp/3011-{target,format,lint,check,build}.log. Final results below.
+- No UI/source/schema/handbook behavior changed. Next: complete protected obligations and broader saved-edition plans, then semantic/whole-edition acceptance; Nov 20–22 recall reviews await scheduled editions.
+- Final pnpm check passes: 1,249 unit tests, 335 integration passes/four expected skips; format/lint/typecheck/boundaries pass. Production build passes; diff check clean. Local health passes; reader endpoint initially returned HTTP 429 and the public HTTPS hostname was unreachable from this VM. Commit/push and post-restart verification follow.

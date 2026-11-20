@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 
 import { captureDevelopingExecution } from '../../../scripts/lib/capture-developing-execution';
@@ -122,5 +123,123 @@ void test('no-link and refused executions never fabricate rewrite coverage', asy
       // Capture is request construction evidence, not successful execution.
       assert.equal(result.captures.rewrites.length, 1);
     }
+  }
+});
+
+void test('saved Peltola and Zelda execution captures retain original evidence and atomic refusal', async () => {
+  type Topic = Parameters<typeof enrichDevelopingEdition>[0][number];
+  const fixture = JSON.parse(
+    readFileSync(
+      new URL(
+        './fixtures/developing-stories-saved-2026-11-12-18.json',
+        import.meta.url,
+      ),
+      'utf8',
+    ),
+  ) as {
+    cases: {
+      editionId: string;
+      topicId: string;
+      topicName: string;
+      windowEnd: string;
+      reviewedStoryId: string;
+      history: Topic['history'];
+      selected?: Topic['selected'];
+      originalEditorialEvidence?: { evidence: Topic['evidence'] };
+      expectedPredecessors: { editionId: string; storyId: string }[];
+    }[];
+  };
+  const cases = fixture.cases.filter(
+    (item) => item.selected && item.originalEditorialEvidence,
+  );
+  assert.equal(cases.length, 2);
+  for (const item of cases) {
+    const selected = item.selected!;
+    const evidence = item.originalEditorialEvidence!.evidence;
+    const before = structuredClone(item);
+    const currentIndex = selected.findIndex(
+      (story) => story.id === item.reviewedStoryId,
+    );
+    assert.ok(currentIndex >= 0);
+    const references = item.expectedPredecessors.map((previous) => {
+      const editionIndex = item.history.findIndex(
+        (edition) => edition.editionId === previous.editionId,
+      );
+      assert.ok(editionIndex >= 0);
+      const storyIndex = item.history[editionIndex].stories.findIndex(
+        (story) => story.id === previous.storyId,
+      );
+      assert.ok(storyIndex >= 0);
+      return `history:${editionIndex}:${storyIndex}`;
+    });
+    assert.ok(references.length > 0);
+    const run = () =>
+      captureDevelopingExecution({
+        editionId: item.editionId,
+        topicIds: [item.topicId],
+        // Manual memberships and scripted refusal test transport only, never semantics.
+        responses: [
+          JSON.stringify({
+            groups: [[`current:${currentIndex}`, ...references]],
+          }),
+          'null',
+        ],
+        async execute(port) {
+          const models = llmConfig({});
+          const llm = new BudgetedLlm(port, {
+            reserve: async () => 'offline',
+            settle: async () => {},
+            fail: async () => {},
+            cached: async () => undefined,
+            cache: async () => {},
+          });
+          return enrichDevelopingEdition([
+            {
+              ...item,
+              selected,
+              evidence,
+              publishedAt: item.windowEnd,
+              runId: item.editionId,
+              editorialMode: 'ai',
+              grouping: new EventGrouping(llm, models.haiku),
+              llm: port,
+              model: models.sonnet,
+            },
+          ]);
+        },
+      });
+    const result = await run();
+    assert.equal(result.responsesConsumed, 2);
+    assert.equal(result.value.status, 'unchanged');
+    assert.equal(result.value.topics[0].stories, selected);
+    const requests = developingCapturedRequests(result.captures);
+    assert.equal(requests.length, 2);
+    assert.ok(
+      requests.every(
+        (request) =>
+          request.runId === item.editionId && request.topicId === item.topicId,
+      ),
+    );
+    const candidates = JSON.parse(requests[0].prompt).candidates;
+    for (const [index, story] of selected.entries()) {
+      const original = evidence.find((source) => source.id === story.id)!;
+      assert.equal(candidates[index].title, original.title.slice(0, 500));
+      assert.equal(
+        candidates[index].excerpt,
+        (original.excerpt ?? '').slice(0, 600),
+      );
+    }
+    const original = evidence.find(
+      (source) => source.id === item.reviewedStoryId,
+    )!;
+    assert.ok(
+      requests[1].prompt.includes(
+        JSON.stringify(original.excerpt).slice(1, -1),
+      ),
+    );
+    assert.equal(requests[0].model.id, llmConfig({}).haiku.id);
+    assert.equal(requests[1].model.id, llmConfig({}).sonnet.id);
+    assert.deepEqual((await run()).captures, result.captures);
+    assert.deepEqual(item, before);
   }
 });
