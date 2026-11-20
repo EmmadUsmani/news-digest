@@ -131,3 +131,13 @@
 - Public operations expose queue counts only; detailed failed-job probe refused as expected. No UI/source/schema/handbook changes.
 - Live latest 7a747d9c retains five topics/25 real stories/22 posts. Next: exact-request capture and complete protected-obligation derivation, then saved-edition semantic acceptance. Nov 20–22 recall reviews follow scheduled editions. Developing enrichment remains inactive.
 - Final diff check passes; commit/push and API/worker restart follow.
+
+## 2026-11-20: iteration 3007 — edition-bound exact request captures
+
+- Clean main at 7c53c78b; no inherited work. Alerts/health and enabled sources pass; Destructoid remains inactive. Digest queue has zero failures; next run Nov 20 15:00 UTC.
+- Offline matching capture now uses the actual edition ID instead of a placeholder run. Rewrite capture refuses mismatched runs; combined-plan checks require matching, rewrite and additional requests to belong to the expected edition. Blank edition/topic coverage refuses.
+- Thirteen targeted tests pass, including exact matching attribution, foreign/blank runs across both stages and additional work, and rewrite input preservation. Historical placeholder captures require regeneration; no provider calls, cap changes or activation.
+- pnpm format, pnpm lint:fix, pnpm check and pnpm build pass: 1,243 unit tests, 335 integration passes/four expected skips. Logs /tmp/3007-{target,format,lint,check,build}.log.
+- Live reader retains 7a747d9c, five topics/25 real stories/22 posts. Direct loopback reader probe hit shared rate limiting; existing local-probe forwarding identity succeeds. No UI/source/schema/handbook changes.
+- Next: runtime exact-request capture composition and complete protected-obligation derivation, then saved-edition semantic acceptance. Nov 20–22 recall reviews follow scheduled editions. Developing enrichment remains inactive.
+- Final diff check passes; commit/push and API/worker restart follow. Complete exact runtime capture and protected-plan derivation remain unverified.

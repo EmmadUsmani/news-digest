@@ -115,3 +115,14 @@ void test('capacity scenarios retain every historical occurrence and expose shor
   );
   assert.equal(report.cases[1].unavailableReason, 'no-historical-stories');
 });
+
+void test('matching capture binds each exact request to its edition', async () => {
+  const report = await prepareDevelopingRequests(fixture.cases, model);
+  for (const item of report.cases) {
+    if (item.request) assert.equal(item.request.runId, item.editionId);
+  }
+  await assert.rejects(
+    prepareDevelopingRequests([{ ...fixture.cases[0], editionId: ' ' }], model),
+    /Invalid capture edition/,
+  );
+});

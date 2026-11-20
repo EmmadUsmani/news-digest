@@ -39,7 +39,7 @@ const item: RewriteCaptureCase = {
   editionId: 'edition',
   topicId: 'topic',
   topicName: 'Tech',
-  runId: 'offline',
+  runId: 'edition',
   selected: [selected],
   evidence: [evidence],
   links: [link],
@@ -150,7 +150,7 @@ void test('saved positive memberships capture original evidence without replacin
       editionId: item.editionId,
       topicId: item.topicId,
       topicName: item.topicName,
-      runId: 'offline-saved-positive',
+      runId: item.editionId,
       selected: item.selected,
       evidence: item.originalEditorialEvidence.evidence,
       links,
@@ -216,4 +216,16 @@ void test('saved positive memberships capture original evidence without replacin
     }
   }
   assert.deepEqual(cases, before);
+});
+
+void test('rewrite capture rejects foreign execution attribution without changing input', async () => {
+  for (const runId of ['', 'offline', 'other-edition']) {
+    const input = { ...item, runId };
+    const before = structuredClone(input);
+    await assert.rejects(
+      prepareDevelopingRewriteRequests([input], llmConfig({}).sonnet),
+      /run differs/,
+    );
+    assert.deepEqual(input, before);
+  }
 });

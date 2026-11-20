@@ -21,10 +21,10 @@ export function developingCapturedPlan(input: {
 }) {
   const topics = new Set(input.topicIds);
   if (
-    !input.editionId ||
+    !input.editionId.trim() ||
     !topics.size ||
     topics.size !== input.topicIds.length ||
-    input.topicIds.some((id) => !id)
+    input.topicIds.some((id) => !id.trim())
   )
     throw new Error('Invalid expected edition coverage');
   const requests: LlmRequest[] = [];
@@ -47,11 +47,19 @@ export function developingCapturedPlan(input: {
         throw new Error('Request topic differs from capture');
       if (capture.request.purpose !== purpose)
         throw new Error('Request purpose differs from capture stage');
+      if (capture.request.runId !== input.editionId)
+        throw new Error('Request run differs from capture edition');
       requests.push(capture.request);
     }
     if (seen.size !== topics.size)
       throw new Error('Missing edition topic capture');
   }
+  if (
+    input.additionalRequests.some(
+      (request) => request.runId !== input.editionId,
+    )
+  )
+    throw new Error('Additional request run differs from capture edition');
   requests.push(...input.additionalRequests);
   return {
     editionId: input.editionId,

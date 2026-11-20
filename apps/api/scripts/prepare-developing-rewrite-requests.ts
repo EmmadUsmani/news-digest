@@ -24,6 +24,8 @@ export async function prepareDevelopingRewriteRequests(
 ) {
   const results = [];
   for (const item of cases) {
+    if (!item.editionId.trim() || item.runId !== item.editionId)
+      throw new Error('Rewrite run differs from capture edition');
     const captured: LlmRequest[] = [];
     await rewriteSelectedDevelopingStories({
       ...item,

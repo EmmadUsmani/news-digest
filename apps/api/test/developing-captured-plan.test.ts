@@ -15,7 +15,7 @@ import { developingCapturedPlan } from '../../../scripts/lib/developing-captured
 
 const request = {
   model: { id: 'editor', input: 1, output: 1, cacheRead: 0, cacheWrite: 1 },
-  runId: 'offline',
+  runId: 'edition',
   purpose: 'capture',
   instructions: '',
   prompt: '',
@@ -148,4 +148,38 @@ void test('file preflight emits no report on stage substitution and retains exis
   } finally {
     rmSync(directory, { recursive: true, force: true });
   }
+});
+
+void test('foreign or missing execution attribution refuses both stages and additional work', () => {
+  for (const runId of ['', ' ', 'offline-request-capture', 'other-edition']) {
+    for (const field of ['matching', 'rewrites'] as const) {
+      assert.throws(
+        () =>
+          developingCapturedPlan({
+            ...plan,
+            [field]: plan[field].map((item) => ({
+              ...item,
+              request: { ...item.request, runId },
+            })),
+          }),
+        /run differs/,
+      );
+    }
+    assert.throws(
+      () =>
+        developingCapturedPlan({
+          ...plan,
+          additionalRequests: [{ ...request, runId }],
+        }),
+      /run differs/,
+    );
+  }
+  assert.throws(
+    () => developingCapturedPlan({ ...plan, editionId: ' ' }),
+    /Invalid expected/,
+  );
+  assert.throws(
+    () => developingCapturedPlan({ ...plan, topicIds: [' '] }),
+    /Invalid expected/,
+  );
 });

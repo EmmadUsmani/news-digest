@@ -21,6 +21,7 @@ export async function prepareDevelopingRequests(
 ) {
   const results = [];
   for (const item of cases) {
+    if (!item.editionId.trim()) throw new Error('Invalid capture edition');
     let request: LlmRequest | null = null;
     const grouping = new EventGrouping(
       {
@@ -39,7 +40,7 @@ export async function prepareDevelopingRequests(
       {
         topicId: item.topicId,
         publishedAt: item.windowEnd,
-        runId: 'offline-request-capture',
+        runId: item.editionId,
       },
       item.stories,
       item.history,
