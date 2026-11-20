@@ -72,6 +72,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 3038: Provider dispatch snapshots admitted request fields and model prices; caller mutation during completion cannot alter provider input or settlement costs. Offline pending-completion regression passes.
+
 - [x] 3037: Budgeted dispatch rechecks the execution deadline after reservation I/O and releases expired, undispatched holds; exact-deadline and invalid-deadline controls pass.
 
 - [x] 3036: Inactive reserved execution rechecks admission after reservation completion, before provider dispatch; closed scopes or changed requests release consumed but undispatched holds.

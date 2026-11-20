@@ -986,3 +986,50 @@ void test('reservation completion releases undispatched holds when the execution
     assert.deepEqual(h.uncertain, []);
   }
 });
+
+void test('pending provider input and settlement retain admitted prices after caller mutation', async () => {
+  const h = harness();
+  const mutable = { ...request, model: { ...request.model } };
+  const plan = await reserveLlmPlan(h.ledger, [mutable]);
+  assert.ok(plan);
+  let finish!: () => void;
+  let started!: () => void;
+  const dispatched = new Promise<void>((resolve) => {
+    started = resolve;
+  });
+  let providerRequest: LlmRequest | undefined;
+  let settledCost: number | undefined;
+  h.ledger.settle = async (_id, _usage, cost) => {
+    settledCost = cost;
+  };
+  const llm = new BudgetedLlm(
+    {
+      complete: async (candidate) => {
+        providerRequest = candidate;
+        started();
+        await new Promise<void>((resolve) => {
+          finish = resolve;
+        });
+        return {
+          text: '{"ok":true}',
+          usage: { input: 2, output: 2, cacheWrite: 0, cacheRead: 0 },
+        };
+      },
+    },
+    plan.ledger,
+  );
+  const pending = llm.jsonOutcome(mutable, validate, { repair: false });
+  await dispatched;
+  mutable.prompt = 'changed after dispatch';
+  mutable.runId = 'foreign';
+  mutable.model.id = 'foreign-model';
+  mutable.model.input = 1000;
+  mutable.model.output = 1000;
+  assert.deepEqual(providerRequest, request);
+  finish();
+  assert.equal((await pending).status, 'complete');
+  assert.equal(settledCost, 8);
+  await plan.releaseUnused();
+  assert.deepEqual(h.released, []);
+  assert.deepEqual(h.uncertain, []);
+});

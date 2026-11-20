@@ -188,3 +188,15 @@ Earlier entries: [through iteration 3019](docs/progress-archive/2026-11-20-itera
 - Final pnpm check/build pass: 1,281 unit tests, 336 integration passes/four expected skips; typecheck/lint/format/boundaries green.
 - Read-only scheduled reader gate verifies real Nov 19 edition: five topics, 25 stories/22 posts; disk 61%. Next reviews remain Nov 20–22.
 - Commit/push and API/worker restart follow; post-restart health and reader checks required.
+
+## 2026-11-20: iteration 3038 — bind settlement to dispatched prices
+
+- Clean main at e1a058dc; no inherited work. Alerts clear, healthz passes, source checks healthy, digest queue zero failures; next edition 15:00 UTC, disk 61%.
+- Found caller mutation during pending provider completion could change the provider request and ledger settlement prices after admission.
+- BudgetedLlm now copies the admitted request and nested model before dispatch; completion and settlement use that copy.
+- Targeted reserved-plan suite: 30 passes, including mutation of prompt, run/model identity and rates during pending completion; original input and exact 8-micro settlement survive. No provider calls.
+- No activation or cap/source/schema/UI changes; developing stories remains inactive pending semantic and whole-edition acceptance. Handbook behavior unchanged.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build (logs /tmp/3038-{format,lint,check,build}.log); final results follow.
+- Read-only check-scheduled-reader.ts 2026-11-19T15:00:00Z passes: five topics, 25 real stories/22 posts. Nov 20–22 reviews remain next.
+- Final pnpm check/build pass: 1,282 unit tests; 336 integration passes/four expected skips; typecheck/lint/format/boundaries green.
+- Commit/push and API/worker restart follow; post-restart health and scheduled reader verification required.

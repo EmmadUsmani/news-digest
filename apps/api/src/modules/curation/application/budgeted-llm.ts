@@ -331,9 +331,12 @@ export class BudgetedLlm {
         await this.ledger.fail(id, 'execution-expired', false, false);
         return { status: 'provider-call-failed' };
       }
+      // Keep provider input and settlement prices bound to the admitted request
+      // even if its caller mutates the original while completion is pending.
+      const dispatched = { ...current, model: { ...current.model } };
       let response;
       try {
-        response = await this.llm.complete(current, execution);
+        response = await this.llm.complete(dispatched, execution);
       } catch (error) {
         const limit = error instanceof ProviderSpendLimit;
         const unused = error instanceof ProviderNotDispatched;
@@ -366,7 +369,7 @@ export class BudgetedLlm {
       await this.ledger.settle(
         id,
         response.usage,
-        costMicros(response.usage, current.model),
+        costMicros(response.usage, dispatched.model),
       );
       this.log.info(
         {
@@ -376,7 +379,7 @@ export class BudgetedLlm {
           purpose: request.purpose,
           topicId: request.topicId,
           attempt: attempt + 1,
-          costMicros: costMicros(response.usage, current.model),
+          costMicros: costMicros(response.usage, dispatched.model),
         },
         'LLM budget settled',
       );
