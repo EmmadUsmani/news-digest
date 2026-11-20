@@ -3,12 +3,14 @@ import { test } from 'node:test';
 
 import { BudgetedLlm } from '../src/modules/curation/application/budgeted-llm';
 import { reserveLlmPlan } from '../src/modules/curation/application/reserved-llm-plan';
+import { runReservedLlmPlan } from '../src/modules/curation/application/run-reserved-llm-plan';
 import {
   type LlmPort,
   type LlmRequest,
   ProviderSpendLimit,
 } from '../src/modules/curation/domain/llm.port';
 import type { LlmLedger } from '../src/modules/curation/domain/llm-ledger.port';
+import { enrichDevelopingEdition } from '../src/modules/digests/application/enrich-developing-edition';
 
 const request: LlmRequest = {
   runId: 'offline',
@@ -324,4 +326,202 @@ void test('cleanup releases later obligations after failures and retries only fa
   assert.deepEqual(attempts, ['0', '1', '2', '3', '0', '2']);
   assert.deepEqual(h.released, ['1', '3', '0', '2']);
   assert.equal(h.counts().dispatches, 0);
+});
+
+void test('plan runner admits all phases before execution and closes ports before returning', async () => {
+  const h = harness();
+  let retained: BudgetedLlm | undefined;
+  const rewrite = { ...request, purpose: 'rewrite' };
+  const result = await runReservedLlmPlan({
+    ...h,
+    requests: [request, rewrite],
+    protectedRequests: [{ ...request, purpose: 'social' }],
+    async execute(llm) {
+      retained = llm;
+      assert.equal(h.counts().batches, 1);
+      assert.equal(
+        (await llm.jsonOutcome(request, validate, { repair: false })).status,
+        'complete',
+      );
+      assert.equal(
+        (await llm.jsonOutcome(rewrite, validate, { repair: false })).status,
+        'complete',
+      );
+      assert.deepEqual(h.released, []);
+      return { edition: 'accepted' };
+    },
+  });
+  assert.deepEqual(result, {
+    status: 'completed',
+    value: { edition: 'accepted' },
+  });
+  assert.deepEqual(h.settled, ['0', '1']);
+  assert.deepEqual(h.released, ['2']);
+  assert.ok(retained);
+  assert.equal(
+    (await retained.jsonOutcome(request, validate)).status,
+    'budget-refused',
+  );
+  assert.deepEqual(h.counts(), { batches: 1, dispatches: 2 });
+});
+
+void test('plan runner never constructs execution after atomic admission refusal', async () => {
+  const h = harness();
+  h.ledger.reserveBatch = async () => ({
+    status: 'refused',
+    index: 1,
+    reasons: ['daily-cap'],
+  });
+  const result = await runReservedLlmPlan({
+    ...h,
+    requests: [request],
+    protectedRequests: [{ ...request, purpose: 'social' }],
+    execute: () => {
+      throw new Error('must not construct edition services');
+    },
+  });
+  assert.deepEqual(result, { status: 'admission-refused' });
+  assert.equal(h.counts().dispatches, 0);
+  assert.deepEqual(h.released, []);
+});
+
+void test('plan runner cleans remaining obligations on execution failure while retaining uncertain spend', async () => {
+  const h = harness();
+  h.error(new Error('uncertain transport'));
+  const failure = new Error('edition stopped');
+  await assert.rejects(
+    runReservedLlmPlan({
+      ...h,
+      requests: [request, { ...request, purpose: 'rewrite' }],
+      protectedRequests: [{ ...request, purpose: 'social' }],
+      async execute(llm) {
+        assert.equal(
+          (await llm.jsonOutcome(request, validate, { repair: false })).status,
+          'provider-call-failed',
+        );
+        throw failure;
+      },
+    }),
+    (error) => error === failure,
+  );
+  assert.deepEqual(h.uncertain, ['0']);
+  assert.deepEqual(h.released, ['1', '2']);
+  assert.equal(h.counts().dispatches, 1);
+});
+
+void test('plan runner withholds results when cleanup fails and preserves both errors', async () => {
+  for (const executionFails of [false, true]) {
+    const h = harness();
+    const failure = new Error('execution');
+    const cleanup = new Error('cleanup');
+    const release = h.ledger.fail.bind(h.ledger);
+    h.ledger.fail = async (...args) => {
+      if (args[0] === '0') throw cleanup;
+      await release(...args);
+    };
+    await assert.rejects(
+      runReservedLlmPlan({
+        ...h,
+        requests: [request],
+        protectedRequests: [{ ...request, purpose: 'social' }],
+        async execute() {
+          if (executionFails) throw failure;
+          return 'must not publish';
+        },
+      }),
+      (error) => {
+        assert.ok(error instanceof AggregateError);
+        if (executionFails) {
+          assert.equal(error.errors[0], failure);
+          assert.ok(error.errors[1] instanceof AggregateError);
+          assert.equal(error.errors[1].errors[0], cleanup);
+        } else assert.equal(error.errors[0], cleanup);
+        return true;
+      },
+    );
+    assert.deepEqual(h.released, ['1']);
+    assert.equal(h.counts().dispatches, 0);
+  }
+});
+
+void test('reserved runner composes edition-wide matching and cleans no-link or later-refused plans', async () => {
+  for (const refuses of [false, true]) {
+    const h = harness();
+    const matching = ['tech', 'nba'].map((topicId) => ({
+      ...request,
+      topicId,
+    }));
+    const selected = [
+      {
+        id: 'a',
+        title: 'Accepted',
+        summary: 'Original',
+        whyItMatters: 'Impact',
+      },
+    ];
+    const result = await runReservedLlmPlan({
+      ...h,
+      requests: [
+        ...matching,
+        ...matching.map((item) => ({ ...item, purpose: 'rewrite' })),
+      ],
+      protectedRequests: [{ ...request, purpose: 'social' }],
+      async execute(llm) {
+        return enrichDevelopingEdition(
+          matching.map((item, index) => ({
+            topicId: item.topicId,
+            topicName: item.topicId,
+            runId: item.runId,
+            editorialMode: 'ai' as const,
+            selected,
+            evidence: [
+              {
+                id: 'a',
+                title: 'Reporting',
+                excerpt: 'Current reporting',
+                sources: ['Publisher'],
+              },
+            ],
+            publishedAt: '2026-11-20T15:00:00Z',
+            history: [
+              {
+                editionId: 'prior',
+                publishedAt: '2026-11-19T15:00:00Z',
+                stories: [
+                  { id: 'old', title: 'Earlier', summary: 'Earlier reporting' },
+                ],
+              },
+            ],
+            model: item.model,
+            llm: {
+              complete: () => {
+                throw new Error('no rewrite should run');
+              },
+            },
+            grouping: {
+              async groupWithResult() {
+                assert.equal(
+                  (await llm.jsonOutcome(item, validate, { repair: false }))
+                    .status,
+                  'complete',
+                );
+                return refuses && index === 1
+                  ? { status: 'refused' as const }
+                  : { status: 'validated' as const, groups: [] };
+              },
+            },
+          })),
+        );
+      },
+    });
+    assert.equal(result.status, 'completed');
+    if (result.status !== 'completed') assert.fail('plan should be admitted');
+    assert.equal(result.value.status, refuses ? 'unchanged' : 'completed');
+    result.value.topics.forEach((topic) =>
+      assert.equal(topic.stories, selected),
+    );
+    assert.deepEqual(h.settled, ['0', '1']);
+    assert.deepEqual(h.released, ['2', '3', '4']);
+    assert.deepEqual(h.counts(), { batches: 1, dispatches: 2 });
+  }
 });

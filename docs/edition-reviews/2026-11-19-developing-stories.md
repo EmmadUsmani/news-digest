@@ -415,3 +415,10 @@ relationship to the later resignation; it is not labelled a match.
 
 - Scope cleanup now attempts all unused feature/protected holds even if an individual ledger release fails. It reports all failures together, retains failed holds for retry and never reopens request admission. Successfully released holds are not released again.
 - Offline regression injects two release failures across four holds: later protected obligations release, concurrent callers share one cleanup attempt, and retry touches only the two failed holds. No provider calls; edition wiring and complete obligation derivation remain open.
+
+## Iteration 3005 — admitted execution lifecycle
+
+- Added an inactive execution scope that constructs BudgetedLlm and invokes the edition callback only after atomic feature/protected admission. It closes the scope and releases unused holds before returning an execution result. Admission refusal never constructs edition services.
+- Execution failure still releases unused obligations, retaining consumed uncertain charges. Cleanup failure withholds the result; simultaneous execution/cleanup failures preserve both errors. No automatic retry or additional provider dispatch.
+- Offline controls compose the real edition coordinator for successful no-link matching and later-topic matching refusal: both preserve accepted story arrays and release unused rewrite/protected holds. Separate controls verify two-phase settlement, closed retained ports, admission refusal, uncertainty and cleanup failures.
+- Complete exact-request capture wiring, remaining morning obligation derivation and semantic acceptance remain open. Production generation stays unwired; no live provider calls or cap changes.
