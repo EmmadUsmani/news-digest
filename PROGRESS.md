@@ -152,3 +152,14 @@
 - Reader gate: pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-19T15:00:00Z verifies real Nov 19 edition, 25 stories/22 posts. No UI/source/schema/handbook changes.
 - Next: complete remaining morning plan and semantic acceptance; Nov 20–22 recall reviews await scheduled editions.
 - Full checks/build pass: 1,253 unit tests, 335 integration passes/four expected skips; typecheck/lint/format/boundaries pass. Disk 61%, diff clean. Commit/push and API/worker restart follow.
+
+## 2026-11-20: iteration 3018 — bound protected triage batches
+
+- Clean main at 94978115; no inherited work. Alerts clear, /healthz passes, API/worker active; Nov 20 scheduled edition not yet due.
+- Added offline supplied-pool article/social triage obligations through real CandidateTriage batching. All-cache-miss scripted valid output visits every batch; each initial request includes a worst-fixed-feedback repair bound. No provider calls or production activation.
+- Targeted test passes for 200-item short/Unicode-long pools, both routes, actual BudgetedLlm malformed JSON/schema/coverage repairs, all original IDs, unchanged inputs, empty pools and duplicate refusal.
+- Bounds cover supplied pools only; dynamic topic/platform/pool/context completeness and whole-edition admission remain open. Developing stories stays inactive; semantic model acceptance remains pending.
+- Verification: pnpm exec tsx --test apps/api/test/protected-triage-obligations.test.ts; pnpm format; pnpm lint:fix; pnpm check; pnpm build (logs /tmp/3018-{target,format,lint,check,build}.log). Final results below.
+- Scheduled-reader gate verifies real Nov 19 edition: 25 stories/22 posts; disk 61%. No UI/source/schema/handbook behavior change.
+- Next: finish whole-morning admission and semantic acceptance; Nov 20–22 recall reviews await scheduled editions.
+- Full checks pass: 1,254 unit tests, 335 integration passes/four expected skips; typecheck/lint/format/boundaries pass. Build passes; commit/push and API/worker restart follow.
