@@ -100,3 +100,12 @@ Earlier entries: [through iteration 3019](docs/progress-archive/2026-11-20-itera
 - Initial localhost reader probe hit HTTP 429 (shared loopback throttle); post-restart content verification follows. No source/schema/UI/handbook behavior change.
 - Developing stories remains inactive pending complete morning admission and semantic acceptance; Nov 20–22 reviews await publication.
 - Full checks/build pass: 1,270 unit tests; 335 integration passes/four expected skips; typecheck/lint/format/boundaries pass. Commit/push and API/worker restart follow.
+
+## 2026-11-20: iteration 3030 — independent model cost keys
+
+- Clean main at 95aa044d; no inherited work. Alerts clear, /healthz passes, API/worker active; disk 61%. Nov 20 edition not due.
+- Offline feature preflight now accumulates model costs in a Map, avoiding inherited object-property collisions; returned evidence stays a JSON record.
+- Regression covers constructor, **proto** and toString model IDs, exact repeated-request totals, allocation accounting and JSON round trips; targeted suite seven passes.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build (logs /tmp/3030-{target,format,lint,check,build}.log). Final results below.
+- No provider calls, activation, source/schema/UI or handbook behavior changes. Developing stories remains inactive pending budget and semantic acceptance; Nov 20–22 reviews remain next.
+- Full checks/build pass: 1,271 unit tests; 335 integration passes/four expected skips. Initial check caught progress-entry formatting, corrected before passing rerun. Pre-restart reader probe returned 429; post-restart verification follows.

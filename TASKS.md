@@ -72,6 +72,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 3030: Offline edition budget accounting supports model IDs that match inherited object properties; exact costs and serialized evidence remain intact. No runtime activation.
+
 - [x] 3029: Offline edition preflight rejects blank model identities in requests, spend snapshots, protected obligations and allocations. No runtime activation.
 
 - [x] 3028: Offline edition preflight rejects conflicting prices for one model across feature and protected work; distinct models remain supported. No runtime activation.

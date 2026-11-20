@@ -74,7 +74,7 @@ export function developingEditionBudget(input: {
   )
     throw new Error('Inconsistent edition budget snapshot');
   validateEditionModelPrices(input.requests);
-  const byModel: Record<string, number> = {};
+  const modelCosts = new Map<string, number>();
   let featureMicros = 0;
   let oversized = false;
   for (const request of input.requests) {
@@ -104,7 +104,7 @@ export function developingEditionBudget(input: {
       },
     );
     featureMicros = amount(featureMicros + reserve);
-    byModel[price.id] = amount((byModel[price.id] ?? 0) + reserve);
+    modelCosts.set(price.id, amount((modelCosts.get(price.id) ?? 0) + reserve));
   }
   const requiredMicros = amount(input.protectedMicros + featureMicros);
   const allocation = input.caps.modelAllocation;
@@ -116,7 +116,7 @@ export function developingEditionBudget(input: {
     throw new Error('Missing allocated-model budget snapshot');
   const modelRequiredMicros = allocation
     ? amount(
-        (byModel[allocation.model] ?? 0) +
+        (modelCosts.get(allocation.model) ?? 0) +
           (input.protectedModelMicros[allocation.model] ?? 0),
       )
     : null;
@@ -140,7 +140,7 @@ export function developingEditionBudget(input: {
     featureMicros,
     requiredMicros,
     availableMicros: allowance.available,
-    byModel,
+    byModel: Object.fromEntries(modelCosts),
     modelRequiredMicros,
     modelAvailableMicros,
   };

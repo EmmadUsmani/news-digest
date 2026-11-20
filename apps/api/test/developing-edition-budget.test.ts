@@ -206,3 +206,27 @@ void test('preflight refuses unbound model identities in requests, spend and all
   }
   assert.equal(developingEditionBudget(plan).status, 'fits-supplied-plan');
 });
+
+void test('model accounting treats inherited object names as independent model IDs', () => {
+  for (const id of ['constructor', '__proto__', 'toString']) {
+    const result = developingEditionBudget({
+      ...plan,
+      caps: {
+        ...plan.caps,
+        modelAllocation: { model: id, dailyFraction: 0.5 },
+      },
+      modelToday: { [id]: 0 },
+      protectedModelMicros: { [id]: 1000 },
+      requests: plan.requests.map((item) => ({
+        ...item,
+        model: { ...item.model, id },
+      })),
+    });
+    assert.equal(result.status, 'fits-supplied-plan');
+    assert.deepEqual(result.byModel, { [id]: 8804 });
+    assert.equal(result.modelRequiredMicros, 9804);
+    assert.deepEqual(JSON.parse(JSON.stringify(result.byModel)), {
+      [id]: 8804,
+    });
+  }
+});
