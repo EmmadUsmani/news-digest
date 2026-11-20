@@ -53,9 +53,8 @@ Actual commands:
   reader passes; adding all five `--require-ai-topic` flags refuses Tech/Gaming.
 
 Next: repair prompt/repair behavior against these saved inputs while retaining
-support checks. Keep budgets and models unchanged; no paid replay. The Gaming initial Haiku response ends mid-object at its rationale field. Empty
-Tech responses and the malformed Gaming response need output-limit/transport inspection
-before assigning their cause. Do not deploy during 13:00–16:00 UTC.
+support checks. Keep budgets and models unchanged; no paid replay. The Gaming initial Haiku response ends mid-object at its rationale field. Completion inspection below confirms all three invalid JSON responses reached
+the existing output limit; the retained metadata cannot explain the empty text. Do not deploy during 13:00–16:00 UTC.
 Then complete the single Nov 20 daily review, including per-topic important-event
 recall and each miss's saved-data cause. References captured after the window
 ended remain in `/tmp/3078-reference-stories.json`; no review census is claimed here.
@@ -90,3 +89,48 @@ whole-response selection, factual review, model obedience and output completion
 remain open. No runtime prompt, cap, model, ledger or publication changed during
 the deployment freeze. Next iteration should implement and verify the generic
 prompt repair outside the freeze, then resume the consolidated daily review.
+
+## Completion diagnosis — iteration 3081
+
+Joined all eight retained artifacts to successful provider-call journal entries
+for run `9c810e64-1004-4669-86b5-57bb91ff3654` by exact request fingerprint.
+Repair artifacts store the original request, not the dispatched repair prompt.
+For those four joins, reconstructed `llmRepairRequest` with application-owned
+feedback from the initial failure (empty feedback for invalid JSON); each
+reconstructed fingerprint matched exactly one journal entry. Joining the stored
+request directly would incorrectly reuse the initial call's completion data.
+
+All calls had the unchanged 4,000-token output limit. Times below are UTC.
+
+| Topic  | Model      | Attempt | Completed at | Stop reason | Output tokens | Visible characters | JSON    |
+| ------ | ---------- | ------- | ------------ | ----------- | ------------: | -----------------: | ------- |
+| Tech   | sonnet-5-5 | initial | 15:01:31.023 | end_turn    |          2917 |               4808 | valid   |
+| Tech   | sonnet-5-5 | repair  | 15:01:50.688 | end_turn    |          2951 |               5212 | valid   |
+| Gaming | sonnet-5-5 | initial | 15:01:52.730 | end_turn    |          2393 |               3679 | valid   |
+| Tech   | haiku-5-5  | initial | 15:02:08.324 | max_tokens  |          4000 |                  0 | invalid |
+| Gaming | sonnet-5-5 | repair  | 15:02:08.591 | end_turn    |          2253 |               3702 | valid   |
+| Gaming | haiku-5-5  | initial | 15:02:24.484 | max_tokens  |          4000 |               3131 | invalid |
+| Tech   | haiku-5-5  | repair  | 15:02:25.668 | max_tokens  |          4000 |                  0 | invalid |
+| Gaming | haiku-5-5  | repair  | 15:02:36.891 | end_turn    |          2946 |               3275 | valid   |
+
+The three invalid JSON responses all exhausted the output limit. Every
+parseable rejected response ended normally below the limit and failed the
+unchanged absence guard. These are two separate failure paths: repairing the
+source-sentence guidance addresses the normal completions; concise output
+planning must also stay within the current cap. Gaming already has concise-output
+guidance, so its presence alone is not evidence of model obedience.
+
+The adapter received successful provider responses for all eight calls; no
+transport exception is recorded for these responses. For the two empty Tech
+responses, `max_tokens` and billed output establish limit termination, but the
+adapter retains only text blocks and logs aggregate usage. Neither artifact nor
+journal establishes which content consumed the tokens. Do not infer a timeout,
+refusal, hidden reasoning, or a need for a larger cap from this evidence.
+
+Verification: `pnpm exec tsx /tmp/3081-completion.ts` asserts eight unique exact
+joins, three limit terminations, and agreement between JSON validity and normal
+completion for this incident. Sanitized completion fields and fingerprints are
+retained in `docs/edition-reviews/2026-11-20-editor-completion.json`; no request
+text, provider content blocks or secrets are copied. No provider calls, runtime,
+model, cap or publication changes. Next: generic all-topic support/repair and
+concise-output guidance after the freeze, then consolidated daily recall review.

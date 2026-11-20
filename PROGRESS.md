@@ -41,3 +41,15 @@ Earlier entries: [pre-3055 archive](docs/progress-archive/2026-11-20-pre-3055.md
 - Test/fixture/docs only; no providers, caps, source, schema or runtime changes. Build/restart deferred under 13:00–16:00 freeze; deployed runtime matches main.
 - Next: implement generic all-topic repair guidance outside freeze, then finish consolidated Nov 20 daily recall/miss-cause review.
 - Full integration rerun passes: 336 pass/four expected skips; API build passes. Initial listener exception did not recur isolated or in-suite. Archived pre-3055 progress; final health passes. Commit/push follow.
+
+## 2026-11-20: iteration 3081 — separate output exhaustion from support failures
+
+- Clean main at 7fe32c47; no inherited work. Alerts clear; health database/Redis pass.
+- Joined eight retained Tech/Gaming failures to exact worker journal fingerprints; repairs reconstructed because artifacts retain original requests.
+- Three invalid JSON responses terminate at the 4,000-token cap (Tech two empty; Gaming one partial); five parseable responses end normally below cap and fail support validation.
+- Empty Tech content cause remains unknown: successful responses/aggregate usage do not identify content-block types. No timeout/refusal/hidden-reasoning claim.
+- Saved sanitized completion receipt and incident interpretation; no runtime, providers, model, cap, schema, source or publication changes.
+- Verification: pnpm exec tsx /tmp/3081-completion.ts — eight unique joins, three cap terminations, validity/completion assertions pass.
+- Next: generic support/repair plus concise-output guidance after 16:00 UTC, then consolidated Nov 20 recall review. No deployment/restart during freeze.
+- pnpm format; pnpm lint:fix; pnpm check pass: static checks, 1,317 units, 336 integrations/four expected skips. Receipt equality/diff checks pass.
+- Scheduled-reader passes five topics/25 real stories/20 posts; API/worker active, disk 62%. Docs/receipt only: no rebuild or restart needed; freeze preserved.
