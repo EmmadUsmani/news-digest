@@ -62,6 +62,9 @@ topic, each real miss and its saved-data cause (never collected, not shortlisted
 editor dropped, or wrongly withheld/merged). Report unavailable reference data
 explicitly. No recall is claimed before importance and event matching are done.
 After three scheduled reviews, measure the largest root-cause fix on saved pools.
+The [Nov 20 review](edition-reviews/2026-11-20.md) judges all 196 captured entries
+as 62 important topic-events or exclusions, and traces 40 misses through saved
+grouping memberships. Its frozen ten-feed capture is linked in the review.
 Nov 19 published-edition evidence and unresolved recall are recorded in the
 [daily review](edition-reviews/2026-11-19.md#missed--reference-evidence-preserved-recall-pending).
 The reference URLs are traced through saved selected clusters and editor inputs;

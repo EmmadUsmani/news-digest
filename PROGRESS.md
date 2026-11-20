@@ -66,3 +66,15 @@ Earlier entries: [pre-3055 archive](docs/progress-archive/2026-11-20-pre-3055.md
 - Initial full check: 1,319 units pass; two integrations fail on stale golden dispatch/fingerprint pins. Updated synthetic v16 mapping/fingerprint with response and golden output unchanged; direct fake-DB publication replay passes. No live inference.
 - Next: consolidated Nov 20 daily review with per-topic event recall/miss causes from saved grouping inputs; next scheduled edition must establish Tech/Gaming model acceptance.
 - After 16:09 UTC, systemctl --user restart news-digest-api.service news-digest-worker.service succeeds; both active. Health/database/Redis, scheduled-reader and obs sources --check pass; zero alerts. Commit/push follow.
+
+## 2026-11-20: iteration 3083 — consolidated daily event-recall review
+
+- Clean main at 23c6d1de; no inherited work. Alerts clear; health/database/Redis pass; 37 active sources healthy, Destructoid intentionally inactive.
+- Published Nov 20 edition remains 25 real stories/20 posts; Tech/Gaming source-excerpt fallback, NBA/World/U.S. Sonnet. All 15 AI summaries read against saved evidence; World/U.S. selected/evidence/coverage IDs disjoint.
+- Judged all 196 frozen reference entries: 94 important-event references, 102 exclusions, 62 distinct topic-events. Split separate Raptors injuries, Ubisoft developments and construction court actions.
+- Event recall: Tech 3/13; NBA 6/13; Gaming 5/11; World 5/10; U.S. 3/15. Total 22/62; vague Edwards quote and retrospective Lillard contract post do not cover the reference developments.
+- Forty misses: 22 collected/not shortlisted, ten shortlisted/not published, eight retained collection gaps. Tech/Gaming final losses identify exhausted editing/fallback, not a successful editor's choice.
+- Existing trace-reference-stories.ts passes all ten feeds; inline assertions pass every unique ID/membership/admission/publication route, collection URL absence, reference partition and recall arithmetic.
+- pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-20T15:00:00Z passes five topics/25 stories/20 posts; pnpm obs sources --check passes. Review/capture/docs only; no inference, new tooling/schema, runtime or publication changes.
+- pnpm format; pnpm lint:fix; full pnpm check pass: static checks, API build, 1,319 units, 336 integrations/four expected skips (/tmp/3083-check.log). Final document formatting and git diff --check pass; service revision refresh follows push.
+- Next: Nov 21 and 22 daily recall reviews, then tally/fix the largest cause; next scheduled edition must establish v16 model acceptance. No owner input needed.
