@@ -167,3 +167,36 @@ nonmatches alongside the original LeBron match. Adversarial links to Brown's
 trade dispute and Gueye's injury must fail even when the LeBron control passes.
 No summary can be accepted as a new NBA development from these headlines alone.
 Production remains inactive; no provider calls, budget changes or fresh fetches.
+
+## Source-bound GTA rewrite decision — iteration 3051
+
+Manual candidate for `c6df3e62-727d-422a-ab7f-599d6c275524`, checked
+against its original current editorial evidence (prompt fingerprint
+`ce3db9c3052bba152b6e5bb9d72825961ae9103b82a9c2d0599bb0609579a894`):
+
+> **GTA 6 draws critical acclaim as report puts pre-orders above 17 million**
+>
+> GameSpot’s critical-consensus report describes universal acclaim for Grand
+> Theft Auto 6 after a 13-year wait. It cites recent data putting pre-orders
+> above 17 million and associated revenue above $1.6 billion.
+>
+> **Why it matters:** The report adds a newer pre-order figure and a critical
+> reception update to the earlier sales coverage.
+
+| Claim                                              | Current support and decision                                                                                                                     |
+| -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Universal acclaim; 13-year wait                    | Explicit in the current GTA excerpt; retain with attribution.                                                                                    |
+| Over 17 million pre-orders; more than $1.6 billion | Explicit in the same excerpt; retain as reported data. Do not present as independently verified totals.                                          |
+| Newer reported figure and critical reception       | Earlier reviewed coverage supplies chronology; the current excerpt supplies the newer facts. No calculated growth or common methodology claimed. |
+| Already launched                                   | Omit. The GTA excerpt does not establish launch; the separate Firaxis excerpt places reviews before launch.                                      |
+| Take-Two shares up nearly 7%                       | Omit. Present in selected prose but absent from original current evidence.                                                                       |
+| Sensor Tower supplied these newer totals           | Omit. Earlier attribution does not establish the current data provider.                                                                          |
+
+Decision: this manually written GTA candidate is supported by the saved
+excerpt, with the reported-data attribution retained. This accepts one manual
+rewrite, not a model response or the combined Gaming request. Zelda still
+requires refusal, so Gaming must preserve the original whole-topic selection
+under atomic fallback. The lexical absence guard cannot certify the launch,
+stock-price or data-provider claims: its scope is bounded absence checking,
+not general factual entailment. Model-generated rewrite acceptance and
+whole-edition capacity remain open; production stays inactive.

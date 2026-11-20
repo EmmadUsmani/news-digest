@@ -148,3 +148,15 @@ Earlier entries: [pre-3038 archive](docs/progress-archive/2026-11-20-pre-3038.md
 - Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build (/tmp/3050-*.log); final results below.
 - Developing stories inactive; no provider calls, cap changes, UI/source/schema changes. Next: Nov 20 scheduled review after 15:00 UTC.
 - Full check/build pass: 1,305 unit passes; 336 integration passes/four expected skips; typecheck, lint, format and boundaries green. Commit/push and API/worker restart follow.
+
+## 2026-11-20: iteration 3051 — source-bound manual GTA rewrite
+
+- Clean main at 775e6598; no inherited work. Alerts clear; healthz database/Redis pass; API/worker active.
+- Added one concrete manual GTA continuation rewrite and claim-by-claim source review to the existing semantic reference.
+- Retained attributed pre-orders/revenue and critical reception; omitted unsupported launch, stock movement and inherited data-provider claims.
+- One manual rewrite accepted; no model response certified. Zelda still refuses the combined Gaming request; production inactive and budget gates unchanged.
+- Targeted: pnpm exec tsx --test apps/api/test/developing-rewrite-support.test.ts apps/api/test/capture-developing-execution.test.ts — five pass.
+- Reader: pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-19T15:00:00Z — five topics, 25 real stories/22 posts pass.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build (/tmp/3051-*.log); results below.
+- No code/UI/source/schema changes or provider calls. Next: Nov 20 scheduled review after 15:00 UTC.
+- Full check/build pass: 1,305 unit passes; 336 integration passes/four expected skips; typecheck, lint, formatting and boundaries green. Commit/push and API/worker restart follow.
