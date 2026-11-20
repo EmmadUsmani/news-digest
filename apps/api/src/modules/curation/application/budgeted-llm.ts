@@ -38,6 +38,19 @@ interface JsonOptions {
   execution?: LlmExecutionContext;
 }
 
+export function llmRepairRequest(
+  request: LlmRequest,
+  feedback: string,
+): LlmRequest {
+  return {
+    ...request,
+    prompt:
+      request.prompt +
+      '\nReturn only valid JSON matching the requested schema. No markdown fences.' +
+      feedback,
+  };
+}
+
 export class BudgetedLlm {
   private readonly failures: ValidationDiagnostic[] = [];
   validationDiagnostics(): ValidationDiagnostic[] {
@@ -239,15 +252,7 @@ export class BudgetedLlm {
           this.now() >= execution.deadline)
       )
         return { status: 'provider-call-failed' };
-      const current = attempt
-        ? {
-            ...request,
-            prompt:
-              request.prompt +
-              '\nReturn only valid JSON matching the requested schema. No markdown fences.' +
-              feedback,
-          }
-        : request;
+      const current = attempt ? llmRepairRequest(request, feedback) : request;
       const bound =
         Buffer.byteLength(current.instructions + current.prompt, 'utf8') + 2048;
       if (bound >= 100000) return { status: 'input-limit' };

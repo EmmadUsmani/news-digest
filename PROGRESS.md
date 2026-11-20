@@ -129,3 +129,15 @@
 - Targeted: pnpm exec tsx --test apps/api/test/capture-developing-execution.test.ts (three pass). Initial identity assertion corrected to compare unchanged successful output values; refusal identity checks remain intact.
 - Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build, logs /tmp/3015-{format,lint,check,build}.log. Final results follow.
 - Full checks pass: 1,250 unit tests, 335 integration passes/four expected skips; format/lint/typecheck/boundaries pass. Scheduled-reader gate verifies real Nov 19 edition (25 stories/22 posts). Disk 62%; no UI/source/schema/handbook behavior changes. Build/commit/push and API/worker restart follow.
+
+## 2026-11-20: iteration 3016 — bound remaining social repair/fallback work
+
+- Clean main at 61b18312; no inherited work. Alerts clear and /healthz passes; scheduled Nov 20 edition not yet due.
+- Confirmed enrichment must precede social editing, which consumes final story text. Per-topic insertion also leaves later topic work; zero protected obligations cannot be justified by moving after social.
+- Added an offline supplied-context social obligation builder using the real SocialPostEditor: both Sonnet/Haiku initial and possible repair requests. Shared production repair formatting and longest fixed schema/factual-support feedback prevent omitted repair bytes.
+- Bounds are not executable captures/exact holds and do not establish complete morning admission. Topic/platform/triage and dynamic context coverage remain open; developing stories stays inactive. No provider calls, cap changes or public behavior change.
+- Targeted: pnpm exec tsx --test apps/api/test/protected-social-obligations.test.ts (two pass): actual BudgetedLlm four-dispatch paths for both platforms/schema and JSON failures, Unicode byte/cost dominance, quiet no-call path and all fixed feedback/schema combinations.
+- Initial test used null instead of undefined for a cache miss; corrected the fixture to match the ledger contract.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build (logs /tmp/3016-{format,lint,check,build}.log); final results below.
+- No UI/source/schema/handbook behavior change. Next: complete remaining morning plan and semantic acceptance; Nov 20–22 recall reviews await scheduled editions.
+- Final checks/build pass: 1,252 unit tests, 335 integration passes/four expected skips; typecheck/lint/format/boundaries pass. Reader gate verifies real Nov 19 edition (25 stories/22 posts); disk 61%, diff clean. Lint initially rejected two unnecessary async declarations; corrected before the passing run. Commit/push and API/worker restart follow.

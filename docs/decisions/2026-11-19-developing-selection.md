@@ -78,3 +78,27 @@ enrichment failure. Social selection must consume final accepted story context.
 - Review actual semantic matches and rewritten prose before activation. Manual
   memberships establish transport only. Then require one real published edition
   and reader screenshots before starting the next reader feature.
+
+## Remaining-work boundary (iteration 3016)
+
+Enrichment cannot move after social editing merely to claim zero remaining work:
+`preview.repository.ts` builds `socialStoryContext(stories)` before both social
+routes, and those routes must compare posts with the final accepted story text.
+The current generator also completes each topic inside its topic loop, so a
+per-topic insertion must protect later topics' triage, grouping and story editing
+as well as social work. An eventual edition-wide insertion needs a phase boundary
+before social selection, after all topic story selections have finished.
+
+`protectedSocialObligations` now uses the real `SocialPostEditor` request builder
+to bound one supplied platform/topic/context: Sonnet initial + possible repair,
+then Haiku initial + possible repair. Repair size includes the longest fixed
+application validation feedback, including schema combinations and field hints;
+the production repair formatter is shared to prevent suffix drift. Quiet/empty
+inputs follow the real editor's no-call path.
+
+These are conservative **offline size bounds**, not executable captures or exact
+ledger-hold identities: the longest feedback may differ from the actual failure.
+They can populate the request-derived budget checker, but must not populate an
+exact reserved execution scope. The caller still must enumerate both platform
+routes, all topics and any social triage, and bound changing already-selected
+posts/final story context. No whole-morning fit or feature activation is claimed.

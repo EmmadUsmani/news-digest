@@ -133,3 +133,23 @@ export type ValidationDiagnostic = {
     | 'unsupported-social-date'
     | 'validator-error';
 };
+
+// Longest possible fixed repair feedback, for conservative offline obligations.
+// This is a byte bound, not a prediction of which validation failure will occur.
+export function maximumValidationRepairFeedback(): string {
+  const choices = [
+    '',
+    schemaRepairFeedback(
+      [...schemaRepairHints.keys()].map((code) => ({ code })),
+    ),
+    ...Object.values(feedback),
+    ...[...fieldFeedback.values()].map(
+      (field) => feedback['unsupported-absence'] + field,
+    ),
+  ];
+  return choices.reduce((longest, value) =>
+    Buffer.byteLength(value, 'utf8') > Buffer.byteLength(longest, 'utf8')
+      ? value
+      : longest,
+  );
+}
