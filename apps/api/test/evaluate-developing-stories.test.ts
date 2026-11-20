@@ -215,3 +215,33 @@ void test('complete Tech review rejects a Google research link while legacy Nvid
     'fail',
   );
 });
+
+void test('NBA injury nonmatches reject shared-player and shared-team links despite correct LeBron control', async () => {
+  const index = fixture.cases.findIndex((item) => item.topicName === 'NBA');
+  const item = fixture.cases[index];
+  const baseline = await evaluateDevelopingStories(fixture.cases, controls());
+  assert.equal(baseline.cases[index].reviews.length, 3);
+  assert.equal(baseline.controlsPassed, true);
+  for (const [current, previous] of [
+    ['current:2', 'history:6:1'], // Brown's trade dispute is not his hamstring injury.
+    ['current:4', 'history:4:2'], // Gueye is not McCollum or Newell.
+  ]) {
+    const records = controls();
+    records[index].groups.push([current, previous]);
+    const report = await evaluateDevelopingStories(fixture.cases, records);
+    assert.equal(report.controlsPassed, false);
+    assert.equal(report.cases[index].review?.acceptance, 'pass');
+    assert.equal(
+      report.cases[index].reviews.filter(
+        (review) => review.acceptance === 'fail',
+      ).length,
+      1,
+    );
+    assert.equal(report.semanticAcceptance, 'not-established');
+  }
+  assert.equal(
+    item.reviews!.filter((review) => !review.expectedPredecessors.length)
+      .length,
+    2,
+  );
+});

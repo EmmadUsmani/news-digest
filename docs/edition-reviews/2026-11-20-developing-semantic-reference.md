@@ -146,3 +146,24 @@ The fixture records these five labels. Existing matching and snapshot checks
 consume them; a false Google-study/smartglasses link fails even while the
 legacy Nvidia negative passes. These are agent judgements, not model outputs.
 No rewrite acceptance, live activation or provider spend follows from them.
+
+## Partial NBA selection review — iteration 3050
+
+Reviewed all five Nov 18 NBA headlines against 34 earlier stories in seven
+Nov 11–17 snapshots. Current summaries and original editorial evidence are
+absent; three decisions are supportable from the saved headlines, while two
+remain unresolved. This is a partial reference, not full-topic acceptance.
+
+| Current selection                                                 | Decision                                                         | Saved evidence                                                                                                                                                                                                  |
+| ----------------------------------------------------------------- | ---------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| LeBron passes Kidd (`73ac0388-4e54-4eaa-a517-cc1501b19b95`)       | Retain Nov 16 predecessor `10ba338a-48fa-41f3-9ed4-b558f6efc1f9` | Same unique career-assist milestone. No new development is established.                                                                                                                                         |
+| Jaylen Brown hamstring (`6c0c70f1-2242-45d0-aa48-3cae40d444f0`)   | No predecessor                                                   | Nov 11 Brown stories concern his trade and foul trouble, not this injury. Other players' injuries are separate events.                                                                                          |
+| McCollum/Newell injuries (`6482e82c-1fcf-4f7b-8916-65d776c4097f`) | No predecessor                                                   | Nov 13 Hawks absence concerns Mouhamed Gueye. Shared team and four-week duration do not establish continuity.                                                                                                   |
+| Pistons end Spurs streak (`0b1e615c-de17-420c-bbb4-0f9aba434016`) | Unresolved; no label added                                       | Nov 16 covers win 12; Nov 17 discusses Wembanyama and the streak. Missing current evidence prevents deciding whether the game result is a separate event or a supported streak update under the feature policy. |
+| Warriors changes (`2bcd0619-b9dc-44b0-a5ae-fff1e6d04f7c`)         | Unresolved; no label added                                       | Nov 12–17 covers Curry's injury, survival analysis and successive losses. The headline alone cannot establish concrete new changes or which earlier developments belong together.                               |
+
+Existing replay and snapshot checks now consume the two explicit injury
+nonmatches alongside the original LeBron match. Adversarial links to Brown's
+trade dispute and Gueye's injury must fail even when the LeBron control passes.
+No summary can be accepted as a new NBA development from these headlines alone.
+Production remains inactive; no provider calls, budget changes or fresh fetches.

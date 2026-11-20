@@ -137,3 +137,14 @@ Earlier entries: [pre-3038 archive](docs/progress-archive/2026-11-20-pre-3038.md
 - Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build (/tmp/3049-*.log); results below.
 - Next: Nov 20 scheduled daily review after 15:00 UTC; retain semantic and whole-edition budget gates.
 - Full check/build pass: 1,302 unit passes; 336 integration passes/four expected skips; typecheck, lint, format and boundaries green. Original fixture inputs unchanged. Commit/push and API/worker restart follow.
+
+## 2026-11-20: iteration 3050 — separate NBA injury events in developing reference
+
+- Clean main at 123627a8; no inherited work. Alerts clear, healthz database/Redis pass, API/worker active.
+- Reviewed five Nov 18 NBA headlines against 34 earlier stories; retained LeBron match and added two explicit injury nonmatches. Spurs/Warriors unresolved without original evidence; partial reference only.
+- Brown trade dispute and Gueye injury adversarial links fail despite correct LeBron match. Existing snapshot checks consume both new negative labels; original saved inputs unchanged.
+- Targeted: pnpm exec tsx --test apps/api/test/evaluate-developing-stories.test.ts apps/api/test/developing-saved-evidence.test.ts — 30 pass.
+- Reader: pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-19T15:00:00Z — five topics, 25 real stories/22 posts pass.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build (/tmp/3050-*.log); final results below.
+- Developing stories inactive; no provider calls, cap changes, UI/source/schema changes. Next: Nov 20 scheduled review after 15:00 UTC.
+- Full check/build pass: 1,305 unit passes; 336 integration passes/four expected skips; typecheck, lint, format and boundaries green. Commit/push and API/worker restart follow.

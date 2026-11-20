@@ -763,7 +763,29 @@
           "storyId": "10ba338a-48fa-41f3-9ed4-b558f6efc1f9"
         }
       ],
-      "rationale": "Both headlines identify the same unique LeBron/Jason Kidd third-place career-assist milestone. Current saved summary is absent; no new development is established."
+      "rationale": "Both headlines identify the same unique LeBron/Jason Kidd third-place career-assist milestone. Current saved summary is absent; no new development is established.",
+      "reviews": [
+        {
+          "storyId": "73ac0388-4e54-4eaa-a517-cc1501b19b95",
+          "expectedPredecessors": [
+            {
+              "editionId": "93aefc45-33d7-4639-ad53-78e316a40f14",
+              "storyId": "10ba338a-48fa-41f3-9ed4-b558f6efc1f9"
+            }
+          ],
+          "rationale": "Both headlines identify the same unique LeBron/Jason Kidd third-place career-assist milestone. Current saved summary is absent; no new development is established."
+        },
+        {
+          "storyId": "6c0c70f1-2242-45d0-aa48-3cae40d444f0",
+          "expectedPredecessors": [],
+          "rationale": "Jaylen Brown hamstring absence is distinct from the Nov 11 trade-request dispute and game foul trouble. No saved earlier story covers this injury."
+        },
+        {
+          "storyId": "6482e82c-1fcf-4f7b-8916-65d776c4097f",
+          "expectedPredecessors": [],
+          "rationale": "CJ McCollum calf strain and Asa Newell toe injury are distinct from the Nov 13 Mouhamed Gueye absence. Same Hawks team and recovery duration do not establish the same injury event."
+        }
+      ]
     },
     {
       "editionId": "a0fa3916-f1dc-4fbd-8d76-2884d5e01c06",
