@@ -397,3 +397,10 @@ relationship to the later resignation; it is not labelled a match.
 - Bounds are 1–64 positive safe-integer estimates for one nonblank run. Refusal exposes only the failing index and reasons, without pending-hold IDs from the rolled-back transaction. Admission logs are emitted only after the complete transaction commits.
 - Isolated PostgreSQL controls cover later shared/model/verification refusals with zero leftover rows, malformed plans, two competing plans with exactly one whole-plan winner, and settlement/release of that winner. No provider calls.
 - This is the reservation primitive only. BudgetedLlm does not yet consume pre-admitted holds; edition orchestration, protected-obligation planning, saved-edition semantic acceptance and activation remain open. Production generation remains unwired.
+
+## Iteration 3002 — consume reserved holds through BudgetedLlm
+
+- Added inactive scoped ledger composition: atomically reserve a complete request plan, then pass its ledger to BudgetedLlm. Consumption binds prompt, instructions, output limit, all model prices, purpose, topic and run; altered or repeated requests cannot dispatch against a hold. No second reservation or settlement-wait path is exposed.
+- Caller cleanup closes admission and releases unused holds, including cache hits and expired executions. Concurrent cleanup coalesces; consumed holds retain normal settlement/provider-limit/uncertain-transport behavior. Repairs outside the exact admitted plan refuse.
+- Seven offline controls use real BudgetedLlm and an in-memory ledger/provider: successful settlement, exact binding, single consumption, concurrent cleanup, cache/expiry, malformed JSON, uncertainty/provider limit and unavailable/refused admission. No live provider calls.
+- Edition wiring, protected-obligation planning, saved-edition semantic acceptance and activation remain open. Production generation remains unwired.

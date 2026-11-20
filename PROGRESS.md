@@ -138,3 +138,12 @@
 - Isolated PostgreSQL test passes later shared/model/verification refusal rollback, invalid plans, competing whole plans (one winner), and settlement/release. No provider calls, cap changes or feature activation.
 - pnpm format, pnpm lint:fix and pnpm check pass: 1,224 unit tests, 334 integration passes/four expected skips. pnpm build passes. Logs /tmp/3001-{format,lint,check,build}.log. Final diff check passes; commit/push and API/worker restart follow.
 - TASKS and developing evidence updated. No UI/source/schema/handbook changes. Next: BudgetedLlm consumption of pre-admitted holds, whole-edition obligations/semantic acceptance; Nov 20–22 recall reviews after scheduled editions.
+
+## 2026-11-20: iteration 3002 — consume pre-admitted LLM plan holds
+
+- Clean main at 569cfbc2; no inherited work. Alerts clear, health/database/Redis pass, enabled sources healthy (Destructoid inactive), digest queue zero failures; next run Nov 20 15:00 UTC.
+- Added inactive reserved-plan ledger composition for real BudgetedLlm: exact request/attribution/all-price matching consumes each hold once, with no second reservation or unplanned repair admission.
+- Cleanup closes admission and releases unused holds (including cache/expiry), coalesces concurrent cleanup and retains consumed uncertain holds. Existing settlement and provider-limit release behavior preserved.
+- Seven targeted offline tests pass using real BudgetedLlm and in-memory ledger/provider; no provider calls, cap changes or activation. Whole-edition orchestration/protected obligations and semantic acceptance remain open.
+- Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build pass; 1,231 unit tests, 334 integration passes/four expected skips. Initial require-await lint error corrected; final API rebuild passes. Logs /tmp/3002-{target,format,lint,check,build,api-build}.log.
+- Live reader retains 7a747d9c, five topics/25 real stories/22 posts. No UI/source/schema/handbook changes. Final diff check passes; commit/push and API/worker restart follow. Next: edition orchestration; Nov 20–22 scheduled recall reviews.
