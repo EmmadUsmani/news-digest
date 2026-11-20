@@ -1,20 +1,25 @@
 // Offline only: no provider, database, environment config or ledger access.
 import { readFileSync, writeFileSync } from 'node:fs';
 
-import { developingCapturedPlan } from './lib/developing-captured-plan';
+import {
+  developingCapturedPlan,
+  developingProtectedCapturedPlan,
+} from './lib/developing-captured-plan';
 
 export function checkDevelopingCapturedPlan(
   inputPath: string,
   outputPath: string,
 ) {
-  const input = JSON.parse(readFileSync(inputPath, 'utf8')) as Parameters<
-    typeof developingCapturedPlan
-  >[0];
+  const input = JSON.parse(readFileSync(inputPath, 'utf8')) as
+    | Parameters<typeof developingCapturedPlan>[0]
+    | Parameters<typeof developingProtectedCapturedPlan>[0];
   input.budget.now = new Date(input.budget.now);
   const report = {
     purpose:
       'Offline supplied-capture coverage and budget check only; not runtime admission, semantic acceptance or ledger reservation.',
-    ...developingCapturedPlan(input),
+    ...('protectedRequests' in input
+      ? developingProtectedCapturedPlan(input)
+      : developingCapturedPlan(input)),
   };
   writeFileSync(outputPath, JSON.stringify(report, null, 2) + '\n', {
     flag: 'wx',

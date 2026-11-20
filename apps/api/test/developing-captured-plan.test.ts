@@ -11,7 +11,10 @@ import { join } from 'node:path';
 import { test } from 'node:test';
 
 import { checkDevelopingCapturedPlan } from '../../../scripts/check-developing-captured-plan';
-import { developingCapturedPlan } from '../../../scripts/lib/developing-captured-plan';
+import {
+  developingCapturedPlan,
+  developingProtectedCapturedPlan,
+} from '../../../scripts/lib/developing-captured-plan';
 
 const request = {
   model: { id: 'editor', input: 1, output: 1, cacheRead: 0, cacheWrite: 1 },
@@ -145,6 +148,14 @@ void test('file preflight emits no report on stage substitution and retains exis
       'fits-supplied-plan',
     );
     assert.throws(() => checkDevelopingCapturedPlan(input, output), /EEXIST/);
+    rmSync(output);
+    writeFileSync(
+      input,
+      JSON.stringify({ ...plan, protectedRequests: [request] }),
+    );
+    const derived = checkDevelopingCapturedPlan(input, output);
+    assert.equal(derived.requiredMicros, 12294);
+    assert.equal(derived.status, 'fits-supplied-plan');
   } finally {
     rmSync(directory, { recursive: true, force: true });
   }
@@ -181,5 +192,49 @@ void test('foreign or missing execution attribution refuses both stages and addi
   assert.throws(
     () => developingCapturedPlan({ ...plan, topicIds: [' '] }),
     /Invalid expected/,
+  );
+});
+
+void test('request-derived morning protection accounts for shared and allocated-model costs', () => {
+  const budget = {
+    now: plan.budget.now,
+    totals: plan.budget.totals,
+    caps: {
+      ...plan.budget.caps,
+      modelAllocation: { model: 'editor', dailyFraction: 0.6 },
+    },
+    modelToday: { editor: 0 },
+  };
+  const input = { ...plan, budget, protectedRequests: [request] };
+  const result = developingProtectedCapturedPlan(input);
+  assert.equal(result.protectedMicros, 2049);
+  assert.deepEqual(result.protectedModelMicros, { editor: 2049 });
+  assert.equal(result.requiredMicros, 12294);
+  assert.equal(result.status, 'model-budget-refused');
+  assert.equal(
+    developingProtectedCapturedPlan({ ...input, protectedRequests: [] }).status,
+    'fits-supplied-plan',
+  );
+  assert.equal(
+    developingProtectedCapturedPlan({
+      ...input,
+      protectedRequests: [request, request, request, request, request],
+    }).status,
+    'shared-budget-refused',
+  );
+  assert.throws(
+    () =>
+      developingProtectedCapturedPlan({
+        ...input,
+        protectedRequests: [{ ...request, runId: 'other' }],
+      }),
+    /edition differs/,
+  );
+  assert.equal(
+    developingProtectedCapturedPlan({
+      ...input,
+      protectedRequests: [{ ...request, prompt: 'x'.repeat(100000) }],
+    }).status,
+    'input-limit',
   );
 });

@@ -109,3 +109,13 @@
 - Targeted: pnpm exec tsx --test apps/api/test/capture-developing-execution.test.ts (three pass). Full commands: pnpm format; pnpm lint:fix; pnpm check; pnpm build. Logs /tmp/3013-{target,format,lint,check,build}.log; final results below.
 - No UI/source/schema/handbook behavior changes. Next: derive complete protected obligations, semantic review and whole-edition budget admission; Nov 20–22 recall reviews await scheduled editions.
 - Final checks pass: 1,249 unit tests, 335 integration passes/four expected skips; typecheck/lint/format/boundaries and production build pass. Scheduled-reader gate verifies the Nov 19 publication via pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-19T15:00:00Z (secrets sourced without output); diff check clean. Archived iterations 2995–3004 to keep this file below 25 KB. Commit/push and API/worker restart follow.
+
+## 2026-11-20: iteration 3014 — request-derived protected-work budget
+
+- Clean main at 50883786; no inherited work. Alerts clear and health passes; API/worker running. Scheduled Nov 20 edition not yet due.
+- Offline captured-plan checker now accepts concrete protected requests and derives both shared and per-model obligations from the same conservative request bounds. Foreign-edition protection refuses; oversized protected input cannot report a fit. Repeated requests count separately for repair/fallback obligations.
+- Targeted test covers allocated-model refusal despite shared capacity, shared refusal, empty protection, foreign attribution and oversized input. Six captured-plan tests pass.
+- This evaluates a supplied plan, not completeness of morning work or semantic success. Legacy numeric preflight remains supported; feature stays inactive, no provider calls or cap changes.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build (logs /tmp/3014-{format,lint,check,build}.log). Final results recorded below.
+- No production behavior, source, schema or handbook changes. Next: populate complete morning obligations from saved edition execution, semantic review and whole-edition admission; Nov 20–22 recall reviews await scheduled editions.
+- Final rerun passes after formatting a late test edit: 1,250 unit tests, 335 integration passes/four expected skips; typecheck/lint/format/boundaries and production build pass. Scheduled-reader gate verifies real Nov 19 edition (25 stories/22 posts). Disk 62%; diff clean. Commit/push and API/worker restart follow.

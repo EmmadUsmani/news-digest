@@ -18,3 +18,47 @@ export function developingCapturedPlan(
     ...developingEditionBudget({ ...input.budget, requests }),
   };
 }
+
+// Request-derived protection for a supplied remaining-work plan. Callers must
+// include repair/fallback branches; this cannot prove that the plan is complete.
+export function developingProtectedCapturedPlan(
+  input: DevelopingRequestCaptures & {
+    protectedRequests: readonly import('../../apps/api/src/modules/curation/domain/llm.port').LlmRequest[];
+    budget: Omit<
+      BudgetInput,
+      'requests' | 'protectedMicros' | 'protectedModelMicros'
+    >;
+  },
+) {
+  const requests = developingCapturedRequests(input);
+  if (
+    input.protectedRequests.some((request) => request.runId !== input.editionId)
+  )
+    throw new Error('Protected request edition differs');
+  const allocation = input.budget.caps.modelAllocation;
+  const obligations = developingEditionBudget({
+    ...input.budget,
+    protectedMicros: 0,
+    protectedModelMicros: allocation ? { [allocation.model]: 0 } : {},
+    requests: input.protectedRequests,
+  });
+  const result = developingEditionBudget({
+    ...input.budget,
+    protectedMicros: obligations.featureMicros,
+    protectedModelMicros: allocation
+      ? { [allocation.model]: 0, ...obligations.byModel }
+      : obligations.byModel,
+    requests,
+  });
+  return {
+    editionId: input.editionId,
+    topicCount: input.topicIds.length,
+    requestCount: requests.length,
+    protectedRequestCount: input.protectedRequests.length,
+    protectedMicros: obligations.featureMicros,
+    protectedModelMicros: obligations.byModel,
+    ...result,
+    status:
+      obligations.status === 'input-limit' ? 'input-limit' : result.status,
+  };
+}
