@@ -109,7 +109,7 @@ void test('invalid edition identities refuse before matching', async () => {
   assert.equal(calls, 0);
 });
 
-void test('later matching refusal discards an earlier successful rewrite', async () => {
+void test('later matching refusal prevents every edition rewrite', async () => {
   let rewrites = 0;
   const first = {
     ...topic('tech'),
@@ -164,9 +164,49 @@ void test('later matching refusal discards an earlier successful rewrite', async
   };
   const refused = await enrichDevelopingEdition([first, second]);
   assert.equal(refused.status, 'unchanged');
-  assert.equal(rewrites, 2);
+  assert.equal(rewrites, 1);
   assert.equal(refused.topics[0].stories, first.selected);
   assert.equal(refused.topics[1].stories, second.selected);
+
+  const events: string[] = [];
+  const matchedTopics = ['tech', 'nba', 'world'].map((topicId) => ({
+    ...first,
+    topicId,
+    grouping: {
+      async groupWithResult() {
+        events.push(`match:${topicId}`);
+        return {
+          status: 'validated' as const,
+          groups: [['current:0', 'history:0:0']],
+        };
+      },
+    },
+    llm: {
+      async complete() {
+        events.push(`rewrite:${topicId}`);
+        // Refuse the second rewrite; the third must never dispatch.
+        return topicId === 'nba'
+          ? {
+              text: '[]',
+              usage: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
+            }
+          : first.llm.complete();
+      },
+    },
+  }));
+  const rewriteRefused = await enrichDevelopingEdition(matchedTopics);
+  assert.equal(rewriteRefused.status, 'unchanged');
+  assert.equal(rewriteRefused.reason, 'rewrite-refused');
+  assert.deepEqual(events, [
+    'match:tech',
+    'match:nba',
+    'match:world',
+    'rewrite:tech',
+    'rewrite:nba',
+  ]);
+  rewriteRefused.topics.forEach((item, index) =>
+    assert.equal(item.stories, matchedTopics[index].selected),
+  );
 });
 
 void test('invalid later topic refuses the edition before any matching dispatch', async () => {

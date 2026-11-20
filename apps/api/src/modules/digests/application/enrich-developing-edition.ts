@@ -1,7 +1,9 @@
 import {
-  enrichSelectedDevelopingStories,
+  type enrichSelectedDevelopingStories,
+  matchSelectedDevelopingStories,
   prepareSelectedDevelopingStories,
 } from './enrich-selected-developing-stories';
+import { rewriteSelectedDevelopingStories } from './rewrite-selected-developing-stories';
 
 type TopicInput = Parameters<typeof enrichSelectedDevelopingStories>[0];
 
@@ -37,10 +39,10 @@ export async function enrichDevelopingEdition<T extends TopicInput>(
     )
       return unchanged(preparation);
   }
-  const staged = [];
+  const matched = [];
   for (const topic of topics) {
     try {
-      const result = await enrichSelectedDevelopingStories(topic);
+      const result = await matchSelectedDevelopingStories(topic);
       if (
         result.status === 'unchanged' &&
         ![
@@ -51,7 +53,24 @@ export async function enrichDevelopingEdition<T extends TopicInput>(
         ].includes(result.reason)
       )
         return unchanged(result.reason);
-      staged.push({ topicId: topic.topicId, stories: result.stories });
+      matched.push({ topic, result });
+    } catch {
+      return unchanged('enrichment-failed');
+    }
+  }
+  const staged = [];
+  for (const { topic, result } of matched) {
+    if (result.status === 'unchanged') {
+      staged.push({ topicId: topic.topicId, stories: topic.selected });
+      continue;
+    }
+    try {
+      const rewritten = await rewriteSelectedDevelopingStories({
+        ...topic,
+        links: result.links,
+      });
+      if (rewritten.status !== 'rewritten') return unchanged('rewrite-refused');
+      staged.push({ topicId: topic.topicId, stories: rewritten.stories });
     } catch {
       return unchanged('enrichment-failed');
     }

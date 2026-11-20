@@ -111,3 +111,13 @@
 - Verification: pnpm format, pnpm lint:fix, pnpm check and pnpm build; logs /tmp/2998-{target,format,lint,check,build}.log. All pass: 1,223 unit tests, 333 integration passes/four expected skips; build passes.
 - Live reader probe retains edition 7a747d9c, five topics/25 stories/22 posts. Default local rate-limit bucket returns 429; explicit local-probe forwarded visitor succeeds. No UI/source/schema/handbook changes.
 - Next: whole-edition budget admission and semantic acceptance; Nov 20–22 recall reviews after scheduled editions. Today's evaluation commit already used.
+
+## 2026-11-20: iteration 2999 — match every topic before any developing rewrite
+
+- Clean main at b97e1493; no inherited work. Alerts clear; health/database/Redis pass; API/worker active. Enabled sources healthy, Destructoid inactive. Digest queue has zero failures; next edition Nov 20 15:00 UTC.
+- Separated selected-topic matching from rewriting. Inactive edition orchestration finishes every matching result before dispatching rewrites; a later matching refusal preserves all accepted arrays without earlier rewrite spend.
+- Ten targeted tests pass, including all-three-matches-before-rewrites ordering and a second rewrite refusal that restores every accepted array and prevents the third rewrite. Existing single-topic behavior retained.
+- pnpm format and pnpm lint:fix pass; full pnpm check passes: 1,223 unit tests, 333 integration passes/four expected skips. Shared explicit input types resolve extraction inference; API typecheck and pnpm build pass. Logs /tmp/2999-{target,format,lint,check,build}.log.
+- Live latest 7a747d9c retains five topics/25 stories/22 posts. No provider calls, activation, UI/source/schema/handbook changes. Matching charges remain spent; whole-edition budget reservation and semantic acceptance remain open.
+- Next: whole-edition admission and saved-edition semantic acceptance; Nov 20–22 scheduled recall reviews. Today's evaluation commit is already used.
+- Final diff check passes; commit/push and API/worker restart follow.

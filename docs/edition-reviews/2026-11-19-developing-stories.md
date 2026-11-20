@@ -384,3 +384,9 @@ relationship to the later resignation; it is not labelled a match.
 - Extracted the existing topic input checks into a shared pure preparation function. The inactive edition coordinator runs it for every topic before matching any topic. Missing/duplicate evidence, excess history capacity and unavailable matching in a later topic now refuse without earlier dispatch.
 - Offline controls assert zero matching calls and original array identity for each refusal; the earlier successful-rewrite/later-runtime-refusal control still exercises output rollback. Ineligible topics remain successful no-ops.
 - This avoids preventable partial charges from invalid inputs; it does not reserve the whole budget or establish semantic acceptance. Generation remains unwired; no provider calls.
+
+## Iteration 2999 — finish matching before rewriting
+
+- Split selected-topic matching from rewriting while retaining the single-topic entry point. The inactive edition coordinator now completes all matching before any rewrite dispatch. A later matching refusal cannot consume an earlier topic's rewrite budget.
+- Offline controls verify all three matching calls precede rewriting; a refused second rewrite restores every accepted array and prevents the third rewrite. Valid no-link and ineligible topics retain their original arrays.
+- Matching charges remain spent on refusal. This staging change does not acquire a whole-edition budget reservation or establish semantic acceptance; generation remains unwired. No provider calls.
