@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "provenance": "Authored synthetic publication responses; no provider calls or live content.",
+  "provenance": "Authored synthetic publication responses; editor fingerprint refreshed for v16 generic support and concise-output guidance (iteration 3082). Response text unchanged; no provider calls or live content.",
   "records": [
     {
       "fingerprint": "4029c0f146309e047c6937d86360100aa94c6bf6fe5ab77979f5170ca3427ac1",
@@ -16,7 +16,7 @@
       }
     },
     {
-      "fingerprint": "eae1069c4ba163090e22a04d94bbc1cb60ce951ba4b1d78418ed6f2020ddcca2",
+      "fingerprint": "c8c69aabf25f77b99783fa60743e36dc228eb1c6a1c8ab1b3990ff0fafc1aad9",
       "model": "claude-sonnet-5-5",
       "response": {
         "text": "{\"brief\":[\"A model launched.\",\"It is available today.\"],\"stories\":[{\"id\":\"00000000-0000-4000-8000-000000000099\",\"evidenceIds\":[\"00000000-0000-4000-8000-000000000099\"],\"headline\":\"New model becomes available\",\"summary\":\"A company launched a model. It is available today.\",\"whyItMatters\":\"Builders have another tool.\",\"rationale\":\"Important launch.\"}]}",

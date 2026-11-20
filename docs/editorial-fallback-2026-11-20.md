@@ -134,3 +134,30 @@ retained in `docs/edition-reviews/2026-11-20-editor-completion.json`; no request
 text, provider content blocks or secrets are copied. No provider calls, runtime,
 model, cap or publication changes. Next: generic all-topic support/repair and
 concise-output guidance after the freeze, then consolidated daily recall review.
+
+## General repair guidance — iteration 3082
+
+Story editor v16 applies complete-source-sentence guidance to every topic:
+technical conditions, product limits and contrasts retain all conditions,
+attribution and uncertainty through final punctuation. Headlines prefer
+supported positive facts; material negative qualifications stay in the summary.
+Fixed absence repair feedback repeats that guidance and requires checking every
+field after repair. No source or rejected model text enters repair feedback.
+The existing Gaming concise-output guidance now applies across topics, within
+the unchanged 4,000-token limit. All three story purpose labels advance to v16;
+retained v14/v15 captures remain valid in the offline work manifest.
+
+Scripted regression tests carry all eight manually written field repairs through
+the unchanged editorial validator on Sonnet and Haiku routes. Five-topic tests
+also exercise both model repairs with fixed feedback and unchanged output caps.
+These tests establish transport and validator compatibility, not factual review
+of an entire response, model obedience, or successful future publication. The
+PostgreSQL manual control remains unsuitable as publication prose. No paid
+replay, new model, budget increase, source change or edition rewrite is involved.
+
+Deployed after 16:00 UTC with API/worker restart, passing health and reader checks.
+Full check passes 1,319 unit and 336 integration tests (four expected skips). The
+synthetic publication fingerprint and golden dispatch map now use v16; authored
+response text and expected publication are unchanged. Next scheduled Tech/Gaming AI acceptance
+remains open; the consolidated Nov 20 review and per-topic event recall/miss
+causes are the next task once this breakage fix is deployed and healthy.

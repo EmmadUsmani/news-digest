@@ -159,6 +159,9 @@ void test('protected inventory rejects stage substitution and wrong grouping rou
       stage: 'story',
       topics: ['a'],
       purposes: [
+        'shortlist-editor-v16-nba',
+        'shortlist-editor-v16-gaming',
+        'shortlist-editor-v16-brief',
         'shortlist-editor-v14-nba',
         'shortlist-editor-v15-gaming',
         'shortlist-editor-v14-brief',

@@ -467,7 +467,7 @@ void test('headline-only evidence accepts a concise attributed summary without r
     const result = await h.editor.edit(topic, thin, 1, 'thin-source');
     assert.deepEqual(result?.stories, output.stories);
     assert.equal(h.calls.length, 1);
-    assert.equal(h.calls[0].purpose, 'shortlist-editor-v14-brief');
+    assert.equal(h.calls[0].purpose, 'shortlist-editor-v16-brief');
     assert.match(h.calls[0].instructions, /one sentence for thin evidence/);
     assert.match(
       h.calls[0].instructions,
@@ -523,7 +523,7 @@ void test('brief guidance reaches both editors without changing saved factual bu
     );
     assert.deepEqual(result?.brief, output.brief);
     assert.equal(h.calls.length, 1);
-    assert.equal(h.calls[0].purpose, 'shortlist-editor-v14-brief');
+    assert.equal(h.calls[0].purpose, 'shortlist-editor-v16-brief');
     assert.match(
       h.calls[0].instructions,
       /not a copied list of the story headlines/,
@@ -672,7 +672,7 @@ void test('editor preserves practical release qualifications in both headline an
     );
     assert.deepEqual(result?.stories, output.stories);
     assert.deepEqual(JSON.parse(h.calls[0].prompt).candidates, input);
-    assert.equal(h.calls[0].purpose, 'shortlist-editor-v14-brief');
+    assert.equal(h.calls[0].purpose, 'shortlist-editor-v16-brief');
     assert.match(
       h.calls[0].instructions,
       /qualifications.*both headline and summary/,
@@ -745,7 +745,7 @@ void test('routine roster guidance reaches both editors and allows unfilled stor
     assert.deepEqual(result?.stories, []);
     assert.deepEqual(result?.brief, []);
     assert.equal(h.calls.length, 1);
-    assert.equal(h.calls[0].purpose, 'shortlist-editor-v14-brief');
+    assert.equal(h.calls[0].purpose, 'shortlist-editor-v16-brief');
     assert.deepEqual(JSON.parse(h.calls[0].prompt).candidates, input);
     assert.match(
       h.calls[0].instructions,
@@ -1150,7 +1150,7 @@ void test('NBA repair recovers five-bullet response within the unchanged brief b
   assert.equal(h.diagnostics()[0].category, 'invalid-schema');
   assert.deepEqual(h.diagnostics()[0].schemaIssues, ['too_big']);
   for (const call of h.calls) {
-    assert.equal(call.purpose, 'shortlist-editor-v14-nba');
+    assert.equal(call.purpose, 'shortlist-editor-v16-nba');
     assert.match(
       call.instructions,
       /five selected stories still require only 2–4 brief bullets/,
@@ -1164,7 +1164,7 @@ void test('NBA repair recovers five-bullet response within the unchanged brief b
   assert.match(h.calls[1].prompt, /previous response failed schema validation/);
   const other = harness();
   await other.editor.edit(topic, candidates, 1, 'unchanged-tech');
-  assert.equal(other.calls[0].purpose, 'shortlist-editor-v14-brief');
+  assert.equal(other.calls[0].purpose, 'shortlist-editor-v16-brief');
   assert.doesNotMatch(
     other.calls[0].instructions,
     /NBA injury and availability reports/,
@@ -1206,7 +1206,7 @@ void test('Gaming five-story brief repairs without dropping stories or raising t
     assert.equal(h.calls.length, 2);
     assert.deepEqual(h.diagnostics()[0].schemaIssues, ['too_big']);
     for (const call of h.calls) {
-      assert.equal(call.purpose, 'shortlist-editor-v15-gaming');
+      assert.equal(call.purpose, 'shortlist-editor-v16-gaming');
       assert.match(call.instructions, /without Markdown fences/);
       assert.match(
         call.instructions,
@@ -1653,7 +1653,7 @@ void test('Gaming truncated JSON repairs within the unchanged budget and fails c
       assert.equal(h.calls.length, 2);
       for (const call of h.calls) {
         assert.equal(call.maxOutputTokens, 4000);
-        assert.equal(call.purpose, 'shortlist-editor-v15-gaming');
+        assert.equal(call.purpose, 'shortlist-editor-v16-gaming');
         assert.match(
           call.instructions,
           /close the object within the existing output budget/,
@@ -2021,4 +2021,104 @@ void test('developing context is bounded and absent for ordinary stories', async
     'earlierCoverage' in JSON.parse(ordinary.calls[0].prompt).candidates[0],
     false,
   );
+});
+
+void test('all topic routes keep concise output and complete-sentence guidance through both model repairs', async () => {
+  const invalid = {
+    ...valid,
+    stories: [
+      { ...story, summary: 'The company has not confirmed a launch date.' },
+    ],
+  };
+  for (const name of [
+    'Tech & AI',
+    'NBA',
+    'Gaming',
+    'World news & politics',
+    'U.S. news & politics',
+  ]) {
+    const h = harness([invalid, invalid, invalid, valid]);
+    assert.ok(
+      await h.editor.edit({ ...topic, name }, candidates, 1, 'generic-repair'),
+    );
+    assert.equal(h.calls.length, 4);
+    for (const call of h.calls) {
+      assert.equal(call.maxOutputTokens, 4000);
+      assert.match(call.instructions, /News editor v16/);
+      assert.match(call.instructions, /technical conditions/);
+      assert.match(
+        call.instructions,
+        /every condition, attribution and uncertainty clause/,
+      );
+      assert.match(
+        call.instructions,
+        /character limits are ceilings, not targets/,
+      );
+      assert.match(
+        call.instructions,
+        /close the object within the existing output budget/,
+      );
+    }
+    for (const repair of [h.calls[1], h.calls[3]]) {
+      assert.match(
+        repair.prompt,
+        /Technical conditions, product limits and contrasts count too/,
+      );
+      assert.match(repair.prompt, /recheck every field after repair/);
+      assert.ok(
+        !repair.prompt.includes('The company has not confirmed a launch date.'),
+      );
+    }
+    assert.notEqual(h.calls[0].model.id, h.calls[2].model.id);
+  }
+});
+
+void test('Nov 20 manual source-bound repairs traverse unchanged editorial validation on both routes', async () => {
+  const fixtures = JSON.parse(
+    readFileSync(
+      new URL('./fixtures/editorial-absence-2026-11-20.json', import.meta.url),
+      'utf8',
+    ),
+  ) as {
+    topic: string;
+    field: 'headline' | 'summary';
+    text: string;
+    evidence: string[];
+    manualRepair: string;
+  }[];
+  for (const fixture of fixtures) {
+    const members = Array.from(
+      { length: fixture.evidence.length / 2 },
+      (_, index) => ({
+        id: index === 0 ? 'one' : `support-${index}`,
+        title: fixture.evidence[index * 2],
+        excerpt: fixture.evidence[index * 2 + 1],
+        sources: ['Saved incident evidence'],
+      }),
+    );
+    const input = [{ ...members[0], clusterEvidence: members }];
+    const base = { ...story, evidenceIds: members.map((member) => member.id) };
+    const rejected = {
+      ...valid,
+      stories: [{ ...base, [fixture.field]: fixture.text }],
+    };
+    const corrected = {
+      ...valid,
+      stories: [{ ...base, [fixture.field]: fixture.manualRepair }],
+    };
+    for (const refuse of [[], ['claude-sonnet-5-5']]) {
+      const h = harness([rejected, corrected], refuse);
+      const result = await h.editor.edit(
+        { ...topic, name: fixture.topic },
+        input,
+        1,
+        'nov20-manual-control',
+      );
+      assert.ok(result, JSON.stringify(h.diagnostics()));
+      assert.equal(result.stories[0][fixture.field], fixture.manualRepair);
+      assert.equal(h.calls.length, 2);
+      assert.equal(h.diagnostics()[0].category, 'unsupported-absence');
+      assert.equal(h.diagnostics()[0].field, fixture.field);
+    }
+  }
 });

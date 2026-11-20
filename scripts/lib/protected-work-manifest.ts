@@ -37,6 +37,10 @@ export function protectedWorkManifest(input: {
     'social-triage': ['social-triage-v1'],
     grouping: ['story-grouping-v3', 'joint-story-grouping-v2'],
     story: [
+      // Retained captures and the current prompt both remain replayable.
+      'shortlist-editor-v16-nba',
+      'shortlist-editor-v16-gaming',
+      'shortlist-editor-v16-brief',
       'shortlist-editor-v14-nba',
       'shortlist-editor-v15-gaming',
       'shortlist-editor-v14-brief',

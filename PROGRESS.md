@@ -53,3 +53,16 @@ Earlier entries: [pre-3055 archive](docs/progress-archive/2026-11-20-pre-3055.md
 - Next: generic support/repair plus concise-output guidance after 16:00 UTC, then consolidated Nov 20 recall review. No deployment/restart during freeze.
 - pnpm format; pnpm lint:fix; pnpm check pass: static checks, 1,317 units, 336 integrations/four expected skips. Receipt equality/diff checks pass.
 - Scheduled-reader passes five topics/25 real stories/20 posts; API/worker active, disk 62%. Docs/receipt only: no rebuild or restart needed; freeze preserved.
+
+## 2026-11-20: iteration 3082 — generic source-bound editorial repair
+
+- Clean main at be4593f3; no inherited work. Alerts clear; health passes; 37 active sources healthy/Destructoid intentionally inactive; disk 62%.
+- Story editor v16 extends complete-negative-sentence guidance to technical conditions, product limits and contrasts across topics; fixed repair hints preserve every condition/attribution/uncertainty and recheck all fields.
+- Generalized Gaming concise-output guidance to all topics; support validator, schemas, models, budgets and 4,000-token cap unchanged. Offline manifest accepts v16 plus retained historical captures.
+- Scripted tests traverse all eight manual Nov 20 field controls through editorial validation on both model routes; five-topic repairs retain fixed feedback. No paid calls or model-obedience claim.
+- Updated affected pipeline handbook and incident; pnpm exec tsx scripts/check-handbook.ts 04-edition-pipeline passes; unchanged diagram inspected.
+- Targeted editor/absence tests 57 pass; manifest tests three pass; API build passes. Scheduled-reader passes five topics/25 real stories/20 posts.
+- pnpm format; pnpm lint:fix; final pnpm check pass: static checks, 1,319 units, 336 integrations/four expected skips. Logs: /tmp/3082-retry-*.log.
+- Initial full check: 1,319 units pass; two integrations fail on stale golden dispatch/fingerprint pins. Updated synthetic v16 mapping/fingerprint with response and golden output unchanged; direct fake-DB publication replay passes. No live inference.
+- Next: consolidated Nov 20 daily review with per-topic event recall/miss causes from saved grouping inputs; next scheduled edition must establish Tech/Gaming model acceptance.
+- After 16:09 UTC, systemctl --user restart news-digest-api.service news-digest-worker.service succeeds; both active. Health/database/Redis, scheduled-reader and obs sources --check pass; zero alerts. Commit/push follow.
