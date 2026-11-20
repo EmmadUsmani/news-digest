@@ -410,3 +410,8 @@ relationship to the later resignation; it is not labelled a match.
 - Reserved-plan composition accepts protected request obligations in the same atomic batch as feature requests. Both use the same conservative token/price bounds and ledger cap checks. Protected holds remain unavailable to the feature scope even when a request identity is identical; cleanup releases them before the caller resumes ordinary work.
 - Offline controls cover request-bound isolation, refusal/invalid protected bounds before feature admission, and real PostgreSQL competing reservations: 30,000 feature + 60,000 protected microdollars leave 10,000 available; feature settlement leaves the 60,000 obligation held, and cleanup restores availability for resumed editorial work.
 - This protects only obligations supplied by the caller. Deriving the complete remaining morning plan, edition orchestration, saved-edition semantic acceptance and activation remain open. Production generation remains unwired; no provider calls or cap changes.
+
+## Iteration 3004 — release independent unused holds after a cleanup failure
+
+- Scope cleanup now attempts all unused feature/protected holds even if an individual ledger release fails. It reports all failures together, retains failed holds for retry and never reopens request admission. Successfully released holds are not released again.
+- Offline regression injects two release failures across four holds: later protected obligations release, concurrent callers share one cleanup attempt, and retry touches only the two failed holds. No provider calls; edition wiring and complete obligation derivation remain open.

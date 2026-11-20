@@ -286,3 +286,42 @@ void test('protected obligation refusal or invalid bounds prevents feature admis
   assert.equal(batches, 1);
   assert.equal(h.counts().dispatches, 0);
 });
+
+void test('cleanup releases later obligations after failures and retries only failed holds', async () => {
+  const h = harness();
+  const attempts: string[] = [];
+  let failing = true;
+  const plan = await reserveLlmPlan(
+    {
+      ...h.ledger,
+      fail: async (id, code, limit, uncertain) => {
+        attempts.push(id);
+        if (failing && (id === '0' || id === '2'))
+          throw new Error(`Unavailable ${id}`);
+        await h.ledger.fail(id, code, limit, uncertain);
+      },
+    },
+    [request],
+    [request, request, request],
+  );
+  assert.ok(plan);
+  const results = await Promise.allSettled([
+    plan.releaseUnused(),
+    plan.releaseUnused(),
+  ]);
+  for (const result of results) {
+    assert.equal(result.status, 'rejected');
+    if (result.status !== 'rejected') continue;
+    assert.ok(result.reason instanceof AggregateError);
+    assert.equal(result.reason.errors.length, 2);
+  }
+  assert.deepEqual(attempts, ['0', '1', '2', '3']);
+  assert.deepEqual(h.released, ['1', '3']);
+  assert.equal(await plan.ledger.reserve(request, 4410), null);
+  failing = false;
+  await plan.releaseUnused();
+  await plan.releaseUnused();
+  assert.deepEqual(attempts, ['0', '1', '2', '3', '0', '2']);
+  assert.deepEqual(h.released, ['1', '3', '0', '2']);
+  assert.equal(h.counts().dispatches, 0);
+});

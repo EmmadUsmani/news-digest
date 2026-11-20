@@ -98,11 +98,23 @@ export async function reserveLlmPlan(
     releaseUnused: () => {
       closed = true;
       releasing ??= (async () => {
+        const errors: unknown[] = [];
         for (const hold of holds) {
           if (hold.consumed) continue;
-          await ledger.fail(hold.id, 'plan-unused', false, false);
-          hold.consumed = true;
+          try {
+            await ledger.fail(hold.id, 'plan-unused', false, false);
+            hold.consumed = true;
+          } catch (error) {
+            // Release independent obligations even if one operation fails.
+            // Failed holds remain available to a later cleanup attempt only.
+            errors.push(error);
+          }
         }
+        if (errors.length)
+          throw new AggregateError(
+            errors,
+            'Failed to release unused plan holds',
+          );
       })().finally(() => {
         releasing = undefined;
       });

@@ -157,3 +157,13 @@
 - Live latest 7a747d9c retains five topics/25 real stories/22 posts. Plain loopback reader probe hit HTTP 429; explicit local probe visitor succeeded. No UI/source/schema/handbook changes.
 - Next: derive complete protected obligations and wire edition orchestration; saved-edition semantic acceptance remains open. Nov 20–22 recall reviews follow scheduled editions.
 - Final diff check passes; commit/push and API/worker restart follow. Complete obligation derivation and feature activation remain unverified.
+
+## 2026-11-20: iteration 3004 — resilient reserved-plan cleanup
+
+- Clean main at d44c9557; no inherited work. Alerts clear; health/database/Redis and API/worker pass. Sources healthy (Destructoid inactive); digest queue zero failures, next run Nov 20 15:00 UTC.
+- Inactive scoped ledger cleanup attempts every unused feature/protected hold after individual release failures, reports aggregated errors and retries only failed holds. Admission stays closed; concurrent cleanup remains coalesced.
+- Offline regression injects two failures across four holds and verifies later protected releases, error propagation, closed admission and selective retry; all ten targeted tests pass. No provider calls, cap changes or activation.
+- pnpm format, pnpm lint:fix, pnpm check and pnpm build pass: 1,234 unit tests, 335 integration passes/four expected skips. Logs /tmp/3004-{target,format,lint,check,build}.log.
+- Live reader retains five topics/25 real stories/22 posts. Private job-state probe refused in public mode; supported public queue-count probe passes. No UI/source/schema/handbook changes.
+- Next: complete protected obligation derivation/edition orchestration and saved-edition semantic acceptance; Nov 20–22 recall reviews after scheduled editions. Developing enrichment remains inactive.
+- Final diff check passes; commit/push and API/worker restart follow.
