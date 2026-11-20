@@ -72,6 +72,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 3040: Ordinary LLM calls snapshot input before cache lookup, keeping fingerprint, provider input and repair context consistent despite caller mutation during cache I/O. Offline cache-hit/miss controls pass.
+
 - [x] 3039: Ordinary admission snapshots request/model before asynchronous reservation; reservation, provider input and settlement retain identical fields under caller mutation. Offline regression passes.
 
 - [x] 3038: Provider dispatch snapshots admitted request fields and model prices; caller mutation during completion cannot alter provider input or settlement costs. Offline pending-completion regression passes.

@@ -166,6 +166,11 @@ export class BudgetedLlm {
     validate: (value: unknown) => T,
     options: JsonOptions = {},
   ): Promise<LlmJsonOutcome<T>> {
+    // Ordinary calls must keep cache identity, input checks and any repair
+    // bound to the same input across cache I/O. Scoped calls retain the
+    // original reference so admission can detect caller mutation.
+    if (!this.ledger.allowsRequest)
+      request = { ...request, model: { ...request.model } };
     if (this.ledger.allowsRequest && !this.ledger.allowsRequest(request))
       return { status: 'budget-refused' };
     const inherited = currentLlmExecution();

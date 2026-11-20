@@ -211,3 +211,15 @@ Earlier entries: [through iteration 3019](docs/progress-archive/2026-11-20-itera
 - Final pnpm check/build pass: 1,283 unit tests, 336 integration passes/four expected skips; typecheck/lint/format/boundaries green.
 - Read-only scheduled reader gate passes for Nov 19: five topics, 25 real stories/22 posts; all 38 sources healthy, digest queue zero failures, disk 61%.
 - Commit/push and API/worker restart follow; post-restart health and reader verification required.
+
+## 2026-11-20: iteration 3040 — bind cache identity to ordinary request input
+
+- Clean main at a7a79636; no inherited work. Alerts clear; healthz passes; sources healthy, digest queue zero failures, disk 61%.
+- Ordinary requests could change during cache lookup, dispatching different input under the original fingerprint. Snapshot request/model before fingerprinting; input checks, cache, dispatch and repair share stable input.
+- Scoped requests retain original-reference admission checks; developing stories stays inactive. No caps, source, schema, UI or handbook behavior changes.
+- Targeted command: pnpm exec tsx --test apps/api/test/reserved-llm-plan.test.ts — 32 passes, including cache-hit/miss mutation controls; no provider calls.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build (logs /tmp/3040-{format,lint,check,build}.log). Final results follow.
+- Read-only reader gate (API NODE_PATH, node --env-file, --import tsx scripts/check-scheduled-reader.ts 2026-11-19T15:00:00Z) verifies five real topics, 25 stories/22 posts.
+- Next scheduled reviews remain Nov 20–22 at/after publication; no new reference tooling or paid replay.
+- Final pnpm check/build pass: 1,284 unit tests; 336 integration passes/four expected skips; typecheck/lint/format/boundaries green.
+- Commit/push and API/worker restart follow; post-restart health and reader gates required.

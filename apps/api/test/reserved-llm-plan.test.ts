@@ -1071,3 +1071,53 @@ void test('ordinary reservation and provider dispatch share input despite mutati
   assert.equal(settledCost, 8);
   assert.deepEqual(h.released, []);
 });
+
+void test('ordinary cache lookup cannot change the input associated with its fingerprint', async () => {
+  for (const cacheHit of [false, true]) {
+    const h = harness();
+    const mutable = { ...request, model: { ...request.model } };
+    let lookupKey: string | undefined;
+    let storedKey: string | undefined;
+    let dispatches = 0;
+    h.ledger.cached = async (key) => {
+      lookupKey = key;
+      await Promise.resolve();
+      mutable.prompt = 'different input after cache lookup';
+      mutable.instructions = 'different instructions';
+      mutable.maxOutputTokens = 16000;
+      mutable.model.id = 'different-model';
+      mutable.model.output = 1000;
+      return cacheHit ? { ok: true } : undefined;
+    };
+    h.ledger.reserve = async (candidate) => {
+      assert.deepEqual(candidate, request);
+      return 'ordinary';
+    };
+    h.ledger.cache = async (key) => {
+      storedKey = key;
+    };
+    const llm = new BudgetedLlm(
+      {
+        complete: async (candidate) => {
+          dispatches++;
+          assert.deepEqual(candidate, request);
+          return {
+            text: '{"ok":true}',
+            usage: { input: 2, output: 2, cacheWrite: 0, cacheRead: 0 },
+          };
+        },
+      },
+      h.ledger,
+    );
+    assert.deepEqual(
+      await llm.jsonOutcome(mutable, validate, { repair: false }),
+      {
+        status: 'complete',
+        value: { ok: true },
+      },
+    );
+    assert.equal(dispatches, cacheHit ? 0 : 1);
+    assert.ok(lookupKey);
+    assert.equal(storedKey, cacheHit ? undefined : lookupKey);
+  }
+});
