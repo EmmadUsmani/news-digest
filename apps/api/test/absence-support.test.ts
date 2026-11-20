@@ -170,6 +170,7 @@ void test('Nov 20 Tech and Gaming retained failures require complete source sent
     field: 'headline' | 'summary';
     text: string;
     evidence: string[];
+    manualRepair: string;
   }[];
   assert.equal(fixtures.length, 8);
   for (const fixture of fixtures) {
@@ -181,6 +182,25 @@ void test('Nov 20 Tech and Gaming retained failures require complete source sent
         error.field === fixture.field,
       `${fixture.topic} ${fixture.model} ${fixture.attempt}: ${fixture.text}`,
     );
+    // Human-written repair controls, not recorded model output. Keep the
+    // source qualification in the reader text rather than deleting it to pass.
+    assert.ok(
+      fixture.manualRepair.length <=
+        (fixture.field === 'headline' ? 240 : 1400),
+    );
+    assert.notEqual(fixture.manualRepair, fixture.text);
+    assert.doesNotThrow(() =>
+      assertAbsenceSupport(
+        fixture.manualRepair,
+        fixture.evidence,
+        fixture.field,
+      ),
+    );
+    if (fixture.field === 'summary')
+      assert.throws(
+        () => assertAbsenceSupport(fixture.manualRepair, [], fixture.field),
+        LlmValidationFailure,
+      );
     // The retained evidence remains admissible verbatim; the guard rejects
     // the changed scope/attribution or paraphrase, not the underlying report.
     for (const source of fixture.evidence) {

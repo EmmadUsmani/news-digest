@@ -8,7 +8,8 @@
     "evidence": [
       "OpenSSL: Buffer overflow in EVP_EncodeBlock() (CVE-2026-121481, CVSS 9.8)",
       "This fixes \"Buffer overflow in EVP_EncodeBlock()\" ( CVE-2026-121481 ) by returning -1 for invalid inputs to EVP_EncodeBlock() : NULL input or output buffers, negative lengths, and lengths for which the encoded size does not fit in an int . The OpenSSL SRT has asked for it to be fixed publicly; the advisory is still pending. Returning -1 for invalid inputs is the most straightforward fix, and matches what happens in wolfSSL's compatibility layer for OpenSSL's EVP_EncodeBlock() . I'm suggesting a similar guard for EVP_DecodeBlock() . No length limit is needed here because the decoded length…"
-    ]
+    ],
+    "manualRepair": "The OpenSSL pull request addresses CVE-2026-121481. This fixes \"Buffer overflow in EVP_EncodeBlock()\" ( CVE-2026-121481 ) by returning -1 for invalid inputs to EVP_EncodeBlock() : NULL input or output buffers, negative lengths, and lengths for which the encoded size does not fit in an int ."
   },
   {
     "topic": "Tech & AI",
@@ -23,7 +24,8 @@
       "PostgreSQL 19 is available on Lakebase the same day the community released it. To try it, create a new Lakebase project and select PostgreSQL 19.",
       "Postgres 19 Repack: Faster, Built-In Table Bloat Cleanup",
       "Discover Postgres 19 REPACK and REPACK (CONCURRENTLY). Learn how to reclaim bloated table space online without downtime, external extensions, or table locks."
-    ]
+    ],
+    "manualRepair": "PostgreSQL 19 is available on Lakebase the same day the community released it. Discover Postgres 19 REPACK and REPACK (CONCURRENTLY). Learn how to reclaim bloated table space online without downtime, external extensions, or table locks."
   },
   {
     "topic": "Gaming",
@@ -34,7 +36,8 @@
     "evidence": [
       "Ubisoft Lays Off 166 Employees Across Montreal and Quebec Studios",
       "Ubisoft has laid off 166 employees from its Montreal and Quebec studios due to an “evolving portfolio” that has changed its production needs, per a statement to IGN. The move comes after the success of Assassin’s Creed Black Flag Resynced, and with Rayman Legends Retold on the way to its December 3rd release. Of course, the Montreal studio is working on Codename Hexe, the next big addition to the Assassin’s Creed franchise’s ranks. Sources have since told IGN that the affected employees were let go because fewer projects meant no space to reassign them. Whether this move fits into the…"
-    ]
+    ],
+    "manualRepair": "Ubisoft has laid off 166 employees from its Montreal and Quebec studios due to an “evolving portfolio” that has changed its production needs, per a statement to IGN. Sources have since told IGN that the affected employees were let go because fewer projects meant no space to reassign them."
   },
   {
     "topic": "Gaming",
@@ -45,7 +48,8 @@
     "evidence": [
       "You can now order the Steam Machine without a reservation, but the 2TB model could be in trouble",
       "Valve has issued an update on its Steam Machine stock levels, waiting lists, and purchasing process, saying that the 512GB model has now achieved \"add to cart status\". After months of joining a lottery-based waiting list to secure the brand's alternative to a gaming PC, you can now grab the entry-level model and its bundled controller with no waiting or reservation constraints. Unfortunately, the same can't be said of the 2TB model, which could even see further price hikes, let alone wait lists. Valve posted an update to its hardware blog yesterday evening, confirming that despite the doom…"
-    ]
+    ],
+    "manualRepair": "Valve opens direct orders for the 512GB Steam Machine"
   },
   {
     "topic": "Gaming",
@@ -56,7 +60,8 @@
     "evidence": [
       "You can now order the Steam Machine without a reservation, but the 2TB model could be in trouble",
       "Valve has issued an update on its Steam Machine stock levels, waiting lists, and purchasing process, saying that the 512GB model has now achieved \"add to cart status\". After months of joining a lottery-based waiting list to secure the brand's alternative to a gaming PC, you can now grab the entry-level model and its bundled controller with no waiting or reservation constraints. Unfortunately, the same can't be said of the 2TB model, which could even see further price hikes, let alone wait lists. Valve posted an update to its hardware blog yesterday evening, confirming that despite the doom…"
-    ]
+    ],
+    "manualRepair": "Valve has issued an update on its Steam Machine stock levels, waiting lists, and purchasing process, saying that the 512GB model has now achieved \"add to cart status\". After months of joining a lottery-based waiting list to secure the brand's alternative to a gaming PC, you can now grab the entry-level model and its bundled controller with no waiting or reservation constraints. Unfortunately, the same can't be said of the 2TB model, which could even see further price hikes, let alone wait lists."
   },
   {
     "topic": "Gaming",
@@ -67,7 +72,8 @@
     "evidence": [
       "How the EU's Digital Fairness Act will impact game design, and why it hits European indies particularly hard",
       "The European Commission's publication of its draft Digital Fairness Act (DFA) last week prompted uproar within the games industry, with many notable voices candidly expressing their concerns. Opinions in the wider industry were more measured, possibly because some of the practices targeted by the DFA – such as loot boxes or pay-to-win – are wildly successful economically, but not uniformly popular amongst players. Read more"
-    ]
+    ],
+    "manualRepair": "The European Commission's publication of its draft Digital Fairness Act (DFA) last week prompted uproar within the games industry, with many notable voices candidly expressing their concerns. Opinions in the wider industry were more measured, possibly because some of the practices targeted by the DFA – such as loot boxes or pay-to-win – are wildly successful economically, but not uniformly popular amongst players."
   },
   {
     "topic": "Gaming",
@@ -78,7 +84,8 @@
     "evidence": [
       "Ubisoft Lays Off 166 Employees Across Montreal and Quebec Studios",
       "Ubisoft has laid off 166 employees from its Montreal and Quebec studios due to an “evolving portfolio” that has changed its production needs, per a statement to IGN. The move comes after the success of Assassin’s Creed Black Flag Resynced, and with Rayman Legends Retold on the way to its December 3rd release. Of course, the Montreal studio is working on Codename Hexe, the next big addition to the Assassin’s Creed franchise’s ranks. Sources have since told IGN that the affected employees were let go because fewer projects meant no space to reassign them. Whether this move fits into the…"
-    ]
+    ],
+    "manualRepair": "Ubisoft has laid off 166 employees from its Montreal and Quebec studios due to an “evolving portfolio” that has changed its production needs, per a statement to IGN. Sources have since told IGN that the affected employees were let go because fewer projects meant no space to reassign them."
   },
   {
     "topic": "Gaming",
@@ -89,6 +96,7 @@
     "evidence": [
       "Ubisoft Lays Off 166 Employees Across Montreal and Quebec Studios",
       "Ubisoft has laid off 166 employees from its Montreal and Quebec studios due to an “evolving portfolio” that has changed its production needs, per a statement to IGN. The move comes after the success of Assassin’s Creed Black Flag Resynced, and with Rayman Legends Retold on the way to its December 3rd release. Of course, the Montreal studio is working on Codename Hexe, the next big addition to the Assassin’s Creed franchise’s ranks. Sources have since told IGN that the affected employees were let go because fewer projects meant no space to reassign them. Whether this move fits into the…"
-    ]
+    ],
+    "manualRepair": "Ubisoft has laid off 166 employees from its Montreal and Quebec studios due to an “evolving portfolio” that has changed its production needs, per a statement to IGN. Sources have since told IGN that the affected employees were let go because fewer projects meant no space to reassign them."
   }
 ]
