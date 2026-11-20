@@ -142,3 +142,16 @@ Earlier entries: [through iteration 3019](docs/progress-archive/2026-11-20-itera
 - Isolated PostgreSQL file passes all four tests after correcting null uncharged costs; explicit cache reuse confirms unused rewrite release. No production bug found. Final full rerun follows.
 - Final pnpm check/build pass: 1,274 unit tests; 336 integration passes/four expected skips. Read-only check-scheduled-reader.ts 2026-11-19T15:00:00Z (API NODE_PATH and env-file) verifies real five-topic edition: 25 stories/22 posts.
 - Source checks healthy; digest-generation queue zero failed jobs. Commit/push and systemctl --user restart news-digest-{api,worker}.service follow; post-restart health/reader checks required.
+
+## 2026-11-20: iteration 3034 — bind cached execution to admitted requests
+
+- Clean main at a458fb3c; no inherited work. Alerts clear, healthz passes, API/worker active; Nov 20 edition not due.
+- Found scoped reservation identity checks could be bypassed by cache hits or concurrent response reuse, which precede reserve().
+- Added an optional ledger request gate before both paths; inactive reserved plans require exact feature request identity and an open scope.
+- Foreign attribution/prices/prompts, protected-only requests and closed scopes refuse; valid feature cache hits keep their unused holds available for cleanup.
+- Targeted reserved-plan suite passes 24 tests, including cached and concurrent bypass controls; no provider calls.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build (logs /tmp/3034-{format,lint,check,build}.log). Final results follow.
+- No activation, cap/source/schema/UI or handbook behavior changes. Developing stories still needs semantic and whole-edition admission acceptance; next scheduled reviews Nov 20–22.
+- Final pnpm check/build pass: 1,276 unit tests; 336 integration passes/four expected skips; typecheck/lint/format/boundaries green.
+- pnpm obs sources --check healthy; pnpm obs jobs --check --queue digest-generation has zero failed jobs. Reader gate verifies real Nov 19 five-topic edition: 25 stories/22 posts.
+- Commit/push and API/worker restart follow; post-restart health and reader verification required.

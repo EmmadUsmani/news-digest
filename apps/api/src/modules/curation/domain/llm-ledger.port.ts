@@ -32,6 +32,8 @@ export type LlmBatchReservationResult =
   | { status: 'refused'; index: number; reasons: LlmRefusalReason[] };
 
 export interface LlmLedger {
+  // Scoped plans must authorize attribution even before cache or pending reuse.
+  allowsRequest?(request: LlmRequest): boolean;
   // Atomic plan admission only; callers must consume/release the returned holds.
   reserveBatch?(
     entries: readonly { request: LlmRequest; estimate: number }[],

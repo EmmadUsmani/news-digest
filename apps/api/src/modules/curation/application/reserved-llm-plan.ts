@@ -59,6 +59,11 @@ export async function reserveLlmPlan(
   let releasing: Promise<void> | undefined;
   return {
     ledger: {
+      allowsRequest: (request) =>
+        !closed &&
+        holds.some(
+          (hold) => !hold.protected && hold.identity === identity(request),
+        ),
       reserve: (request, estimate) => {
         if (closed) return Promise.resolve(null);
         const key = identity(request);

@@ -146,6 +146,69 @@ void test('cache hits and expired execution release their unused holds', async (
   }
 });
 
+void test('scoped cache reuse requires the admitted request identity and an open plan', async () => {
+  const h = harness();
+  h.cache({ ok: true });
+  const protectedRequest = { ...request, prompt: 'protected morning work' };
+  const plan = await reserveLlmPlan(h.ledger, [request], [protectedRequest]);
+  assert.ok(plan);
+  const llm = new BudgetedLlm(h.provider, plan.ledger);
+  for (const changed of [
+    { ...request, runId: 'foreign' },
+    { ...request, topicId: 'foreign' },
+    { ...request, purpose: 'foreign' },
+    { ...request, model: { ...request.model, input: 0.5 } },
+    { ...request, prompt: 'uncaptured' },
+    protectedRequest,
+  ])
+    assert.equal(
+      (await llm.jsonOutcome(changed, validate)).status,
+      'budget-refused',
+    );
+  assert.equal((await llm.jsonOutcome(request, validate)).status, 'complete');
+  await plan.releaseUnused();
+  assert.equal(
+    (await llm.jsonOutcome(request, validate)).status,
+    'budget-refused',
+  );
+  assert.deepEqual(h.released, ['0', '1']);
+  assert.deepEqual(h.settled, []);
+  assert.equal(h.counts().dispatches, 0);
+});
+
+void test('foreign attribution cannot reuse an admitted in-flight response', async () => {
+  const h = harness();
+  let started!: () => void;
+  const dispatchStarted = new Promise<void>((resolve) => {
+    started = resolve;
+  });
+  let finish!: () => void;
+  const responseReady = new Promise<void>((resolve) => {
+    finish = resolve;
+  });
+  const provider: LlmPort = {
+    complete: async () => {
+      started();
+      await responseReady;
+      return {
+        text: '{"ok":true}',
+        usage: { input: 2, output: 2, cacheWrite: 0, cacheRead: 0 },
+      };
+    },
+  };
+  const plan = await reserveLlmPlan(h.ledger, [request]);
+  assert.ok(plan);
+  const llm = new BudgetedLlm(provider, plan.ledger);
+  const accepted = llm.jsonOutcome(request, validate);
+  await dispatchStarted;
+  const foreign = llm.jsonOutcome({ ...request, topicId: 'foreign' }, validate);
+  finish();
+  assert.equal((await foreign).status, 'budget-refused');
+  assert.equal((await accepted).status, 'complete');
+  assert.deepEqual(h.settled, ['0']);
+  await plan.releaseUnused();
+});
+
 void test('transport uncertainty retains consumed holds; provider limit releases them', async () => {
   for (const limit of [false, true]) {
     const h = harness();

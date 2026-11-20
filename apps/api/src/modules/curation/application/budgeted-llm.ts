@@ -166,6 +166,8 @@ export class BudgetedLlm {
     validate: (value: unknown) => T,
     options: JsonOptions = {},
   ): Promise<LlmJsonOutcome<T>> {
+    if (this.ledger.allowsRequest && !this.ledger.allowsRequest(request))
+      return { status: 'budget-refused' };
     const inherited = currentLlmExecution();
     if (
       inherited &&
