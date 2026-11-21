@@ -407,3 +407,62 @@ void test('reader fallback ends saved NBA excerpts at complete sentences without
     story.summary,
   );
 });
+
+void test('reader shows only the saved editor selection reason for stories and each post platform', () => {
+  const saved = structuredClone(snapshot);
+  const topic = saved.topics[0];
+  topic.stories[0].reasons = [
+    'Rank: 95',
+    'Editor: A consequential new launch.',
+    'Semantic relevance 9/10',
+  ];
+  const post = topic.posts![0];
+  post.reasons = [
+    'Reported likes: 100',
+    'Editor: Firsthand release demonstration.',
+  ];
+  topic.posts = [
+    post,
+    {
+      ...post,
+      platform: 'bluesky',
+      externalId: 'at://test/app.bsky.feed.post/1',
+      metrics: { likes: 1, reposts: 0, replies: 0 },
+      url: 'https://bsky.app/profile/test.bsky.social/post/abc',
+      observedAt: '2026-11-04T12:00:00Z',
+    },
+    {
+      ...post,
+      platform: 'reddit',
+      title: 'A release',
+      subreddit: 'tech',
+      thumbnail: null,
+      externalUrl: null,
+      metrics: { score: 10, comments: 1, upvoteRatio: 0.9 },
+    },
+  ];
+  const before = JSON.stringify(saved);
+  const reader = readerEdition(saved);
+  assert.equal(
+    reader.topics[0].stories[0].selectionReason,
+    'A consequential new launch.',
+  );
+  assert.equal(reader.topics[0].posts.length, 3);
+  for (const item of reader.topics[0].posts) {
+    assert.equal(item.selectionReason, 'Firsthand release demonstration.');
+    assert.equal('reasons' in item, false);
+    assert.equal('xSearchRanking' in item, false);
+  }
+  assert.doesNotMatch(
+    JSON.stringify(reader),
+    /Rank:|Semantic relevance|Reported likes/,
+  );
+  assert.equal(JSON.stringify(saved), before);
+  topic.stories[0].reasons = ['Rank: 95', 'Editor:   '];
+  post.reasons = ['Reported likes: 100'];
+  const historical = readerEdition(saved);
+  assert.equal(historical.topics[0].stories[0].selectionReason, undefined);
+  assert.equal(historical.topics[0].posts[0].selectionReason, undefined);
+  assert.equal('selectionReason' in historical.topics[0].stories[0], false);
+  assert.equal('selectionReason' in historical.topics[0].posts[0], false);
+});

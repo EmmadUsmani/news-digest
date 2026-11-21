@@ -187,3 +187,18 @@ Earlier entries: [pre-3055 archive](docs/progress-archive/2026-11-20-pre-3055.md
 - Model and whole-edition budget acceptance remain open; production inactive. No source/schema/UI changes. Next: Nov 21 recall/v16 acceptance.
 - Full pnpm check passes: static checks, 1,337 units, 336 integration passes/four expected skips. pnpm build and git diff --check pass; API/worker restarted after merge; health passes and zero alerts.
 - Initial push rejected after concurrent owner item 72/lead updates; merged without rewriting history. New item 72 supersedes open-ended acceptance and prohibits further historical controls; next run follows its one-time matching/budget path, then deployment or Why this.
+
+## 2026-11-21: iteration 3174 — ship Why this; record incomplete developing acceptance
+
+- Clean main at f70b994e; no inherited work. Health/database/Redis pass; zero alerts; 37 active sources healthy, Destructoid intentionally inactive; no failed digest runs.
+- Item 72 one-time check: eight matcher cache misses; no model output/semantic acceptance. Existing manual memberships replay once: eight cases/eight links/twelve earlier-current headline pairs, listed in STEERING ack.
+- Budget correction: summed normal dispatch reservations + captures ($1.839375) overstate sequential work and cannot prove a cap failure; rejected that envelope as an acceptance measure.
+- Existing developingEditionBudget with settled normal spend + supplied feature captures peaks at $0.613774 against $0.65; incomplete topic/evidence coverage prevents whole-day acceptance. Developing stays disabled; NEEDS_FROM_HUMAN records blocker. No new references, scripts or fixtures for developing; no paid calls/cap changes.
+- With developing acceptance incomplete, moved to Why this: public projection derives only saved Editor rationale; native collapsed disclosure under stories/posts, blank/missing reasons omitted. Existing saved editions untouched; scores, semantic/ranking reasons and operational fields stay private.
+- Projection tests cover stories/X/Bluesky/Reddit, omitted historical reasons and immutable inputs: 11 pass. Updated owner and reader handbooks.
+- Live Playwright: Nov 20 edition 9c810e64, 390/1440 light/dark, story/post text matches saved rationale; keyboard/click toggles, collapsed defaults, no horizontal overflow/page errors. Eight screenshots; mobile story/post inspected.
+- Commands: pnpm format; pnpm lint:fix; pnpm check; pnpm build; pnpm exec tsx scripts/check-handbook.ts edition-pipeline --owner-services; pnpm exec tsx scripts/check-reader-why-this.ts; pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-20T15:00:00Z; git diff --check.
+- Build/handbook/live reader pass (five topics/25 stories/20 posts); API/worker/reader-docs restarted healthy. Full check results below. Logs /tmp/3174-check-fixed.log and /tmp/3174-{build,handbook,ui,reader}.log; offline receipt /tmp/3174-acceptance.json.
+- Integration caught undefined optional reason keys disappearing over JSON; fixed by omitting absent reasons, with explicit regression assertions. Initial full command interrupted; final check runs in a temporary systemd user unit.
+- Final pnpm check passes: 1,338 unit tests, 336 integration passes/four expected skips; static checks green. API rebuilt after absent-field fix; repeated live UI checks pass (/tmp/3174-ui-final.log).
+- Next: Nov 21/22 scheduled recall/v16 review, then largest miss-cause fix; item 70 next feature is week in review. Stop historical developing controls.

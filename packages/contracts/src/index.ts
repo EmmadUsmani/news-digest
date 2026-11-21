@@ -474,6 +474,7 @@ export const readerStorySchema = rankedStorySchema
   })
   .extend({
     summaryKind: z.literal('source-excerpt').optional(),
+    selectionReason: z.string().optional(),
   });
 const readerPostFields = {
   whyItMatters: true,
@@ -487,16 +488,22 @@ const readerPostFields = {
   metrics: true,
 } as const;
 export const readerPostSchema = z.discriminatedUnion('platform', [
-  selectedPostSchema.pick({ ...readerPostFields, authorUrl: true }),
-  selectedRedditPostSchema.pick({
-    ...readerPostFields,
-    authorUrl: true,
-    title: true,
-    subreddit: true,
-    thumbnail: true,
-    externalUrl: true,
+  selectedPostSchema.pick({ ...readerPostFields, authorUrl: true }).extend({
+    selectionReason: z.string().optional(),
   }),
-  selectedBlueskyPostSchema.pick({ ...readerPostFields, media: true }),
+  selectedRedditPostSchema
+    .pick({
+      ...readerPostFields,
+      authorUrl: true,
+      title: true,
+      subreddit: true,
+      thumbnail: true,
+      externalUrl: true,
+    })
+    .extend({ selectionReason: z.string().optional() }),
+  selectedBlueskyPostSchema.pick({ ...readerPostFields, media: true }).extend({
+    selectionReason: z.string().optional(),
+  }),
 ]);
 export const readerEditionSchema = z.object({
   id: z.string().uuid(),

@@ -19,6 +19,7 @@ import { StoryTime } from './StoryTime';
 import { TopPosts } from './TopPosts';
 import { useReaderAccount } from './use-reader-account';
 import { useReaderPreferences } from './use-reader-preferences';
+import { WhyThis } from './WhyThis';
 
 export function DigestPreview() {
   const { id } = useParams({ strict: false });
@@ -344,6 +345,7 @@ export function DigestPreview() {
                         <StorySources story={story}>
                           <StoryTime publishedAt={story.publishedAt} />
                         </StorySources>
+                        <WhyThis reason={story.selectionReason} />
                         {preferencesEnabled && (
                           <Button
                             variant="ghost"

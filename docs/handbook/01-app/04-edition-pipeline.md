@@ -1,8 +1,7 @@
 # Edition pipeline
 
-An edition is built the same way whether it's scheduled or on demand. Topics
-are processed **in parallel**. Each topic goes through the steps below, and
-the result is saved as one immutable snapshot.
+Scheduled and on-demand editions follow the same pipeline. Topics run
+**in parallel** and are saved together as one immutable snapshot.
 
 ```mermaid
 flowchart LR
@@ -84,6 +83,7 @@ article-template, AsciiDoc document bodies or MediaWiki prose for submissions wi
   `~/.local/state/news-digest/rejected-editors/` for replay. The store retains
   at most 100 files, each at most 256 KiB, and removes files over 30 days old
   on the next write. These files are separate from logs and the response cache.
+- **Why this:** stories and posts show a collapsed disclosure with the saved editor’s selection reason. Open it to read why that item was picked. Items without an editor reason show no disclosure. Ranking scores and operational reasons stay private.
 - **Progress:** on-demand jobs report the stage of each topic (triage →
   editing → publishing) to the UI while they run.
 - **Test editions:** admins can POST a past window to

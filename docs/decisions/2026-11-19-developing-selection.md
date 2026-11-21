@@ -102,3 +102,29 @@ They can populate the request-derived budget checker, but must not populate an
 exact reserved execution scope. The caller still must enumerate both platform
 routes, all topics and any social triage, and bound changing already-selected
 posts/final story context. No whole-morning fit or feature activation is claimed.
+
+## Item 72 bounded acceptance outcome (2026-11-21, iteration 3174)
+
+No paid replay or new reference was made. All eight exact matcher fingerprints
+in the saved Nov 12–18 fixture miss the existing response cache. There are no
+model-generated matched pairs to certify; the existing labels contain twelve
+earlier/current headline pairs across eight developing selections. They remain
+manual memberships, not semantic model acceptance.
+
+The existing `developingEditionBudget` preflight, with retained settled normal
+spend protected and available matching/rewrite captures added, peaks at
+$0.613774 on Nov 18 against $0.65. This is a supplied-plan result, not a
+complete whole-day pass: the fixture has eight topic-windows, not all 35,
+and only three have original rewrite evidence. No model matching result
+exists to enumerate the actual rewrite obligations.
+
+A separate sum of normal-call reservations reached $1.839375 with captured
+feature work. That envelope is rejected as an acceptance measure: normal calls
+settle sequentially, releasing unused reservations. It does not prove the
+feature exceeds the daily cap and must not be used to claim a budget failure.
+
+The one-time check therefore leaves semantic and complete-budget acceptance
+unresolved, rather than claiming either a model pass or a numeric cap failure.
+Developing stays disabled; no paid replay, new references, scripts or fixtures
+were added. Work proceeds to Why this to deliver the next requested reader
+feature without waiting or spending AI funds. Caps stay unchanged.

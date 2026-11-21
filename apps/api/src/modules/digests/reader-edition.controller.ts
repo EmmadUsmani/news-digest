@@ -67,6 +67,14 @@ function sameCoverageReport(left: CoverageArticle, right: CoverageArticle) {
   );
 }
 
+function selectionReason(reasons: readonly string[]) {
+  const reason = reasons
+    .find((item) => item.startsWith('Editor: '))
+    ?.slice('Editor: '.length)
+    .trim();
+  return reason ? { selectionReason: reason } : {};
+}
+
 export function readerEdition(snapshot: DigestPreview) {
   return readerEditionSchema.parse({
     ...snapshot,
@@ -75,6 +83,7 @@ export function readerEdition(snapshot: DigestPreview) {
       brief: topic.editorial?.mode === 'ai' ? topic.editorial.brief : [],
       stories: topic.stories.map((story) => ({
         ...story,
+        ...selectionReason(story.reasons),
         summary: story.summary || readerExcerpt(story.title, story.excerpt),
         ...(!story.summary && story.excerpt
           ? { summaryKind: 'source-excerpt' as const }
@@ -102,7 +111,10 @@ export function readerEdition(snapshot: DigestPreview) {
               )
             : undefined,
       })),
-      posts: topic.posts ?? [],
+      posts: (topic.posts ?? []).map((post) => ({
+        ...post,
+        ...selectionReason(post.reasons),
+      })),
     })),
   });
 }

@@ -26,9 +26,14 @@ continuing story from scratch.
   rules.
 
 Implementation decision: [selected-story enrichment](decisions/2026-11-19-developing-selection.md).
-Production remains inactive until the acceptance in STEERING item 72 passes.
+Production stays disabled: the Nov 21 one-time offline check has no cached
+matcher responses and incomplete whole-day feature captures. The available
+plan peaks at $0.613774 against $0.65; that is not a complete admission pass.
+The blocker is recorded in NEEDS_FROM_HUMAN.md; work moved to feature 2.
 
 ## 2. Why this was picked
+
+Live since Nov 21 on published editions with saved editor reasons.
 
 **Goal:** readers can see why each story and post made the edition.
 

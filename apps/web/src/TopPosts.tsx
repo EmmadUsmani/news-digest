@@ -5,6 +5,7 @@ import { Button } from './components/ui/button';
 import { Card } from './components/ui/card';
 import { LinkedPostText } from './LinkedPostText';
 import { StoryTime } from './StoryTime';
+import { WhyThis } from './WhyThis';
 
 type ReaderPost = ReaderEdition['topics'][number]['posts'][number];
 type SelectedPost = Extract<ReaderPost, { platform: 'x' }>;
@@ -119,6 +120,7 @@ export function TopPosts({
               ) : (
                 <Post post={post} theme={theme} />
               )}
+              <WhyThis reason={post.selectionReason} />
               {bookmark && (
                 <Button
                   variant="ghost"
