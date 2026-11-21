@@ -1,0 +1,310 @@
+{
+  "provenance": "Iteration 3169: original Nov 18 World inputs preserved from /tmp/2901-original-evidence.json; agent-reviewed matching labels only, no model acceptance. US-Iran analysis unresolved.",
+  "cases": [
+    {
+      "editionId": "cd357e84-9383-4e10-b60c-c8318da4b314",
+      "profileId": "00000000-0000-4000-8000-000000000001",
+      "topicId": "00000000-0000-4000-8000-000000000014",
+      "topicName": "World news & politics",
+      "windowEnd": "2026-11-18 15:00:00+00",
+      "originalEditorialEvidence": {
+        "promptSha256": "d3427888e0ef41e90bd09e12341416e545310c1761410ae43f4f806c93281288",
+        "evidence": [
+          {
+            "id": "2e56befe-11d4-4fd2-85d6-9a5251af2b92",
+            "title": "Trump shakes hands with Putin and Xi ahead of historic talks in China",
+            "excerpt": "The three leaders will meet together for the first time on Thursday during a closely-watched summit.",
+            "sources": ["Al Jazeera", "BBC World", "NPR Politics"]
+          },
+          {
+            "id": "a3aca46a-8765-4917-a87d-71a73bbca5dd",
+            "title": "\u2018Status quo\u2019 between US and Iran could break out into war, analysts warn",
+            "excerpt": "Iran and the US have continued to exchange strikes in recent days, but all-out war has so far been avoided.",
+            "sources": ["Al Jazeera", "BBC World"]
+          },
+          {
+            "id": "ce8063d2-f235-4a8d-9908-ee5f24937485",
+            "title": "Palestinians flee refugee camp as Israel begins operation in central Gaza",
+            "excerpt": "Israeli army says the operation west of the 'Yellow Line' aims to 'eliminate a threat'.",
+            "sources": ["Al Jazeera"]
+          },
+          {
+            "id": "7b9c7612-9572-4ce9-9a1d-71c0c5602dbc",
+            "title": "\u2018Crimea is turning into an island\u2019: How Ukraine hit Putin\u2019s prized bridge",
+            "excerpt": "A weeks-long operation was behind two waves of strikes using long-range missiles and drones developed in Ukraine.",
+            "sources": ["Al Jazeera"]
+          },
+          {
+            "id": "0f1db589-579f-43ff-b62f-a19541eb610e",
+            "title": "Israel delays building contracts for West Bank settlement after UK sanctions",
+            "excerpt": "Attorney general says E1 settlement decision should not be taken by caretaker government led by Netanyahu Israel has postponed issuing contracts for the construction of a large settlement on the West Bank seen as likely to render a two-state solution unviable, days after the UK imposed sanctions against building firms operating in the area. Israeli diplomats insisted the move was not in response to the measures from Downing Street. Gali Baharav-Miara, the attorney general, said any decision on settlement expansion should not be taken by the caretaker government led by Benjamin Netanyahu but\u2026",
+            "sources": ["The Guardian World"]
+          }
+        ]
+      },
+      "selected": [
+        {
+          "id": "2e56befe-11d4-4fd2-85d6-9a5251af2b92",
+          "title": "Trump shakes hands with Putin and Xi ahead of China summit",
+          "summary": "President Trump shook hands with Russian President Putin and Chinese President Xi ahead of talks in China. The three leaders are due to meet together for the first time on Thursday during a closely watched summit, according to Al Jazeera, BBC World and NPR Politics.",
+          "whyItMatters": "A joint meeting of the US, Russian and Chinese leaders is a major diplomatic event."
+        },
+        {
+          "id": "a3aca46a-8765-4917-a87d-71a73bbca5dd",
+          "title": "Analysts warn US-Iran 'status quo' could break out into war",
+          "summary": "Iran and the US have continued to exchange strikes in recent days, but all-out war has so far been avoided, according to Al Jazeera and BBC World. Analysts warn the situation could escalate into war.",
+          "whyItMatters": "Continued strikes between the US and Iran carry a risk of wider regional conflict."
+        },
+        {
+          "id": "ce8063d2-f235-4a8d-9908-ee5f24937485",
+          "title": "Israel begins operation in central Gaza as Palestinians flee refugee camp",
+          "summary": "Palestinians fled a refugee camp as Israel began an operation in central Gaza, Al Jazeera reports. The Israeli army says the operation west of the 'Yellow Line' aims to 'eliminate a threat'.",
+          "whyItMatters": "New military action in Gaza affects civilians and the ceasefire framework."
+        },
+        {
+          "id": "7b9c7612-9572-4ce9-9a1d-71c0c5602dbc",
+          "title": "Ukraine hit Crimean bridge in two waves of strikes after weeks-long operation",
+          "summary": "Al Jazeera reports that a weeks-long operation was behind two waves of strikes on Putin's prized bridge. The strikes used long-range missiles and drones developed in Ukraine.",
+          "whyItMatters": "Strikes on the Crimean bridge target a prominent Russian-controlled link in the war."
+        },
+        {
+          "id": "0f1db589-579f-43ff-b62f-a19541eb610e",
+          "title": "Israel delays building contracts for E1 West Bank settlement after UK sanctions",
+          "summary": "Israel has postponed issuing contracts for building a large West Bank settlement seen as likely to render a two-state solution unviable, The Guardian reports. The delay came days after the UK imposed sanctions on building firms operating in the area.",
+          "whyItMatters": "The E1 settlement is seen as likely to render a two-state solution unviable, and international sanctions are now a factor."
+        }
+      ],
+      "stories": [
+        {
+          "id": "2e56befe-11d4-4fd2-85d6-9a5251af2b92",
+          "title": "Trump shakes hands with Putin and Xi ahead of China summit",
+          "summary": "President Trump shook hands with Russian President Putin and Chinese President Xi ahead of talks in China. The three leaders are due to meet together for the first time on Thursday during a closely watched summit, according to Al Jazeera, BBC World and NPR Politics."
+        },
+        {
+          "id": "a3aca46a-8765-4917-a87d-71a73bbca5dd",
+          "title": "Analysts warn US-Iran 'status quo' could break out into war",
+          "summary": "Iran and the US have continued to exchange strikes in recent days, but all-out war has so far been avoided, according to Al Jazeera and BBC World. Analysts warn the situation could escalate into war."
+        },
+        {
+          "id": "ce8063d2-f235-4a8d-9908-ee5f24937485",
+          "title": "Israel begins operation in central Gaza as Palestinians flee refugee camp",
+          "summary": "Palestinians fled a refugee camp as Israel began an operation in central Gaza, Al Jazeera reports. The Israeli army says the operation west of the 'Yellow Line' aims to 'eliminate a threat'."
+        },
+        {
+          "id": "7b9c7612-9572-4ce9-9a1d-71c0c5602dbc",
+          "title": "Ukraine hit Crimean bridge in two waves of strikes after weeks-long operation",
+          "summary": "Al Jazeera reports that a weeks-long operation was behind two waves of strikes on Putin's prized bridge. The strikes used long-range missiles and drones developed in Ukraine."
+        },
+        {
+          "id": "0f1db589-579f-43ff-b62f-a19541eb610e",
+          "title": "Israel delays building contracts for E1 West Bank settlement after UK sanctions",
+          "summary": "Israel has postponed issuing contracts for building a large West Bank settlement seen as likely to render a two-state solution unviable, The Guardian reports. The delay came days after the UK imposed sanctions on building firms operating in the area."
+        }
+      ],
+      "history": [
+        {
+          "editionId": "6216cb7a-3b6a-4fff-9e35-5fe959eb0c8e",
+          "publishedAt": "2026-11-17 15:04:07.594+00",
+          "stories": [
+            {
+              "id": "3806d892-e21b-4884-98be-e43b55e3ad7a",
+              "title": "Ukraine strikes Kerch Bridge linking Russia to Crimea for second day",
+              "summary": "Ukraine has struck the Kerch Bridge linking Russia to Russian-annexed Crimea for a second day, according to Al Jazeera, BBC World and NPR World. The headline describes the attack as 'unprecedented'."
+            },
+            {
+              "id": "ce39b958-3d43-445b-8126-436177ca6daa",
+              "title": "Two vessels catch fire after naval mine hit in Strait of Hormuz, Iran says",
+              "summary": "Two vessels have caught fire after hitting a naval mine in the Strait of Hormuz, Iran says, per Al Jazeera."
+            },
+            {
+              "id": "b6cc9453-dfe5-48e5-86f1-25ab63126245",
+              "title": "Ukraine accuses Russia of targeting rescue operation after 'double-tap' strike kills 72",
+              "summary": "Ukraine accuses Russia of targeting a rescue operation after a 'double-tap' attack in southern Ukraine killed 72, according to BBC World. Officials say continuing Russian strikes are hampering efforts to recover bodies."
+            },
+            {
+              "id": "31358d6e-138b-4560-bc14-a59b86990a10",
+              "title": "Ed Miliband announces first UK sanctions on Israeli firms working in West Bank",
+              "summary": "UK Foreign Secretary Ed Miliband has announced the first sanctions against Israeli companies planning to build settlements in the West Bank. He also announced sanctions on a rightwing Israeli activist group involved in trying to block aid into Gaza, according to The Guardian World."
+            },
+            {
+              "id": "f503f4e2-bcda-4f19-b441-ab36f44cb7e6",
+              "title": "Ukraine holds peace talks with US and Europe as conflict escalates",
+              "summary": "Ukraine held peace talks with the US and Europe, according to Al Jazeera. Kushner reports progress towards a deal."
+            }
+          ]
+        },
+        {
+          "editionId": "93aefc45-33d7-4639-ad53-78e316a40f14",
+          "publishedAt": "2026-11-16 15:03:11.281+00",
+          "stories": [
+            {
+              "id": "c2b4440d-7438-4e00-92ea-94a91265295f",
+              "title": "Estonia to close Russia border crossings after attempted drone factory arson attack",
+              "summary": "Estonia is set to close border crossings with Russia following an attempted arson attack on a drone factory. The Estonian government says Russia was behind the attempted sabotage, which the Kremlin denies."
+            },
+            {
+              "id": "d5872a78-a690-4dae-a7a2-bebc16cb35f9",
+              "title": "China says Xi, Trump and Putin will hold trilateral talks in Shenzhen on 'world peace'",
+              "summary": "The Chinese foreign ministry has confirmed a trilateral meeting of Xi Jinping, Donald Trump and Vladimir Putin in Shenzhen on Thursday, on the sidelines of the Apec summit. It said the talks will cover topics of \"groundbreaking significance\" including \"safeguarding world peace\". Beijing stopped short of confirming specific agenda items, and many hope the leaders will discuss denuclearisation."
+            },
+            {
+              "id": "92729d10-6212-433b-a2ab-a2d3dc0994f6",
+              "title": "Houthis edge closer to Aden as Yemeni forces pull out of Bab al-Mandeb",
+              "summary": "Houthi forces are moving closer to Aden after Yemeni forces retreated from the Red Sea coast around Bab al-Mandeb. The development is described as threatening global maritime security."
+            },
+            {
+              "id": "733be6fd-e052-4658-9350-db0dc72950c6",
+              "title": "Ukraine hits Kerch bridge linking Russia and occupied Crimea",
+              "summary": "The Guardian reports that Ukraine hit the Kerch bridge connecting occupied Crimea with Russia during an overnight drone barrage. Local channels reported a Ukrainian kamikaze drone crashed into one of the bridge's arches at 5.38am local time. The strike temporarily paralysed road traffic and left thousands of drivers stranded."
+            },
+            {
+              "id": "155a8eb8-5a61-4a41-b219-ccabb29dfebe",
+              "title": "UK and allies urge Israel to allow rapid humanitarian access to Gaza",
+              "summary": "The UK, Australia, Canada and Italy called on Israel to allow rapid humanitarian access to Gaza. They say Israeli authorities are holding back vital supplies at the borders, including tents."
+            }
+          ]
+        },
+        {
+          "editionId": "a0fa3916-f1dc-4fbd-8d76-2884d5e01c06",
+          "publishedAt": "2026-11-15 15:03:33.094+00",
+          "stories": [
+            {
+              "id": "3cccf465-358b-4c2c-aa89-85b7feb44404",
+              "title": "Iran targets US military base in Bahrain with drone attack",
+              "summary": null
+            },
+            {
+              "id": "960621a8-61b7-4569-b2aa-f4964574eea3",
+              "title": "In calling for an end to the Iran War, Vance walks a thin line with Trump",
+              "summary": null
+            },
+            {
+              "id": "4aba097c-9e4a-4159-9e21-fc6a8ac60475",
+              "title": "Give Donbas, take NATO seat: Could new US pitch work for Ukraine, Russia?",
+              "summary": null
+            },
+            {
+              "id": "fad61782-c1cc-4d87-8343-ef70b67bf8e0",
+              "title": "Drone attacks on power stations plunge Sudan\u2019s cities into darkness",
+              "summary": null
+            },
+            {
+              "id": "fbd83e46-dadc-418d-b7f3-6a1d5a6e3ce5",
+              "title": "Israel kills Hamas commander in strike on Gaza camp, officials say",
+              "summary": null
+            }
+          ]
+        },
+        {
+          "editionId": "b9d55088-892a-4e34-b77c-a398d64c6a9f",
+          "publishedAt": "2026-11-14 15:03:47.533+00",
+          "stories": []
+        },
+        {
+          "editionId": "f901ba6c-cba3-4116-8539-fd0e92b98ec4",
+          "publishedAt": "2026-11-13 15:01:37.761+00",
+          "stories": []
+        },
+        {
+          "editionId": "b1be5a12-2972-4eeb-9bff-82cbb10c1b07",
+          "publishedAt": "2026-11-12 15:03:52.392+00",
+          "stories": [
+            {
+              "id": "d5c62e3c-08c9-49e4-bcd6-d098818bf087",
+              "title": "Israeli airstrike on Nasser hospital in Gaza kills six, hospital director says",
+              "summary": "An Israeli airstrike on Nasser hospital in Khan Younis killed six people, including a surgeon and a disabled man, and wounded 28 others, according to the hospital director. The Israeli military said in a statement that it struck a Hamas commander and other fighters at the hospital."
+            },
+            {
+              "id": "5cc12bb2-4a70-4191-856e-8c6dbf4b8084",
+              "title": "Ukraine says military Starlink disrupted again as US envoys meet Putin in Moscow",
+              "summary": "Ukraine says its military Starlink service was disrupted again as US envoys Jared Kushner and Steve Witkoff met Putin in Moscow. Later on Thursday, Kushner and Witkoff will travel to Dublin to meet Ukraine's Volodymyr Zelensky."
+            },
+            {
+              "id": "c49b0263-e5e1-486e-97db-c61fce4a92f3",
+              "title": "Fighting intensifies in Yemen as Houthis deny targeting Mecca",
+              "summary": "Fighting has intensified in Yemen, and the Houthis deny targeting Mecca. The World Health Organization says more than 320,000 people have been displaced in Yemen fighting since August 1."
+            },
+            {
+              "id": "7f4a914d-801f-4494-ade3-0ecac5f72505",
+              "title": "Xi Jinping says Taiwan's 'complete reunification' with China will happen",
+              "summary": "Chinese President Xi Jinping says Taiwan's complete reunification with China will happen and that the tide of history 'cannot be stopped'. Taiwan rejects 'one country, two systems'."
+            },
+            {
+              "id": "ca1f805e-60f5-4cdf-b3a9-14fdbe43b3b1",
+              "title": "Hundreds of oil spills in Gulf since US war on Iran began in February, Guardian reports",
+              "summary": "The Guardian reports that since the US war on Iran began in February, there have been hundreds of oil spills in the Gulf. Throughout October, oil tankers were struck by missiles or sea mines in the Strait of Hormuz and spilled crude into the sea."
+            }
+          ]
+        },
+        {
+          "editionId": "eb6e962e-200d-4efc-9f6f-2c7e58743bd8",
+          "publishedAt": "2026-11-11 15:02:39.127+00",
+          "stories": [
+            {
+              "id": "2ca0e3de-de7a-4b28-b28b-abfffc7f39ba",
+              "title": "Russia and Ukraine agree to large prisoner-of-war exchange, officials say",
+              "summary": "Russia and Ukraine have agreed to a large exchange of prisoners of war, officials say. U.S.-mediated talks in Abu Dhabi led to the decision, which is described as the biggest humanitarian release since the war began in 2022."
+            },
+            {
+              "id": "69a6fa9a-140b-4805-8ded-869ffebae608",
+              "title": "Ebola cases in Congo top 11,000 in its deadliest outbreak",
+              "summary": "Congo's government said Wednesday that the country's Ebola outbreak has topped 11,000 cases. The figure underscores the severity of the situation as the country grapples with the relentless spread of the disease."
+            },
+            {
+              "id": "6bfaa225-de2d-4d87-b15f-f7cc44faeda3",
+              "title": "Three men accused of Iran-backed plot against U.K. base hosting U.S. jets",
+              "summary": "Iran-backed operatives have been charged over nearly 20 attacks, including a plot on a U.K. base housing U.S. troops. NPR reports that federal prosecutors arrested three men accused of being Iran-backed operatives."
+            },
+            {
+              "id": "a617efef-46e9-4381-aefe-603851cdd4de",
+              "title": "Spain hit by widespread disruption in first general strike in 14 years",
+              "summary": "Spain is seeing widespread disruption in its first general strike for 14 years. Protests are also expected in the biggest cities less than three weeks before Spaniards vote in parliamentary elections."
+            },
+            {
+              "id": "745c51ca-bf1a-4e0c-b281-ad1a069bde35",
+              "title": "Gaza floods subside as Palestinians assess damage after deadly sandbank collapse",
+              "summary": "As floods in Gaza subside, Palestinians are assessing the human and material damage. A sandbank collapse in Deir el-Balah buried families alive, and survivors describe desperate rescue attempts."
+            }
+          ]
+        }
+      ],
+      "reviews": [
+        {
+          "storyId": "2e56befe-11d4-4fd2-85d6-9a5251af2b92",
+          "expectedPredecessors": [
+            {
+              "editionId": "93aefc45-33d7-4639-ad53-78e316a40f14",
+              "storyId": "d5872a78-a690-4dae-a7a2-bebc16cb35f9"
+            }
+          ]
+        },
+        {
+          "storyId": "ce8063d2-f235-4a8d-9908-ee5f24937485",
+          "expectedPredecessors": []
+        },
+        {
+          "storyId": "7b9c7612-9572-4ce9-9a1d-71c0c5602dbc",
+          "expectedPredecessors": [
+            {
+              "editionId": "6216cb7a-3b6a-4fff-9e35-5fe959eb0c8e",
+              "storyId": "3806d892-e21b-4884-98be-e43b55e3ad7a"
+            },
+            {
+              "editionId": "93aefc45-33d7-4639-ad53-78e316a40f14",
+              "storyId": "733be6fd-e052-4658-9350-db0dc72950c6"
+            }
+          ]
+        },
+        {
+          "storyId": "0f1db589-579f-43ff-b62f-a19541eb610e",
+          "expectedPredecessors": [
+            {
+              "editionId": "6216cb7a-3b6a-4fff-9e35-5fe959eb0c8e",
+              "storyId": "31358d6e-138b-4560-bc14-a59b86990a10"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

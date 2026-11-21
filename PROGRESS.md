@@ -128,3 +128,15 @@ Earlier entries: [pre-3055 archive](docs/progress-archive/2026-11-20-pre-3055.md
 - Verification: pnpm format; pnpm lint:fix; pnpm check (results below); git diff --check. Logs /tmp/3168-{format,lint,check,targeted,reader}.log.
 - Next: Nov 21 recall/v16 Tech and Gaming acceptance; semantic/model and whole-edition budget acceptance remain open. Commit/push and service revision refresh follow checks.
 - Full pnpm check passes: static checks/API build, 1,328 units, 336 integrations/four expected skips. Initial check stopped on the newly appended progress-entry formatting; corrected with Prettier before the passing rerun.
+
+## 2026-11-21: iteration 3169 — Nov 18 World developing continuity
+
+- Clean main at de6162d3; no inherited work. Zero alerts; health/database/Redis pass; all 37 active sources healthy, Destructoid intentionally inactive.
+- Nov 21 scheduled acceptance awaits publication; today's item 69 commit used. Continued item 70 with no paid calls or runtime changes.
+- Reviewed Nov 18 World against 25 historical stories/seven snapshots: summit, Kerch campaign (three editions), sanctions/contract delay continuations; Gaza nonmatch; Iran analysis unresolved.
+- Preserved original 2901 exported inputs unchanged. E1 excerpt denies sanctions causality and cites caretaker-government objection; review explicitly retains qualification for future rewrites.
+- Existing evaluator rejects missing/partial continuity and false Gaza/policy links; immutable snapshot checks retain selection/order, nearest predecessor and counts. Agent labels only; feature inactive.
+- Targeted: pnpm exec tsx --test apps/api/test/evaluate-developing-stories.test.ts apps/api/test/developing-saved-evidence.test.ts — 53 pass.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; scheduled-reader and service refresh results follow. Logs /tmp/3169-{targeted,format,lint,check,reader}.log.
+- Next: Nov 21 recall/v16 Tech/Gaming acceptance; developing semantic/model and whole-edition budget acceptance still open. No schema/source/UI changes.
+- Full pnpm check passes: static checks, 1,333 units, 336 integrations/four expected skips. pnpm build passes; scheduled-reader Nov 20 verifies five topics/25 real stories/20 posts. Export-field equality and git diff --check pass.

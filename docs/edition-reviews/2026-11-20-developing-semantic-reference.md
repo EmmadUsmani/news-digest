@@ -337,3 +337,26 @@ This is source-reviewed manual prose, not provider output. The runtime guard
 checks bounded lexical/absence rules, not general entailment. Model matching,
 rewrite and whole-edition budget acceptance remain open; production stays
 inactive. No paid replay or cap change.
+
+## Partial Nov 18 World matching review — iteration 3169
+
+Reviewed five selections against 25 earlier stories in seven saved snapshots.
+Four decisions are supported; US-Iran escalation analysis remains unresolved
+because broad conflict analysis and individual strikes may share context without
+being the same developing event.
+
+| Current selection                       | Earlier coverage                                        | Decision                                                               |
+| --------------------------------------- | ------------------------------------------------------- | ---------------------------------------------------------------------- |
+| Trump/Putin/Xi summit greeting          | Nov 16 Shenzhen trilateral announcement                 | Same summit; greeting advances the announced meeting.                  |
+| Central Gaza operation                  | Earlier hospital and camp strikes                       | No predecessor: different operations, locations and actions.           |
+| Crimean bridge operation details        | Nov 17 second-day Kerch strike and Nov 16 bridge attack | Same bridge campaign; nearest coverage Nov 17, three editions total.   |
+| E1 contracts delayed after UK sanctions | Nov 17 UK settlement-company sanctions                  | Same policy development; do not infer that sanctions caused the delay. |
+
+Original editorial inputs are preserved unchanged from the existing 2901 export.
+The E1 excerpt explicitly says Israeli diplomats denied a response to UK measures
+and cites the attorney general's caretaker-government objection. Any later
+rewrite must preserve that qualification; matching does not endorse a causal
+claim. No rewrite or model acceptance is claimed. Manual memberships pass the
+existing evaluator and immutable snapshot checks; omitted/partial continuations,
+a separate Gaza operation and unrelated Gaza-aid policy links fail controls.
+Production stays inactive; no provider calls or cap changes.

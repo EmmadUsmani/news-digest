@@ -372,3 +372,69 @@ void test('Nov 17 World requires second-day Kerch continuity and rejects shared-
     assert.equal(report.semanticAcceptance, 'not-established');
   }
 });
+
+void test('Nov 18 World requires summit, bridge and sanctions continuity without merging separate Gaza operations', async () => {
+  const { cases } = JSON.parse(
+    readFileSync(
+      new URL(
+        './fixtures/developing-stories-world-2026-11-18.json',
+        import.meta.url,
+      ),
+      'utf8',
+    ),
+  ) as { cases: ReplayCase[] };
+  const item = cases[0];
+  const evidence = developingEvidence(item.stories, item.history);
+  const recorded = [
+    {
+      editionId: item.editionId,
+      topicId: item.topicId,
+      inputSha256: replayFingerprint(item),
+      groups: item
+        .reviews!.filter((r) => r.expectedPredecessors.length)
+        .map((r) => [
+          evidence.find(
+            (e) => e.editionId === null && e.story.id === r.storyId,
+          )!.reference,
+          ...r.expectedPredecessors.map(
+            (p) =>
+              evidence.find(
+                (e) => e.editionId === p.editionId && e.story.id === p.storyId,
+              )!.reference,
+          ),
+        ]),
+    },
+  ];
+  const baseline = await evaluateDevelopingStories(cases, recorded);
+  assert.equal(baseline.controlsPassed, true);
+  assert.equal(baseline.cases[0].links.length, 3);
+  const bridge = baseline.cases[0].links.find(
+    (l) => l.storyId === item.stories[3].id,
+  )!;
+  assert.equal(bridge.editionCount, 3);
+  assert.equal(bridge.previousStoryId, item.history[0].stories[0].id);
+  assert.equal(
+    item.reviews!.some((r) => r.storyId === item.stories[1].id),
+    false,
+  );
+  for (const variant of [
+    'summit',
+    'bridge',
+    'sanctions',
+    'partial-bridge',
+    'gaza',
+    'sanctions-cause',
+  ]) {
+    const changed = structuredClone(recorded);
+    if (variant === 'summit') changed[0].groups.splice(0, 1);
+    if (variant === 'bridge') changed[0].groups.splice(1, 1);
+    if (variant === 'sanctions') changed[0].groups.splice(2, 1);
+    if (variant === 'partial-bridge') changed[0].groups[1].pop();
+    if (variant === 'gaza')
+      changed[0].groups.push(['current:2', 'history:2:4']);
+    if (variant === 'sanctions-cause') changed[0].groups[2].push('history:1:4');
+    const report = await evaluateDevelopingStories(cases, changed);
+    assert.equal(report.controlsPassed, false, variant);
+    assert.equal(report.semanticAcceptance, 'not-established');
+  }
+});

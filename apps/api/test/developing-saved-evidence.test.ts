@@ -34,7 +34,17 @@ const fixture = JSON.parse(
   }[];
 };
 
-for (const item of fixture.cases) {
+const world = JSON.parse(
+  readFileSync(
+    new URL(
+      './fixtures/developing-stories-world-2026-11-18.json',
+      import.meta.url,
+    ),
+    'utf8',
+  ),
+) as typeof fixture;
+
+for (const item of [...fixture.cases, ...world.cases]) {
   const reviews = item.reviews ?? [
     {
       storyId: item.reviewedStoryId,
