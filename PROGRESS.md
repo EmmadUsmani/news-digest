@@ -169,3 +169,12 @@ Earlier entries: [through iteration 3300](docs/progress-archive/2026-11-21-throu
 - TASKS/RANKING updated; scheduled behavior and handbook system behavior unchanged. No new reference labels/fixtures or paid calls.
 - Verification/deployment results follow; logs /tmp/3363-*.log. Next: Nov 22 daily/developing acceptance and miss-cause fix; saved semantic event-budget comparison; Sunday weekly acceptance.
 - Final: pnpm format/lint:fix/check pass (1,381 unit; 341 integration/four expected skips); pnpm build and git diff --check pass. Saved evaluator passes with zero external calls. API/worker restarted active, healthz/alerts healthy; reader probe initially raced startup, then verifies five topics/25 stories/15 posts. Push and final service restart follow.
+
+## 2026-11-21: iteration 3364 — Reddit evidence for joint event review
+
+- Clean main at 2d0bc6a4; no inherited work. Healthz/alerts healthy, 38 monitored sources healthy, no failed digest jobs; next daily Nov 22 15:00 UTC. Historical ingestion/social failures remain in queue counts with no current source alert.
+- Joint qualification now supplies saved Reddit score, comment count, upvote ratio and observation time to the shared editor; preserves zero values, original snapshots and explicit unknown growth/media. Scheduled selection unchanged.
+- Three scripted qualification tests pass, including all-platform evidence and zero metrics. Existing saved Nov 17–18 evaluator passes with zero provider calls; no new labels/fixtures or paid calls.
+- TASKS/RANKING updated; handbook behavior unchanged. Full verification/deployment results follow in final line; logs /tmp/3364-*.log.
+- Next: Nov 22 daily/developing acceptance and three-edition miss-cause fix; saved event-budget semantic acceptance/Nov 12–16 comparison; Sunday weekly acceptance.
+- Final verification: pnpm format; pnpm lint:fix; pnpm check (1,382 unit passes, 341 integration passes/four expected skips); pnpm build; git diff --check pass. Saved evaluator and scheduled-reader probe pass (five topics/25 stories/15 posts). Push/restart and final health/alerts follow.

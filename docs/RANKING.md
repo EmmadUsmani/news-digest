@@ -3823,3 +3823,13 @@ platform editor calls. Incomplete triage refuses the whole preview; empty
 qualified pools and zero budgets make no editor call. No paid calls or new
 reference labels/fixtures. Scheduled callers remain unchanged. Saved real-pool
 semantic/material-fact acceptance and the Nov 12–16 comparison remain open.
+
+## Reddit evidence in joint review (iteration 3364)
+
+The qualified joint shortlist now carries saved Reddit score, comment count,
+upvote ratio and observation time into the editor, alongside existing X and
+Bluesky evidence. Zero counts and ratios survive unchanged. A single observation
+does not imply growth, and media contents remain unknown. Snapshot objects and
+ordinary scheduled selection are unchanged. Three offline qualification tests
+cover all-platform evidence, zero metrics and incomplete/empty qualification.
+No provider calls or new labels; saved semantic acceptance remains open.

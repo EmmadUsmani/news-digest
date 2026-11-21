@@ -274,10 +274,28 @@ export async function editTopicPosts<T extends EditorialPost>(
     .sort((a, b) => Number(b.platform === 'x') - Number(a.platform === 'x'))
     .slice(0, 10);
   if (options.prepareJointReview) {
-    result.qualifiedCandidates = shortlist.map((editorial) => ({
-      editorial,
-      snapshot: candidates.find((post) => editorialId(post) === editorial.id)!,
-    }));
+    result.qualifiedCandidates = shortlist.map((editorial) => {
+      const snapshot = candidates.find(
+        (post) => editorialId(post) === editorial.id,
+      )!;
+      return {
+        editorial:
+          snapshot.platform === 'reddit'
+            ? {
+                ...editorial,
+                engagementEvidence: JSON.stringify({
+                  score: snapshot.metrics.score,
+                  comments: snapshot.metrics.comments,
+                  upvoteRatio: snapshot.metrics.upvoteRatio,
+                  observedAt: snapshot.observedAt,
+                  growthEvidence: 'single snapshot; growth unknown',
+                  media: 'contents unknown',
+                }),
+              }
+            : editorial,
+        snapshot,
+      };
+    });
     return result;
   }
   // Evaluation only: use the real shortlist and editor in one call. No

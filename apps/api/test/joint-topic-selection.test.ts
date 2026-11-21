@@ -120,6 +120,14 @@ function harness(incomplete = false, rejectAll = false) {
           ['launch', 'reddit:outage', 'bluesky:expansion'],
         );
         assert.match(candidates[0].engagementEvidence!, /unverified hint/);
+        assert.deepEqual(JSON.parse(candidates[1].engagementEvidence!), {
+          score: 100,
+          comments: 5,
+          upvoteRatio: 0.9,
+          observedAt: time,
+          growthEvidence: 'single snapshot; growth unknown',
+          media: 'contents unknown',
+        });
         assert.match(candidates[2].engagementEvidence!, /likes 15/);
         assert.match(candidates[2].engagementEvidence!, /2026-11-03T11:00:00Z/);
         const posts = candidates.map((post) => ({
@@ -182,4 +190,28 @@ void test('incomplete qualification, rejected pools and zero budgets never invok
   );
   assert.equal(zero.triaged.length, 0);
   assert.equal(zero.editorCalls(), 0);
+});
+
+void test('Reddit joint evidence preserves zero counts and ratios', async () => {
+  const h = harness();
+  h.services.socialEditor.editOutcome = async (_topic, candidates) => {
+    assert.deepEqual(JSON.parse(candidates[0].engagementEvidence!), {
+      score: 0,
+      comments: 0,
+      upvoteRatio: 0,
+      observedAt: time,
+      growthEvidence: 'single snapshot; growth unknown',
+      media: 'contents unknown',
+    });
+    return { status: 'complete', value: { model: 'scripted', posts: [] } };
+  };
+  const reddit = input.candidates[1];
+  assert.equal(reddit.platform, 'reddit');
+  await previewTopicEventSelection(h.services, {
+    ...input,
+    candidates: [
+      { ...reddit, metrics: { score: 0, comments: 0, upvoteRatio: 0 } },
+    ],
+    blueskyPosts: [],
+  });
 });
