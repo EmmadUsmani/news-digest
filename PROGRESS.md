@@ -77,3 +77,12 @@ Earlier entries: [through iteration 3358](docs/progress-archive/2026-11-21-throu
 - TASKS/RANKING updated; archived progress through 3358 after exceeding 25 KB. No system behavior/handbook change or new labels/fixtures.
 - Verification/deployment results follow; logs /tmp/3366-*.log. Next: Nov 22 scheduled acceptance/miss-cause fix, saved event-budget acceptance, Sunday weekly acceptance.
 - Final: pnpm format; pnpm lint:fix; pnpm check (1,385 unit passes; 341 integration passes/four expected skips); pnpm build; git diff --check pass. Build initially caught optional platform typing; fixed using saved snapshot platform. Saved evaluator passes with zero external calls; dated reader probe confirms five topics/25 stories/15 posts. Push/restart/final health follow.
+
+## 2026-11-21: iteration 3367 — preserve mixed-platform editor guidance
+
+- Clean main at 8589ad78; no inherited work. Alerts zero; healthz database/Redis healthy. Nov 21 signed-out reader verifies five topics/25 stories/15 posts; next daily acceptance due Nov 22.
+- Fixed mixed-platform review instructions: adding Bluesky no longer erases X/Reddit provenance or the existing X preference. Bluesky remains explicitly an API observation, not a fact-checked claim. Single-platform guidance and scheduled callers unchanged.
+- Real-editor fresh/cache regression checks all three provenance statements and X preference; all 34 social-editor tests pass. Saved Nov 17–18 event comparison passes with zero external calls.
+- TASKS/RANKING updated; no handbook behavior change, semantic labels, fixtures or paid calls. Reader probe with an unnecessary env-file flag failed before execution; ordinary existing local DB defaults pass.
+- Full verification/deployment results follow; logs /tmp/3367-*.log. Next: Nov 22 daily/developing acceptance and miss-cause fix; event-budget real-pool acceptance/Nov 12–16 comparison; Sunday weekly acceptance.
+- Final: pnpm format; pnpm lint:fix; pnpm check (1,385 unit passes; 341 integration passes/four expected skips); pnpm build; git diff --check pass. API/worker restarted active; healthz/alerts healthy, signed-out reader confirms five topics/25 stories/15 posts. Commit/push follow.

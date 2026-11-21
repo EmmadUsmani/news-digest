@@ -1684,6 +1684,20 @@ void test('joint platform preview uses one real editor review and cache, preserv
   );
   assert.deepEqual(await run(), result);
   assert.equal(h.calls.length, 1);
+  assert.match(h.calls[0].instructions, /X posts come from verified embeds/);
+  assert.match(
+    h.calls[0].instructions,
+    /Reddit posts come from public listings/,
+  );
+  assert.match(
+    h.calls[0].instructions,
+    /Bluesky posts are official API observations/,
+  );
+  assert.match(
+    h.calls[0].instructions,
+    /Prefer qualifying X posts for about 70%/,
+  );
+  assert.match(h.calls[0].instructions, /strong Reddit or Bluesky posts/);
   assert.deepEqual(snapshots[1].reasons, ['Qualified Bluesky']);
   await assert.rejects(() =>
     previewJointEventSelection(h.editor, {

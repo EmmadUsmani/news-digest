@@ -3861,3 +3861,14 @@ five-post budget, stronger Reddit and Bluesky alternatives in the shared
 request, one editor call, accepted snapshots and unchanged scheduled X-first
 shortlisting. No new labels, fixtures or provider calls. Semantic and Nov 12–16
 acceptance remain open; this fixes candidate availability, not measured recall.
+
+## Mixed-platform evidence guidance (iteration 3367)
+
+The joint review now retains X verified-embed and screened Reddit-listing
+provenance when Bluesky candidates are present. It identifies Bluesky API
+observations separately and keeps the existing roughly 70% X preference, with
+strong Reddit or Bluesky alternatives eligible for the remainder. Previously,
+any Bluesky candidate replaced that entire instruction with Bluesky-only
+guidance. Single-platform instructions remain unchanged. The real-editor
+scripted/cache regression checks all three provenance statements and the
+preference; scheduled callers remain unchanged.
