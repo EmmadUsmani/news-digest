@@ -37,6 +37,8 @@ details, budgets and rules stay in the items. Every new item goes on this list.
    Routine metrics checkpoint commits stop.
 8. Use waiting time for evaluation, and count stories and posts per event
    (item 69).
+   Item 72 (Nov 21): ship developing stories now with a defined acceptance,
+   and no idle runs while items 69 or 70 have work.
 9. Reader features: developing stories, why picked, week in review (item 70,
    owner-approved Nov 19).
 10. Then item 38's list for choosing meaningful work. Item 42 says what to do
@@ -3244,6 +3246,8 @@ parts.
 `NEEDS_FROM_HUMAN.md` and move on. No deploys between 13:00 and 16:00 UTC.
 Protect the morning edition.
 
+Item 72 (Nov 21) defines developing stories' acceptance and replaces the plan's open-ended "inactive" gate.
+
 ## 71. NOW: stop the Nov 19 audit; finish item 68 from the next three editions (2026-11-19)
 
 **Why:** item 68 has had about 30 commits and a 550-line Nov 19 review, and still
@@ -3280,3 +3284,49 @@ and the cause tally.
 
 **Limits:** unchanged from item 68. No deploys between 13:00 and 16:00 UTC.
 Protect the morning edition.
+
+## 72. NOW: ship developing stories; no idle runs while items 69 and 70 have work (2026-11-21)
+
+**Why:** item 70 has had about 70 developing-story commits since Nov 19 and no
+ack, and the Nov 20 edition has no developing stories. Most recent commits
+re-review or "verify" old Nov 15 to 18 editions. The plan's line "production
+remains inactive until semantic and whole-edition budget acceptance" never said
+what passing is, so the agent waited: about 85 runs with no commits from 16:41
+to 00:15 UTC on Nov 20. This item defines that acceptance.
+
+**Priority:** Current order line 8, with item 69. It doesn't move items 68 and
+71: the Nov 21 and 22 reviews and the fix after them still come first.
+
+**What to do:**
+
+1. **Semantic acceptance, once:** run matching once over the saved Nov 12 to 18
+   editions (`apps/api/test/fixtures/developing-stories-saved-2026-11-12-18.json`)
+   and list every matched pair (earlier and current headline) in the ack. If any
+   pair is plainly wrong, raise the threshold and rerun once. Don't add rules.
+   That is the whole acceptance.
+2. **Budget acceptance, once:** run the existing offline budget preflight on the
+   same saved editions. It passes if the worst day, normal edition included,
+   fits the daily AI cap ($0.65). If it doesn't fit, write one line in
+   `NEEDS_FROM_HUMAN.md` and go on to "why this" (plan feature 2).
+3. Enable developing stories for scheduled editions and deploy outside 13:00 to
+   16:00 UTC. Update the plan's "production remains inactive" line.
+4. After the next scheduled edition, check it in the edition review: the
+   developing stories, their "Earlier coverage" links, and whether the summaries
+   lead with what changed. Fix real problems; don't re-review old editions.
+5. Then go straight on to "why this", per the plan.
+
+**While waiting:** when nothing ranked higher can move, work on item 69 or the
+next item 70 feature. A run that ends with no commit must say why no item 69 or
+70 work was possible. Two of those in a row is a warning sign, not waiting.
+
+**What not to do:** no new reference reviews, semantic references or "verify ...
+control" commits on past editions for developing stories. No new reference
+scripts, schemas or fixtures. Item 66's no-checkpoint rule holds. Don't raise
+a cap.
+
+**Done when:** developing stories appears in a published edition. The ack lists
+the matched pairs, the budget preflight's worst day against $0.65, and the
+edition ID, with a reader screenshot.
+
+**Limits:** existing AI caps (daily $0.65, monthly $20). No paid replays. No
+deploys between 13:00 and 16:00 UTC. Protect the morning edition.

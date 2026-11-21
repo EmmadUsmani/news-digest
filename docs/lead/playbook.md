@@ -76,19 +76,20 @@ anything unpushed. So does deleting the clone.
 
 ## Steering traps we've hit
 
-| What went wrong                                             | Lesson                                                     |
-| ----------------------------------------------------------- | ---------------------------------------------------------- |
-| "Wait for the Nov 4 run" made the agent idle for two hours  | Say what to do while waiting                               |
-| "Never idle" led to 116 commits polishing replaced screens  | Rank meaningful work, and name the warning signs           |
-| Agent kept "blocked" after it cleared (copied loop to loop) | Say a cleared block in STEERING; tell it to check settings |
-| A zero-wrong-merges gate wrongly parked AI grouping         | Set gates from what the product needs, not perfection      |
-| UI spec banned "excerpts", so story text vanished           | Ban labels explicitly, and say what stays visible          |
-| Decision rule needed a promotion flag that doesn't exist    | Check that a rule can be computed from data we have        |
-| Design drifted to story reactions, away from viral posts    | Re-read the owner's goal before each design change         |
-| Agent kept re-analysing 47 posts                            | Give every investigation a stopping point                  |
-| Items grew long, and the agent rereads them each iteration  | Put designs in a plan under `docs/`, and keep items short  |
-| Owner's mailbox command crashed: the agent never ran it     | Lead runs every owner command before passing it on         |
-| A cost gate in a plan that live editions already failed     | Test a new gate against today's data before steering it    |
+| What went wrong                                             | Lesson                                                       |
+| ----------------------------------------------------------- | ------------------------------------------------------------ |
+| "Wait for the Nov 4 run" made the agent idle for two hours  | Say what to do while waiting                                 |
+| "Never idle" led to 116 commits polishing replaced screens  | Rank meaningful work, and name the warning signs             |
+| Agent kept "blocked" after it cleared (copied loop to loop) | Say a cleared block in STEERING; tell it to check settings   |
+| A zero-wrong-merges gate wrongly parked AI grouping         | Set gates from what the product needs, not perfection        |
+| UI spec banned "excerpts", so story text vanished           | Ban labels explicitly, and say what stays visible            |
+| Decision rule needed a promotion flag that doesn't exist    | Check that a rule can be computed from data we have          |
+| Design drifted to story reactions, away from viral posts    | Re-read the owner's goal before each design change           |
+| Agent kept re-analysing 47 posts                            | Give every investigation a stopping point                    |
+| Items grew long, and the agent rereads them each iteration  | Put designs in a plan under `docs/`, and keep items short    |
+| Owner's mailbox command crashed: the agent never ran it     | Lead runs every owner command before passing it on           |
+| A cost gate in a plan that live editions already failed     | Test a new gate against today's data before steering it      |
+| Agent added "inactive until acceptance" with no test; idled | Every gate in a plan says what passing is; check agent edits |
 
 ## Diagnosing
 
@@ -96,9 +97,8 @@ anything unpushed. So does deleting the clone.
   more than the agent's summary did. The same goes for saved editions and code.
 - **Check that a test was fair** before rejecting an idea.
 - **Agent reviews are good but cautious.** Read the numbers, then make the call.
-- **Agent quiet with no commits:** read `~/agent-control/status/heartbeat.json`
-  and `logs/iter-<n>.jsonl` on the VM. The supervisor retries crashes every 5
-  minutes forever, so a crash loop looks like a quiet agent.
+- **Agent quiet with no commits:** on the VM, `logs/iter-<n>.final.md` says why;
+  a crash loop retried every 5 minutes also looks quiet.
 - **Before touching the supervisor,** diff `~/agent-control/` with `main`; check
   for `STOP`. Over ssh, `systemctl --user` needs `XDG_RUNTIME_DIR=/run/user/$UID`.
 - **`/admin` returns 200 for any path** once the gate passes, because the page is

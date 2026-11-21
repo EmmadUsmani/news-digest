@@ -7,8 +7,9 @@ stories in the Nov 20 edition, despite about 70 developing-story commits since
 Nov 19, mostly retroactive reference reviews and "verify ... control" checks
 on Nov 15 to 18 editions. The agent idled for about 7.5 hours (16:41 to 00:15
 UTC Nov 20, roughly 85 no-commit runs) saying developing stories "awaits
-semantic and budget acceptance". Lead proposed steering to ship it; not yet
-approved.
+semantic and budget acceptance". Owner approved steering on Nov 21: item 72
+defines that acceptance (one matching run, one budget preflight) and bans idle
+runs while items 69 or 70 have work.
 
 - Item 68, Missed stories: Current order line 2, just below breakages
   (owner's ranking). Recall per topic goes in each daily edition review, and a
@@ -27,5 +28,7 @@ looked into. Lines 8 and 9 were placed by the lead; the owner can reorder them.
 - After the Nov 22 review (item 71), check that the review has a Missed section
   with recall per topic, and that the misses read as real.
 - Check that waiting time doesn't turn into daily checkpoint commits (item 66)
-  or idle runs. If steered, check developing stories appears in an edition.
+  or idle runs.
+- Item 72: check for an ack with matched pairs and budget, then developing
+  stories in a published edition. Watch for new "verify ... control" commits.
 - When "why this" ships, the owner reviews the screenshots.
