@@ -185,4 +185,5 @@ Earlier entries: [pre-3055 archive](docs/progress-archive/2026-11-20-pre-3055.md
 - Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-20T15:00:00Z; git diff --check. Logs /tmp/3173-{targeted,format,lint,check,build,reader}.log.
 - Reader verifies five topics/25 real stories/20 posts; digest queue has zero failed runs. Public-mode job detail filtering is unavailable; counts-only obs jobs --check passes.
 - Model and whole-edition budget acceptance remain open; production inactive. No source/schema/UI changes. Next: Nov 21 recall/v16 acceptance.
-- Full pnpm check passes: static checks, 1,337 units, 336 integration passes/four expected skips. pnpm build and git diff --check pass; API/worker refresh and final health verification follow push.
+- Full pnpm check passes: static checks, 1,337 units, 336 integration passes/four expected skips. pnpm build and git diff --check pass; API/worker restarted after merge; health passes and zero alerts.
+- Initial push rejected after concurrent owner item 72/lead updates; merged without rewriting history. New item 72 supersedes open-ended acceptance and prohibits further historical controls; next run follows its one-time matching/budget path, then deployment or Why this.
