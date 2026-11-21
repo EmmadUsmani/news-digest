@@ -316,3 +316,24 @@ shared-policy false links. Existing snapshot checks consume all four labels.
 These are agent decisions, not provider matching or rewrite acceptance. The
 second-day excerpt supports a development, but no model rewrite is accepted;
 production remains inactive and whole-edition budget acceptance remains open.
+
+## Source-bound Kerch rewrite control — iteration 3168
+
+The Nov 17 original excerpt supports a narrow update: Ukraine struck the Kerch
+Bridge linking Russia to Russian-annexed Crimea for a second day. Manual prose
+uses “Ukraine strikes Kerch Bridge for a second day” as its headline, the exact
+excerpt as its summary, and “The strike continues attacks on the bridge linking
+Russia to Russian-annexed Crimea” as its significance. Actor, action, location
+and second-day development are supported by that one current excerpt.
+
+The rewrite omits the earlier report’s drone, traffic and timing details and
+makes no damage, casualty or strategic-escalation claim. The existing rewrite
+contract accepts this manual control using original editorial evidence and the
+reviewed Nov 16 predecessor. All five selected IDs retain their order and the
+other four stories retain their prose. The peace-talk relationship remains
+unresolved and is not admitted as a link.
+
+This is source-reviewed manual prose, not provider output. The runtime guard
+checks bounded lexical/absence rules, not general entailment. Model matching,
+rewrite and whole-edition budget acceptance remain open; production stays
+inactive. No paid replay or cap change.

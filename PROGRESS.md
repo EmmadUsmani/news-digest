@@ -116,3 +116,15 @@ Earlier entries: [pre-3055 archive](docs/progress-archive/2026-11-20-pre-3055.md
 - Verification: pnpm format; pnpm lint:fix; full pnpm check rerun (results below). Logs /tmp/3167-{format,lint,check,reader,targeted,capture}.log.
 - Next: scheduled Nov 21 recall and v16 Tech/Gaming acceptance. Model semantics and whole-edition budget acceptance remain open; no cap changes.
 - Full pnpm check passes: static checks/API build, 1,327 units, 336 integrations/four expected skips. Final formatting/diff checks pass; commit/push and healthy service refresh follow.
+
+## 2026-11-21: iteration 3168 — source-bound Kerch rewrite control
+
+- Clean main at b14c5f7e; no inherited work. pnpm obs alerts: zero; health/database/Redis pass; API/worker active; pnpm obs sources --check passes (37 active, Destructoid intentionally inactive).
+- Nov 21 edition/recall and v16 acceptance await publication; today's item 69 evaluation commit already used. Continued item 70 without paid calls or production changes.
+- Source-reviewed manual Kerch update uses original Nov 17 excerpt: actor/action, bridge/location and second-day development only. Earlier drone/traffic/timing facts and escalation claims omitted.
+- Existing current-evidence guard/fixed-selection rewrite accepts the manual response; all five selected IDs/order and four untouched stories retained. Peace-talk continuity unresolved; feature stays inactive.
+- Targeted: pnpm exec tsx --test apps/api/test/developing-rewrite-support.test.ts — 3 pass. Guard is lexical, not general entailment; no provider/model acceptance claimed.
+- Reader: pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-20T15:00:00Z — five topics/25 real stories/20 posts pass. No runtime/schema/source/UI changes.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (results below); git diff --check. Logs /tmp/3168-{format,lint,check,targeted,reader}.log.
+- Next: Nov 21 recall/v16 Tech and Gaming acceptance; semantic/model and whole-edition budget acceptance remain open. Commit/push and service revision refresh follow checks.
+- Full pnpm check passes: static checks/API build, 1,328 units, 336 integrations/four expected skips. Initial check stopped on the newly appended progress-entry formatting; corrected with Prettier before the passing rerun.
