@@ -81,3 +81,33 @@ Reject a deletion-only event budget as the complete solution. Further build
 work must consider alternative candidate posts that add different events,
 rather than only pruning the published picks. Nov 12–16 candidate replay and
 the full Nov 12–18 deployment gate remain open. No runtime change is shipped.
+
+## Editor-path replay (iteration 3357)
+
+The same evaluator now sends the existing Nov 17–18 labels through
+`SocialPostEditor`, its actual bounded story context, wire-ID aliases,
+validation and budget/cache wrapper. A scripted response preserves all original
+picks and supplies existing annotations; it qualifies no new alternatives.
+Each topic runs fresh and cached, with identical results and one scripted
+response. There are no network calls or new reference labels.
+
+| Topic                 | Nov 17 before → editor preview | Nov 18 before → editor preview | Refused for shortened evidence |
+| --------------------- | -----------------------------: | -----------------------------: | ------------------------------ |
+| Tech & AI             |                      2/9 → 2/9 |                      1/8 → 1/8 | Both days                      |
+| NBA                   |                      1/9 → 1/9 |                      3/9 → 3/9 | Nov 18                         |
+| Gaming                |                    1/10 → 1/10 |                    3/10 → 3/10 | Neither                        |
+| World news & politics |                      1/9 → 1/9 |                      2/8 → 2/8 | Neither                        |
+| U.S. news & politics  |                      1/8 → 1/8 |                      2/9 → 2/9 | Nov 18                         |
+
+All 81 labelled topic-events and retained-fact slots survive. Four of ten
+previews refuse because at least one story summary exceeds the 400-character
+context limit. In particular, both Nov 18 improvements available to the
+planner (NBA 33.33% → 14.29%, U.S. 22.22% → 12.50%) disappear in the editor
+path. The six complete previews have no improving deletion.
+
+Reject the current bounded, published-picks-only preview as a deployment
+candidate: it improves zero of ten topic-editions. The planner's optimistic
+numbers must not be reported as editor results. An implementation needs
+complete comparison evidence and independently qualified alternatives before
+it can meet item 69. Semantic annotation quality and the remaining Nov 12–16
+comparison are still open; this replay establishes neither.

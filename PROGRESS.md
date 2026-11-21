@@ -99,3 +99,14 @@ Earlier entries: [through iteration 3300](docs/progress-archive/2026-11-21-throu
 - Verification: pnpm exec tsx --test apps/api/test/social-editor.test.ts (31/31); pnpm exec tsx scripts/evaluate-saved-nba-event-breadth.ts passes with unchanged saved comparisons. pnpm format/lint:fix/check and deployment results follow; logs /tmp/3356-*.log.
 - Next: Nov 22 edition/miss-cause review and developing reader acceptance; full saved Nov 12–18 event-budget comparison and Sunday weekly acceptance remain open.
 - Final: pnpm format, pnpm lint:fix, pnpm check (1,372 unit passes; 341 integration passes/four expected skips), pnpm build and git diff --check pass. API/worker restarted active; healthz retry passes, scheduled-reader probe verifies Nov 21 five topics/25 stories/15 posts, and alerts remain zero.
+
+## 2026-11-21: iteration 3357 — measure event-budget previews through the editor
+
+- Clean main at 3337d5ca; no inherited work. Zero alerts, healthy healthz/database/Redis, all 38 sources healthy; no failed digest jobs. Nov 22 edition/review remains pending.
+- Extended the existing saved evaluator through SocialPostEditor, actual story-context bounds, wire aliases, validation and budget/cache wrapper. Ten Nov 17–18 topic-editions use existing labels and scripted responses only; each fresh/cache pair matches with one scripted call, no external calls.
+- Actual editor preview improves zero of ten topic-editions. Four refuse shortened story evidence: Tech both days, Nov 18 NBA/U.S. All 81 labelled topic-events and retained-fact slots survive.
+- Nov 18 NBA stays 3/9 (33.33%), U.S. stays 2/9 (22.22%); planner-only 1/7 and 1/8 gains are unavailable through this bounded editor path. Reject this published-picks-only version as a deployment candidate, not the entire item 69 proposal.
+- TASKS/RANKING/comparison updated. Full Nov 12–16 comparison, semantic annotations, complete comparison evidence and qualified alternatives remain open; no new fixtures, paid calls or scheduled-selection changes. No owner handbook behavior changed.
+- Verification: saved evaluator fresh/cache assertions pass; pnpm format/lint:fix/check/build and deployment results follow in final line. Logs /tmp/3357-*.log.
+- Next: Nov 22 daily review/three-edition miss-cause fix and developing reader acceptance; event-budget evidence/qualification work; Sunday weekly acceptance.
+- Final: pnpm format, pnpm lint:fix, pnpm check (1,372 unit passes; 341 integration passes/four expected skips), pnpm build and git diff --check pass. Saved evaluator passes ten fresh/cache replays; reader verifies Nov 21 five topics/25 stories/15 posts. API/worker restart and final health/alerts are checked after push.

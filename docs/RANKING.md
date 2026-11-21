@@ -3733,3 +3733,14 @@ development, so any shortened qualified alternative refuses the preview.
 Original picks and annotations survive without retry; exactly 1,200 characters
 remain eligible. Scripted boundary/correction and cache checks pass; this is
 not semantic acceptance or a production selection change.
+
+## Editor-path event-budget result (iteration 3357)
+
+The existing saved evaluator now replays Nov 17–18 through the real social
+editor validation/cache path with scripted responses and existing labels.
+All ten topic-editions retain their original largest-event share; four
+previews refuse shortened story evidence. The Nov 18 NBA/U.S. planner gains
+are therefore unavailable in the actual bounded editor path. Reject this
+published-picks-only preview as a deployment candidate. Complete evidence,
+qualified alternatives and Nov 12–16 semantic comparison remain open.
+[Numbers and replay scope](edition-reviews/2026-11-18-joint-event-comparison.md#editor-path-replay-iteration-3357).
