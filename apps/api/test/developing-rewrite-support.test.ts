@@ -362,3 +362,84 @@ void test('saved summit greeting rewrite excludes inherited agenda and outcome c
   assert.equal(result.stories[0].summary, rewrite.summary);
   assert.deepEqual(result.stories.slice(1), item.selected.slice(1));
 });
+
+void test('saved Crimea bridge operation rewrite uses newly reported preparation and weapons details', async () => {
+  const fixture = JSON.parse(
+    readFileSync(
+      new URL(
+        './fixtures/developing-stories-world-2026-11-18.json',
+        import.meta.url,
+      ),
+      'utf8',
+    ),
+  ) as {
+    cases: {
+      topicName: string;
+      selected: {
+        id: string;
+        title: string;
+        summary: string;
+        whyItMatters: string;
+      }[];
+      originalEditorialEvidence: { evidence: EditorialCandidate[] };
+      history: {
+        editionId: string;
+        stories: { id: string; title: string; summary: string }[];
+      }[];
+    }[];
+  };
+  const item = fixture.cases[0];
+  const current = item.originalEditorialEvidence.evidence[3];
+  const previousId = '3806d892-e21b-4884-98be-e43b55e3ad7a';
+  const history = item.history.find((h) =>
+    h.stories.some((s) => s.id === previousId),
+  )!;
+  const previous = history.stories.find((s) => s.id === previousId)!;
+  assert.equal(current.id, '7b9c7612-9572-4ce9-9a1d-71c0c5602dbc');
+  assert.equal(
+    current.excerpt,
+    'A weeks-long operation was behind two waves of strikes using long-range missiles and drones developed in Ukraine.',
+  );
+  // Manual source review: newly reported preparation and weapons details,
+  // without importing earlier traffic disruption, timing or damage claims.
+  const rewrite = {
+    id: current.id,
+    title:
+      'Weeks-long Ukrainian operation preceded two waves of bridge strikes',
+    summary: current.excerpt,
+    whyItMatters:
+      'The operation used long-range missiles and drones developed in Ukraine.',
+  };
+  const result = await rewriteDevelopingStories({
+    selected: item.selected,
+    evidence: item.originalEditorialEvidence.evidence,
+    links: [
+      {
+        storyId: current.id,
+        previousEditionId: history.editionId,
+        previousStoryId: previous.id,
+        previousHeadline: previous.title,
+        previousSummary: previous.summary,
+        editionCount: 3,
+      },
+    ],
+    rewrite: async (inputs) => {
+      assert.equal(inputs.length, 1);
+      assert.deepEqual(inputs[0].evidence, current);
+      assert.equal(inputs[0].earlierCoverage.previousSummary, previous.summary);
+      return [rewrite];
+    },
+    validate: (value, evidence) =>
+      validateDevelopingRewrite(value, evidence, item.topicName),
+  });
+  assert.equal(result.status, 'rewritten');
+  assert.deepEqual(
+    result.stories.map((s) => s.id),
+    item.selected.map((s) => s.id),
+  );
+  assert.equal(result.stories[3].summary, rewrite.summary);
+  assert.deepEqual(
+    result.stories.filter((s) => s.id !== current.id),
+    item.selected.filter((s) => s.id !== current.id),
+  );
+});

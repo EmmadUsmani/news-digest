@@ -161,3 +161,15 @@ Earlier entries: [pre-3055 archive](docs/progress-archive/2026-11-20-pre-3055.md
 - Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; scheduled-reader and service refresh results below. Logs /tmp/3171-{targeted,format,lint,check,build,reader}.log.
 - Next: Nov 21 recall and v16 Tech/Gaming acceptance. No source/schema/UI changes.
 - Full pnpm check passes: static checks, 1,335 units, 336 integrations/four expected skips. pnpm build passes; scheduled-reader Nov 20 verifies five topics/25 real stories/20 posts. git diff --check passes.
+
+## 2026-11-21: iteration 3172 — source-bound Crimea operation rewrite control
+
+- Clean main at d37c36d8; no inherited work. Zero alerts; health/database/Redis pass.
+- Nov 21 recall/v16 acceptance awaits publication; today's item 69 evaluation commit used. Continued item 70 without paid calls or runtime changes.
+- Manual Nov 18 bridge rewrite leads with newly reported weeks-long preparation, two waves and Ukrainian-developed weapons; omits inherited damage/traffic claims.
+- Unchanged support guard and fixed-selection contract pass: five IDs/order and four unchanged stories; nearest Nov 17 predecessor with three-edition continuity supplied.
+- Manual control only; combined World/model/whole-edition budget acceptance remains open; production inactive.
+- Targeted: pnpm exec tsx --test apps/api/test/developing-rewrite-support.test.ts — six pass.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; scheduled-reader and service refresh results below. Logs /tmp/3172-{targeted,format,lint,check,build,reader}.log.
+- Next: Nov 21 recall and v16 Tech/Gaming acceptance. No source/schema/UI changes.
+- Full pnpm check passes: static checks, 1,336 units, 336 integrations/four expected skips. pnpm build passes; scheduled-reader Nov 20 verifies five topics/25 real stories/20 posts. git diff --check passes.

@@ -74,6 +74,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 3172: Source-reviewed Nov 18 Crimea bridge rewrite leads with operation preparation/weapons details and retains all five World selections. Combined World/model/budget acceptance open; production inactive.
+
 - [x] 3171: Source-reviewed manual summit greeting rewrite uses current title/excerpt, omits inherited agenda hopes and outcomes, and retains all five World selections. Combined World/model/budget acceptance remains open; production inactive.
 
 - [x] 3170: Source-reviewed manual E1 contract-delay rewrite retains diplomatic causal denial and caretaker-government objection; unchanged guard and five-selection contract pass. Combined World/model/budget acceptance remains open; production inactive.

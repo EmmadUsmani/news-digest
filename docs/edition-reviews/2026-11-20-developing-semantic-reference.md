@@ -391,3 +391,17 @@ World IDs/order and the other four stories remain unchanged. This is reviewed
 manual prose, not model output or general entailment verification. Combined
 World rewrite and whole-edition budget acceptance remain open; production stays
 inactive, with no provider calls or cap changes.
+
+## Source-bound Crimea operation rewrite control — iteration 3172
+
+The Nov 18 original excerpt adds preparation and weapons details to the
+Nov 17 second-day bridge strike: a weeks-long operation preceded two waves
+using long-range missiles and drones developed in Ukraine. The manual rewrite
+leads with those details, retaining their scope. It claims no new strike,
+confirmed damage, traffic interruption or further timing from earlier coverage.
+
+The unchanged current-evidence guard accepts this prose. The fixed-selection
+contract keeps all five IDs/order and the four other stories unchanged, with
+the Nov 17 predecessor and three-edition continuity supplied. This is a manual
+source-reviewed control, not model acceptance. Combined World rewrite and
+whole-edition budget acceptance remain open; production stays inactive.
