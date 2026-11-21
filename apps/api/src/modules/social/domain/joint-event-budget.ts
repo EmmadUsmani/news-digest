@@ -11,10 +11,20 @@ export function planJointEventBudget(input: {
   candidates: readonly EventBudgetSlot[];
   selectedPostIds: readonly string[];
   postBudget: number;
+  postQuota?: { candidateIds: readonly string[]; limit: number };
 }): string[] {
   const { stories, candidates, selectedPostIds, postBudget } = input;
   const all = [...stories, ...candidates];
+  const quota = input.postQuota;
   if (
+    (quota !== undefined &&
+      (!Number.isInteger(quota.limit) ||
+        quota.limit < 0 ||
+        quota.limit > postBudget ||
+        new Set(quota.candidateIds).size !== quota.candidateIds.length ||
+        quota.candidateIds.some(
+          (id) => !candidates.some((slot) => slot.id === id),
+        ))) ||
     stories.length > 10 ||
     candidates.length > 10 ||
     !Number.isInteger(postBudget) ||
@@ -64,6 +74,12 @@ export function planJointEventBudget(input: {
   for (let mask = 0; mask < 2 ** candidates.length; mask++) {
     const posts = candidates.filter((_, index) => mask & (1 << index));
     if (posts.length > postBudget) continue;
+    if (
+      quota &&
+      posts.filter((post) => quota.candidateIds.includes(post.id)).length >
+        quota.limit
+    )
+      continue;
     const slots = [...stories, ...posts];
     const events = new Set(slots.map((slot) => slot.event));
     if ([...requiredEvents].some((event) => !events.has(event))) continue;

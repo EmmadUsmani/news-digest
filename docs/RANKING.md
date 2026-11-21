@@ -3833,3 +3833,16 @@ does not imply growth, and media contents remain unknown. Snapshot objects and
 ordinary scheduled selection are unchanged. Three offline qualification tests
 cover all-platform evidence, zero metrics and incomplete/empty qualification.
 No provider calls or new labels; saved semantic acceptance remains open.
+
+## Platform quota during event-budget search (iteration 3365)
+
+The opt-in editor now searches within the existing X reservation. Previously,
+it searched without platform limits and the joint wrapper could refuse the
+result even when a feasible improvement existed. The planner accepts a bounded
+candidate quota; the editor derives the non-X quota from the complete shortlist,
+then applies it only to qualified replacement subsets. Existing labelled events,
+event-scoped facts and the strict concentration improvement requirement remain.
+The wrapper retains its final preference check. Ordinary scheduled picks are
+unchanged. Offline fresh/cache coverage demonstrates a feasible X alternative
+when the unrestricted optimum uses too many other platforms. Saved Nov 17–18
+comparisons still pass; semantic acceptance and Nov 12–16 comparison remain open.

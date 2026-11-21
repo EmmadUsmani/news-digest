@@ -449,6 +449,22 @@ export class SocialPostEditor {
               candidates,
               selectedPostIds: selection.posts.map(({ id }) => id),
               postBudget: budget,
+              // Search within the existing X reservation instead of finding an
+              // unusable optimum and refusing a viable second-best plan.
+              postQuota: {
+                candidateIds: candidates
+                  .filter(
+                    ({ id }) =>
+                      compact.find((post) => post.id === id)?.platform !== 'x',
+                  )
+                  .map(({ id }) => id),
+                limit:
+                  budget -
+                  Math.min(
+                    compact.filter((post) => post.platform === 'x').length,
+                    Math.ceil(budget * 0.7),
+                  ),
+              },
               annotations: eventReview.annotations.filter(({ id }) =>
                 evidenceIds.has(id),
               ),

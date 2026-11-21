@@ -178,3 +178,12 @@ Earlier entries: [through iteration 3300](docs/progress-archive/2026-11-21-throu
 - TASKS/RANKING updated; handbook behavior unchanged. Full verification/deployment results follow in final line; logs /tmp/3364-*.log.
 - Next: Nov 22 daily/developing acceptance and three-edition miss-cause fix; saved event-budget semantic acceptance/Nov 12–16 comparison; Sunday weekly acceptance.
 - Final verification: pnpm format; pnpm lint:fix; pnpm check (1,382 unit passes, 341 integration passes/four expected skips); pnpm build; git diff --check pass. Saved evaluator and scheduled-reader probe pass (five topics/25 stories/15 posts). Push/restart and final health/alerts follow.
+
+## 2026-11-21: iteration 3365 — search event budgets within platform limits
+
+- Clean main at d1a2d2c2; no inherited work. Healthz/alerts healthy; sources check passes, no failed digest jobs; next daily Nov 22 15:00 UTC. Old ingestion/social failures remain in queue counts.
+- Fixed opt-in event search to respect the existing X reservation while enumerating qualified alternatives, instead of rejecting an unconstrained optimum and overlooking feasible improvements. Existing event/fact guarantees and final wrapper refusal remain; scheduled selection unchanged.
+- Added quota validation and feasible-alternative/fresh-cache regressions; 43 targeted tests pass. Initial regression expectations and editor API invocation corrected before final verification. No new semantic fixtures/labels or paid calls.
+- TASKS/RANKING updated; handbook system behavior unchanged. Saved Nov 17–18 comparison passes with zero provider calls.
+- Verification/deployment results follow; logs /tmp/3365-*.log. Next: Nov 22 daily/developing acceptance and miss-cause fix; complete saved event-budget acceptance; Sunday weekly acceptance.
+- Final verification: pnpm format; pnpm lint:fix; pnpm check (1,384 unit passes; 341 integration passes/four expected skips); pnpm build; git diff --check pass. Saved evaluator and reader probe pass (five topics/25 stories/15 posts). Push/restart and final health/alerts follow.

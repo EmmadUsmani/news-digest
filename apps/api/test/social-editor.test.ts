@@ -1778,3 +1778,68 @@ void test('joint platform preview refuses X-displacing plans and unavailable out
   assert.deepEqual(empty.eventBudgetPreview, []);
   assert.equal(calls, 2);
 });
+
+void test('joint editor searches inside the X reservation on fresh and cached annotations', async () => {
+  const pool = [
+    { id: 'x1', platform: 'x' as const, event: 'launch' },
+    { id: 'x2', platform: 'x' as const, event: 'launch' },
+    { id: 'reddit', platform: 'reddit' as const, event: 'contract' },
+    { id: 'blue', platform: 'bluesky' as const, event: 'game' },
+    { id: 'x3', platform: 'x' as const, event: 'outage' },
+  ].map((item) => ({
+    ...candidates[0],
+    ...item,
+    text: `${item.event} announced today.`,
+  }));
+  const pick = (id: string) => ({
+    id,
+    whyItMatters: '',
+    rationale: 'Concrete announcement.',
+  });
+  const h = harness([
+    {
+      posts: [pick('x1'), pick('x2')],
+      qualifiedAlternatives: [pick('reddit'), pick('blue'), pick('x3')],
+      eventAnnotations: [
+        ...pool.map((item) => ({
+          id: item.id,
+          event: item.event,
+          eventEvidence: item.text,
+          materialFacts: [],
+        })),
+        ...['story1', 'story2'].map((id) => ({
+          id,
+          event: 'launch',
+          eventEvidence: 'launch',
+          materialFacts: [],
+        })),
+      ],
+    },
+  ]);
+  const run = () =>
+    h.editor.editOutcome(
+      topic,
+      pool,
+      2,
+      'quota',
+      [],
+      [
+        { title: 'launch', summary: 'launch announced today.' },
+        { title: 'launch', summary: 'launch announced today.' },
+      ],
+      { reviewEvents: true, completeStoryEvidence: true },
+    );
+  const fresh = await run();
+  assert.equal(fresh.status, 'complete');
+  if (fresh.status !== 'complete') throw new Error('Expected completed review');
+  assert.deepEqual(
+    fresh.value.posts.map(({ id }) => id),
+    ['x1', 'x2'],
+  );
+  assert.deepEqual(
+    fresh.value.eventBudgetPreview?.map(({ id }) => id),
+    ['x3'],
+  );
+  assert.deepEqual(await run(), fresh);
+  assert.equal(h.calls.length, 1);
+});

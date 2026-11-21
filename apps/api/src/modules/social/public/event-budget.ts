@@ -23,6 +23,7 @@ export function selectWithEventBudget<T extends EventBudgetEvidence>(input: {
   selectedPostIds: readonly string[];
   postBudget: number;
   annotations: readonly EventBudgetAnnotation[];
+  postQuota?: { candidateIds: readonly string[]; limit: number };
 }): { status: 'complete' | 'invalid-annotations'; posts: T[] } {
   const { stories, candidates, selectedPostIds, postBudget, annotations } =
     input;
@@ -45,6 +46,7 @@ export function selectWithEventBudget<T extends EventBudgetEvidence>(input: {
     })),
     selectedPostIds,
     postBudget,
+    postQuota: input.postQuota,
   });
   const evidence = [...stories, ...candidates];
   const byId = new Map(
@@ -85,6 +87,7 @@ export function selectWithEventBudget<T extends EventBudgetEvidence>(input: {
     candidates: candidates.map(annotate),
     selectedPostIds,
     postBudget,
+    postQuota: input.postQuota,
   });
   return {
     status: 'complete',

@@ -209,3 +209,38 @@ void test('incomplete, stale or invented annotations preserve baseline objects a
     /bounded/,
   );
 });
+
+void test('searches for a feasible improvement when the unconstrained optimum exceeds a platform quota', () => {
+  const input = {
+    stories: [slot('story1', 'launch'), slot('story2', 'launch')],
+    candidates: [
+      slot('x1', 'launch'),
+      slot('x2', 'launch'),
+      slot('reddit', 'outage'),
+      slot('bluesky', 'contract'),
+      slot('x3', 'outage'),
+    ],
+    selectedPostIds: ['x1', 'x2'],
+    postBudget: 2,
+  };
+  assert.deepEqual(planJointEventBudget(input), ['reddit', 'bluesky']);
+  assert.deepEqual(
+    planJointEventBudget({
+      ...input,
+      postQuota: { candidateIds: ['reddit', 'bluesky'], limit: 0 },
+    }),
+    ['x3'],
+  );
+  for (const quota of [
+    { candidateIds: ['unknown'], limit: 0 },
+    { candidateIds: ['reddit', 'reddit'], limit: 1 },
+    { candidateIds: [], limit: -1 },
+    { candidateIds: [], limit: 3 },
+    { candidateIds: [], limit: 0.5 },
+  ]) {
+    assert.throws(
+      () => planJointEventBudget({ ...input, postQuota: quota }),
+      /bounded/,
+    );
+  }
+});
