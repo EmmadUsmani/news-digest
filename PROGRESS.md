@@ -110,3 +110,13 @@ Earlier entries: [through iteration 3300](docs/progress-archive/2026-11-21-throu
 - Verification: saved evaluator fresh/cache assertions pass; pnpm format/lint:fix/check/build and deployment results follow in final line. Logs /tmp/3357-*.log.
 - Next: Nov 22 daily review/three-edition miss-cause fix and developing reader acceptance; event-budget evidence/qualification work; Sunday weekly acceptance.
 - Final: pnpm format, pnpm lint:fix, pnpm check (1,372 unit passes; 341 integration passes/four expected skips), pnpm build and git diff --check pass. Saved evaluator passes ten fresh/cache replays; reader verifies Nov 21 five topics/25 stories/15 posts. API/worker restart and final health/alerts are checked after push.
+
+## 2026-11-21: iteration 3358 — complete bounded story comparison evidence
+
+- Clean main at fe9d7d3f; no inherited work. Zero alerts, healthz healthy, all 38 monitored sources healthy; digest queue zero failed/active, next run Nov 22 15:00 UTC.
+- Added opt-in 1,200-character complete-summary context for event reviews. Ordinary scheduled prompts remain at 400; overflow/upstream shortening still refuses previews. No paid calls, new labels, fixtures or scheduled selection changes.
+- Ten Nov 17–18 fresh/cache scripted editor replays now refuse none and match the exhaustive fact-preserving oracle. Nov 18 NBA largest-event share 33.33%→14.29%, U.S. 22.22%→12.50%; eight others unchanged. All 81 labelled events/retained facts survive.
+- Regressions cover expanded summary transport, overflow refusal, upstream truncation and cache consistency. TASKS/RANKING/comparison updated; owner handbook behavior unchanged.
+- Verification: targeted social editor/context tests 33/33; saved evaluator passes twenty fresh/cache comparisons (bounded plus expanded), zero external calls; pnpm format, pnpm lint:fix, pnpm build pass. Full check/deployment results below. Logs /tmp/3358-*.log.
+- Next: Nov 22 daily/developing acceptance and miss-cause fix; event-budget semantic annotations/qualified alternatives/Nov 12–16 comparison; Sunday weekly acceptance.
+- Final: pnpm check passes (1,373 unit, 341 integration/four expected skips), build and diff checks pass. API/worker restarted active; healthz healthy, Nov 21 reader probe passes five topics/25 stories/15 posts, final alerts zero.

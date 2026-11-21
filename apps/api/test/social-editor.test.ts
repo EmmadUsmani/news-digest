@@ -1440,6 +1440,8 @@ void test('event preview requires complete baseline and replacement text, includ
   };
   for (const kind of [
     'complete',
+    'expanded-summary',
+    'expanded-overflow',
     'post',
     'title',
     'summary',
@@ -1472,9 +1474,13 @@ void test('event preview requires complete baseline and replacement text, includ
       title:
         kind === 'title' ? story.title.padEnd(300) + ' extra' : story.title,
       summary:
-        kind === 'summary' || kind === 'upstream'
-          ? story.summary.padEnd(400) + ' An exclusive new fact.'
-          : story.summary,
+        kind === 'expanded-overflow'
+          ? story.summary.padEnd(1200) + ' An exclusive new fact.'
+          : kind === 'summary' ||
+              kind === 'upstream' ||
+              kind === 'expanded-summary'
+            ? story.summary.padEnd(400) + ' An exclusive new fact.'
+            : story.summary,
     };
     const covered =
       kind === 'upstream'
@@ -1511,6 +1517,7 @@ void test('event preview requires complete baseline and replacement text, includ
     const run = () =>
       h.editor.editOutcome(topic, input, 1, kind, [], covered, {
         reviewEvents: true,
+        completeStoryEvidence: kind.startsWith('expanded-'),
       });
     const result = await run();
     assert.equal(result.status, 'complete');
@@ -1519,13 +1526,21 @@ void test('event preview requires complete baseline and replacement text, includ
     assert.ok(result.value.eventReview, kind);
     assert.deepEqual(
       result.value.eventBudgetPreview,
-      kind === 'complete' || kind === 'replacement-boundary'
+      kind === 'complete' ||
+        kind === 'replacement-boundary' ||
+        kind === 'expanded-summary'
         ? [{ ...post, id: 'robot' }]
         : null,
       kind,
     );
     assert.deepEqual(await run(), result);
     assert.equal(h.calls.length, 1, kind);
+    if (kind === 'expanded-summary') {
+      assert.equal(
+        JSON.parse(h.calls[0].prompt).coveredStories[0].summary,
+        source.summary,
+      );
+    }
     if (kind === 'complete') {
       const shortened = await h.editor.editOutcome(
         topic,

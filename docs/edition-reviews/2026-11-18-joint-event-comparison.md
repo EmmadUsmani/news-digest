@@ -111,3 +111,20 @@ numbers must not be reported as editor results. An implementation needs
 complete comparison evidence and independently qualified alternatives before
 it can meet item 69. Semantic annotation quality and the remaining Nov 12–16
 comparison are still open; this replay establishes neither.
+
+## Complete-summary editor path (iteration 3358)
+
+Opt-in event review can now receive up to 1,200 characters of each selected
+story summary, with the existing ten-story/300-character title bounds. Overflow
+and upstream shortening still refuse the preview. Ordinary selection retains
+its 400-character summary bound. No scheduled selection is changed.
+
+The same ten Nov 17–18 scripted fresh/cache replays now refuse none. Nov 18 NBA
+falls from 3/9 (33.33%) to 1/7 (14.29%); U.S. falls from 2/9 (22.22%) to 1/8
+(12.50%). The other eight topic-editions retain their original shares. All 81
+labelled topic-events and retained-fact slots survive. Each replay uses one
+scripted call and a cache hit; there are zero external calls.
+
+This resolves evidence transport for these saved published picks. Semantic
+annotations, qualified unpublished alternatives and the Nov 12–16 comparison
+remain open before deployment acceptance.

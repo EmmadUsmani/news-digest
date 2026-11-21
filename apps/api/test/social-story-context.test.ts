@@ -18,3 +18,20 @@ void test('selected-story comparison is topic independent and bounded without wi
   assert.deepEqual(socialStoryContext([]), []);
   assert.deepEqual(stories, before);
 });
+
+void test('complete summary comparison preserves bounded evidence and marks overflow', () => {
+  const stories = [400, 401, 1200, 1201].map((size) => ({
+    title: 'Title',
+    summary: 's'.repeat(size),
+  }));
+  const expanded = socialStoryContext(stories, { completeSummaries: true });
+  assert.deepEqual(
+    expanded.map((story) => story.summary.length),
+    [400, 401, 1200, 1200],
+  );
+  assert.deepEqual(
+    expanded.map((story) => !!story.textTruncated),
+    [false, false, false, true],
+  );
+  assert.equal(socialStoryContext(stories)[1].textTruncated, true);
+});

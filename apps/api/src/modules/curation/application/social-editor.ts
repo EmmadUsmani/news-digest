@@ -159,7 +159,7 @@ export class SocialPostEditor {
       summary: string;
       textTruncated?: boolean;
     }[] = [],
-    options: { reviewEvents?: boolean } = {},
+    options: { reviewEvents?: boolean; completeStoryEvidence?: boolean } = {},
   ): Promise<SocialEditorialOutcome> {
     if (
       !Number.isInteger(budget) ||
@@ -208,10 +208,17 @@ export class SocialPostEditor {
         engagementEvidence: c.engagementEvidence?.slice(0, 1200),
       };
     });
+    // Expanded comparison evidence is opt-in and still strictly bounded.
+    const summaryLimit =
+      options.reviewEvents && options.completeStoryEvidence ? 1200 : 400;
     const boundedStories = coveredStories.map(({ title, summary }, index) => {
       let id = `story${index + 1}`;
       while (compact.some((post) => post.id === id)) id = `_${id}`;
-      return { id, title: title.slice(0, 300), summary: summary.slice(0, 400) };
+      return {
+        id,
+        title: title.slice(0, 300),
+        summary: summary.slice(0, summaryLimit),
+      };
     });
     const reviewEvidence = {
       stories: boundedStories.map(({ id, title, summary }) => ({
@@ -396,7 +403,7 @@ export class SocialPostEditor {
           (story) =>
             !story.textTruncated &&
             story.title.length <= 300 &&
-            story.summary.length <= 400,
+            story.summary.length <= summaryLimit,
         ) &&
         selection.posts.every(
           (post) =>

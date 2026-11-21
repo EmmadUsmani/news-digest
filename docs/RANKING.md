@@ -3744,3 +3744,11 @@ are therefore unavailable in the actual bounded editor path. Reject this
 published-picks-only preview as a deployment candidate. Complete evidence,
 qualified alternatives and Nov 12–16 semantic comparison remain open.
 [Numbers and replay scope](edition-reviews/2026-11-18-joint-event-comparison.md#editor-path-replay-iteration-3357).
+
+## Complete-summary event-budget path (iteration 3358)
+
+Opt-in bounded complete summaries remove all four previous editor refusals.
+Ten saved Nov 17–18 fresh/cache comparisons preserve all 81 labelled events and
+retained facts: Nov 18 NBA 33.33%→14.29%, U.S. 22.22%→12.50%, others unchanged.
+Scripted annotations only; zero external calls and scheduled selection unchanged.
+[Scope and remaining acceptance](edition-reviews/2026-11-18-joint-event-comparison.md#complete-summary-editor-path-iteration-3358).

@@ -128,6 +128,7 @@ type JointLabels = {
 async function replayEditor(
   topic: JointLabels['topics'][number],
   date: string,
+  completeStoryEvidence = false,
 ) {
   const stories = topic.slots.filter((slot) => slot.kind === 'story');
   const posts = topic.slots.filter((slot) => slot.kind === 'post');
@@ -137,6 +138,7 @@ async function replayEditor(
       assert.ok(split >= 0);
       return { title: text.slice(0, split), summary: text.slice(split + 1) };
     }),
+    { completeSummaries: completeStoryEvidence },
   );
   const cache = new Map<string, unknown>();
   const ledger: LlmLedger = {
@@ -221,7 +223,7 @@ async function replayEditor(
       'offline-saved-event-budget',
       [],
       context,
-      { reviewEvents: true },
+      { reviewEvents: true, completeStoryEvidence },
     );
   const first = await run();
   assert.equal(first.status, 'complete');
@@ -414,6 +416,24 @@ async function compareJointEditions() {
             .filter((slot) => slot.retain)
             .every((slot) => best.includes(slot)),
         );
+        const expanded = await replayEditor({ topic, slots }, date, true);
+        const expandedSlots = [
+          ...stories,
+          ...posts.filter((slot) => expanded.ids.includes(slot.id)),
+        ];
+        assert.deepEqual(
+          new Set(expandedSlots.map((slot) => slot.event)),
+          new Set(slots.map((slot) => slot.event)),
+        );
+        assert.ok(
+          slots
+            .filter((slot) => slot.retain)
+            .every((slot) => expandedSlots.includes(slot)),
+        );
+        assert.deepEqual(
+          expanded.ids,
+          expanded.previewRefused ? posts.map(({ id }) => id) : plannedIds,
+        );
         const replay = await replayEditor({ topic, slots }, date);
         assert.deepEqual(
           replay.ids,
@@ -434,6 +454,12 @@ async function compareJointEditions() {
         );
         return {
           topic,
+          expandedEditorReplay: {
+            after: concentration(expandedSlots),
+            previewRefused: expanded.previewRefused,
+            scriptedCalls: expanded.scriptedCalls,
+            cacheReused: true,
+          },
           editorReplay: {
             after: concentration(editorSlots),
             previewRefused: replay.previewRefused,
@@ -455,6 +481,14 @@ async function compareJointEditions() {
           },
         };
       }),
+    );
+    assert.ok(
+      comparison.every((topic) => !topic.expandedEditorReplay.previewRefused),
+    );
+    assert.deepEqual(
+      comparison.map((topic) => topic.expandedEditorReplay.after),
+      comparison.map((topic) => topic.deletionPolicyBound.best),
+      'Complete-summary editor must match the fact-preserving exhaustive oracle',
     );
     assert.deepEqual(
       comparison.map((topic) => topic.editorReplay.previewRefused),
