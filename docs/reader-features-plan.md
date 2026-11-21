@@ -26,10 +26,11 @@ continuing story from scratch.
   rules.
 
 Implementation decision: [selected-story enrichment](decisions/2026-11-19-developing-selection.md).
-Production stays disabled: the Nov 21 one-time offline check has no cached
-matcher responses and incomplete whole-day feature captures. The available
-plan peaks at $0.613774 against $0.65; that is not a complete admission pass.
-The blocker is recorded in NEEDS_FROM_HUMAN.md; work moved to feature 2.
+Matching acceptance passed Nov 21: eight paid Haiku calls cost $0.009843; seven
+selected stories link to twelve predecessor occurrences. Every model pair is in
+the item 73 ack. Item 73 accepts the existing $0.613774/$0.65 budget preflight.
+Scheduled publication wiring and deployment are next; then check the first real
+edition’s developing summaries and earlier-coverage links.
 
 ## 2. Why this was picked
 

@@ -223,5 +223,3 @@ Downdetector, Retrocomputing Stack Exchange, sas.upenn.edu and arkanumdata.com.
 A Business Insider page exposes a login/paywall marker. No repeated recovery
 or bypass planned; accessible publisher content is needed.
 [Per-candidate causes](docs/edition-reviews/2026-11-18-tech-blank-causes.md).
-
-- 2026-11-21 (3174), item 72: developing acceptance incomplete: eight matcher cache misses and incomplete whole-day feature captures; supplied-plan worst $0.613774 fits $0.65 but cannot certify complete coverage. No paid replay/new references; disabled, caps unchanged, Why this shipped.

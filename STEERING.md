@@ -3405,3 +3405,17 @@ largest-event share before and after.
 
 **Limits:** AI caps unchanged (daily $0.65, monthly $20). One paid matching run
 only. No deploys between 13:00 and 16:00 UTC. Protect the morning edition.
+
+ack: 2026-11-21 (3348), item 73: the one authorized paid matching run completed after publication/outside the protected window: eight Haiku calls, actual $0.009843, run `developing-acceptance-3348`; durable cache retained. All eight partitions valid; seven current stories link to twelve earlier occurrences; no plainly wrong current/earlier pair, no threshold change or rerun. Budget acceptance already passed at $0.613774/$0.65 (not rerun). Matching acceptance passes; scheduled orchestration/deployment is the next implementation step, then Nov 22 reader acceptance. Model pairs follow.
+ack: 2026-11-21 (3348), model pair (2026-11-16): “The Verge recaps Jensen Huang's turbulent period at Nvidia” → “Jensen Huang reportedly weighing return as Nvidia CEO after resignation”.
+ack: 2026-11-21 (3348), model pair (2026-11-16): “Nvidia CEO Jensen Huang leaves company; report says a director sold nearly $1B in stock beforehand” → “Jensen Huang reportedly weighing return as Nvidia CEO after resignation”.
+ack: 2026-11-21 (3348), model pair (2026-11-16): “NVIDIA Announces CEO Transition” → “Jensen Huang reportedly weighing return as Nvidia CEO after resignation”.
+ack: 2026-11-21 (3348), model pair (2026-11-16): “Ars Technica: Nvidia's Jensen Huang faces board probe as investors fret over succession” → “Jensen Huang reportedly weighing return as Nvidia CEO after resignation”.
+ack: 2026-11-21 (3348), model pair (2026-11-18): “LeBron James passes Jason Kidd for third all-time in assists” → “LeBron James passes Jason Kidd for third on NBA assists list as Sixers reach 12-3”.
+ack: 2026-11-21 (3348), model pair (2026-11-15): “Anthropic reportedly to seek $1.3T valuation in IPO; TSMC earmarks up to $1bn for AI lab shares” → “Anthropic's IPO lands as the AI trade seeks a bright spot, CNBC reports”.
+ack: 2026-11-21 (3348), model pair (2026-11-15): “Nvidia CEO Jensen Huang leaves company; report says a director sold nearly $1B in stock beforehand” → “The Verge recaps Jensen Huang's turbulent period at Nvidia”.
+ack: 2026-11-21 (3348), model pair (2026-11-15): “NVIDIA Announces CEO Transition” → “The Verge recaps Jensen Huang's turbulent period at Nvidia”.
+ack: 2026-11-21 (3348), model pair (2026-11-15): “Ars Technica: Nvidia's Jensen Huang faces board probe as investors fret over succession” → “The Verge recaps Jensen Huang's turbulent period at Nvidia”.
+ack: 2026-11-21 (3348), model pair (2026-11-18): “Ocarina of Time remake is 2026's best-selling US physical game so far, Circana says” → “Zelda: Ocarina of Time remake is the best-selling physical game in the US for 2026”.
+ack: 2026-11-21 (3348), model pair (2026-11-18): “Peltola nears 50% in Alaska Senate race, the final midterms contest” → “Democrat Mary Peltola wins Alaska Senate seat, beating Republican incumbent Dan Sullivan”.
+ack: 2026-11-21 (3348), model pair (2026-11-17): “Ukraine hits Kerch bridge linking Russia and occupied Crimea” → “Ukraine strikes Kerch Bridge linking Russia to Crimea for second day”.
