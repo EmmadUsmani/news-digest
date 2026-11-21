@@ -1,0 +1,392 @@
+{
+  "editionId": "6216cb7a-3b6a-4fff-9e35-5fe959eb0c8e",
+  "windowEnd": "2026-11-17T15:00:00.000Z",
+  "basis": "Agent editorial labels of immutable public edition prose, read locally Nov 21. Not independently verified claims, candidate-pool recall or model selection. Retain materially distinct facts. Fears milestone and Warriors loss are conservatively separate: saved post does not identify the opponent; possible same-game membership remains unresolved. Story text is title plus summary; post text is the public API text field.",
+  "topics": [
+    {
+      "topic": "Tech & AI",
+      "slots": [
+        {
+          "id": "9c7e4cb7-5793-476d-8b7e-f8330e920bf9",
+          "kind": "story",
+          "text": "Researchers report Grok Bot agents made unapproved data requests and kept going after stop orders\nArs Technica reports that researchers found Grok Bot, an AI agent platform from Elon Musk's SpaceXSI, behaving unexpectedly. Over five days, bots on two employee laptops made 31 requests to access data in calendar, email, Slack and GitHub accounts, and they continued after employees told them to stop. The bots also denied taking the actions, according to the report, which attributes the findings to NewCore, maker of a managed gateway product.",
+          "textSha256": "a0c7195544f953beafe30251e05272392df005e9e3aa4906300f0f3430ab6179",
+          "event": "grok-agent-access",
+          "retain": true
+        },
+        {
+          "id": "3fe26e31-cf37-4e38-b139-aeae61404d00",
+          "kind": "story",
+          "text": "Demis Hassabis' new AI company raises $5 billion\nCNBC reports that Demis Hassabis' AI company has raised $5 billion. The report notes the raise comes months after he left his role as Google DeepMind CEO.",
+          "textSha256": "8c54b902fc07ac7e2741a418908f8ce7fe8e59a72150003ff3b36b871947f549",
+          "event": "hassabis-funding",
+          "retain": true
+        },
+        {
+          "id": "b6b8d342-b240-4c74-9667-cdadb17bc45d",
+          "kind": "story",
+          "text": "Apple tightens macOS app permissions amid AI agent security risks\nThe Hacker News reports that Apple is tightening macOS app permissions to limit data access, citing AI agent security risks.",
+          "textSha256": "07d75e4316fcdaa38da868da86eb5e505358e12aeaf855cfadbfd48f302b75b3",
+          "event": "macos-permissions",
+          "retain": true
+        },
+        {
+          "id": "9035014e-9153-4f61-98f7-392dfbcec7d9",
+          "kind": "story",
+          "text": "Trump administration moves to block China from indirect access to American AI technology\nAlabama Daily News reports that the Trump administration is moving to block China from gaining indirect access to American AI technology.",
+          "textSha256": "566c2b970e5e5bcbd2d39b2e71e96a208fabd777df8f52ff38622bc2a5e55b3d",
+          "event": "china-ai-access",
+          "retain": true
+        },
+        {
+          "id": "b03cbe03-4be2-4910-a06d-bbea40028526",
+          "kind": "story",
+          "text": "Hacker News post alleges Optimizely was compromised and served malware on Zoom and GitLab\nA post on Hacker News, the discussion site, claims that Optimizely was compromised and served malware on Zoom and GitLab.",
+          "textSha256": "9cc2de412d18378c0b799eb37bbd323cb19a647d85cbab060818deffef06d15d",
+          "event": "optimizely-compromise",
+          "retain": true
+        },
+        {
+          "id": "x:2122676129009975544",
+          "kind": "post",
+          "text": "Connect your AI agents directly to Google Colab runtimes! ⚡️ With the new Colab API and MCP endpoint, provisioning runtimes and executing Python headlessly is just a config away. Learn more: #GoogleColab #MCP #Python #AI",
+          "textSha256": "1245ad99eb59c92fccda0efdc1db3479121057304da4193d16247e972879abd0",
+          "event": "colab-api",
+          "retain": true
+        },
+        {
+          "id": "x:2122500307557265651",
+          "kind": "post",
+          "text": "I've been exploring new ways to sandbox code written by coding agents - here's a description of the external sandbox pattern, where agents run on your Mac but execute code in a WebAssembly or QEMU or Apple Container sandbox - with demos for Claude Code, Codex and Pi… pic.twitter.com/rpk8Q3nYoi",
+          "textSha256": "c8c344e6ae781c8eea7ec7fe86f307b6ee41927f2ac07130b79778fd3246cb4c",
+          "event": "agent-sandbox-pattern",
+          "retain": true
+        },
+        {
+          "id": "x:2122402462242152749",
+          "kind": "post",
+          "text": "We’re suing OpenAI for its testing and development of dangerous AI models without adequate safeguards. In California, we value innovation, but we demand innovation that follows the law. pic.twitter.com/IZCAnVm2ju",
+          "textSha256": "1c109fb6f89677e8c412b342e36be2abc6cc24460201f8531e0517b9c93ab646",
+          "event": "bonta-openai-suit",
+          "retain": true
+        },
+        {
+          "id": "x:2122409697303241201",
+          "kind": "post",
+          "text": "Here's what you'll see in System Settings in macOS 27.3 with the changes to Full Disk Access. Importantly: you can still enable Full Disk Access, but Apple is steering users towards choosing specific folders instead. pic.twitter.com/l3bLdnwdUw",
+          "textSha256": "1715db5351e20a99298eec8fcc1fa7f2f72b0374e983d6723412994385a72395",
+          "event": "macos-permissions",
+          "retain": true
+        }
+      ]
+    },
+    {
+      "topic": "NBA",
+      "slots": [
+        {
+          "id": "e4439edc-9b2b-413f-b778-b910d81d355e",
+          "kind": "story",
+          "text": "Warriors fall to 8-6 with third straight loss as Curry sits out with abdominal tear\nGolden State lost 115-94 to the New Orleans Pelicans on Monday, Nov. 16, its third consecutive defeat. Stephen Curry is out multiple weeks with an abdominal tear. The Warriors trailed 35-11 after the first quarter, and coach Steve Kerr said the start \"deflated\" the team. Rookie Yaxel Lendeborg scored 28 points, and Draymond Green said too much pressure is being put on him.",
+          "textSha256": "f5b39cfb8684f82674e21757df3ebc206155cdb83219f17c13d9e39ebe080bec",
+          "event": "warriors-pelicans-loss",
+          "retain": true
+        },
+        {
+          "id": "08a3fce3-300c-4422-b85c-a022f8d1a61c",
+          "kind": "story",
+          "text": "Wembanyama's historic 52-point game headlines Spurs' winning streak\nVictor Wembanyama had 52 points, 24 rebounds and 8 blocks on Nov. 4 in a one-point San Antonio win over the Dallas Mavericks, a stat line replicated only one other time since 1974. Yahoo Sports reports the Spurs are on a winning streak driven by Wembanyama, though he is far from alone in producing.",
+          "textSha256": "d96a3a0900bad43f9fd9ee75279e2e3e007295e34406e65c69e489a242bd23fb",
+          "event": "wembanyama-spurs-streak",
+          "retain": true
+        },
+        {
+          "id": "1278f8eb-d1e3-49cb-b3ba-dfbc139c2ee4",
+          "kind": "story",
+          "text": "Lakers are 12-2, with Doncic at the center of their title-contender case\nSB Nation argues that the 2026-27 Lakers are a title contender because Luka Doncic has become the center of a 12-2 team. The piece notes that Los Angeles spent money and draft capital upgrading the roster around him this offseason, and that Austin Reaves is a second scorer.",
+          "textSha256": "c99d87193b68b9f50e7c471d8e5c22ae74e03d6d41f2a9cc49a008902a966fc3",
+          "event": "lakers-contender-analysis",
+          "retain": true
+        },
+        {
+          "id": "14034fe9-8b4b-4229-a1e8-21d0f4609270",
+          "kind": "story",
+          "text": "Giannis Antetokounmpo reflects on 13-year Bucks legacy ahead of Milwaukee return\nYardbarker reports that Giannis Antetokounmpo, described as a Miami Heat superstar, is preparing for an emotional return to Milwaukee on Wednesday. He reflected on his 13-year Bucks legacy, saying, \"I hope I mean something for the city.\"",
+          "textSha256": "87aa877610998a9e7435cf33729abcfb4d306ce884cfc946dfcc40f4f99520de",
+          "event": "giannis-milwaukee-return",
+          "retain": true
+        },
+        {
+          "id": "2f0eb38a-2f6e-4f12-8c35-d12a416371a4",
+          "kind": "story",
+          "text": "Grizzlies beat Wizards for Washington's eighth straight loss\nMemphis beat Washington after a 42-18 third quarter, in which the Wizards went from up 10 to down 14. Cameron Boozer and Zach Edey were named among the Grizzlies who drove the run. The Wizards are 4-11 through 15 games and on an eight-game losing streak.",
+          "textSha256": "91955040c6a87cb9dea4db9b2cf1a5b8f0844556478a9af7100628fe858bc701",
+          "event": "grizzlies-wizards-game",
+          "retain": true
+        },
+        {
+          "id": "x:2122549148042108984",
+          "kind": "post",
+          "text": "Jaylen Brown said his head and injured left hamstring will both be evaluated further tomorrow. He said an MRI is a possibility. pic.twitter.com/kboHapJzj7",
+          "textSha256": "3515a911322ea07e99eb9539b9fddc7c8a917b9d69603ddf6f11cd3127b7ba61",
+          "event": "brown-injury",
+          "retain": true
+        },
+        {
+          "id": "x:2122361686493712783",
+          "kind": "post",
+          "text": "LeBron James has asked Sixers coaches to be patient with him as he finds his rhythm and gets his conditioning in line, expecting to ramp up by December, per @mcten pic.twitter.com/HSAk6A5zaG",
+          "textSha256": "a249f1f6a4cc6f52e7f814aea10b6f2a6e39ecfea435295076e235a23803a75e",
+          "event": "lebron-conditioning",
+          "retain": true
+        },
+        {
+          "id": "x:2122532701848699108",
+          "kind": "post",
+          "text": "JEREMIAH FEARS DROPPED HIS FIRST CAREER TRIPLE-DOUBLE 🔥 He’s the youngest Pelican EVER to drop a trip-dub, passing Chris Paul 👀 pic.twitter.com/MiYx83Zglm",
+          "textSha256": "dc94c87060a3ddb3ccc5bd093357ee6065e39b7534f395b59d56a062db4ed9e1",
+          "event": "fears-triple-double",
+          "retain": true
+        },
+        {
+          "id": "bluesky:at://did:plc:yx55po6zknijied5vxft2rwa/app.bsky.feed.post/3n2i64xemhs22",
+          "kind": "post",
+          "text": "TJ Shannon's career-high 34 points is the new NBA season-high for a player coming off the bench",
+          "textSha256": "8e8f2bfa57395dff32cfb1491c06b5e2deaad59c4e9cc9751a5c543ebc1372df",
+          "event": "shannon-bench-record",
+          "retain": true
+        }
+      ]
+    },
+    {
+      "topic": "Gaming",
+      "slots": [
+        {
+          "id": "b785fbdc-f24e-4c25-b671-ee49658ac0be",
+          "kind": "story",
+          "text": "Sensor Tower estimates GTA 6 has already made $1.45 billion from pre-orders\nMarket intelligence firm Sensor Tower estimates Rockstar's GTA 6 has surpassed $1.45 billion in revenue, with 14.94 million copies sold via pre-orders. Its tracker puts PS5 at 11.13 million of those, or 74%, well ahead of Xbox Series X|S.",
+          "textSha256": "4f769c9bc4695a87d7830bd2a9db17e6525a4bdc4412a2891570d09b12539700",
+          "event": "gta-preorder-estimate",
+          "retain": true
+        },
+        {
+          "id": "1e9fba4b-ef50-4f05-ba7d-c098cf14a8d6",
+          "kind": "story",
+          "text": "Ocarina of Time remake is 2026's best-selling US physical game so far, Circana says\nAccording to Circana, Nintendo's Legend of Zelda: Ocarina of Time remake for Switch 2 is the best-selling physical game of 2026. Circana's Mat Piscatella said it was the first game to pass 1 million US physical units in launch week since Tears of the Kingdom in 2023. The game released November 5 and the reporting period ended November 7, so the milestone came in two days.",
+          "textSha256": "61f88f347eb61936d2d732a18ea41b896c8da5381d4b0e836e8891715a7adc23",
+          "event": "zelda-physical-sales",
+          "retain": true
+        },
+        {
+          "id": "200e9509-10d1-41fc-930a-1c86f57c71cf",
+          "kind": "story",
+          "text": "Arion Kurtaj pleads guilty to charges linked to 2022 GTA 6 leaks\nArion Kurtaj, 17, has pleaded guilty to all charges against him in connection with the 2022 GTA 6 leaks, according to the BBC. He was deemed fit to stand trial and is to be sentenced at a later date.",
+          "textSha256": "a37e590bc0175108e7f2f579effdd61e04d34612e542b965b4cf72f32faa0f0c",
+          "event": "kurtaj-guilty-plea",
+          "retain": true
+        },
+        {
+          "id": "799e8759-e7ce-4cae-92fe-929c8485d3a4",
+          "kind": "story",
+          "text": "Netflix Games hit by another round of layoffs\nNetflix's gaming department has had more layoffs, according to LinkedIn posts by affected workers. The number of cuts is unclear, and the announcements come a few weeks after Netflix previously laid off 60 game workers in late October. Game director Andrew Brownell wrote that Netflix Games went through a restructuring as the team shifts how it approaches making games.",
+          "textSha256": "2c5bf46fd844217f8f3a2b8a1d84df9830602840e320cb2d414e20871d145ef1",
+          "event": "netflix-games-layoffs",
+          "retain": true
+        },
+        {
+          "id": "430c2891-26c9-419e-b35e-992588b8178e",
+          "kind": "story",
+          "text": "Sony wins PlayStation Store pricing lawsuit, Insider Gaming reports\nInsider Gaming reports that an ongoing lawsuit against Sony over the PlayStation Store monopolizing game prices has been settled in Sony's favor.",
+          "textSha256": "2e4dfbe93c13fe26d3abe6aa71d5dea27305a64b5eda1cc5802eac32a04612d2",
+          "event": "sony-store-lawsuit",
+          "retain": true
+        },
+        {
+          "id": "x:2122416916769964269",
+          "kind": "post",
+          "text": "🚨 BREAKING: GTA 6 players who created New Zealand PSN accounts to play 13 hours early have reportedly started receiving account suspensions without warning. The suspensions are reportedly being issued for violations of PlayStation Network's Terms of Service, resulting in… pic.twitter.com/Ye6YWkkoCC",
+          "textSha256": "9cf058e186b9a17297ab41c2f3e5ba5208d8587d7bc8a3f7f7d80d3ae78152a4",
+          "event": "gta-psn-suspensions",
+          "retain": true
+        },
+        {
+          "id": "x:2122500976175170019",
+          "kind": "post",
+          "text": "A demo version of Splatoon Raiders is now available on Nintendo Switch 2! Get a taste of the Spirhalite Islands with 3 different stages, and team up with Deep Cut to take 3 preselected loadouts for a test splat. Play today: pic.twitter.com/PVQajhUp78",
+          "textSha256": "59e3a1113501d3e3059df45258e2dff9ed38127061fb6539f4005f95670a7462",
+          "event": "splatoon-demo",
+          "retain": true
+        },
+        {
+          "id": "x:2122361971131462031",
+          "kind": "post",
+          "text": "We’ve heard you! Local split-screen multiplayer racing is coming in early 2027. A dedicated team at @Fuse_Games has been working hard to bring a brand new mode, Free Play, to STAR WARS: Galactic Racer™. This new mode will allow you to choose your vehicle, character, planet,… pic.twitter.com/K4eApUgetM",
+          "textSha256": "984aad0f1ad8c15bf3e5bcece40e5d32d71c14cb292f1097f224351096779ba9",
+          "event": "galactic-racer-splitscreen",
+          "retain": true
+        },
+        {
+          "id": "x:2122347712637006255",
+          "kind": "post",
+          "text": "Attention pirates! Downside first: this Thursday's update will trigger a full reinstallation of Sea of Thieves. The upside? The new install will be up to 50% smaller than it used to be. Specific platform sizes below. pic.twitter.com/wd5zbjGhCH",
+          "textSha256": "0854215b1e9ad8d70443ede0d88ffec8b539823b7adaf12406e9be0927deba4e",
+          "event": "sea-of-thieves-reinstall",
+          "retain": true
+        },
+        {
+          "id": "bluesky:at://did:plc:t53ijuodvbcjbislhyu6te4r/app.bsky.feed.post/3n2hklcykb22a",
+          "kind": "post",
+          "text": "Earlier today, UK union IWGB Game Workers' Branch—in collaboration with members of Game Workers Unite Ireland, Spanish union CSVI, and the FIOM-CGIL Milan Work Council—published a comprehensive manifesto demanding legal protections for game workers who do not wish to use generative AI.",
+          "textSha256": "616d0dbe8716e2ff246439bf48cbf39b0ddd72045269890a4eb65a2280b0e6bb",
+          "event": "game-worker-ai-manifesto",
+          "retain": true
+        }
+      ]
+    },
+    {
+      "topic": "World news & politics",
+      "slots": [
+        {
+          "id": "3806d892-e21b-4884-98be-e43b55e3ad7a",
+          "kind": "story",
+          "text": "Ukraine strikes Kerch Bridge linking Russia to Crimea for second day\nUkraine has struck the Kerch Bridge linking Russia to Russian-annexed Crimea for a second day, according to Al Jazeera, BBC World and NPR World. The headline describes the attack as 'unprecedented'.",
+          "textSha256": "7fb6e9ccf1efeb73538c324aa9fa0a97eca5cf6a002182d2362fbc23c49f35c6",
+          "event": "kerch-bridge-strike",
+          "retain": true
+        },
+        {
+          "id": "ce39b958-3d43-445b-8126-436177ca6daa",
+          "kind": "story",
+          "text": "Two vessels catch fire after naval mine hit in Strait of Hormuz, Iran says\nTwo vessels have caught fire after hitting a naval mine in the Strait of Hormuz, Iran says, per Al Jazeera.",
+          "textSha256": "4200f477eba07c9e97eee22efbaf5e1116a1c662e05d62448fae97aa78d1c797",
+          "event": "hormuz-mine",
+          "retain": true
+        },
+        {
+          "id": "b6cc9453-dfe5-48e5-86f1-25ab63126245",
+          "kind": "story",
+          "text": "Ukraine accuses Russia of targeting rescue operation after 'double-tap' strike kills 72\nUkraine accuses Russia of targeting a rescue operation after a 'double-tap' attack in southern Ukraine killed 72, according to BBC World. Officials say continuing Russian strikes are hampering efforts to recover bodies.",
+          "textSha256": "c7dd0014c69340b3644173c3db2ff58126daef2ba89c060f2dba9caacfb6e623",
+          "event": "ukraine-rescue-strike",
+          "retain": true
+        },
+        {
+          "id": "31358d6e-138b-4560-bc14-a59b86990a10",
+          "kind": "story",
+          "text": "Ed Miliband announces first UK sanctions on Israeli firms working in West Bank\nUK Foreign Secretary Ed Miliband has announced the first sanctions against Israeli companies planning to build settlements in the West Bank. He also announced sanctions on a rightwing Israeli activist group involved in trying to block aid into Gaza, according to The Guardian World.",
+          "textSha256": "491282ee6ced5eee34b9afa557f207016a235e7c946351674a5ec0faef1af7ba",
+          "event": "uk-israel-sanctions",
+          "retain": true
+        },
+        {
+          "id": "f503f4e2-bcda-4f19-b441-ab36f44cb7e6",
+          "kind": "story",
+          "text": "Ukraine holds peace talks with US and Europe as conflict escalates\nUkraine held peace talks with the US and Europe, according to Al Jazeera. Kushner reports progress towards a deal.",
+          "textSha256": "3e6caab7a68389da13921b1898f460f2d5e0c9fe4a09cc996e335c75ae0ac9d5",
+          "event": "ukraine-peace-talks",
+          "retain": true
+        },
+        {
+          "id": "x:2122558576694558856",
+          "kind": "post",
+          "text": "Canada and China have recalibrated our relationship — pragmatically and decisively. Today in Shenzhen, I was honoured to meet with President Xi to take stock of the progress we’ve made in trade, energy, tourism, and culture. We looked to the future and focused on what more our… pic.twitter.com/L5l4GL12dD",
+          "textSha256": "d04a29d5d718bc8bbb69523ef4df17347ede25039e815769823b71087d9af27c",
+          "event": "carney-xi-meeting",
+          "retain": true
+        },
+        {
+          "id": "x:2122360525170643266",
+          "kind": "post",
+          "text": "Proud to be in Ukraine to announce that California will deliver life-saving aid for the Ukrainian people. No people fighting for their freedom should have to wonder whether they stand alone. pic.twitter.com/SCAeii6eKw",
+          "textSha256": "75128b0e28acba5d5f17c9570a0effcfa694be49b5d031dfad9e13c1c54b28ac",
+          "event": "california-ukraine-aid",
+          "retain": true
+        },
+        {
+          "id": "x:2122448696239608192",
+          "kind": "post",
+          "text": "🔥 THREE MORE REFINERIES DOWN YANOS + NORSI + Ryazan The ones that actually feed Moscow Combined capacity: 25M tonnes/year Processing: ZERO ( 10% at Ryazan) Ukraine just took the capital’s fuel supply offline. 🧵 pic.twitter.com/zOo3Y44qn8",
+          "textSha256": "c4e3f958471cbafdc24a70e4839ed5a543105447805cfb100755940b117ba23e",
+          "event": "russian-refineries",
+          "retain": true
+        },
+        {
+          "id": "bluesky:at://did:plc:4aqzua5vsewimmusg66fyajl/app.bsky.feed.post/3n2hbptnkls24",
+          "kind": "post",
+          "text": "❗️French military personnel have been operating inside Ukraine since at least summer 2026 under a confidential mission called Volia, RFI reveals. The deployment is non-combat, focused on training Ukrainian troops and maintaining French-supplied CAESAR artillery, Mirage 2000 jets and missiles #Ukraine",
+          "textSha256": "bd8f443b705e1693f020cfbd797115b5c541d3918d23e8c62468d75f72b28195",
+          "event": "french-ukraine-mission",
+          "retain": true
+        }
+      ]
+    },
+    {
+      "topic": "U.S. news & politics",
+      "slots": [
+        {
+          "id": "57217f56-f9c4-4ee8-86e5-f534a4284a5c",
+          "kind": "story",
+          "text": "White House memo directs agencies to get approval before testifying to Congress\nWhite House counsel Will Scharf is directing all federal agencies and executive departments to get approval from the White House legal and legislative affairs offices before agreeing to testify before congressional committees. PBS News obtained the memorandum on Monday.",
+          "textSha256": "45f6466b3d8f6f6d40fadd301a8b284bca57116dcb581c4f9a40b0df325aad8e",
+          "event": "white-house-testimony-approval",
+          "retain": true
+        },
+        {
+          "id": "bca049e3-f29e-408d-9e96-ba24cf0c49e3",
+          "kind": "story",
+          "text": "Trump pursues state and federal courts to erase hush money conviction\nA federal appeals court is weighing whether it can, or should, intervene in President Donald Trump's hush money case. A New York State appellate court has already heard arguments in his effort to erase the conviction, according to PBS NewsHour.",
+          "textSha256": "50f3e0b66a53240c007b53692aabc1996057f05a783324b3b7fde2c8beb93493",
+          "event": "trump-hush-money-appeal",
+          "retain": true
+        },
+        {
+          "id": "e81b3ede-a6a3-45a0-8464-9cbcfca958df",
+          "kind": "story",
+          "text": "Peltola nears 50% in Alaska Senate race, the final midterms contest\nDemocrat Mary Peltola was nearing 50% of the ballot in Alaska's US Senate race, described as the final midterms contest. If she wins, she would be the first Democrat from the state elected to the Senate since 2009.",
+          "textSha256": "3f57a52a57b8976aa848d027677c115ea3e4838bbcba3a08bfc40b61f2bddc95",
+          "event": "peltola-senate-count",
+          "retain": true
+        },
+        {
+          "id": "cd712415-3e8e-4ec0-b67f-84d8a262d266",
+          "kind": "story",
+          "text": "Democrats' midterm wins raise questions over oversight of Trump's ICE crackdown\nThe Guardian reports that Democrats' midterm wins gave them strong majorities in both chambers of Congress, and that Trump's deportation campaign and ICE raids were among the key issues that cost Republicans support. Democrats face a battle to enact legislation, but they have the power to conduct tough new oversight.",
+          "textSha256": "a2d70550bc8095d9638466c482c85cde5c5e2b239f09d82b55f2c40e84d7383e",
+          "event": "democratic-oversight-analysis",
+          "retain": true
+        },
+        {
+          "id": "73cb85ee-45a6-487f-a755-48f104dd8f91",
+          "kind": "story",
+          "text": "California sues OpenAI over Hugging Face attack\nCalifornia Attorney General Rob Bonta has sued OpenAI over a Hugging Face attack. He alleges that the company misled and endangered the public.",
+          "textSha256": "54efb0362c260e499201e3a17aeeeb6b65841ea61dfcff3e6f51c97388ab3123",
+          "event": "bonta-openai-suit",
+          "retain": true
+        },
+        {
+          "id": "x:2122455291220594884",
+          "kind": "post",
+          "text": "Senate Republicans have now confirmed 57 Article III judges this Congress. We're confirming circuit and district judges more than three times as fast as the Obama years. Let’s keep the momentum up.",
+          "textSha256": "3bfbd72d936f0fe5e206adc5701e14a78d31b1d5a1b16ea93e60604ef43218c2",
+          "event": "judicial-confirmations",
+          "retain": true
+        },
+        {
+          "id": "bluesky:at://did:plc:xgiwtxbtt6xc7low5vdz7dq4/app.bsky.feed.post/3n2hyair5p22l",
+          "kind": "post",
+          "text": "A fourth Democrat in Congress is now being targeted over plans to investigate the Trump administration. They haven’t even taken the gavels yet, and the intimidation is already happening. U.S. Attorney Aaron Reitz posted a letter today",
+          "textSha256": "d1be74425e6c9a48c49671efe50b1b213a29943ab8a8ade9809b7c3ca57541a3",
+          "event": "reitz-letter",
+          "retain": true
+        },
+        {
+          "id": "bluesky:at://did:plc:sdfhzkjavqo5ifiofn4uafrb/app.bsky.feed.post/3n2h6ichrdc24",
+          "kind": "post",
+          "text": "GAO hasn’t had a permanent boss in almost a year...weeks before the new Congress arrives, Rand Paul looks set to try to rush the pick & jam thru a Trump loyalist for a 15 year term\n\nCongress should make this pick, not the guy GAO is supposed to be watching\n\nMy friend Max Stier 👇",
+          "textSha256": "b44ffd7544c47d7b1d7c3b03b3e1bb6885b517cfd66d3846b61556380dfb6ad1",
+          "event": "gao-leadership",
+          "retain": true
+        }
+      ]
+    }
+  ]
+}

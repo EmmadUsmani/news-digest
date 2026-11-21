@@ -90,3 +90,15 @@ Earlier entries: [pre-3055 archive](docs/progress-archive/2026-11-20-pre-3055.md
 - Verification: pnpm format; pnpm lint:fix; pnpm check (results recorded below). Scheduled-reader passes five topics/25 real stories/20 posts; pnpm obs sources --check passes.
 - Next: Nov 21–22 recall reviews and v16 scheduled editorial acceptance; developing semantic/model and whole-edition budget acceptance remain open. No runtime/schema/source changes.
 - Full pnpm check passes: static checks/API build, 1,321 unit tests, 336 integration tests/four expected skips (/tmp/3084-check.log). Final git diff --check passes; service revision refresh follows push.
+
+## 2026-11-21: iteration 3166 — extend joint event comparison to Nov 17
+
+- Clean main at 4e67fd5a; no inherited work. Zero alerts; API/worker and health/database/Redis pass; 37 active sources healthy, Destructoid intentionally paused.
+- Nov 21–22 recall reviews await publication. Used Nov 21's one item 69 evaluation commit on the next saved edition, without paid calls or production tuning.
+- Labelled all 45 Nov 17 story/post slots: Tech eight events, NBA nine provisional, Gaming ten, World nine, U.S. eight. Possible NBA same-game membership remains unresolved (43–44 total topic-events).
+- Retain every slot: macOS post adds Full Disk Access/interface facts; blanket one-slot deletion rejected. Largest shares unchanged: Tech 22.22%, NBA 11.11% provisional (22.22% if joined), Gaming 10%, World 11.11%, U.S. 12.50%.
+- Existing evaluate-saved-nba-event-breadth.ts now checks Nov 17–18; hashes/counts/IDs/event retention and prior Bluesky texts pass. Python comparison verifies all 45 saved IDs/kinds/prose against immutable public edition.
+- Scheduled-reader Nov 20 passes five topics/25 real stories/20 posts. pnpm obs sources --check passes. No runtime/schema/source/UI changes; no new reference tooling.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (results below). Logs /tmp/3166-{format,lint,check,evaluation}.log.
+- Next: Nov 21 scheduled recall/v16 Tech and Gaming acceptance; Nov 12–16 joint comparisons remain. Semantic/model/budget acceptance still blocks developing stories.
+- Full pnpm check passes: static checks/API build, 1,321 units, 336 integrations/four expected skips. Final formatting/diff checks pass; commit/push and healthy service revision refresh follow.

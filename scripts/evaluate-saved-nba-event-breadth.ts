@@ -100,9 +100,7 @@ console.log(
 
 // Joint story/post comparison uses saved prose, with editorial event labels.
 // It is deliberately separate from the model selector and cannot tune it.
-const joint = JSON.parse(
-  readFileSync(new URL('2026-11-18-joint-event-labels.json', root), 'utf8'),
-) as {
+type JointLabels = {
   editionId: string;
   topics: {
     topic: string;
@@ -116,71 +114,114 @@ const joint = JSON.parse(
     }[];
   }[];
 };
-assert.equal(joint.editionId, saved.editionId);
-assert.equal(joint.topics.length, 5);
-assert.equal(new Set(joint.topics.map((topic) => topic.topic)).size, 5);
-const comparison = joint.topics.map(({ topic, slots }) => {
-  const savedTopic = saved.topics.find((item) => item.topic === topic);
-  assert.ok(savedTopic);
-  assert.deepEqual(
-    slots
-      .filter((slot) => slot.kind === 'post')
-      .map((slot) => slot.text)
-      .sort(),
-    [...savedTopic.otherPostTexts, ...savedTopic.posts]
-      .map((post) => post.text)
-      .sort(),
-    `Joint posts differ from retained publication: ${topic}`,
-  );
-  assert.equal(new Set(slots.map((slot) => slot.id)).size, slots.length);
-  assert.equal(slots.filter((slot) => slot.kind === 'story').length, 5);
-  for (const slot of slots) {
-    assert.ok(slot.event.trim());
-    assert.equal(
-      createHash('sha256').update(slot.text).digest('hex'),
-      slot.textSha256,
-      `Joint saved text drift: ${slot.id}`,
+for (const [date, editionId, expectedSlots, expectedRetained] of [
+  ['2026-11-17', '6216cb7a-3b6a-4fff-9e35-5fe959eb0c8e', 45, 45],
+  ['2026-11-18', saved.editionId, 44, 40],
+] as const) {
+  const joint = JSON.parse(
+    readFileSync(new URL(`${date}-joint-event-labels.json`, root), 'utf8'),
+  ) as JointLabels;
+  assert.equal(joint.editionId, editionId);
+  if (date === '2026-11-17') {
+    const retainedBluesky = JSON.parse(
+      readFileSync(
+        new URL('2026-11-17-bluesky-edition-quality.json', root),
+        'utf8',
+      ),
+    ) as {
+      editionId: string;
+      selectedPosts: { topic: string; text: string }[];
+    };
+    assert.equal(retainedBluesky.editionId, joint.editionId);
+    for (const post of retainedBluesky.selectedPosts) {
+      const topic = joint.topics.find((item) => item.topic === post.topic);
+      assert.ok(topic);
+      assert.equal(
+        topic.slots.filter(
+          (slot) => slot.kind === 'post' && slot.text === post.text,
+        ).length,
+        1,
+      );
+    }
+    assert.deepEqual(
+      joint.topics.map(
+        (topic) => new Set(topic.slots.map((slot) => slot.event)).size,
+      ),
+      [8, 9, 10, 9, 8],
     );
   }
-  const retained = slots.filter((slot) => slot.retain);
-  assert.ok(
-    slots.filter((slot) => slot.kind === 'story').every((slot) => slot.retain),
-  );
-  assert.deepEqual(
-    [...new Set(retained.map((slot) => slot.event))].sort(),
-    [...new Set(slots.map((slot) => slot.event))].sort(),
-    `Lost labelled event: ${topic}`,
-  );
-  function concentration(items: typeof slots) {
-    const counts = new Map<string, number>();
-    for (const slot of items)
-      counts.set(slot.event, (counts.get(slot.event) ?? 0) + 1);
-    const largest = Math.max(...counts.values());
+  assert.equal(joint.topics.length, 5);
+  assert.equal(new Set(joint.topics.map((topic) => topic.topic)).size, 5);
+  const comparison = joint.topics.map(({ topic, slots }) => {
+    if (date === '2026-11-18') {
+      const savedTopic = saved.topics.find((item) => item.topic === topic);
+      assert.ok(savedTopic);
+      assert.deepEqual(
+        slots
+          .filter((slot) => slot.kind === 'post')
+          .map((slot) => slot.text)
+          .sort(),
+        [...savedTopic.otherPostTexts, ...savedTopic.posts]
+          .map((post) => post.text)
+          .sort(),
+        `Joint posts differ from retained publication: ${topic}`,
+      );
+    }
+    assert.equal(new Set(slots.map((slot) => slot.id)).size, slots.length);
+    assert.equal(slots.filter((slot) => slot.kind === 'story').length, 5);
+    for (const slot of slots) {
+      assert.ok(slot.event.trim());
+      assert.equal(
+        createHash('sha256').update(slot.text).digest('hex'),
+        slot.textSha256,
+        `Joint saved text drift: ${slot.id}`,
+      );
+    }
+    const retained = slots.filter((slot) => slot.retain);
+    assert.ok(
+      slots
+        .filter((slot) => slot.kind === 'story')
+        .every((slot) => slot.retain),
+    );
+    assert.deepEqual(
+      [...new Set(retained.map((slot) => slot.event))].sort(),
+      [...new Set(slots.map((slot) => slot.event))].sort(),
+      `Lost labelled event: ${topic}`,
+    );
+    function concentration(items: typeof slots) {
+      const counts = new Map<string, number>();
+      for (const slot of items)
+        counts.set(slot.event, (counts.get(slot.event) ?? 0) + 1);
+      const largest = Math.max(...counts.values());
+      return {
+        slots: items.length,
+        events: counts.size,
+        largest,
+        largestShare: largest / items.length,
+      };
+    }
     return {
-      slots: items.length,
-      events: counts.size,
-      largest,
-      largestShare: largest / items.length,
+      topic,
+      before: concentration(slots),
+      after: concentration(retained),
     };
-  }
-  return {
-    topic,
-    before: concentration(slots),
-    after: concentration(retained),
-  };
-});
-assert.equal(joint.topics.flatMap((topic) => topic.slots).length, 44);
-assert.equal(
-  joint.topics.flatMap((topic) => topic.slots).filter((slot) => slot.retain)
-    .length,
-  40,
-);
-console.log(
-  JSON.stringify({
-    mode: 'offline-manual-joint-event-comparison',
-    editionId: joint.editionId,
-    comparison,
-    providerCalls: 0,
-    productionSelectionChanged: false,
-  }),
-);
+  });
+  assert.equal(
+    joint.topics.flatMap((topic) => topic.slots).length,
+    expectedSlots,
+  );
+  assert.equal(
+    joint.topics.flatMap((topic) => topic.slots).filter((slot) => slot.retain)
+      .length,
+    expectedRetained,
+  );
+  console.log(
+    JSON.stringify({
+      mode: 'offline-manual-joint-event-comparison',
+      editionId: joint.editionId,
+      comparison,
+      providerCalls: 0,
+      productionSelectionChanged: false,
+    }),
+  );
+}

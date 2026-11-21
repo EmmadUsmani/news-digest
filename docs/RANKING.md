@@ -3609,3 +3609,18 @@ deletion as sufficient for deployment; no selector change or model replay.
 These are published-event retention labels, not important-event recall.
 Nov 12–17 and material-fact-preserving selection comparison remain open.
 One waiting-time evaluation commit used for Nov 20; no paid calls or tuning.
+
+## Nov 21 joint story/post evaluation (iteration 3166)
+
+[Nov 17 comparison](edition-reviews/2026-11-17-joint-event-comparison.md)
+adds all 45 published slots and 44 provisional topic-event labels: Tech 8,
+NBA 9, Gaming 10, World 9, U.S. 8. NBA's possible same-game pair is unresolved;
+joining it gives 43 total events and NBA concentration 22.22% rather than
+11.11%. Both interpretations retain all slots and events.
+
+The macOS post adds permission-interface facts to its story; reject a blanket
+one-slot deletion for this edition. Conservative shares stay Tech 22.22%,
+NBA 11.11% provisional, Gaming 10%, World 11.11%, U.S. 12.50%. The existing
+offline evaluator covers Nov 17–18 with no paid calls or production changes.
+Nov 12–16 and real-selector/material-fact acceptance remain open. These are
+agent labels pending owner review, not candidate-pool recall.
