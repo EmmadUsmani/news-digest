@@ -1492,6 +1492,39 @@ void test('weekly PostgreSQL publication is atomic, immutable and separate from 
       id: nextId,
     });
     assert.equal(regenerated.id, nextId);
+    assert.deepEqual(await store.findById(nextId, null), regenerated);
+    assert.equal(await store.findById(nextId, crypto.randomUUID()), null);
+    assert.equal(await store.findById(crypto.randomUUID(), null), null);
+    assert.deepEqual(await store.history(crypto.randomUUID()), {
+      entries: [],
+      nextOffset: null,
+    });
+    const firstPage = await store.history(null, 0, 1);
+    const secondPage = await store.history(null, 1, 1);
+    assert.equal(firstPage.nextOffset, 1);
+    assert.equal(secondPage.nextOffset, null);
+    assert.deepEqual(
+      new Set([firstPage.entries[0].id, secondPage.entries[0].id]),
+      new Set([saved[0].id, nextId]),
+    );
+    assert.deepEqual(await store.history(null, 0, 1), firstPage);
+    firstPage.entries[0].topics[0].name = 'Local mutation';
+    assert.equal(
+      (await store.findById(firstPage.entries[0].id, null))?.topics[0].name,
+      'Tech',
+    );
+    assert.deepEqual(await store.history(null, 2), {
+      entries: [],
+      nextOffset: null,
+    });
+    for (const [offset, limit] of [
+      [-1, 20],
+      [0.5, 20],
+      [0, 0],
+      [0, 101],
+    ])
+      await assert.rejects(store.history(null, offset, limit), /pagination/);
+
     assert.deepEqual(await store.find(generationKey), saved[0]);
     assert.deepEqual(await daily.latest(true), latest);
     // Private, manual and late publications cannot satisfy Sunday's prerequisite.

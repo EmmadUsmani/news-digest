@@ -2,102 +2,7 @@
 
 Earlier entries: [pre-3166 archive](docs/progress-archive/2026-11-21-pre-3166.md).
 
-## 2026-11-21: iteration 3166 — extend joint event comparison to Nov 17
-
-- Clean main at 4e67fd5a; no inherited work. Zero alerts; API/worker and health/database/Redis pass; 37 active sources healthy, Destructoid intentionally paused.
-- Nov 21–22 recall reviews await publication. Used Nov 21's one item 69 evaluation commit on the next saved edition, without paid calls or production tuning.
-- Labelled all 45 Nov 17 story/post slots: Tech eight events, NBA nine provisional, Gaming ten, World nine, U.S. eight. Possible NBA same-game membership remains unresolved (43–44 total topic-events).
-- Retain every slot: macOS post adds Full Disk Access/interface facts; blanket one-slot deletion rejected. Largest shares unchanged: Tech 22.22%, NBA 11.11% provisional (22.22% if joined), Gaming 10%, World 11.11%, U.S. 12.50%.
-- Existing evaluate-saved-nba-event-breadth.ts now checks Nov 17–18; hashes/counts/IDs/event retention and prior Bluesky texts pass. Python comparison verifies all 45 saved IDs/kinds/prose against immutable public edition.
-- Scheduled-reader Nov 20 passes five topics/25 real stories/20 posts. pnpm obs sources --check passes. No runtime/schema/source/UI changes; no new reference tooling.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (results below). Logs /tmp/3166-{format,lint,check,evaluation}.log.
-- Next: Nov 21 scheduled recall/v16 Tech and Gaming acceptance; Nov 12–16 joint comparisons remain. Semantic/model/budget acceptance still blocks developing stories.
-- Full pnpm check passes: static checks/API build, 1,321 units, 336 integrations/four expected skips. Final formatting/diff checks pass; commit/push and healthy service revision refresh follow.
-
-## 2026-11-21: iteration 3167 — review saved World developing continuity
-
-- Clean main at a91d5a44; no inherited work. Zero alerts; health/database/Redis pass; 37 active sources healthy, Destructoid intentionally inactive.
-- Nov 21–22 daily recall/v16 acceptance await publication; today's item 69 commit used. Continued item 70 without paid calls or production changes.
-- Reviewed Nov 17 World selections against 25 historical stories/seven snapshots: second-day Kerch continuation, three nonmatches; peace-talk continuity remains unresolved.
-- Added exact saved source evidence/prose from existing 2901 export; Python equality checks preserve every export field and every older fixture case.
-- Existing replay and immutable snapshot checks cover four new labels; missing Kerch/shared-war/shared-policy challenges fail. Initial new failure-count assertion was too narrow for whole-response rejection and corrected.
-- Targeted tests: pnpm exec tsx --test apps/api/test/evaluate-developing-stories.test.ts apps/api/test/developing-saved-evidence.test.ts — 48 pass.
-- Scheduled-reader Nov 20 passes five topics/25 real stories/20 posts; pnpm obs sources --check passes. No schema/source/UI/runtime changes; developing feature remains inactive.
-- Full check caught two legacy two-case assumptions after adding original World evidence; scoped the Nov 18 execution and extended generic request coverage. Seven capture tests pass.
-- Verification: pnpm format; pnpm lint:fix; full pnpm check rerun (results below). Logs /tmp/3167-{format,lint,check,reader,targeted,capture}.log.
-- Next: scheduled Nov 21 recall and v16 Tech/Gaming acceptance. Model semantics and whole-edition budget acceptance remain open; no cap changes.
-- Full pnpm check passes: static checks/API build, 1,327 units, 336 integrations/four expected skips. Final formatting/diff checks pass; commit/push and healthy service refresh follow.
-
-## 2026-11-21: iteration 3168 — source-bound Kerch rewrite control
-
-- Clean main at b14c5f7e; no inherited work. pnpm obs alerts: zero; health/database/Redis pass; API/worker active; pnpm obs sources --check passes (37 active, Destructoid intentionally inactive).
-- Nov 21 edition/recall and v16 acceptance await publication; today's item 69 evaluation commit already used. Continued item 70 without paid calls or production changes.
-- Source-reviewed manual Kerch update uses original Nov 17 excerpt: actor/action, bridge/location and second-day development only. Earlier drone/traffic/timing facts and escalation claims omitted.
-- Existing current-evidence guard/fixed-selection rewrite accepts the manual response; all five selected IDs/order and four untouched stories retained. Peace-talk continuity unresolved; feature stays inactive.
-- Targeted: pnpm exec tsx --test apps/api/test/developing-rewrite-support.test.ts — 3 pass. Guard is lexical, not general entailment; no provider/model acceptance claimed.
-- Reader: pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-20T15:00:00Z — five topics/25 real stories/20 posts pass. No runtime/schema/source/UI changes.
-- Verification: pnpm format; pnpm lint:fix; pnpm check (results below); git diff --check. Logs /tmp/3168-{format,lint,check,targeted,reader}.log.
-- Next: Nov 21 recall/v16 Tech and Gaming acceptance; semantic/model and whole-edition budget acceptance remain open. Commit/push and service revision refresh follow checks.
-- Full pnpm check passes: static checks/API build, 1,328 units, 336 integrations/four expected skips. Initial check stopped on the newly appended progress-entry formatting; corrected with Prettier before the passing rerun.
-
-## 2026-11-21: iteration 3169 — Nov 18 World developing continuity
-
-- Clean main at de6162d3; no inherited work. Zero alerts; health/database/Redis pass; all 37 active sources healthy, Destructoid intentionally inactive.
-- Nov 21 scheduled acceptance awaits publication; today's item 69 commit used. Continued item 70 with no paid calls or runtime changes.
-- Reviewed Nov 18 World against 25 historical stories/seven snapshots: summit, Kerch campaign (three editions), sanctions/contract delay continuations; Gaza nonmatch; Iran analysis unresolved.
-- Preserved original 2901 exported inputs unchanged. E1 excerpt denies sanctions causality and cites caretaker-government objection; review explicitly retains qualification for future rewrites.
-- Existing evaluator rejects missing/partial continuity and false Gaza/policy links; immutable snapshot checks retain selection/order, nearest predecessor and counts. Agent labels only; feature inactive.
-- Targeted: pnpm exec tsx --test apps/api/test/evaluate-developing-stories.test.ts apps/api/test/developing-saved-evidence.test.ts — 53 pass.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; scheduled-reader and service refresh results follow. Logs /tmp/3169-{targeted,format,lint,check,reader}.log.
-- Next: Nov 21 recall/v16 Tech/Gaming acceptance; developing semantic/model and whole-edition budget acceptance still open. No schema/source/UI changes.
-- Full pnpm check passes: static checks, 1,333 units, 336 integrations/four expected skips. pnpm build passes; scheduled-reader Nov 20 verifies five topics/25 real stories/20 posts. Export-field equality and git diff --check pass.
-
-## 2026-11-21: iteration 3170 — qualified E1 delay rewrite control
-
-- Clean main at ed3618b4; no inherited work. Zero alerts; health/database/Redis pass; 37 active sources healthy, Destructoid intentionally inactive.
-- Nov 21 recall/v16 acceptance awaits publication; today's item 69 evaluation commit used. Continued item 70 without provider calls or runtime changes.
-- Manual Nov 18 E1 rewrite preserves diplomats' denial of sanctions causality and attorney general's caretaker-government objection; replaces causal implication in published importance line with sourced two-state concern.
-- Unchanged lexical guard requires the complete attributed denial: initial paraphrase refused; exact attributed sentence passes. Attribution-stripping and negative paraphrase controls fail as expected.
-- Single-link fixed-selection control retains five IDs/order and four unchanged stories. Combined World/model/whole-edition budget acceptance remains open; feature inactive.
-- Verification: pnpm exec tsx --test apps/api/test/developing-rewrite-support.test.ts; pnpm format; pnpm lint:fix; pnpm check; pnpm build; reader and service refresh results below. Logs /tmp/3170-{targeted,format,lint,check,build,reader}.log.
-- Full pnpm check passes: static checks, 1,334 units, 336 integrations/four expected skips. pnpm build passes; scheduled-reader Nov 20 verifies five topics/25 real stories/20 posts. No schema/source/UI changes; next: Nov 21 recall/v16 acceptance.
-
-## 2026-11-21: iteration 3171 — source-bound summit rewrite control
-
-- Clean main at d8106de5; no inherited work. Zero alerts; health/database/Redis pass. Failed historical check units are transient test jobs, not app services.
-- Nov 21 recall/v16 acceptance awaits publication; today's item 69 evaluation commit used. Continued item 70 without provider calls or runtime changes.
-- Manual Nov 18 summit rewrite uses current greeting title and prospective first-meeting excerpt; omits inherited agenda/denuclearisation hopes, location and outcome claims.
-- Existing support guard/fixed-selection contract passes: five IDs/order and four unchanged stories retained. Single-link manual evidence only; combined World/model/budget acceptance open, production inactive.
-- Targeted: pnpm exec tsx --test apps/api/test/developing-rewrite-support.test.ts — five pass.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; scheduled-reader and service refresh results below. Logs /tmp/3171-{targeted,format,lint,check,build,reader}.log.
-- Next: Nov 21 recall and v16 Tech/Gaming acceptance. No source/schema/UI changes.
-- Full pnpm check passes: static checks, 1,335 units, 336 integrations/four expected skips. pnpm build passes; scheduled-reader Nov 20 verifies five topics/25 real stories/20 posts. git diff --check passes.
-
-## 2026-11-21: iteration 3172 — source-bound Crimea operation rewrite control
-
-- Clean main at d37c36d8; no inherited work. Zero alerts; health/database/Redis pass.
-- Nov 21 recall/v16 acceptance awaits publication; today's item 69 evaluation commit used. Continued item 70 without paid calls or runtime changes.
-- Manual Nov 18 bridge rewrite leads with newly reported weeks-long preparation, two waves and Ukrainian-developed weapons; omits inherited damage/traffic claims.
-- Unchanged support guard and fixed-selection contract pass: five IDs/order and four unchanged stories; nearest Nov 17 predecessor with three-edition continuity supplied.
-- Manual control only; combined World/model/whole-edition budget acceptance remains open; production inactive.
-- Targeted: pnpm exec tsx --test apps/api/test/developing-rewrite-support.test.ts — six pass.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; scheduled-reader and service refresh results below. Logs /tmp/3172-{targeted,format,lint,check,build,reader}.log.
-- Next: Nov 21 recall and v16 Tech/Gaming acceptance. No source/schema/UI changes.
-- Full pnpm check passes: static checks, 1,336 units, 336 integrations/four expected skips. pnpm build passes; scheduled-reader Nov 20 verifies five topics/25 real stories/20 posts. git diff --check passes.
-- Initial push rejected after concurrent owner commit 4f32f159 (lead status only); merged without rewriting history and pushed. API/worker restarted; health passes; zero alerts.
-
-## 2026-11-21: iteration 3173 — combined source-bound World rewrite acceptance
-
-- Clean main at 517f5c96; no inherited work. Zero alerts; health/database/Redis and all 37 active sources pass; Destructoid remains intentionally inactive.
-- Nov 21 edition/recall/v16 acceptance awaits 15:00 UTC; today's item 69 evaluation commit used. Continued item 70 without provider calls or runtime changes.
-- Shared manual controls preserve the source-reviewed summit, bridge and E1 prose from 3170–3172; no model output or new semantic acceptance claimed.
-- Combined three-link control retains five IDs/order, both unmatched stories, correct nearest predecessors and three-edition bridge continuity. Unsupported claim in each rewrite position restores all five original stories atomically; saved inputs stay unchanged.
-- Targeted: pnpm exec tsx --test apps/api/test/developing-rewrite-support.test.ts — seven pass.
-- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-20T15:00:00Z; git diff --check. Logs /tmp/3173-{targeted,format,lint,check,build,reader}.log.
-- Reader verifies five topics/25 real stories/20 posts; digest queue has zero failed runs. Public-mode job detail filtering is unavailable; counts-only obs jobs --check passes.
-- Model and whole-edition budget acceptance remain open; production inactive. No source/schema/UI changes. Next: Nov 21 recall/v16 acceptance.
-- Full pnpm check passes: static checks, 1,337 units, 336 integration passes/four expected skips. pnpm build and git diff --check pass; API/worker restarted after merge; health passes and zero alerts.
-- Initial push rejected after concurrent owner item 72/lead updates; merged without rewriting history. New item 72 supersedes open-ended acceptance and prohibits further historical controls; next run follows its one-time matching/budget path, then deployment or Why this.
+Earlier entries: [3166–3173 archive](docs/progress-archive/2026-11-21-3166-3173.md).
 
 ## 2026-11-21: iteration 3174 — ship Why this; record incomplete developing acceptance
 
@@ -196,3 +101,14 @@ Earlier entries: [pre-3166 archive](docs/progress-archive/2026-11-21-pre-3166.md
 - Handbook passes: 19 pages/one unchanged diagram/40 tables. Live Nov 20 reader passes: 9c810e64, five topics/25 stories/20 posts. Logs /tmp/3181-{check,build,handbook,reader,sources,jobs}.log.
 - Next: Nov 21/22 reviews first; weekly history labels and Sunday scheduling.
 - Final pnpm check passes: 1,350 units, 338 integrations/four expected skips; static checks, build, filtered handbook and diff checks pass. API/worker restarted active; health/database/Redis, repeated live daily reader and zero alerts verified. No migrations or paid calls.
+
+## 2026-11-21: iteration 3182 — weekly storage history
+
+- Clean main at 893cdcad; no inherited work. Zero alerts; health/database/Redis and active sources pass; no failed digest jobs. Nov 21 review awaits 15:00 UTC.
+- Added explicitly profile-scoped weekly ID lookup and bounded history pagination. Coverage end, publication time and ID provide stable newest-first ordering; regeneration versions remain available and daily latest is unchanged.
+- Extended isolated PostgreSQL regression for scoped lookup, absent IDs/profiles, pagination boundaries/repeatability, immutable read copies and invalid pagination. Reader routes/UI and Sunday scheduling remain unconnected; no paid calls.
+- Updated reader feature plan, pipeline handbook and TASKS. No schema change or diagram change.
+- Commands: pnpm format; pnpm lint:fix; pnpm check; pnpm build; pnpm exec tsx scripts/check-handbook.ts 04-edition-pipeline; pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-20T15:00:00Z; pnpm obs alerts/sources/jobs; git diff --check. Final results below.
+- Build and handbook pass (19 pages/one unchanged diagram/40 tables); live Nov 20 reader passes with five topics/25 stories/20 posts. Logs /tmp/3182-{check,build,handbook,reader,sources,jobs}.log.
+- Next: Nov 21/22 reviews first, then weekly reader routes/labels and Sunday scheduling. Developing remains blocked/disabled.
+- Final pnpm check passes: 1,350 units, 338 integrations/four expected skips; static checks, build, handbook and diff checks pass. Archived iterations 3166–3173 to keep PROGRESS small. API/worker restart and final live checks follow.

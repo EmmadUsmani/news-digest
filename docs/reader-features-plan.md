@@ -83,8 +83,10 @@ weekly table, with generation-key retries and a published Sunday daily prerequis
 The production generation entry point connects saved daily inputs and atomic storage
 to the shared budgeted Sonnet editor. Editor creation is lazy: waiting for Sunday
 daily, quiet topics and saved retries need no provider or credentials. Missing
-credentials or a refused edit publishes nothing. Reader history labels and Sunday
-scheduling remain unconnected.
+credentials or a refused edit publishes nothing. Weekly storage now supports explicit
+profile-scoped ID lookup and bounded history pages, ordered by coverage end and
+publication time with an ID tie-breaker; regeneration versions remain browseable.
+Reader history routes, labels and Sunday scheduling remain unconnected.
 
 ## Out of scope (owner, Nov 19)
 

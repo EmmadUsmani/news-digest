@@ -1,4 +1,4 @@
-import { and, eq, isNotNull, isNull, lte } from 'drizzle-orm';
+import { and, desc, eq, isNotNull, isNull, lte } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/node-postgres';
 
 import { database } from '../../../libs/db/connections';
@@ -56,6 +56,53 @@ export class PostgresWeeklyPublicationStore implements WeeklyPublicationStore {
       .where(eq(weeklyPublications.generationKey, generationKey))
       .limit(1);
     return (row?.snapshot as WeeklyPublication | undefined) ?? null;
+  }
+
+  /** Explicit profile scope prevents public readers from seeing private weeks. */
+  async findById(
+    id: string,
+    profileId: string | null,
+  ): Promise<WeeklyPublication | null> {
+    const [row] = await this.orm
+      .select({ snapshot: weeklyPublications.snapshot })
+      .from(weeklyPublications)
+      .where(and(eq(weeklyPublications.id, id), this.profileScope(profileId)))
+      .limit(1);
+    return (row?.snapshot as WeeklyPublication | undefined) ?? null;
+  }
+
+  async history(profileId: string | null, offset = 0, limit = 20) {
+    if (
+      !Number.isSafeInteger(offset) ||
+      offset < 0 ||
+      !Number.isSafeInteger(limit) ||
+      limit < 1 ||
+      limit > 100
+    )
+      throw new Error('Invalid weekly history pagination');
+    const rows = await this.orm
+      .select({ snapshot: weeklyPublications.snapshot })
+      .from(weeklyPublications)
+      .where(this.profileScope(profileId))
+      .orderBy(
+        desc(weeklyPublications.windowEnd),
+        desc(weeklyPublications.publishedAt),
+        desc(weeklyPublications.id),
+      )
+      .offset(offset)
+      .limit(limit + 1);
+    return {
+      entries: rows
+        .slice(0, limit)
+        .map((row) => row.snapshot as WeeklyPublication),
+      nextOffset: rows.length > limit ? offset + limit : null,
+    };
+  }
+
+  private profileScope(profileId: string | null) {
+    return profileId === null
+      ? isNull(weeklyPublications.profileId)
+      : eq(weeklyPublications.profileId, profileId);
   }
 
   async sundayDailyPublished(

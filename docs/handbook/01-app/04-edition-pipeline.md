@@ -1,7 +1,7 @@
 # Edition pipeline
 
 Scheduled and on-demand editions run topics **in parallel** and save one immutable snapshot.
-Weekly generation uses saved daily coverage, the shared AI budget and separate immutable storage with retry keys; it requires Sunday’s published daily edition. Automatic weekly scheduling and reader history are still pending.
+Weekly generation uses saved daily coverage, the shared AI budget and separate immutable storage with retry keys; it requires Sunday’s published daily edition. Saved weeks have separate profile-scoped history; reader access and automatic scheduling are still pending.
 
 ```mermaid
 flowchart LR
