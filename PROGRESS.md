@@ -173,3 +173,4 @@ Earlier entries: [pre-3055 archive](docs/progress-archive/2026-11-20-pre-3055.md
 - Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; scheduled-reader and service refresh results below. Logs /tmp/3172-{targeted,format,lint,check,build,reader}.log.
 - Next: Nov 21 recall and v16 Tech/Gaming acceptance. No source/schema/UI changes.
 - Full pnpm check passes: static checks, 1,336 units, 336 integrations/four expected skips. pnpm build passes; scheduled-reader Nov 20 verifies five topics/25 real stories/20 posts. git diff --check passes.
+- Initial push rejected after concurrent owner commit 4f32f159 (lead status only); merged without rewriting history and pushed. API/worker restarted; health passes; zero alerts.
