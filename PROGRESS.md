@@ -150,3 +150,14 @@ Earlier entries: [pre-3055 archive](docs/progress-archive/2026-11-20-pre-3055.md
 - Single-link fixed-selection control retains five IDs/order and four unchanged stories. Combined World/model/whole-edition budget acceptance remains open; feature inactive.
 - Verification: pnpm exec tsx --test apps/api/test/developing-rewrite-support.test.ts; pnpm format; pnpm lint:fix; pnpm check; pnpm build; reader and service refresh results below. Logs /tmp/3170-{targeted,format,lint,check,build,reader}.log.
 - Full pnpm check passes: static checks, 1,334 units, 336 integrations/four expected skips. pnpm build passes; scheduled-reader Nov 20 verifies five topics/25 real stories/20 posts. No schema/source/UI changes; next: Nov 21 recall/v16 acceptance.
+
+## 2026-11-21: iteration 3171 — source-bound summit rewrite control
+
+- Clean main at d8106de5; no inherited work. Zero alerts; health/database/Redis pass. Failed historical check units are transient test jobs, not app services.
+- Nov 21 recall/v16 acceptance awaits publication; today's item 69 evaluation commit used. Continued item 70 without provider calls or runtime changes.
+- Manual Nov 18 summit rewrite uses current greeting title and prospective first-meeting excerpt; omits inherited agenda/denuclearisation hopes, location and outcome claims.
+- Existing support guard/fixed-selection contract passes: five IDs/order and four unchanged stories retained. Single-link manual evidence only; combined World/model/budget acceptance open, production inactive.
+- Targeted: pnpm exec tsx --test apps/api/test/developing-rewrite-support.test.ts — five pass.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; scheduled-reader and service refresh results below. Logs /tmp/3171-{targeted,format,lint,check,build,reader}.log.
+- Next: Nov 21 recall and v16 Tech/Gaming acceptance. No source/schema/UI changes.
+- Full pnpm check passes: static checks, 1,335 units, 336 integrations/four expected skips. pnpm build passes; scheduled-reader Nov 20 verifies five topics/25 real stories/20 posts. git diff --check passes.

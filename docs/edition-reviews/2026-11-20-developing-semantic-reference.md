@@ -375,3 +375,19 @@ an affirmative paraphrase reviewed against the original excerpt. All five IDs
 and their order, plus four other stories, survive the fixed-selection contract.
 This single-link manual control does not establish combined World rewrite or
 model acceptance. No provider calls; production remains inactive.
+
+## Source-bound summit greeting rewrite control — iteration 3171
+
+The Nov 18 current title supports Trump greeting Putin and Xi ahead of talks
+in China; its excerpt supports a first joint meeting scheduled for Thursday.
+The manual rewrite preserves those facts and describes the significance as
+bringing the three leaders together for the first time. It does not inherit
+Shenzhen, denuclearisation hopes or the earlier announcement's proposed agenda,
+and claims no completed talks or diplomatic outcome.
+
+The existing bounded support guard and fixed-selection contract accept this
+single-link manual control against the reviewed Nov 16 predecessor. All five
+World IDs/order and the other four stories remain unchanged. This is reviewed
+manual prose, not model output or general entailment verification. Combined
+World rewrite and whole-edition budget acceptance remain open; production stays
+inactive, with no provider calls or cap changes.

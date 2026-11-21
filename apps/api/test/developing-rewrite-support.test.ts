@@ -284,3 +284,81 @@ void test('saved E1 delay rewrite preserves the diplomats denial and caretaker-g
     item.selected.filter((s) => s.id !== id),
   );
 });
+
+void test('saved summit greeting rewrite excludes inherited agenda and outcome claims', async () => {
+  const fixture = JSON.parse(
+    readFileSync(
+      new URL(
+        './fixtures/developing-stories-world-2026-11-18.json',
+        import.meta.url,
+      ),
+      'utf8',
+    ),
+  ) as {
+    cases: {
+      topicName: string;
+      selected: {
+        id: string;
+        title: string;
+        summary: string;
+        whyItMatters: string;
+      }[];
+      originalEditorialEvidence: { evidence: EditorialCandidate[] };
+      history: {
+        editionId: string;
+        stories: { id: string; title: string; summary: string }[];
+      }[];
+    }[];
+  };
+  const item = fixture.cases[0];
+  const current = item.originalEditorialEvidence.evidence[0];
+  const previousId = 'd5872a78-a690-4dae-a7a2-bebc16cb35f9';
+  const history = item.history.find((h) =>
+    h.stories.some((s) => s.id === previousId),
+  )!;
+  const previous = history.stories.find((s) => s.id === previousId)!;
+  assert.equal(current.id, '2e56befe-11d4-4fd2-85d6-9a5251af2b92');
+  assert.equal(
+    current.excerpt,
+    'The three leaders will meet together for the first time on Thursday during a closely-watched summit.',
+  );
+  // Manual source review: the current title supports the greeting; the excerpt
+  // supports the prospective meeting. Earlier agenda hopes are not new facts.
+  const rewrite = {
+    id: current.id,
+    title: 'Trump shakes hands with Putin and Xi ahead of talks in China',
+    summary:
+      'Trump shakes hands with Putin and Xi ahead of talks in China. The three leaders will meet together for the first time on Thursday during a closely-watched summit.',
+    whyItMatters:
+      'The summit brings the three leaders together for the first time.',
+  };
+  const result = await rewriteDevelopingStories({
+    selected: item.selected,
+    evidence: item.originalEditorialEvidence.evidence,
+    links: [
+      {
+        storyId: current.id,
+        previousEditionId: history.editionId,
+        previousStoryId: previous.id,
+        previousHeadline: previous.title,
+        previousSummary: previous.summary,
+        editionCount: 2,
+      },
+    ],
+    rewrite: async (inputs) => {
+      assert.equal(inputs.length, 1);
+      assert.deepEqual(inputs[0].evidence, current);
+      assert.equal(inputs[0].earlierCoverage.previousSummary, previous.summary);
+      return [rewrite];
+    },
+    validate: (value, evidence) =>
+      validateDevelopingRewrite(value, evidence, item.topicName),
+  });
+  assert.equal(result.status, 'rewritten');
+  assert.deepEqual(
+    result.stories.map((s) => s.id),
+    item.selected.map((s) => s.id),
+  );
+  assert.equal(result.stories[0].summary, rewrite.summary);
+  assert.deepEqual(result.stories.slice(1), item.selected.slice(1));
+});

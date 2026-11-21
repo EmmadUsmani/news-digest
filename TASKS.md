@@ -74,6 +74,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 3171: Source-reviewed manual summit greeting rewrite uses current title/excerpt, omits inherited agenda hopes and outcomes, and retains all five World selections. Combined World/model/budget acceptance remains open; production inactive.
+
 - [x] 3170: Source-reviewed manual E1 contract-delay rewrite retains diplomatic causal denial and caretaker-government objection; unchanged guard and five-selection contract pass. Combined World/model/budget acceptance remains open; production inactive.
 
 - [x] 3169: Nov 18 World matching review adds summit, three-edition bridge and sanctions/contract-delay continuations plus Gaza nonmatch; Iran analysis unresolved. E1 causal denial retained in review; offline controls/snapshots pass, production inactive.
