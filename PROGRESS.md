@@ -123,3 +123,16 @@ Earlier entries: [3166–3173 archive](docs/progress-archive/2026-11-21-3166-317
 - Build/typecheck and handbook pass (19 pages/one unchanged diagram/40 tables); logs /tmp/3183-{check,build,target,handbook,sources,jobs}.log.
 - Next: Nov 21/22 reviews first, then weekly reader UI/history labels and Sunday scheduling. Developing remains blocked/disabled.
 - Final pnpm check passes: 1,353 units, 338 integrations/four expected skips; all static checks green. API/worker restarted active; health/database/Redis, Nov 20 daily reader and zero alerts pass. Weekly live local history is empty, missing UUID 404 and invalid offset 400 using the existing reader-check visitor header; bare requests correctly fail visitor admission (429). External hostname connection from VM failed; no external verification claimed.
+
+## 2026-11-21: iteration 3184 — weekly reader pages
+
+- Clean main at 36387361; no inherited work. Zero alerts, healthy health/database/Redis and active sources; no failed digest jobs. Nov 21 review awaits 15:00 UTC.
+- Added “Week in review” link in Past editions, separate paginated weekly history and UUID detail pages with saved summaries, quiet topics and daily coverage links. Daily home/latest remains unchanged; posts link to the daily topic’s posts section because saved weekly post references lack platform identity.
+- Added explicit GET/HEAD admission for both reader routes, including malformed-path/write denials. Browser reload caught the missing route policy before completion; repaired and targeted policy tests pass.
+- Live weekly history is empty: no weekly publication or AI call was triggered. Synthetic detail responses are labelled in screenshots and smoke script; they are not live editions. Scheduling and developing acceptance remain unfinished.
+- Browser checks pass: 390/1440 light/dark, empty live history, synthetic summaries/daily links/quiet topic, pagination, keyboard entry, 404, no overflow or browser errors. Eight screenshots under docs/screenshots/ui/weekly-{live-history,synthetic-detail}-*; mobile light and desktop dark inspected.
+- Updated TASKS, reader plan and affected pipeline handbook. No schema or diagram change.
+- Commands: pnpm format; pnpm lint:fix; pnpm check; pnpm build; targeted API/web builds; pnpm exec tsx --test apps/api/test/public-route-policy.test.ts; pnpm exec tsx scripts/smoke-reader-weekly.ts; pnpm exec tsx scripts/check-handbook.ts 04-edition-pipeline; pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-20T15:00:00Z; pnpm obs alerts/sources/jobs; git diff --check.
+- Build, handbook (19 pages/one unchanged diagram/40 tables), policy tests and live Nov 20 reader (9c810e64, five topics/25 stories/20 posts) pass. Logs: /tmp/3184-*.log. Full-check static stages and 1,353 units pass; combined process ended 143 during integrations. Separate pnpm test:integration exits 0: 338 pass/four expected skips; final web typecheck and lint:fix pass.
+- Next: Nov 21/22 scheduled reviews first, then weekly Sunday scheduling. Developing remains blocked/disabled; no paid calls.
+- Final API/worker restart active; health/database/Redis, live Nov 20 reader and zero alerts pass. No schema changes, generation triggers or paid calls.

@@ -59,6 +59,13 @@ export function ReaderArchive() {
         >
           Past editions
         </h1>
+        <Link
+          to="/weekly-editions"
+          search={{ page: 1 }}
+          className="inline-flex min-h-[44px] items-center text-[var(--accent)] underline"
+        >
+          Week in review →
+        </Link>
         {history.isPending && (
           <div role="status" className="my-[32px]">
             <span className="sr-only">Loading editions…</span>

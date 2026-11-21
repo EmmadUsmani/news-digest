@@ -27,6 +27,8 @@ void test('prepared public policy distinguishes reader, identity and privileged 
     '/docs/api/pages',
     '/docs/api/page?path=01-app%2FREADME.md',
     '/editions',
+    '/weekly-editions',
+    `/weekly-editions/${id}`,
     `/editions/${id}`,
     '/api/editions/latest',
     `/api/editions/${id}`,
@@ -73,6 +75,8 @@ void test('prepared public policy distinguishes reader, identity and privileged 
 void test('prepared public policy denies unknown routes, tools and ambiguous router spellings', () => {
   for (const path of [
     '/api/admin/new-feature',
+    '/weekly-editions/not-a-uuid',
+    `/weekly-editions/${id}/extra`,
     '/api/account/new-feature',
     '/api/browser-errors',
     '/api/me',

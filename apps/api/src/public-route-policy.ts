@@ -8,7 +8,8 @@ export type RouteClass = 'public-read' | 'user' | 'admin';
 type Rule = readonly [method: string, path: RegExp, access: RouteClass];
 const id = '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}';
 const rules: readonly Rule[] = [
-  ['GET', /^\/(?:saved|editions)?$/, 'public-read'],
+  ['GET', /^\/(?:saved|editions|weekly-editions)?$/, 'public-read'],
+  ['GET', new RegExp(`^/weekly-editions/${id}$`), 'public-read'],
   ['GET', new RegExp(`^/editions/${id}$`), 'public-read'],
   ['GET', /^\/healthz$/, 'public-read'],
   // Strict technical fields and the receiver's global log cap apply downstream.

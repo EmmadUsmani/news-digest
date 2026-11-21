@@ -34,6 +34,7 @@ import {
 } from './queries';
 import { ReaderArchive } from './ReaderArchive';
 import { ReaderSaved } from './ReaderSaved';
+import { WeeklyArchive, WeeklyEdition } from './ReaderWeekly';
 
 export const queryClient = new QueryClient({
   defaultOptions: { queries: { staleTime: 60_000 } },
@@ -107,6 +108,22 @@ const archiveRoute = createRoute({
     page: z.coerce.number().int().min(1).max(500000).catch(1),
   }),
   component: ReaderArchive,
+});
+const weeklyArchiveRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/weekly-editions',
+  validateSearch: z.object({
+    page: z.coerce.number().int().min(1).max(500000).catch(1),
+  }),
+  component: WeeklyArchive,
+});
+const weeklyEditionRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/weekly-editions/$id',
+  beforeLoad: ({ params }) => {
+    if (!z.string().uuid().safeParse(params.id).success) throw notFound();
+  },
+  component: WeeklyEdition,
 });
 const editionRoute = createRoute({
   getParentRoute: () => rootRoute,
@@ -231,6 +248,8 @@ export const router = createRouter({
   routeTree: rootRoute.addChildren([
     latestRoute,
     archiveRoute,
+    weeklyArchiveRoute,
+    weeklyEditionRoute,
     savedRoute,
     privacyRoute,
     editionRoute,

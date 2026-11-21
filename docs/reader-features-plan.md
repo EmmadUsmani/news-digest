@@ -88,7 +88,9 @@ profile-scoped ID lookup and bounded history pages, ordered by coverage end and
 publication time with an ID tie-breaker; regeneration versions remain browseable.
 Public `/api/weekly-editions` history and UUID detail reads expose saved weekly
 summaries and daily coverage links, stripping profile, provider and evidence text.
-Reader UI labels and Sunday scheduling remain unconnected.
+Reader history links to `/weekly-editions`, labelled “Week in review”. Weekly detail
+pages show saved summaries, quiet topics and links to daily story coverage (posts
+link to the daily topic’s posts section). Sunday scheduling remains unconnected.
 
 ## Out of scope (owner, Nov 19)
 

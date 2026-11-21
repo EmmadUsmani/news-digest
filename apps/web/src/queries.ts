@@ -11,6 +11,8 @@ import {
   publicOperationsStatusSchema,
   readerEditionHistorySchema,
   readerEditionSchema,
+  readerWeeklyEditionSchema,
+  readerWeeklyHistorySchema,
   scheduleSchema,
   topicSettingsSchema,
 } from '@digest/contracts';
@@ -273,3 +275,26 @@ export const publicQueuesQuery = queryOptions({
       signal,
     ),
 });
+
+export const weeklyHistoryQuery = (offset = 0) =>
+  queryOptions({
+    queryKey: ['weekly-editions', 'history', offset],
+    retry: retryEditionRead,
+    queryFn: ({ signal }) =>
+      read(
+        `/api/weekly-editions?offset=${offset}`,
+        readerWeeklyHistorySchema,
+        signal,
+      ),
+  });
+export const weeklyEditionQuery = (id: string) =>
+  queryOptions({
+    queryKey: ['weekly-editions', 'detail', id],
+    retry: retryEditionRead,
+    queryFn: ({ signal }) =>
+      read(
+        `/api/weekly-editions/${encodeURIComponent(id)}`,
+        readerWeeklyEditionSchema,
+        signal,
+      ),
+  });
