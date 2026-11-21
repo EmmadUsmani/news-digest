@@ -130,3 +130,13 @@ Earlier entries: [through iteration 3300](docs/progress-archive/2026-11-21-throu
 - Verification/deployment results follow below; logs /tmp/3359-*.log. No paid calls, new reference labels or fixtures, cap changes or UI changes.
 - Next: Nov 22 daily/developing reader acceptance and three-edition miss-cause fix; semantic event annotations/full Nov 12–18 comparison and cross-platform acceptance; Sunday weekly publication acceptance.
 - Final: pnpm format/lint:fix/check/build pass (1,375 unit, 341 integration/four expected skips). First check caught an opt-out null preview leaking into saved snapshots; fixed by omitting the field unless requested, then reran the full suite. git diff --check passes; deployment/reader/alerts checked after push.
+
+## 2026-11-21: iteration 3360 — Bluesky event-budget preview
+
+- Clean main at f3c12ae2; no inherited work. Healthz/alerts healthy; all 38 monitored sources healthy; digest queue zero failed/active, next scheduled Nov 22 15:00 UTC.
+- Extended the real Bluesky shortlist/editor path with explicit event-budget preview: one outcome call, complete-story evidence request, truncation metadata and full stored observation/score/rationale mapping. Ordinary scheduled callers remain unchanged.
+- Reject unknown/duplicate/excess preview picks and refuse when existing platform picks lack stable event-review IDs. Empty previews remain valid. Cross-platform review is still required before production admission.
+- Targeted Bluesky tests pass 8/8; existing saved Nov 17–18 evaluator passes with zero external calls and unchanged results. No paid calls, new labels/fixtures, cap or UI changes; owner handbook behavior unchanged.
+- TASKS/RANKING updated. Full verification and deployment recorded below; logs /tmp/3360-*.log.
+- Next: Nov 22 daily/developing reader acceptance and three-edition miss-cause fix; complete semantic event-budget comparison for Nov 12–18 and joint cross-platform admission; Sunday weekly acceptance.
+- Final: pnpm format, pnpm lint:fix, pnpm check (1,377 unit passes; 341 integration passes/four expected skips), pnpm build and git diff --check pass. Scheduled reader probe verifies Nov 21 five topics/25 stories/15 posts. API/worker health and alerts checked after push/restart.

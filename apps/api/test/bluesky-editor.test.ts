@@ -291,3 +291,135 @@ void test('Bluesky editor distinguishes attachments from text-only posts without
   assert.ok(called);
   assert.deepEqual(result.posts[0].post, withMedia);
 });
+
+void test('Bluesky event preview uses one outcome and preserves full observations without changing picks', async () => {
+  let calls = 0;
+  const services = harness(async () => {
+    throw new Error('Preview must not retry through edit');
+  });
+  services.socialEditor = {
+    ...services.socialEditor,
+    async editOutcome(
+      _topic,
+      candidates,
+      _budget,
+      _run,
+      _selected,
+      stories,
+      options,
+    ) {
+      calls++;
+      assert.deepEqual(options, {
+        reviewEvents: true,
+        completeStoryEvidence: true,
+      });
+      assert.equal(stories?.[0].textTruncated, true);
+      const pick = (id: string) => ({
+        id,
+        whyItMatters: 'Demo',
+        rationale: 'First hand',
+      });
+      return {
+        status: 'complete',
+        value: {
+          model: 'fake',
+          posts: [pick(candidates[0].id)],
+          eventBudgetPreview: [pick(candidates[1].id)],
+        },
+      };
+    },
+  } as SocialSelectionServices['socialEditor'];
+  const result = await editBlueskyPosts(
+    services,
+    topic,
+    posts,
+    { includeAny: [], excludeAny: [] },
+    start,
+    end,
+    2,
+    'preview',
+    [],
+    [{ title: 'Story', summary: 'Summary', textTruncated: true }],
+    { previewEventBudget: true },
+  );
+  assert.equal(calls, 1);
+  assert.equal(result.posts.length, 1);
+  assert.equal(result.eventBudgetPreview?.length, 1);
+  const preview = result.eventBudgetPreview[0];
+  assert.deepEqual(
+    preview.post,
+    posts.find((post) => post.externalId === preview.post.externalId),
+  );
+  assert.notEqual(result.posts[0].post.externalId, preview.post.externalId);
+});
+
+void test('Bluesky preview refuses invalid IDs, duplicates, excess picks and unreviewed prior platform picks', async () => {
+  const services = harness(async () => {
+    throw new Error('Unexpected retry');
+  });
+  const shortlist = await shortlistBlueskyPosts(
+    services.socialTriage,
+    topic,
+    posts,
+    { includeAny: [], excludeAny: [] },
+    start,
+    end,
+    10,
+    'preview',
+  );
+  const pick = (id: string) => ({
+    id,
+    whyItMatters: 'Demo',
+    rationale: 'First hand',
+  });
+  const baseline = pick(shortlist.posts[0].score.id);
+  for (const [preview, prior] of [
+    [[pick('unknown')], false],
+    [[baseline, baseline], false],
+    [[baseline, pick(shortlist.posts[1].score.id)], false],
+    [[baseline], true],
+    [[], false],
+  ] as const) {
+    const result = await editShortlistedBlueskyPosts(
+      {
+        ...services.socialEditor,
+        async editOutcome() {
+          return {
+            status: 'complete',
+            value: {
+              model: 'fake',
+              posts: [baseline],
+              eventBudgetPreview: [...preview],
+            },
+          };
+        },
+      },
+      topic,
+      shortlist,
+      1,
+      'preview',
+      prior
+        ? [
+            {
+              platform: 'x',
+              externalId: 'prior',
+              text: 'Prior fact',
+              author: 'Author',
+              authorUrl: 'https://x.com/author',
+              url: 'https://x.com/author/status/1',
+              publishedAt: end.toISOString(),
+              metrics: {},
+              reasons: [],
+            },
+          ]
+        : [],
+      [],
+      { previewEventBudget: true },
+    );
+    assert.equal(result.posts.length, 1);
+    assert.deepEqual(
+      result.eventBudgetPreview,
+      preview.length === 0 ? [] : null,
+    );
+  }
+});

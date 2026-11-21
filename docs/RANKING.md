@@ -3763,3 +3763,14 @@ is refused so downstream filtering cannot silently lose an event or material fac
 Original picks remain separate and unchanged. Failed outcomes do not retry.
 No scheduled caller opts in, no external calls were made, and the Nov 12–16
 comparison, semantic annotations and full cross-platform acceptance remain open.
+
+## Bluesky selector event-budget preview (iteration 3360)
+
+The real Bluesky shortlist/editor path now accepts the same explicit preview
+option as X/Reddit. One outcome call requests complete story evidence and event
+annotations; preview picks retain exact stored observations and editor rationale.
+Unknown IDs, duplicates and excess picks refuse the preview. Existing platform
+picks also refuse it: this request supplies their text without stable review IDs,
+so joint event/fact preservation cannot be established. Normal picks remain
+unchanged. This closes a transport gap, not semantic or Nov 12–18 acceptance;
+cross-platform admission still needs a joint review of every retained pick.

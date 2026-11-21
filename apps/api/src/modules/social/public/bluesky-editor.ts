@@ -21,7 +21,12 @@ export async function editBlueskyPosts(
   budget: number,
   runId: string,
   alreadySelected: SelectedSocialPost[] = [],
-  coveredStories: { title: string; summary: string }[] = [],
+  coveredStories: {
+    title: string;
+    summary: string;
+    textTruncated?: boolean;
+  }[] = [],
+  options: { previewEventBudget?: boolean } = {},
 ) {
   if (!Number.isInteger(budget) || budget < 0 || budget > 20)
     throw new Error('Expected Bluesky editorial budget 0–20');
@@ -43,6 +48,7 @@ export async function editBlueskyPosts(
     runId,
     alreadySelected,
     coveredStories,
+    options,
   );
 }
 
@@ -55,10 +61,25 @@ export async function editShortlistedBlueskyPosts(
   budget: number,
   runId: string,
   alreadySelected: SelectedSocialPost[] = [],
-  coveredStories: { title: string; summary: string }[] = [],
+  coveredStories: {
+    title: string;
+    summary: string;
+    textTruncated?: boolean;
+  }[] = [],
+  options: { previewEventBudget?: boolean } = {},
 ) {
   if (!Number.isInteger(budget) || budget < 0 || budget > 20)
     throw new Error('Expected Bluesky editorial budget 0–20');
+  const previewState = options.previewEventBudget
+    ? {
+        eventBudgetPreview: null as
+          | null
+          | ((typeof shortlist.posts)[number] & {
+              whyItMatters: string;
+              editorialRationale: string;
+            })[],
+      }
+    : {};
   const empty = (
     status: 'incomplete' | 'unavailable' | 'complete',
     failures?: string[],
@@ -68,6 +89,7 @@ export async function editShortlistedBlueskyPosts(
       >['droppedPosts']
     >,
   ) => ({
+    ...previewState,
     status,
     failures,
     droppedPosts,
@@ -100,7 +122,14 @@ export async function editShortlistedBlueskyPosts(
     })),
     coveredStories,
   ];
-  const outcome = editor.editOutcome ? await editor.editOutcome(...args) : null;
+  const outcome = editor.editOutcome
+    ? await editor.editOutcome(
+        ...args,
+        ...(options.previewEventBudget
+          ? [{ reviewEvents: true, completeStoryEvidence: true }]
+          : []),
+      )
+    : null;
   const edited = outcome
     ? outcome.status === 'complete'
       ? outcome.value
@@ -118,15 +147,32 @@ export async function editShortlistedBlueskyPosts(
     edited.posts.some((p) => !shortlist.posts.some((c) => c.score.id === p.id))
   )
     return empty('incomplete');
+  const materialize = (selection: typeof edited.posts) =>
+    selection.map((item) => ({
+      ...shortlist.posts.find((candidate) => candidate.score.id === item.id)!,
+      whyItMatters: item.whyItMatters,
+      editorialRationale: item.rationale,
+    }));
+  const preview = edited.eventBudgetPreview;
+  // Existing platform picks have no stable review IDs in this editor request.
+  // Their event/fact preservation cannot be established by this preview.
+  if (
+    options.previewEventBudget &&
+    alreadySelected.length === 0 &&
+    preview &&
+    preview.length <= budget &&
+    new Set(preview.map(({ id }) => id)).size === preview.length &&
+    preview.every(({ id }) =>
+      shortlist.posts.some((item) => item.score.id === id),
+    )
+  )
+    previewState.eventBudgetPreview = materialize(preview);
   return {
+    ...previewState,
     status: 'complete' as const,
     model: edited.model,
     droppedPosts: edited.droppedPosts,
     candidatesShortlisted: shortlist.posts.length,
-    posts: edited.posts.map((selection) => ({
-      ...shortlist.posts.find((c) => c.score.id === selection.id)!,
-      whyItMatters: selection.whyItMatters,
-      editorialRationale: selection.rationale,
-    })),
+    posts: materialize(edited.posts),
   };
 }
