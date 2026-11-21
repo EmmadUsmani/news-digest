@@ -62,6 +62,12 @@ Live since Nov 21 on published editions with saved editor reasons.
   latest daily edition on the home page.
 - Same immutability as daily editions: a regeneration creates a new version.
 
+Input selection is implemented: a Sunday 17:00 UTC cutoff selects published
+daily coverage windows ending within the preceding seven days, using the latest
+published regeneration of each window. Saved stories/posts retain their daily
+edition IDs; private, test, weekly and other-profile editions are excluded.
+Weekly editing, storage, history labels and scheduling remain to be connected.
+
 ## Out of scope (owner, Nov 19)
 
 Reading-time targets, an RSS feed of editions, "catch me up since my last
