@@ -360,3 +360,18 @@ claim. No rewrite or model acceptance is claimed. Manual memberships pass the
 existing evaluator and immutable snapshot checks; omitted/partial continuations,
 a separate Gaza operation and unrelated Gaza-aid policy links fail controls.
 Production stays inactive; no provider calls or cap changes.
+
+## Source-bound E1 rewrite control — iteration 3170
+
+A manual rewrite of the Nov 18 contract-delay selection retains the sequence
+of UK sanctions followed by postponed contracts, the diplomats' explicit denial
+of causality, and the attorney general's objection to the caretaker government
+deciding settlement expansion. It replaces the published importance line's
+implication that sanctions are a factor with the source's two-state concern.
+
+The unchanged guard accepts the complete attributed denial; dropping attribution
+or paraphrasing its negative sentence is refused. The caretaker objection uses
+an affirmative paraphrase reviewed against the original excerpt. All five IDs
+and their order, plus four other stories, survive the fixed-selection contract.
+This single-link manual control does not establish combined World rewrite or
+model acceptance. No provider calls; production remains inactive.

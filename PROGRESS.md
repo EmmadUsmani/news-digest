@@ -140,3 +140,13 @@ Earlier entries: [pre-3055 archive](docs/progress-archive/2026-11-20-pre-3055.md
 - Verification: pnpm format; pnpm lint:fix; pnpm check; scheduled-reader and service refresh results follow. Logs /tmp/3169-{targeted,format,lint,check,reader}.log.
 - Next: Nov 21 recall/v16 Tech/Gaming acceptance; developing semantic/model and whole-edition budget acceptance still open. No schema/source/UI changes.
 - Full pnpm check passes: static checks, 1,333 units, 336 integrations/four expected skips. pnpm build passes; scheduled-reader Nov 20 verifies five topics/25 real stories/20 posts. Export-field equality and git diff --check pass.
+
+## 2026-11-21: iteration 3170 — qualified E1 delay rewrite control
+
+- Clean main at ed3618b4; no inherited work. Zero alerts; health/database/Redis pass; 37 active sources healthy, Destructoid intentionally inactive.
+- Nov 21 recall/v16 acceptance awaits publication; today's item 69 evaluation commit used. Continued item 70 without provider calls or runtime changes.
+- Manual Nov 18 E1 rewrite preserves diplomats' denial of sanctions causality and attorney general's caretaker-government objection; replaces causal implication in published importance line with sourced two-state concern.
+- Unchanged lexical guard requires the complete attributed denial: initial paraphrase refused; exact attributed sentence passes. Attribution-stripping and negative paraphrase controls fail as expected.
+- Single-link fixed-selection control retains five IDs/order and four unchanged stories. Combined World/model/whole-edition budget acceptance remains open; feature inactive.
+- Verification: pnpm exec tsx --test apps/api/test/developing-rewrite-support.test.ts; pnpm format; pnpm lint:fix; pnpm check; pnpm build; reader and service refresh results below. Logs /tmp/3170-{targeted,format,lint,check,build,reader}.log.
+- Full pnpm check passes: static checks, 1,334 units, 336 integrations/four expected skips. pnpm build passes; scheduled-reader Nov 20 verifies five topics/25 real stories/20 posts. No schema/source/UI changes; next: Nov 21 recall/v16 acceptance.
