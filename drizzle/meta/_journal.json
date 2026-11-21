@@ -176,6 +176,13 @@
       "when": 1794544494851,
       "tag": "0024_us_bluesky_query",
       "breakpoints": true
+    },
+    {
+      "idx": 25,
+      "version": "7",
+      "when": 1795230746019,
+      "tag": "0025_weekly_publications",
+      "breakpoints": true
     }
   ]
 }

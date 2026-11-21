@@ -78,7 +78,9 @@ coverage window and publication cutoff before applying the saved-input selector.
 The publication workflow now waits for Sunday’s published daily edition, skips
 quiet-topic calls and saves all topics together only after every required edit
 succeeds. Generation keys support retries; regeneration uses a new key.
-The storage adapter, production trigger, history labels and scheduling remain unconnected.
+The PostgreSQL publication adapter stores whole immutable snapshots in a separate
+weekly table, with generation-key retries and a published Sunday daily prerequisite.
+Production wiring, reader history labels and scheduling remain unconnected.
 
 ## Out of scope (owner, Nov 19)
 

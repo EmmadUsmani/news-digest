@@ -30,7 +30,8 @@
       "tables": [
         "digest_previews",
         "edition_job_failures",
-        "edition_job_requests"
+        "edition_job_requests",
+        "weekly_publications"
       ]
     },
     {
@@ -149,7 +150,8 @@
     "admin_audit_log": "Private sign-in-link issuance and reader session revocation audit tied to the issuing user; contains no bearer tokens.",
     "user_hidden_topics": "Per-reader hidden-topic changes, including explicit unhide state; removed with the user.",
     "bookmarks": "Per-reader saved display copies and removal tombstones; removed with the user.",
-    "admin_write_admissions": "Private admin admissions: actor, method, classified path, time and optional atomic changed/unchanged outcome; no credentials or payloads."
+    "admin_write_admissions": "Private admin admissions: actor, method, classified path, time and optional atomic changed/unchanged outcome; no credentials or payloads.",
+    "weekly_publications": "Immutable week-in-review snapshots with generation-key retries, separate from daily editions."
   },
   "relations": [
     {

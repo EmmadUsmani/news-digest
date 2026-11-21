@@ -2,7 +2,7 @@
 
 Postgres holds settings, content, accounting and private reader tables. Most of the app's state is
 simple: settings, collected content, ledgers, and editions as immutable
-snapshots.
+snapshots. Weekly reviews use separate immutable `weekly_publications` storage and unique retry keys.
 
 > [!NOTE]
 > Public mode exposes the shared topic settings through an explicit field allowlist;

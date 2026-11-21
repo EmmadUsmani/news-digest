@@ -1,7 +1,7 @@
 # Edition pipeline
 
-Scheduled and on-demand editions follow the same pipeline. Topics run
-**in parallel** and are saved together as one immutable snapshot.
+Scheduled and on-demand editions run topics **in parallel** and save one immutable snapshot.
+Weekly snapshots use separate immutable storage and retry keys; their publication adapter requires Sunday’s published daily edition.
 
 ```mermaid
 flowchart LR

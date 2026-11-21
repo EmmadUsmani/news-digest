@@ -174,3 +174,14 @@ Earlier entries: [pre-3166 archive](docs/progress-archive/2026-11-21-pre-3166.md
 - Full handbook run hit local-tool HTTP 429; filtered retry (`04-edition-pipeline`) passes: 19 pages/one diagram/39 tables. Sources pass (Destructoid intentionally inactive); jobs snapshot has zero digest failures. Initial queue name `digest` was rejected; corrected with unfiltered jobs snapshot.
 - Next: Nov 21/22 reviews first; weekly database publication adapter/history separation and Sunday scheduling. Developing remains blocked/disabled. Logs /tmp/3179-{targeted,check,build,handbook-retry,reader,sources,jobs}.log.
 - Final pnpm check passes: 1,350 units and 337 integration passes/four expected skips; all static checks green. Build, filtered handbook and diff checks pass.
+
+## 2026-11-21: iteration 3180 — durable weekly publication storage
+
+- Clean main at 74a0dd73; no inherited work. Zero alerts; health/database/Redis and active sources pass; no failed digest jobs. Nov 21 review awaits 15:00 UTC.
+- Added Drizzle migration/schema for separate immutable weekly publications, unique generation keys and profile/history indexing. Daily latest/history remain isolated; no scheduled weekly calls enabled.
+- PostgreSQL adapter persists all topic snapshots together, handles concurrent retry conflicts, preserves regeneration versions and checks Sunday’s published scheduled daily at the cutoff. Input loading delegates to the existing saved-input reader.
+- Isolated database regression covers concurrent retries, regeneration, immutability, atomic constraint failure, quiet-topic snapshots, daily-reader isolation and private/manual/late/foreign daily exclusions. No provider calls.
+- Updated reader feature plan, affected handbook pages and schema metadata. Initial handbook check caught page limits and unapplied schema; shortened prose before final verification.
+- Commands: pnpm format; pnpm lint:fix; pnpm check; pnpm build; pnpm --filter @digest/api exec drizzle-kit generate --name weekly_publications; pnpm exec tsx scripts/check-handbook.ts 04-edition-pipeline; pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-20T15:00:00Z; git diff --check. Final results below.
+- Next: Nov 21/22 reviews first, then production wiring, weekly history labels and Sunday scheduling. Developing remains blocked/disabled. Logs /tmp/3180-{check,build,handbook,reader,sources,jobs}.log.
+- Final pnpm check passes: 1,350 units, 338 integration passes/four expected skips; all static checks green. Build/diff checks pass. Migration applied live; final handbook (`--owner-services`) passes 19 pages/21 diagrams/40 tables without warnings. API/worker restarted active; health/database/Redis, live daily reader (five topics/25 stories/20 posts) and zero alerts pass.

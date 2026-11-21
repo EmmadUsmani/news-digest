@@ -374,6 +374,43 @@ export const digestPreviews = pgTable(
   ],
 );
 
+export const weeklyPublications = pgTable(
+  'weekly_publications',
+  {
+    id: uuid().primaryKey().notNull(),
+    generationKey: text('generation_key')
+      .notNull()
+      .unique('weekly_publications_generation_key_key'),
+    profileId: uuid('profile_id').references(() => profiles.id),
+    windowStart: timestamp('window_start', {
+      withTimezone: true,
+      mode: 'string',
+    }).notNull(),
+    windowEnd: timestamp('window_end', {
+      withTimezone: true,
+      mode: 'string',
+    }).notNull(),
+    publishedAt: timestamp('published_at', {
+      withTimezone: true,
+      mode: 'string',
+    })
+      .defaultNow()
+      .notNull(),
+    snapshot: jsonb().notNull(),
+  },
+  (table) => [
+    check(
+      'weekly_publications_generation_key_check',
+      sql`length(generation_key) > 0`,
+    ),
+    check('weekly_publications_check', sql`window_start < window_end`),
+    index('weekly_publications_history').on(
+      table.profileId,
+      table.publishedAt.desc(),
+    ),
+  ],
+);
+
 export const llmCalls = pgTable(
   'llm_calls',
   {

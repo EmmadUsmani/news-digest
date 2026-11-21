@@ -39,6 +39,7 @@ import {
 } from '../src/modules/curation/public/scheduled-context';
 import { snapshotDevelopingStories } from '../src/modules/digests/application/snapshot-developing-stories';
 import { PostgresPreviewRepository } from '../src/modules/digests/database/preview.repository';
+import { PostgresWeeklyPublicationStore } from '../src/modules/digests/database/weekly-publication.repository';
 import type { PreviewRepository } from '../src/modules/digests/domain/preview.repository';
 import type { Candidate, rank } from '../src/modules/digests/domain/rank';
 import { readerEdition } from '../src/modules/digests/reader-edition.controller';
@@ -1413,5 +1414,128 @@ void test('weekly database input isolates published daily windows and selects sa
       cleanup.release();
     }
     await adapter.onModuleDestroy();
+  }
+});
+
+void test('weekly PostgreSQL publication is atomic, immutable and separate from daily latest', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const daily = new PostgresPreviewRepository();
+  const store = new PostgresWeeklyPublicationStore(daily);
+  const id = crypto.randomUUID();
+  const regeneratedId = crypto.randomUUID();
+  const generationKey = `weekly-${id}`;
+  const target = { profileId: null, scheduledAt: '2095-02-06T17:00:00Z' };
+  const snapshot = {
+    id,
+    profileId: null,
+    kind: 'weekly' as const,
+    windowStart: '2095-01-30T17:00:00.000Z',
+    windowEnd: '2095-02-06T17:00:00.000Z',
+    topics: [
+      { id: 'tech', name: 'Tech', review: null },
+      { id: 'nba', name: 'NBA', review: null },
+    ],
+  };
+  try {
+    const latest = await daily.latest(true);
+    assert.equal(await store.find(generationKey), null);
+    assert.equal(await store.sundayDailyPublished(target), false);
+    await assert.rejects(
+      store.sundayDailyPublished({ ...target, scheduledAt: 'invalid' }),
+    );
+    const saved = await Promise.all([
+      store.publish(generationKey, snapshot),
+      store.publish(generationKey, { ...snapshot, id: regeneratedId }),
+    ]);
+    assert.deepEqual(saved[0], saved[1]);
+    assert.deepEqual(saved[0].topics, snapshot.topics);
+    snapshot.topics[0].name = 'Changed locally';
+    assert.equal((await store.find(generationKey))?.topics[0].name, 'Tech');
+    const nextId = saved[0].id === id ? regeneratedId : id;
+    const regenerated = await store.publish(`${generationKey}-regeneration`, {
+      ...saved[0],
+      id: nextId,
+    });
+    assert.equal(regenerated.id, nextId);
+    assert.deepEqual(await store.find(generationKey), saved[0]);
+    assert.deepEqual(await daily.latest(true), latest);
+    // Private, manual and late publications cannot satisfy Sunday's prerequisite.
+    for (const [kind, publishedAt, expected] of [
+      ['scheduled', null, false],
+      ['manual', '2095-02-06T16:00:00Z', false],
+      ['scheduled', '2095-02-06T18:00:00Z', false],
+      ['scheduled', '2095-02-06T16:00:00Z', true],
+    ] as const) {
+      await store.db.query(
+        `INSERT INTO digest_previews
+        (id, profile_id, window_start, window_end, snapshot, kind, published_at)
+        VALUES ($1,NULL,'2095-02-05T15:00:00Z','2095-02-06T15:00:00Z',$2,$3,$4)`,
+        [
+          crypto.randomUUID(),
+          JSON.stringify({ ...fixture('non-ai-golden'), id: generationKey }),
+          kind,
+          publishedAt,
+        ],
+      );
+      assert.equal(await store.sundayDailyPublished(target), expected);
+      assert.equal(
+        await store.sundayDailyPublished({
+          ...target,
+          profileId: '00000000-0000-4000-8000-000000000001',
+        }),
+        false,
+      );
+    }
+
+    await assert.rejects(
+      store.db.query(
+        "UPDATE weekly_publications SET snapshot='{}' WHERE id=$1",
+        [saved[0].id],
+      ),
+    );
+    await assert.rejects(
+      store.db.query('DELETE FROM weekly_publications WHERE id=$1', [
+        saved[0].id,
+      ]),
+    );
+    await assert.rejects(
+      store.publish(`${generationKey}-invalid`, {
+        ...snapshot,
+        id: crypto.randomUUID(),
+        windowStart: snapshot.windowEnd,
+      }),
+    );
+    assert.equal(await store.find(`${generationKey}-invalid`), null);
+  } finally {
+    const cleanup = await store.db.connect();
+    try {
+      await cleanup.query('BEGIN');
+      await cleanup.query(
+        'ALTER TABLE weekly_publications DISABLE TRIGGER immutable_weekly_publication',
+      );
+      await cleanup.query(
+        'DELETE FROM weekly_publications WHERE generation_key LIKE $1',
+        [`${generationKey}%`],
+      );
+      await cleanup.query(
+        'ALTER TABLE weekly_publications ENABLE TRIGGER immutable_weekly_publication',
+      );
+      await cleanup.query(
+        'ALTER TABLE digest_previews DISABLE TRIGGER immutable_digest_preview',
+      );
+      await cleanup.query(
+        "DELETE FROM digest_previews WHERE snapshot->>'id'=$1",
+        [generationKey],
+      );
+      await cleanup.query(
+        'ALTER TABLE digest_previews ENABLE TRIGGER immutable_digest_preview',
+      );
+
+      await cleanup.query('COMMIT');
+    } finally {
+      cleanup.release();
+      await store.db.end();
+      await daily.onModuleDestroy();
+    }
   }
 });
