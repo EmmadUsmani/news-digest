@@ -126,3 +126,16 @@ Earlier entries: [pre-3166 archive](docs/progress-archive/2026-11-21-pre-3166.md
 - Commands: pnpm format; pnpm lint:fix; pnpm check; pnpm build; pnpm exec tsx --test apps/api/test/weekly-review-input.test.ts; pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-20T15:00:00Z. Final verification/restart results below.
 - Next: Nov 21/22 edition reviews first; weekly editor and budget admission, persistence/history separation, Sunday scheduling and reader acceptance remain.
 - Final pnpm check passes: 1,342 units, 336 integrations/four expected skips; typecheck/lint/format/boundaries green. pnpm build and git diff --check pass. API/worker restarted active; health/database/Redis and repeated live reader pass; zero alerts. Archived pre-3166 progress to keep this file small.
+
+## 2026-11-21: iteration 3176 — week in review editor contract
+
+- Clean main at fc636df7; no inherited work. Zero alerts; health/database/Redis pass; 37 active sources fresh with no errors; zero digest failures in 24 hours. Nov 21 daily review awaits 15:00 UTC.
+- Added weekly editor evidence from saved daily stories/posts, using opaque per-edition item references so recurring story IDs retain separate daily provenance. Private scores/reasons are excluded.
+- Validated weekly output permits zero to five summaries, each supported by at least one daily story; posts may supplement coverage. Unknown, repeated or reused references and malformed output reject the entire result. Saved snapshots remain untouched.
+- This is structural/provenance validation, not semantic acceptance. No provider calls, budget changes, scheduling or production editing enabled. Updated reader feature plan and TASKS; no live flow/schema change.
+- Three focused tests pass: cross-day coverage/immutability/private metadata, atomic fabricated/reused/post-only rejection, and output bounds/strict shape.
+- Commands: pnpm format; pnpm lint:fix; pnpm check; pnpm build; pnpm exec tsx --test apps/api/test/weekly-review-editor.test.ts; pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-20T15:00:00Z; git diff --check. Final results recorded below.
+- Live reader passes Nov 20 edition 9c810e64: five topics/25 stories/20 posts. Read-only failure query initially used created_at; corrected to failed_at and returned zero. Logs /tmp/3176-{targeted,reader,check,build}.log.
+- Initial boundary check rejected Zod in the domain layer; moved the editor contract to application and reran full checks.
+- Next: Nov 21/22 edition reviews first; connect a budgeted single weekly editor call, then persistence/history separation, Sunday scheduling and reader acceptance. Developing remains blocked/disabled.
+- Final pnpm check passes: 1,345 units, 336 integrations/four expected skips; all static checks green. Build and git diff --check pass. API/worker restarted active; health/database/Redis, repeated live reader and zero alerts pass.

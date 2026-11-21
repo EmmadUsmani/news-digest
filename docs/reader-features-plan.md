@@ -66,7 +66,12 @@ Input selection is implemented: a Sunday 17:00 UTC cutoff selects published
 daily coverage windows ending within the preceding seven days, using the latest
 published regeneration of each window. Saved stories/posts retain their daily
 edition IDs; private, test, weekly and other-profile editions are excluded.
-Weekly editing, storage, history labels and scheduling remain to be connected.
+The weekly editor contract supplies saved story/post text with opaque daily-item
+references. Its response allows at most five summaries, requires daily story
+coverage for each, and rejects unknown or reused references atomically. Validated
+coverage retains daily edition IDs and original URLs. This validates structure
+and provenance; model editing, budget admission, storage, history labels and
+scheduling remain to be connected.
 
 ## Out of scope (owner, Nov 19)
 
