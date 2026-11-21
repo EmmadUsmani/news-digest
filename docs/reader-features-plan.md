@@ -90,7 +90,9 @@ Public `/api/weekly-editions` history and UUID detail reads expose saved weekly
 summaries and daily coverage links, stripping profile, provider and evidence text.
 Reader history links to `/weekly-editions`, labelled “Week in review”. Weekly detail
 pages show saved summaries, quiet topics and links to daily story coverage (posts
-link to the daily topic’s posts section). Sunday scheduling remains unconnected.
+link to the daily topic’s posts section). The scheduled runner now pins public scope, coverage and retry keys to the original
+Sunday slot, skips work over six hours late and reports prerequisite/editor refusal
+as a failed attempt. Queue registration remains unconnected; no automatic calls yet.
 
 ## Out of scope (owner, Nov 19)
 

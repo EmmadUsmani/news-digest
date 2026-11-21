@@ -136,3 +136,14 @@ Earlier entries: [3166–3173 archive](docs/progress-archive/2026-11-21-3166-317
 - Build, handbook (19 pages/one unchanged diagram/40 tables), policy tests and live Nov 20 reader (9c810e64, five topics/25 stories/20 posts) pass. Logs: /tmp/3184-*.log. Full-check static stages and 1,353 units pass; combined process ended 143 during integrations. Separate pnpm test:integration exits 0: 338 pass/four expected skips; final web typecheck and lint:fix pass.
 - Next: Nov 21/22 scheduled reviews first, then weekly Sunday scheduling. Developing remains blocked/disabled; no paid calls.
 - Final API/worker restart active; health/database/Redis, live Nov 20 reader and zero alerts pass. No schema changes, generation triggers or paid calls.
+
+## 2026-11-21: iteration 3185 — weekly scheduled admission
+
+- Clean main at 722ef363; no inherited work. Zero alerts, health/database/Redis pass, active sources returning data and no failed digest jobs. Nov 21 daily review awaits 15:00 UTC.
+- Added scheduled weekly runner and Sunday 17:00 UTC schedule definition. Original queue timestamps pin public scope, coverage and retry keys; invalid/future/non-Sunday slots refuse dispatch, recovery over six hours late skips generation.
+- Missing Sunday daily or refused editing throws a retryable failure; storage errors propagate. Existing immutable publication workflow owns prerequisite checks and saved retries. Queue registration/lifecycle remain unconnected; no automatic or paid calls.
+- Three targeted regressions pass, including six-hour boundary, delayed attempts, stable keys, public scope and refusal/storage failure. Updated reader plan and TASKS; no runtime service, schema or diagram change.
+- Commands: pnpm format; pnpm lint:fix; pnpm check; pnpm build; pnpm exec tsx --test apps/api/test/scheduled-weekly-review.test.ts; pnpm exec tsx scripts/check-handbook.ts 04-edition-pipeline; pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-20T15:00:00Z; pnpm obs alerts/sources/jobs; git diff --check.
+- Build, handbook (19 pages/one unchanged diagram/40 tables) and live Nov 20 reader (five topics/25 stories/20 posts) pass. Full check and final restart results follow; logs /tmp/3185-*.log.
+- Next: Nov 21/22 scheduled reviews first, then weekly queue registration/worker lifecycle. Developing remains blocked/disabled.
+- Final pnpm check exits 0: 1,356 units and 338 integrations/four expected skips; all static checks pass. Fixed new test registration lint declarations and exposed shared slot policy through the profiles public boundary after initial failures. Rebuild passes; no paid calls. API/worker restart and final reader/health checks follow.
