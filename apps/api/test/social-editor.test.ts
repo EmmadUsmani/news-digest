@@ -1291,7 +1291,7 @@ void test('opt-in event review shares selection call, binds bounded evidence and
   );
   assert.deepEqual(await run('cached'), result);
   assert.equal(h.calls.length, 1);
-  assert.match(h.calls[0].instructions, /Event review v1/);
+  assert.match(h.calls[0].instructions, /Event review v2/);
   assert.equal(JSON.parse(h.calls[0].prompt).coveredStories[0].id, 'story1');
 });
 
@@ -1339,4 +1339,96 @@ void test('bad or missing event annotations preserve valid picks without retry o
     ),
   );
   assert.equal(h.calls.length, 0);
+});
+
+void test('event preview admits only independently qualified replacements and revalidates cached qualification', async () => {
+  const replacementId =
+    'at://did:plc:replacement/app.bsky.feed.post/long-replacement-id';
+  const input = [
+    candidates[0],
+    {
+      ...candidates[0],
+      id: replacementId,
+      text: 'An independent lab released a robot.',
+    },
+    { ...candidates[0], id: 'weak', text: 'Watch this space.' },
+  ];
+  const annotations = [
+    {
+      id: 'one',
+      event: 'launch',
+      eventEvidence: 'announced a model',
+      materialFacts: [],
+    },
+    {
+      id: 'post2',
+      event: 'robot',
+      eventEvidence: 'released a robot',
+      materialFacts: [],
+    },
+    {
+      id: 'weak',
+      event: 'teaser',
+      eventEvidence: 'Watch this space',
+      materialFacts: [],
+    },
+    {
+      id: 'story1',
+      event: 'launch',
+      eventEvidence: 'Model launch',
+      materialFacts: [],
+    },
+  ];
+  const alternative = {
+    id: 'post2',
+    whyItMatters: 'A robot release.',
+    rationale: 'A concrete independent launch.',
+  };
+  for (const qualifiedAlternatives of [
+    [alternative],
+    [],
+    undefined,
+    [{ ...alternative, id: 'unknown' }],
+    [alternative, alternative],
+    [post],
+    [{ ...alternative, whyItMatters: 'No competitors exist.' }],
+  ]) {
+    const h = harness([
+      {
+        ...valid,
+        eventAnnotations: annotations,
+        ...(qualifiedAlternatives === undefined
+          ? {}
+          : { qualifiedAlternatives }),
+      },
+    ]);
+    const run = () =>
+      h.editor.editOutcome(
+        topic,
+        input,
+        1,
+        'preview',
+        [],
+        [{ title: 'Model launch', summary: 'A company announced a model.' }],
+        { reviewEvents: true },
+      );
+    const result = await run();
+    assert.equal(result.status, 'complete');
+    if (result.status !== 'complete') continue;
+    assert.deepEqual(result.value.posts, valid.posts);
+    if (
+      qualifiedAlternatives?.length === 1 &&
+      qualifiedAlternatives[0] === alternative
+    ) {
+      assert.deepEqual(result.value.eventBudgetPreview, [
+        { ...alternative, id: replacementId },
+      ]);
+    } else if (qualifiedAlternatives?.length === 0) {
+      assert.deepEqual(result.value.eventBudgetPreview, valid.posts);
+    } else {
+      assert.equal(result.value.eventBudgetPreview, null);
+    }
+    assert.deepEqual(await run(), result);
+    assert.equal(h.calls.length, 1);
+  }
 });

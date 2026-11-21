@@ -55,6 +55,7 @@ export type SocialEditorialResult = z.infer<typeof selectionSchema> & {
   model: string;
   droppedPosts?: DroppedSocialPosts;
   eventReview?: SocialEventReview | null;
+  eventBudgetPreview?: z.infer<typeof selectionSchema>['posts'] | null;
 };
 // Opt-in evidence for saved-pool evaluation, never a production selection rule.
 export interface SocialEventReview {
@@ -84,8 +85,8 @@ const eventAnnotationsSchema = z
   )
   .max(20);
 const eventReviewInstructions = `
-Event review v1 (evaluation only): return an additional eventAnnotations array alongside posts. Annotate EVERY supplied candidate and covered story, even candidates you decline. Each annotation is {"id":"supplied ID","event":"shared event identity","eventEvidence":"exact nonempty excerpt from that item's supplied text","materialFacts":[{"id":"event-scoped fact identity","evidence":"exact excerpt from that item's supplied text"}]}.
-Use the same event identity only for the same concrete development, never merely a shared person, team, company or subject. List every material fact conveyed by each item; facts shared within an event use the same fact identity, while distinct facts have distinct identities. Covered story text is its title followed by a newline and its summary. Evidence must occur verbatim in that individual item's bounded text. Do not infer unseen linked or media content. These annotations do not qualify a candidate or change the required post selection format. No other additional keys.
+Event review v2 (evaluation only): return an additional eventAnnotations array alongside posts. Annotate EVERY supplied candidate and covered story, even candidates you decline. Each annotation is {"id":"supplied ID","event":"shared event identity","eventEvidence":"exact nonempty excerpt from that item's supplied text","materialFacts":[{"id":"event-scoped fact identity","evidence":"exact excerpt from that item's supplied text"}]}.
+Use the same event identity only for the same concrete development, never merely a shared person, team, company or subject. List every material fact conveyed by each item; facts shared within an event use the same fact identity, while distinct facts have distinct identities. Covered story text is its title followed by a newline and its summary. Evidence must occur verbatim in that individual item's bounded text. Do not infer unseen linked or media content. These annotations do not qualify a candidate or change the required post selection format. Also return qualifiedAlternatives, an array using the same {id, whyItMatters, rationale} format as posts, containing only unselected candidates that independently meet ALL selection quality rules and could replace a pick. Omit weak, vague, repetitive or unsupported candidates even if they would improve event diversity. An empty array is valid. This is independent qualification, not a request to fill the budget. No other additional keys.
 `;
 export type SocialEditorialOutcome =
   | { status: 'complete'; value: SocialEditorialResult }
@@ -347,6 +348,8 @@ export class SocialPostEditor {
           droppedPosts: z.unknown().optional(),
           eventAnnotations: z.unknown().optional(),
           eventReview: z.unknown().optional(),
+          qualifiedAlternatives: z.unknown().optional(),
+          eventBudgetPreview: z.unknown().optional(),
         })
         .strict()
         .parse(value);
@@ -373,8 +376,69 @@ export class SocialPostEditor {
       ) {
         eventReview = { ...reviewEvidence, annotations: parsed.data };
       }
+      // Alternatives have their own strict validation, without sanitization or
+      // retry. A malformed review must never invalidate the original picks.
+      let eventBudgetPreview: z.infer<typeof selectionSchema>['posts'] | null =
+        null;
+      if (eventReview) {
+        const alternatives = selectionSchema.shape.posts.safeParse(
+          envelope.qualifiedAlternatives,
+        );
+        if (alternatives.success) {
+          const qualified = [...selection.posts, ...alternatives.data];
+          try {
+            if (
+              new Set(qualified.map(({ id }) => id)).size !== qualified.length
+            )
+              throw new LlmValidationFailure('invalid-social-selection');
+            for (const item of alternatives.data) {
+              const source = compact.find(({ id }) => id === item.id);
+              if (!source)
+                throw new LlmValidationFailure('invalid-social-selection');
+              checkDates(item, source.text);
+              assertAbsenceSupport(
+                item.whyItMatters,
+                [source.text],
+                'whyItMatters',
+              );
+              assertAbsenceSupport(item.rationale, [source.text], 'rationale');
+            }
+            const ids = new Set(qualified.map(({ id }) => id));
+            const candidates = reviewEvidence.candidates
+              .filter(({ id }) => ids.has(id))
+              .map((item) => ({
+                ...item,
+                ...qualified.find(({ id }) => id === item.id)!,
+              }));
+            const evidenceIds = new Set(
+              [...reviewEvidence.stories, ...candidates].map(({ id }) => id),
+            );
+            const preview = selectWithEventBudget({
+              stories: reviewEvidence.stories,
+              candidates,
+              selectedPostIds: selection.posts.map(({ id }) => id),
+              postBudget: budget,
+              annotations: eventReview.annotations.filter(({ id }) =>
+                evidenceIds.has(id),
+              ),
+            });
+            if (preview.status === 'complete')
+              eventBudgetPreview = preview.posts.map(
+                ({ id, whyItMatters, rationale }) => ({
+                  id,
+                  whyItMatters,
+                  rationale,
+                }),
+              );
+          } catch (error) {
+            if (!(error instanceof LlmValidationFailure)) throw error;
+          }
+        }
+      }
       return {
         ...selection,
+        qualifiedAlternatives: envelope.qualifiedAlternatives,
+        eventBudgetPreview,
         eventAnnotations: parsed.success ? parsed.data : null,
         eventReview,
       };
@@ -462,6 +526,13 @@ export class SocialPostEditor {
             })),
             ...(options.reviewEvents
               ? {
+                  eventBudgetPreview:
+                    'eventBudgetPreview' in outcome.value
+                      ? (outcome.value.eventBudgetPreview?.map((item) => ({
+                          ...item,
+                          id: aliases.get(item.id)!,
+                        })) ?? null)
+                      : null,
                   eventReview:
                     'eventReview' in outcome.value && outcome.value.eventReview
                       ? {

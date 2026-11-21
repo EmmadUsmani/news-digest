@@ -3693,3 +3693,20 @@ rejected candidates as replacements. Evaluation refuses previously selected
 posts because their unannotated slots would make a joint comparison incomplete.
 No live call, new reference labels or production event-budget switch is added.
 Nov 12–18 comparison and deployment acceptance remain open.
+
+## Qualified event-budget preview (iteration 3354)
+
+The opt-in same-call review now requests `qualifiedAlternatives` with the
+normal post rationale/context fields. Only explicitly qualified alternatives
+and original picks enter the bounded planner; annotated but unqualified
+candidates cannot enter its preview. Strict identity, duplicate, date and
+absence-support validation applies to alternatives. Invalid qualification
+returns a null preview without changing picks or retrying; an empty qualified
+set permits a deletion-only comparison. Cache reads revalidate qualification
+and evidence; long IDs are restored in the preview. Stories, original events
+and event-scoped material facts remain fixed by the existing planner.
+
+This connects qualification to the evaluator, not to scheduled selection.
+Qualification and semantic completeness still require the saved Nov 12–18
+comparison; scripted unit responses are not live model acceptance. No paid
+calls, new labels or fixtures, or token-cap changes were made.

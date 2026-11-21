@@ -136,3 +136,14 @@ Earlier entries: [through iteration 3182](docs/progress-archive/2026-11-21-throu
 - Verification: social-editor targeted suite 29/29 and existing saved event evaluator pass; pnpm format/lint:fix; full check/build and service results follow. Logs /tmp/3353-*.log.
 - Next: Nov 22 daily review/three-edition miss-cause fix and developing reader acceptance; finish real candidate event-budget comparison; Sunday weekly acceptance.
 - Final: pnpm check exits 0 (1,370 unit passes; 341 integration passes/four expected skips); pnpm build and git diff --check pass. API/worker restarted active; healthz healthy, local Nov 21 scheduled reader verifies five topics/25 stories/15 posts; zero alerts. Reader's unnecessary explicit env-file attempt failed because that file is absent; normal configured invocation passes without reading secrets.
+
+## 2026-11-21: iteration 3354 — independently qualified event-budget preview
+
+- Clean main at 67845bbf; no inherited work. Zero alerts, healthy healthz/database/Redis, all 38 monitored sources healthy, no failed digest jobs; next edition Nov 22 15:00 UTC.
+- Opt-in social event review now asks the same editor call for independently qualified alternatives, with normal rationale/context fields. Only those alternatives and original picks enter a bounded event/fact-preserving preview; annotations alone cannot qualify replacements.
+- Strict unknown/duplicate IDs, date and absence-support checks reject bad qualification without retry or changing original picks. Empty qualification permits deletion-only evaluation; missing/invalid qualification returns null preview. Cache reads revalidate and long IDs restore correctly.
+- Scripted targeted suite 30/30 passes, including valid replacement, unqualified exclusion, empty/missing qualification, unknown/repeated/original IDs, unsupported absence and cache reuse. Existing saved Nov 17–18 evaluator passes. These are offline checks, not semantic model acceptance.
+- No paid calls, new labels/fixtures, scheduled selection changes or cap changes. TASKS/RANKING updated; no owner handbook behavior changed. Full saved Nov 12–18 semantic/material-fact comparison remains open.
+- Commands: pnpm obs alerts/jobs/sources; curl localhost:8000/healthz; tsx --test apps/api/test/social-editor.test.ts; evaluate-saved-nba-event-breadth.ts; pnpm format; pnpm lint:fix; pnpm check. Final build/deployment results follow.
+- Next: Nov 22 daily review/three-edition miss-cause fix and developing reader acceptance; finish saved event-budget comparison; Sunday weekly acceptance.
+- Final: pnpm check exits 0 (1,371 unit passes; 341 integration passes/four expected skips); build, saved evaluator and git diff --check pass. API/worker restarted active; reader probe initially raced readiness, retry verifies Nov 21 five topics/25 stories/15 posts. Healthz healthy and zero alerts. Logs /tmp/3354-*.log.
