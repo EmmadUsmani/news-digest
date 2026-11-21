@@ -3806,3 +3806,20 @@ are scripted from existing manual labels: zero external calls, no new labels or
 fixtures. This verifies the joint path and platform preference on published picks;
 semantic candidate qualification, real observation snapshots, replacement pools
 and Nov 12–16 comparison remain open before production admission.
+
+## Qualified joint topic review (iteration 3363)
+
+`previewTopicEventSelection` now prepares the ordinary X/Reddit shortlist
+without running its final editor, and uses the ordinary safe Bluesky shortlist.
+It combines their qualified candidates into one ten-candidate request, preserving
+X preference and each platform's engagement ordering on equal scores. The
+Bluesky evidence mapper is shared with the existing platform editor, including
+observation time, official metrics, growth limitations and media evidence.
+Original snapshots retain metrics, media, display text and provenance.
+
+Offline integration exercises real qualification with scripted score/editor
+ports: two platform triage stages, exactly one final editor call, no independent
+platform editor calls. Incomplete triage refuses the whole preview; empty
+qualified pools and zero budgets make no editor call. No paid calls or new
+reference labels/fixtures. Scheduled callers remain unchanged. Saved real-pool
+semantic/material-fact acceptance and the Nov 12–16 comparison remain open.

@@ -121,7 +121,7 @@ export async function editTopicPosts<T extends EditorialPost>(
     summary: string;
     textTruncated?: boolean;
   }[] = [],
-  options: { previewEventBudget?: boolean } = {},
+  options: { previewEventBudget?: boolean; prepareJointReview?: boolean } = {},
 ) {
   const editorial: PostEditorial = {
     mode: 'non-ai',
@@ -134,6 +134,12 @@ export async function editTopicPosts<T extends EditorialPost>(
         : 'Non-AI selection: social editor unavailable within caps.',
   };
   const result = {
+    ...(options.prepareJointReview
+      ? {
+          qualifiedCandidates: null as
+            { editorial: SocialEditorialCandidate; snapshot: T }[] | null,
+        }
+      : {}),
     ...(options.previewEventBudget
       ? { eventBudgetPreview: null as T[] | null }
       : {}),
@@ -148,6 +154,7 @@ export async function editTopicPosts<T extends EditorialPost>(
   };
   if (budget === 0) return result;
   if (candidates.length === 0) {
+    if (options.prepareJointReview) result.qualifiedCandidates = [];
     editorial.reason =
       'No verified posts pass source, window, safety and duplicate checks; no social AI calls were needed.';
     return result;
@@ -193,6 +200,7 @@ export async function editTopicPosts<T extends EditorialPost>(
     (s) => s.relevance >= 6 && s.importance >= 4,
   );
   if (qualifyingScores.length === 0) {
+    if (options.prepareJointReview) result.qualifiedCandidates = [];
     result.posts = [];
     editorial.reason =
       'No social posts passed completed semantic relevance and interestingness gates; no final editor call was needed.';
@@ -265,6 +273,13 @@ export async function editTopicPosts<T extends EditorialPost>(
     // Keep good X candidates available even when Reddit triage scores higher.
     .sort((a, b) => Number(b.platform === 'x') - Number(a.platform === 'x'))
     .slice(0, 10);
+  if (options.prepareJointReview) {
+    result.qualifiedCandidates = shortlist.map((editorial) => ({
+      editorial,
+      snapshot: candidates.find((post) => editorialId(post) === editorial.id)!,
+    }));
+    return result;
+  }
   // Evaluation only: use the real shortlist and editor in one call. No
   // production caller opts in until saved-edition acceptance is complete.
   const outcome =

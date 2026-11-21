@@ -103,16 +103,7 @@ export async function editShortlistedBlueskyPosts(
   if (!shortlist.posts.length) return empty('complete');
   const args: Parameters<SocialSelectionServices['socialEditor']['edit']> = [
     topic,
-    shortlist.posts.map(({ post, score, growthEvidence }) => ({
-      id: score.id,
-      platform: 'bluesky',
-      text: post.text,
-      author: post.author,
-      publishedAt: post.publishedAt,
-      relevance: score.relevance,
-      interestingness: score.importance,
-      engagementEvidence: `Bluesky API observation at ${post.observedAt}: likes ${post.metrics.likes}, reposts ${post.metrics.reposts}, replies ${post.metrics.replies}. ${growthEvidence ?? 'Measured growth and account-relative reach unknown.'} ${blueskyMediaEvidence(post)}`,
-    })),
+    blueskyEditorialCandidates(shortlist),
     budget,
     runId,
     alreadySelected.map(({ platform, text, author }) => ({
@@ -175,4 +166,20 @@ export async function editShortlistedBlueskyPosts(
     candidatesShortlisted: shortlist.posts.length,
     posts: materialize(edited.posts),
   };
+}
+
+// Shared by the ordinary platform editor and the joint event review.
+export function blueskyEditorialCandidates(
+  shortlist: Awaited<ReturnType<typeof shortlistBlueskyPosts>>,
+) {
+  return shortlist.posts.map(({ post, score, growthEvidence }) => ({
+    id: score.id,
+    platform: 'bluesky' as const,
+    text: post.text,
+    author: post.author,
+    publishedAt: post.publishedAt,
+    relevance: score.relevance,
+    interestingness: score.importance,
+    engagementEvidence: `Bluesky API observation at ${post.observedAt}: likes ${post.metrics.likes}, reposts ${post.metrics.reposts}, replies ${post.metrics.replies}. ${growthEvidence ?? 'Measured growth and account-relative reach unknown.'} ${blueskyMediaEvidence(post)}`,
+  }));
 }

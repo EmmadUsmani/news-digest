@@ -159,3 +159,13 @@ Earlier entries: [through iteration 3300](docs/progress-archive/2026-11-21-throu
 - Verification: saved evaluator and scheduled-reader probe pass (five topics/25 stories/15 posts); pnpm build passes. Full check/deployment results follow; logs /tmp/3362-*.log.
 - Next: Nov 22 daily/developing acceptance and three-edition miss-cause fix; complete event-budget acceptance; Sunday weekly publication acceptance.
 - Final: pnpm format, pnpm lint:fix, pnpm check (1,379 unit; 341 integration passes/four expected skips), pnpm build and git diff --check pass. API/worker restart and final reader/health/alerts verified after push.
+
+## 2026-11-21: iteration 3363 — qualified joint topic event review
+
+- Clean main at 31ac5455; no inherited work. Healthz/alerts healthy; 38 monitored sources healthy, no failed digest jobs.
+- Added evaluation-only orchestration using normal X/Reddit triage/shortlist and safe Bluesky qualification before one bounded joint editor request; no independent platform editor calls.
+- Shared Bluesky editorial evidence mapper retains observation time/metrics/growth/media evidence; original snapshots and X preference preserved. Incomplete qualification refuses the preview; zero budgets/empty qualified pools avoid final editor calls.
+- Targeted qualification/Bluesky tests pass 10/10 with scripted ports, zero external calls. Initial typecheck caught widened Bluesky platform literal; fixed with literal typing before full checks.
+- TASKS/RANKING updated; scheduled behavior and handbook system behavior unchanged. No new reference labels/fixtures or paid calls.
+- Verification/deployment results follow; logs /tmp/3363-*.log. Next: Nov 22 daily/developing acceptance and miss-cause fix; saved semantic event-budget comparison; Sunday weekly acceptance.
+- Final: pnpm format/lint:fix/check pass (1,381 unit; 341 integration/four expected skips); pnpm build and git diff --check pass. Saved evaluator passes with zero external calls. API/worker restarted active, healthz/alerts healthy; reader probe initially raced startup, then verifies five topics/25 stories/15 posts. Push and final service restart follow.
