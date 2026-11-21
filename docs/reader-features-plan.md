@@ -26,7 +26,7 @@ continuing story from scratch.
   rules.
 
 Implementation decision: [selected-story enrichment](decisions/2026-11-19-developing-selection.md).
-Production remains inactive until semantic and whole-edition budget acceptance.
+Production remains inactive until the acceptance in STEERING item 72 passes.
 
 ## 2. Why this was picked
 
