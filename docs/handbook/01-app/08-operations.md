@@ -50,12 +50,13 @@ Backups: `~/backups/news-digest/` plus encrypted B2 copies; [timers and recovery
 
 Read-only checks: `pnpm exec tsx <script>`. Protected API reads use the private local admin token:
 
-| Script                               | Shows                                                                                                                                                                                                                                     |
-| ------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `scripts/report-edition-timing.ts`   | Local DB/Redis report: edition duration, cost, AI/fallback and saved social evidence; works in public mode. Add `--scheduled-only --limit 20` for scheduled history                                                                       |
-| `scripts/report-x-discovery.ts`      | X search spend and yield for a UTC day (`report-x-week.ts` for seven days)                                                                                                                                                                |
-| `scripts/smoke-admin-gate.ts`        | Admin denial and local access; `smoke-reader-layout.ts` checks contents, mobile navigation and story links; `smoke-reader-archive.ts` checks archive paging and errors; `smoke-reader-story-text.ts <edition-id>` checks saved story text |
-| `scripts/report-bluesky-coverage.ts` | Stored Bluesky posts per topic over the last 24 hours                                                                                                                                                                                     |
+| Script                                               | Shows                                                                                                                                                                                                                                     |
+| ---------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `scripts/check-weekly-reader.ts <Sunday-UTC-cutoff>` | Signed-out weekly history/detail and daily coverage membership; exits 2 while publication is pending. Uses local HTTP by default; set `SCHEDULED_READER_ORIGIN` for public HTTPS.                                                         |
+| `scripts/report-edition-timing.ts`                   | Local DB/Redis report: edition duration, cost, AI/fallback and saved social evidence; works in public mode. Add `--scheduled-only --limit 20` for scheduled history                                                                       |
+| `scripts/report-x-discovery.ts`                      | X search spend and yield for a UTC day (`report-x-week.ts` for seven days)                                                                                                                                                                |
+| `scripts/smoke-admin-gate.ts`                        | Admin denial and local access; `smoke-reader-layout.ts` checks contents, mobile navigation and story links; `smoke-reader-archive.ts` checks archive paging and errors; `smoke-reader-story-text.ts <edition-id>` checks saved story text |
+| `scripts/report-bluesky-coverage.ts`                 | Stored Bluesky posts per topic over the last 24 hours                                                                                                                                                                                     |
 
 ## Production console
 
@@ -93,7 +94,6 @@ Passwords live only in the VM's env file. To see them, run:
 - API/worker: build and restart only changed roles. Migrate when needed; check `/healthz` after startup.
 - During web deployment, poll the public reader and a previous hashed asset every second; check the reader signed out afterwards.
 - Commit and push `main`. Never deploy or restart during 13:00–16:00 UTC.
-
 - Handbook: `pnpm --filter @digest/docs-site build` bundles local scripts; restart only docs after server changes. Markdown updates on reload.
 
 ## Tests

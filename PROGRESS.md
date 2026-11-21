@@ -48,3 +48,14 @@ Earlier entries: [through iteration 3182](docs/progress-archive/2026-11-21-throu
 - Final pnpm check exits 0: 1,357 units and 339 integrations/four expected skips; all static stages pass. Build, both handbook checks (19 pages/40 tables) and live Nov 20 reader (five topics/25 stories/20 posts) pass; logs /tmp/3186-*.log.
 - API/worker restarted active; health/database/Redis and zero alerts pass. Redis confirms weekly next slot 2026-11-22T17:00:00Z and daily 2026-11-21T15:00:00Z. No generation triggered.
 - Next: Nov 21/22 edition reviews first, then first scheduled weekly acceptance. Developing remains blocked/disabled.
+
+## 2026-11-21: iteration 3187 — weekly reader acceptance command
+
+- Clean main at c12f3504; no inherited work. Health/database/Redis, zero alerts, 38 healthy sources and no failed digest jobs; Nov 21 review awaits 15:00 UTC.
+- Added read-only signed-out weekly acceptance command with paginated history lookup, exact Sunday/seven-day bounds, summary limits, daily story/post membership, topic/window checks, reused-coverage refusal and daily-latest isolation. No generation or paid calls.
+- Three offline regressions pass. Synthetic HTTP exercise passes paginated success and broken daily-topic refusal; synthetic weekly responses are not live publications. Real Nov 22 history is empty and correctly exits 2 (pending).
+- Updated TASKS and operations command table; no runtime, UI, schema or diagram change. Initial handbook length failure fixed by removing a surplus blank line.
+- Commands: pnpm format; pnpm lint:fix; pnpm check; pnpm build; pnpm exec tsx --test apps/api/test/weekly-reader-gate.test.ts; pnpm exec tsx scripts/check-handbook.ts 08-operations; pnpm exec tsx scripts/check-weekly-reader.ts 2026-11-22T17:00:00Z; pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-20T15:00:00Z; pnpm obs alerts/sources/jobs; git diff --check.
+- Build, handbook (19 pages/40 tables), live local Nov 20 daily (five topics/25 stories/20 posts) pass. Public HTTPS unreachable from this VM (curl connection refused; Node fetch fails); no public HTTPS acceptance claimed. Logs /tmp/3187-*.log.
+- Next: Nov 21/22 daily reviews, then run weekly command after Sunday 17:00 publication and inspect real summaries/browser screenshots. Developing remains blocked/disabled; today's item 69 evaluation commit already used.
+- Final pnpm check exits 0: 1,360 unit tests and 339 integrations/four expected skips; all static checks pass. API/worker restarted active; post-restart health, zero alerts, local daily reader and pending weekly checks pass.
