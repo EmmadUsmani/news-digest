@@ -5,6 +5,7 @@ import {
   runScheduledWeeklyReview,
   weeklySchedule,
 } from '../src/modules/digests/application/scheduled-weekly-review';
+import { dispatchWeeklyReview } from '../src/scheduled-weekly';
 
 const timestamp = Date.parse('2026-11-22T17:00:00Z');
 const request = {
@@ -88,5 +89,40 @@ void test('missing daily or refused editing remains a retryable failure', async 
       throw new Error('storage unavailable');
     }, request),
     /storage unavailable/,
+  );
+});
+
+void test('queue dispatch uses original slot and fresh UUID with stable publication key', async () => {
+  const requests: Parameters<Parameters<typeof dispatchWeeklyReview>[1]>[0][] =
+    [];
+  for (const delay of [0, 300_000])
+    await dispatchWeeklyReview(
+      { opts: { prevMillis: timestamp } },
+      async (input) => {
+        requests.push(input);
+        return {
+          ...input,
+          kind: 'weekly',
+          windowStart: '2026-11-15T17:00:00Z',
+          windowEnd: input.scheduledAt,
+          topics: [],
+        };
+      },
+      request.topics,
+      timestamp + delay,
+    );
+  assert.match(requests[0].id, /^[0-9a-f-]{36}$/);
+  assert.notEqual(requests[0].id, requests[1].id);
+  assert.equal(requests[0].generationKey, requests[1].generationKey);
+  await assert.rejects(
+    dispatchWeeklyReview(
+      { opts: {} },
+      async () => {
+        throw new Error('must not dispatch');
+      },
+      request.topics,
+      timestamp,
+    ),
+    /timestamp/i,
   );
 });

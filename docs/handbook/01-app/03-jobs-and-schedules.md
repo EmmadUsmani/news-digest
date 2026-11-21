@@ -18,10 +18,10 @@ changes. Private mode keeps the page restricted to admins.
 | Scheduled edition       | `digest-generation`  | Daily cron, default 07:00 PT      | Build and publish the edition                                                                                                                                                                                                                                                                           |
 | On-demand edition       | `digest-generation`  | When you click "create edition"   | Same pipeline, for any time window, with live progress                                                                                                                                                                                                                                                  |
 | Budget/schedule refresh | timer (every 10 s)   | Continuous                        | Sync the cron from settings; manage the AI reserve                                                                                                                                                                                                                                                      |
+| Weekly review           | `digest-generation`  | Sundays 17:00 UTC                 | Saved daily coverage, shared AI budget and single execution slot. Requires Sunday daily; three attempts, five-minute exponential backoff, six-hour recovery limit. Shutdown drains generation before closing storage.                                                                                   |
 | Heartbeat               | `operations`         | Every minute                      | Proves the worker is alive (shown on Status)                                                                                                                                                                                                                                                            |
 
-Private [database backups](10-backups.md) use separate systemd user timers:
-nightly at 02:20 UTC, with a restore check Sunday at 03:20 UTC.
+Private [database backups](10-backups.md): systemd user timers run nightly at 02:20 UTC; restore check Sunday at 03:20 UTC.
 
 The worker also has an optional incremental article-triage timer, disabled by
 default. Enabling `LLM_INCREMENTAL_TRIAGE_ENABLED=1` requires the scheduled

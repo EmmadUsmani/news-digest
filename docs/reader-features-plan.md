@@ -92,7 +92,10 @@ Reader history links to `/weekly-editions`, labelled “Week in review”. Weekl
 pages show saved summaries, quiet topics and links to daily story coverage (posts
 link to the daily topic’s posts section). The scheduled runner now pins public scope, coverage and retry keys to the original
 Sunday slot, skips work over six hours late and reports prerequisite/editor refusal
-as a failed attempt. Queue registration remains unconnected; no automatic calls yet.
+as a failed attempt. The worker registers Sunday 17:00 UTC on the shared digest queue,
+with three attempts and five-minute exponential backoff. Its single execution slot
+serializes weekly and daily generation; shutdown drains work before closing storage.
+The first scheduled weekly publication still awaits acceptance.
 
 ## Out of scope (owner, Nov 19)
 

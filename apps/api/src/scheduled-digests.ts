@@ -11,19 +11,28 @@ import {
 import { generateOnDemandEdition } from './modules/digests/application/on-demand-edition';
 import { PostgresEditionJobFailures } from './modules/digests/database/edition-job-failures';
 import { PostgresPreviewRepository } from './modules/digests/database/preview.repository';
+import { PostgresWeeklyPublicationStore } from './modules/digests/database/weekly-publication.repository';
 import { PostgresProfileRepository } from './modules/profiles/database/profile.repository';
 import { coverageWindow } from './modules/profiles/domain/schedule';
 import { scheduledSlot } from './modules/profiles/domain/scheduled-slot';
+import { PostgresTopicRepository } from './modules/topics/database/topic.repository';
 import {
   reconcileFailedScheduledJob,
   runScheduledBudgetAttempt,
 } from './scheduled-budget-attempt';
 import { refreshScheduledBudget } from './scheduled-budget-refresh';
+import {
+  dispatchWeeklyReview,
+  registerWeeklyReview,
+  weeklyJobName,
+} from './scheduled-weekly';
 
 export function startScheduledDigests() {
   const connection = { host: '127.0.0.1', port: 6379 };
   const profiles = new PostgresProfileRepository();
   const previews = new PostgresPreviewRepository();
+  const weekly = new PostgresWeeklyPublicationStore(previews);
+  const topics = new PostgresTopicRepository();
   const failures = new PostgresEditionJobFailures();
   const budgetDb = database();
   const budgets = new PostgresScheduledBudgetRepository(budgetDb);
@@ -31,6 +40,16 @@ export function startScheduledDigests() {
   const worker = new Worker(
     'digest-generation',
     logJob('digest-generation', async (job) => {
+      if (job.name === weeklyJobName)
+        return withLlmExecution(
+          { deadline: performance.now() + 600_000 },
+          async () =>
+            dispatchWeeklyReview(
+              job,
+              (request) => weekly.generate(request),
+              (await topics.listDefault()).filter((topic) => topic.enabled),
+            ),
+        );
       if (job.name === 'on-demand')
         return generateOnDemandEdition(
           previews,
@@ -138,6 +157,7 @@ export function startScheduledDigests() {
           },
         },
       );
+      await registerWeeklyReview(queue);
     } finally {
       refreshing = false;
     }
@@ -156,6 +176,8 @@ export function startScheduledDigests() {
     await queue.close();
     await profiles.onModuleDestroy();
     await previews.onModuleDestroy();
+    await weekly.db.end();
+    await topics.onModuleDestroy();
     await failures.onModuleDestroy();
     await budgetDb.end();
   };

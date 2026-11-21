@@ -22,7 +22,33 @@ import { PostgresXDiscoveryLedger } from '../src/modules/social/database/x-disco
 import { PostgresXSearchRepository } from '../src/modules/social/database/x-search.repository';
 import { XSearchError } from '../src/modules/social/domain/x-search.port';
 import { runScheduledBudgetAttempt } from '../src/scheduled-budget-attempt';
+import { registerWeeklyReview } from '../src/scheduled-weekly';
 import { runScheduledXRuntime } from '../src/scheduled-x-runtime';
+
+void test('weekly scheduler registers one Sunday job with bounded retries and retention', async () => {
+  const connection = redis();
+  const queue = new Queue(`test-weekly-${Date.now()}`, { connection });
+  try {
+    await registerWeeklyReview(queue);
+    await registerWeeklyReview(queue);
+    const schedulers = await queue.getJobSchedulers();
+    assert.equal(schedulers.length, 1);
+    assert.equal(schedulers[0].pattern, '0 17 * * 0');
+    assert.equal(schedulers[0].tz, 'UTC');
+    const [job] = await queue.getJobs(['delayed']);
+    assert.equal(job.name, 'weekly-review');
+    assert.equal(job.opts.attempts, 3);
+    assert.deepEqual(job.opts.backoff, { type: 'exponential', delay: 300_000 });
+    assert.equal(job.opts.removeOnComplete, 100);
+    assert.equal(job.opts.removeOnFail, 100);
+    assert.equal(new Date(job.opts.prevMillis!).getUTCDay(), 0);
+    assert.equal(new Date(job.opts.prevMillis!).getUTCHours(), 17);
+  } finally {
+    await queue.obliterate({ force: true });
+    await queue.close();
+    await connection.quit();
+  }
+});
 
 void test('concurrent scheduled retries return one immutable snapshot; manual regeneration stays versioned', async () => {
   const events: DigestPublished[] = [];
