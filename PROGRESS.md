@@ -149,3 +149,13 @@ Earlier entries: [through iteration 3300](docs/progress-archive/2026-11-21-throu
 - TASKS/RANKING updated; handbook system behavior unchanged. Initial targeted run caught wrong scripted short IDs; corrected to actual supplied IDs.
 - Verification/deployment results follow. Next: Nov 22 daily/developing acceptance and miss-cause fix; full saved event-budget comparison/semantic acceptance; Sunday weekly acceptance.
 - Final: pnpm format, pnpm lint:fix, pnpm check (1,379 unit; 341 integration passes/four expected skips), pnpm build and git diff --check pass. Targeted editor tests 33/33 and saved Nov 17–18 evaluator pass with zero external calls. Reader confirms five topics/25 stories/15 posts; API/worker restart and final health/alerts checked after push. Logs /tmp/3361-*.log.
+
+## 2026-11-21: iteration 3362 — saved joint-platform acceptance replay
+
+- Clean main at 82faf3b3; no inherited work. Alerts zero, healthz healthy, sources check passes (38 monitored); no failed digest jobs, next daily Nov 22 15:00 UTC.
+- Extended existing Nov 17–18 evaluator through the joint platform helper with saved identities/platforms/prose and explicit placeholders for unsaved observation fields; no new labels/fixtures or paid calls.
+- Ten fresh/cache replays pass, zero preference refusals; retained snapshot fields, all labelled events and material facts survive. Nov 18 NBA largest share 33.33%→14.29%, U.S. 22.22%→12.50%; eight others unchanged.
+- TASKS/RANKING updated. Semantic qualification, real observation/replacement-pool acceptance and Nov 12–16 comparison remain open; scheduled behavior unchanged.
+- Verification: saved evaluator and scheduled-reader probe pass (five topics/25 stories/15 posts); pnpm build passes. Full check/deployment results follow; logs /tmp/3362-*.log.
+- Next: Nov 22 daily/developing acceptance and three-edition miss-cause fix; complete event-budget acceptance; Sunday weekly publication acceptance.
+- Final: pnpm format, pnpm lint:fix, pnpm check (1,379 unit; 341 integration passes/four expected skips), pnpm build and git diff --check pass. API/worker restart and final reader/health/alerts verified after push.

@@ -3791,3 +3791,18 @@ Plans violating X preference are refused as a whole; missing outcome support
 and failed outcomes never fall back to another editor call. This is transport
 acceptance only: no paid call, new labels/fixtures or scheduled selection change.
 Semantic annotations and the full saved Nov 12–18 comparison remain required.
+
+## Saved joint platform replay (iteration 3362)
+
+The saved Nov 17–18 evaluator now also traverses the joint platform helper,
+using saved post IDs/platforms/prose and explicit placeholders for unsaved
+observation fields. The ten topic-editions pass fresh/cache equality and snapshot
+field preservation, with zero preference refusals. Nov 18 NBA largest-event share
+remains 33.33% → 14.29%, U.S. 22.22% → 12.50%; the other eight are unchanged.
+Every labelled event and retained material fact survives.
+
+Command: `pnpm exec tsx scripts/evaluate-saved-nba-event-breadth.ts`. Responses
+are scripted from existing manual labels: zero external calls, no new labels or
+fixtures. This verifies the joint path and platform preference on published picks;
+semantic candidate qualification, real observation snapshots, replacement pools
+and Nov 12–16 comparison remain open before production admission.

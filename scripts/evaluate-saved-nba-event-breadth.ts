@@ -3,6 +3,8 @@ import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 
+import type { SelectedSocialPost } from '@digest/contracts';
+
 import { logger } from '../apps/api/src/libs/observability/logging';
 import { llmConfig } from '../apps/api/src/modules/curation/adapters/config';
 import { BudgetedLlm } from '../apps/api/src/modules/curation/application/budgeted-llm';
@@ -11,6 +13,7 @@ import type { LlmLedger } from '../apps/api/src/modules/curation/domain/llm-ledg
 import { socialStoryContext } from '../apps/api/src/modules/digests/domain/social-story-context';
 import { planJointEventBudget } from '../apps/api/src/modules/social/domain/joint-event-budget';
 import { selectWithEventBudget } from '../apps/api/src/modules/social/public/event-budget';
+import { previewJointEventSelection } from '../apps/api/src/modules/social/public/joint-event-editor';
 
 const root = new URL('../docs/edition-reviews/', import.meta.url);
 const saved = JSON.parse(
@@ -129,6 +132,7 @@ async function replayEditor(
   topic: JointLabels['topics'][number],
   date: string,
   completeStoryEvidence = false,
+  jointPlatforms = false,
 ) {
   const stories = topic.slots.filter((slot) => slot.kind === 'story');
   const posts = topic.slots.filter((slot) => slot.kind === 'post');
@@ -215,7 +219,7 @@ async function replayEditor(
     relevance: 10,
     interestingness: 10,
   }));
-  const run = () =>
+  const runEditor = () =>
     editor.editOutcome(
       { id: topic.topic, name: topic.topic, description: '', guidance: '' },
       input,
@@ -225,6 +229,91 @@ async function replayEditor(
       context,
       { reviewEvents: true, completeStoryEvidence },
     );
+  // Only identity, platform and prose are saved here. Other fields are explicit
+  // evaluation placeholders, not recovered observations or live qualification.
+  const snapshots: SelectedSocialPost[] = posts.map((post) => {
+    const base = {
+      externalId: post.id.replace(/^(x|bluesky):/, ''),
+      url: 'https://example.invalid/offline-evaluation',
+      author: 'Saved author',
+      publishedAt: `${date}T14:00:00Z`,
+      text: post.text,
+      reasons: ['Offline published-picks replay'],
+    };
+    if (post.id.startsWith('bluesky:'))
+      return {
+        ...base,
+        platform: 'bluesky',
+        observedAt: base.publishedAt,
+        metrics: { likes: 0, replies: 0, reposts: 0 },
+      };
+    assert.ok(post.id.startsWith('x:'));
+    return {
+      ...base,
+      platform: 'x',
+      authorUrl: 'https://example.invalid/author',
+      metrics: {},
+    };
+  });
+  const runJoint = () =>
+    previewJointEventSelection(editor, {
+      topic: {
+        id: topic.topic,
+        name: topic.topic,
+        description: '',
+        guidance: '',
+      },
+      candidates: snapshots.map((snapshot, index) => ({
+        snapshot,
+        editorial: {
+          ...input[index],
+          id:
+            snapshot.platform === 'x'
+              ? snapshot.externalId
+              : `bluesky:${snapshot.externalId}`,
+          platform: snapshot.platform,
+        },
+      })),
+      stories: context,
+      budget: posts.length,
+      runId: 'offline-saved-joint-event-budget',
+    });
+  if (jointPlatforms) {
+    const first = await runJoint();
+    assert.equal(first.status, 'complete');
+    assert.notEqual(
+      first.eventBudgetPreview,
+      null,
+      `Joint preview refused: ${topic.topic}`,
+    );
+    assert.deepEqual(
+      await runJoint(),
+      first,
+      `Joint cache drift: ${topic.topic}`,
+    );
+    assert.equal(scriptedCalls, 1);
+    assert.equal(first.posts.length, posts.length);
+    const selected = first.eventBudgetPreview ?? first.posts;
+    for (const post of selected) {
+      const snapshot = snapshots.find(
+        (item) => item.externalId === post.externalId,
+      );
+      assert.ok(snapshot);
+      const { reasons: _reasons, whyItMatters: _why, ...preserved } = post;
+      const { reasons: _originalReasons, ...original } = snapshot;
+      assert.deepEqual(preserved, original);
+    }
+    return {
+      ids: selected.map((post) =>
+        post.platform === 'x'
+          ? `x:${post.externalId}`
+          : `bluesky:${post.externalId}`,
+      ),
+      previewRefused: first.eventBudgetPreview === null,
+      scriptedCalls,
+    };
+  }
+  const run = runEditor;
   const first = await run();
   assert.equal(first.status, 'complete');
   assert.deepEqual(await run(), first, `Cache drift: ${topic.topic}`);
@@ -434,6 +523,24 @@ async function compareJointEditions() {
           expanded.ids,
           expanded.previewRefused ? posts.map(({ id }) => id) : plannedIds,
         );
+        const joint = await replayEditor({ topic, slots }, date, true, true);
+        const jointSlots = [
+          ...stories,
+          ...posts.filter((slot) => joint.ids.includes(slot.id)),
+        ];
+        assert.deepEqual(
+          new Set(jointSlots.map((slot) => slot.event)),
+          new Set(events),
+        );
+        assert.ok(
+          slots
+            .filter((slot) => slot.retain)
+            .every((slot) => jointSlots.includes(slot)),
+        );
+        assert.deepEqual(
+          joint.ids,
+          joint.previewRefused ? posts.map(({ id }) => id) : expanded.ids,
+        );
         const replay = await replayEditor({ topic, slots }, date);
         assert.deepEqual(
           replay.ids,
@@ -454,6 +561,12 @@ async function compareJointEditions() {
         );
         return {
           topic,
+          jointPlatformReplay: {
+            after: concentration(jointSlots),
+            previewRefused: joint.previewRefused,
+            scriptedCalls: joint.scriptedCalls,
+            cacheReused: true,
+          },
           expandedEditorReplay: {
             after: concentration(expandedSlots),
             previewRefused: expanded.previewRefused,
