@@ -112,3 +112,14 @@ Earlier entries: [3166–3173 archive](docs/progress-archive/2026-11-21-3166-317
 - Build and handbook pass (19 pages/one unchanged diagram/40 tables); live Nov 20 reader passes with five topics/25 stories/20 posts. Logs /tmp/3182-{check,build,handbook,reader,sources,jobs}.log.
 - Next: Nov 21/22 reviews first, then weekly reader routes/labels and Sunday scheduling. Developing remains blocked/disabled.
 - Final pnpm check passes: 1,350 units, 338 integrations/four expected skips; static checks, build, handbook and diff checks pass. Archived iterations 3166–3173 to keep PROGRESS small. API/worker restart and final live checks follow.
+
+## 2026-11-21: iteration 3183 — public weekly reader API
+
+- Clean main at abff786b; no inherited work. Zero alerts, healthy health/database/Redis and all active sources; no failed digest jobs. Nov 21 review awaits 15:00 UTC.
+- Added public weekly history and UUID detail endpoints, explicitly scoped to null-profile publications. Strict response contracts expose weekly summaries, quiet topics and saved daily coverage links while removing profile, model, opaque references and evidence text. Daily latest/history remain separate.
+- Shared the existing PostgreSQL daily input repository through a Nest alias; weekly reads use the saved publication adapter. No generation trigger, scheduled jobs, paid calls or fabricated live weekly content.
+- Added projection/scope, admission and real Nest HTTP regressions for UUIDs, offset bounds, missing IDs, HEAD, no-store and unsupported writes. Three targeted tests pass. Updated reader plan and affected pipeline handbook; UI and Sunday scheduling remain unfinished.
+- Commands: pnpm format; pnpm lint:fix; pnpm build; pnpm check; pnpm exec tsx --test apps/api/test/reader-weekly.test.ts; pnpm exec tsx scripts/check-handbook.ts 04-edition-pipeline; pnpm obs alerts/sources/jobs; git diff --check. Full-check and restart results follow.
+- Build/typecheck and handbook pass (19 pages/one unchanged diagram/40 tables); logs /tmp/3183-{check,build,target,handbook,sources,jobs}.log.
+- Next: Nov 21/22 reviews first, then weekly reader UI/history labels and Sunday scheduling. Developing remains blocked/disabled.
+- Final pnpm check passes: 1,353 units, 338 integrations/four expected skips; all static checks green. API/worker restarted active; health/database/Redis, Nov 20 daily reader and zero alerts pass. Weekly live local history is empty, missing UUID 404 and invalid offset 400 using the existing reader-check visitor header; bare requests correctly fail visitor admission (429). External hostname connection from VM failed; no external verification claimed.

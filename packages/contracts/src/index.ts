@@ -908,3 +908,49 @@ export {
   type PublicOperationsStatus,
   publicOperationsStatusSchema,
 } from './public-operations-status';
+
+/** Public weekly snapshots expose saved coverage, never editor/provider metadata. */
+export const readerWeeklyEditionSchema = z.object({
+  id: z.string().uuid(),
+  kind: z.literal('weekly'),
+  windowStart: z.string(),
+  windowEnd: z.string(),
+  topics: z.array(
+    z.object({
+      id: z.string().uuid(),
+      name: z.string(),
+      stories: z.array(
+        z.object({
+          title: z.string(),
+          summary: z.string(),
+          coverage: z.array(
+            z.object({
+              kind: z.enum(['story', 'post']),
+              editionId: z.string().uuid(),
+              itemId: z.string(),
+              publishedAt: z.string(),
+              title: z.string(),
+              url: z.string().url(),
+            }),
+          ),
+        }),
+      ),
+    }),
+  ),
+});
+export type ReaderWeeklyEdition = z.infer<typeof readerWeeklyEditionSchema>;
+export const readerWeeklyHistorySchema = z.object({
+  entries: z.array(
+    readerWeeklyEditionSchema
+      .pick({
+        id: true,
+        kind: true,
+        windowStart: true,
+        windowEnd: true,
+      })
+      .extend({
+        topics: z.array(z.object({ id: z.string().uuid(), name: z.string() })),
+      }),
+  ),
+  nextOffset: z.number().int().nonnegative().nullable(),
+});

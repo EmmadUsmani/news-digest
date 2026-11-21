@@ -22,15 +22,18 @@ import {
 import { publicPreviewsEnabled } from '../../public-read/previews.module';
 import { LogDigestNotifications } from './adapters/digest-notifications';
 import { BullEditionJobs } from './adapters/edition-jobs';
+import { WeeklyPublicationReader } from './application/weekly-publication-reader';
 import { PostgresEditionJobFailures } from './database/edition-job-failures';
 import { PostgresEditionJobRequests } from './database/edition-job-requests';
 import { PostgresPreviewRepository } from './database/preview.repository';
+import { PostgresWeeklyPublicationStore } from './database/weekly-publication.repository';
 import { DigestNotifications } from './domain/digest-published';
 import { EditionJobFailures } from './domain/edition-job-failures';
 import { EditionJobRequests } from './domain/edition-job-requests';
 import { EditionJobs } from './domain/edition-jobs';
 import { PreviewRepository } from './domain/preview.repository';
 import { ReaderEditionController } from './reader-edition.controller';
+import { ReaderWeeklyController } from './reader-weekly.controller';
 @Controller('api/admin/digest-previews')
 export class PreviewOperationsController {
   constructor(
@@ -122,13 +125,20 @@ export class PreviewController extends PreviewOperationsController {
   }
 }
 @Module({
-  controllers: [ReaderEditionController],
+  controllers: [ReaderEditionController, ReaderWeeklyController],
   providers: [
+    {
+      provide: WeeklyPublicationReader,
+      inject: [PostgresPreviewRepository],
+      useFactory: (repository: PostgresPreviewRepository) =>
+        new PostgresWeeklyPublicationStore(repository),
+    },
     { provide: EditionJobFailures, useClass: PostgresEditionJobFailures },
     { provide: EditionJobRequests, useClass: PostgresEditionJobRequests },
     { provide: DigestNotifications, useClass: LogDigestNotifications },
     { provide: EditionJobs, useClass: BullEditionJobs },
-    { provide: PreviewRepository, useClass: PostgresPreviewRepository },
+    PostgresPreviewRepository,
+    { provide: PreviewRepository, useExisting: PostgresPreviewRepository },
   ],
 })
 export class DigestsModule {

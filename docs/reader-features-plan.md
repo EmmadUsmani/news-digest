@@ -86,7 +86,9 @@ daily, quiet topics and saved retries need no provider or credentials. Missing
 credentials or a refused edit publishes nothing. Weekly storage now supports explicit
 profile-scoped ID lookup and bounded history pages, ordered by coverage end and
 publication time with an ID tie-breaker; regeneration versions remain browseable.
-Reader history routes, labels and Sunday scheduling remain unconnected.
+Public `/api/weekly-editions` history and UUID detail reads expose saved weekly
+summaries and daily coverage links, stripping profile, provider and evidence text.
+Reader UI labels and Sunday scheduling remain unconnected.
 
 ## Out of scope (owner, Nov 19)
 

@@ -27,6 +27,8 @@ const rules: readonly Rule[] = [
   ['GET', /^\/api\/settings\/schedule$/, 'public-read'],
   ['GET', /^\/api\/queues$/, 'public-read'],
   ['GET', /^\/privacy$/, 'public-read'],
+  ['GET', /^\/api\/weekly-editions$/, 'public-read'],
+  ['GET', new RegExp(`^/api/weekly-editions/${id}$`), 'public-read'],
   ['GET', /^\/api\/editions(?:\/latest)?$/, 'public-read'],
   ['GET', new RegExp(`^/api/editions/${id}$`), 'public-read'],
   ['GET', /^\/account\/(?:login|sign-in)$/, 'public-read'],
