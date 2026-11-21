@@ -139,3 +139,15 @@ Earlier entries: [pre-3166 archive](docs/progress-archive/2026-11-21-pre-3166.md
 - Initial boundary check rejected Zod in the domain layer; moved the editor contract to application and reran full checks.
 - Next: Nov 21/22 edition reviews first; connect a budgeted single weekly editor call, then persistence/history separation, Sunday scheduling and reader acceptance. Developing remains blocked/disabled.
 - Final pnpm check passes: 1,345 units, 336 integrations/four expected skips; all static checks green. Build and git diff --check pass. API/worker restarted active; health/database/Redis, repeated live reader and zero alerts pass.
+
+## 2026-11-21: iteration 3177 — budgeted weekly editor execution
+
+- Clean main at fa3283cf; no inherited work. Zero alerts; health/database/Redis pass; all active sources healthy, Destructoid intentionally inactive. Daily review awaits 15:00 UTC.
+- Added weekly execution through the existing budgeted LLM, model configuration and durable cache. One Sonnet attempt per topic; no repair, alternate-model fallback, paid replay or cap changes. Empty daily story input makes no call.
+- Prompt uses saved daily evidence only, groups recurring events and asks for chronological developments with attribution. Raw references are cached and validated again on cache hits; invalid/unknown coverage rejects atomically and daily snapshots remain unchanged.
+- Five targeted tests pass, including real BudgetedLlm with fake provider/ledger for reservation, settlement, cache reuse, refusal and invalid output. No semantic/model acceptance claimed.
+- Production trigger, weekly persistence/history and Sunday scheduling remain unconnected. Updated reader feature plan and TASKS; no live flow/schema change.
+- Source check and live Nov 20 reader pass (five topics/25 stories/20 posts). Job snapshot: zero failed digest jobs; historical ingestion/social failures retained, current sources healthy. Private job-state filtering unavailable in public mode; used queue counts.
+- Commands: pnpm format; pnpm lint:fix; pnpm check; pnpm build; pnpm exec tsx --test apps/api/test/weekly-review-editor.test.ts; pnpm exec tsx scripts/check-handbook.ts; pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-20T15:00:00Z; git diff --check. Results below.
+- Next: Nov 21/22 reviews first; weekly persistence/history separation, then Sunday scheduling and live reader acceptance. Developing remains blocked/disabled.
+- Final pnpm check passes: 1,347 unit tests, 336 integration passes/four expected skips; all static checks green. Build/handbook/diff checks pass. API/worker restarted active; health/database/Redis, repeated live reader and zero alerts pass. Logs /tmp/3177-{check,build,handbook,targeted-final,reader-final,alerts-final}.log.

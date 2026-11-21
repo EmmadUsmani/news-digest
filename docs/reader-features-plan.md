@@ -70,8 +70,10 @@ The weekly editor contract supplies saved story/post text with opaque daily-item
 references. Its response allows at most five summaries, requires daily story
 coverage for each, and rejects unknown or reused references atomically. Validated
 coverage retains daily edition IDs and original URLs. This validates structure
-and provenance; model editing, budget admission, storage, history labels and
-scheduling remain to be connected.
+and provenance. Weekly execution uses the existing budget ledger, input limits
+and durable cache, with one Sonnet attempt per topic and no repair or model
+fallback. Budget refusal or invalid coverage produces no weekly edition.
+Production triggering, storage, history labels and scheduling remain unconnected.
 
 ## Out of scope (owner, Nov 19)
 

@@ -1,9 +1,14 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
+import { llmConfig } from '../src/modules/curation/adapters/config';
+import { BudgetedLlm } from '../src/modules/curation/application/budgeted-llm';
+import type { LlmRequest } from '../src/modules/curation/domain/llm.port';
+import type { LlmLedger } from '../src/modules/curation/domain/llm-ledger.port';
 import {
   validateWeeklyReview,
   weeklyEditorEvidence,
+  WeeklyReviewEditor,
 } from '../src/modules/digests/application/weekly-review-editor';
 import type { weeklyReviewInput } from '../src/modules/digests/domain/weekly-review-input';
 
@@ -86,3 +91,86 @@ void test('weekly editor enforces five stories, nonblank prose and strict output
     assert.equal(validateWeeklyReview(input, response), null);
   assert.deepEqual(validateWeeklyReview(input, { stories: [] })?.stories, []);
 });
+
+void test('weekly execution reserves and settles once, reuses cache and preserves daily snapshots', async () => {
+  const before = structuredClone(input);
+  const harness = weeklyHarness({ stories: [pick()] });
+  const editor = new WeeklyReviewEditor(harness.llm, llmConfig({}).sonnet);
+  const first = await editor.edit({ id: 'tech', name: 'Tech' }, input, 'run-1');
+  const second = await editor.edit(
+    { id: 'tech', name: 'Tech' },
+    input,
+    'run-2',
+  );
+  assert.ok(first);
+  assert.deepEqual(first, second);
+  assert.equal(harness.requests.length, 1);
+  assert.equal(harness.reservations, 1);
+  assert.equal(harness.settlements, 1);
+  assert.equal(harness.requests[0].purpose, 'weekly-review-editor-v1');
+  assert.equal(harness.requests[0].topicId, 'tech');
+  assert.equal(harness.requests[0].model.id, llmConfig({}).sonnet.id);
+  assert.equal(harness.requests[0].prompt.includes('Private score'), false);
+  assert.deepEqual(input, before);
+});
+
+void test('weekly refusal and invalid coverage produce no fallback or repair calls', async () => {
+  for (const blocked of [false, true]) {
+    const harness = weeklyHarness({ stories: [pick(['invented'])] }, blocked);
+    const editor = new WeeklyReviewEditor(harness.llm, llmConfig({}).sonnet);
+    assert.equal(
+      await editor.edit({ id: 'tech', name: 'Tech' }, input, 'run'),
+      null,
+    );
+    assert.equal(harness.requests.length, blocked ? 0 : 1);
+    assert.equal(harness.settlements, blocked ? 0 : 1);
+    assert.equal(harness.values.size, 0);
+  }
+  const harness = weeklyHarness({ stories: [] });
+  const editor = new WeeklyReviewEditor(harness.llm, llmConfig({}).sonnet);
+  assert.equal(
+    await editor.edit(
+      { id: 'tech', name: 'Tech' },
+      { ...input, editions: [] },
+      'empty',
+    ),
+    null,
+  );
+  assert.equal(harness.reservations, 0);
+});
+
+function weeklyHarness(response: unknown, blocked = false) {
+  const state = {
+    reservations: 0,
+    settlements: 0,
+    requests: [] as LlmRequest[],
+    values: new Map<string, unknown>(),
+  };
+  const ledger: LlmLedger = {
+    reserve: async () => {
+      state.reservations++;
+      return blocked ? null : 'hold';
+    },
+    settle: async () => {
+      state.settlements++;
+    },
+    fail: async () => {},
+    cached: async (key) => state.values.get(key),
+    cache: async (key, value) => {
+      state.values.set(key, value);
+    },
+  };
+  const llm = new BudgetedLlm(
+    {
+      complete: async (request) => {
+        state.requests.push(request);
+        return {
+          text: JSON.stringify(response),
+          usage: { input: 100, output: 100, cacheWrite: 0, cacheRead: 0 },
+        };
+      },
+    },
+    ledger,
+  );
+  return Object.assign(state, { llm });
+}

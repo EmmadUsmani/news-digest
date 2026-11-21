@@ -19,6 +19,8 @@ export type { TriageScore } from '../application/triage';
 const services = new WeakMap<
   Pool,
   {
+    weeklyLlm: Pick<BudgetedLlm, 'json'>;
+    weeklyModel: ReturnType<typeof llmConfig>['sonnet'];
     triage: CandidateTriage;
     editor: ShortlistEditor;
     socialTriage: CandidateTriage;
@@ -55,6 +57,8 @@ export function editorialServices(db: Pool) {
       : undefined,
   );
   const result = {
+    weeklyLlm: llm,
+    weeklyModel: config.sonnet,
     validationDiagnostics: () => llm.validationDiagnostics(),
     triage: new CandidateTriage(llm, ledger, config.haiku),
     editor: new ShortlistEditor(llm, config.sonnet, config.haiku),
@@ -88,3 +92,6 @@ export type {
 } from '../application/social-editor';
 export type { TriageResult, TriageTopic } from '../application/triage';
 export type { LlmExecutionContext } from '../domain/llm.port';
+
+export type WeeklyEditorLlm = Pick<BudgetedLlm, 'json'>;
+export type WeeklyEditorModel = ReturnType<typeof llmConfig>['sonnet'];
