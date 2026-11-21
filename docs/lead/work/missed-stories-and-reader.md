@@ -9,7 +9,9 @@ no cached responses (a fresh run would be paid) and it read "fits $0.65" as
 needing full feature coverage, though the worst day was $0.61. The agent then
 idled: 157 of 180 runs on Nov 21 had no commit, 45 in a row since 15:18 UTC,
 each citing item 69's one-commit-a-day limit, though item 69's event budget
-(step 2) is build work that limit doesn't cover. Steering proposed to owner.
+(step 2) is build work that limit doesn't cover. Owner approved item 73
+(`23097005`): one paid matching run, then enable developing stories; event
+budget starts now.
 
 - Item 68, Missed stories: Current order line 2, just below breakages
   (owner's ranking). Recall per topic goes in each daily edition review, and a
@@ -29,6 +31,7 @@ looked into. Lines 8 and 9 were placed by the lead; the owner can reorder them.
   with recall per topic, and that the misses read as real.
 - Check that waiting time doesn't turn into daily checkpoint commits (item 66)
   or idle runs.
-- Item 72: owner decides on a paid matcher run; then check developing stories
-  in a published edition.
+- Item 73: ack with the matching run's cost and pairs; developing stories in
+  the next published edition; event budget shipped or rejected with numbers.
+  More than two no-commit runs in a row again means re-steer.
 - When "why this" ships, the owner reviews the screenshots.
