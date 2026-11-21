@@ -1,0 +1,23 @@
+{
+  "provenance": "Manual source-reviewed controls from iterations 3170–3172; no provider output or model acceptance.",
+  "rewrites": [
+    {
+      "id": "0f1db589-579f-43ff-b62f-a19541eb610e",
+      "title": "Israel postpones E1 settlement contracts; diplomats deny UK sanctions prompted delay",
+      "summary": "Israel has postponed issuing contracts for a large West Bank settlement days after UK sanctions on building firms in the area. Israeli diplomats insisted the move was not in response to the measures from Downing Street. Attorney general Gali Baharav-Miara objects to the caretaker government led by Benjamin Netanyahu deciding settlement expansion.",
+      "whyItMatters": "The E1 settlement is seen as likely to render a two-state solution unviable."
+    },
+    {
+      "id": "2e56befe-11d4-4fd2-85d6-9a5251af2b92",
+      "title": "Trump shakes hands with Putin and Xi ahead of talks in China",
+      "summary": "Trump shakes hands with Putin and Xi ahead of talks in China. The three leaders will meet together for the first time on Thursday during a closely-watched summit.",
+      "whyItMatters": "The summit brings the three leaders together for the first time."
+    },
+    {
+      "id": "7b9c7612-9572-4ce9-9a1d-71c0c5602dbc",
+      "title": "Weeks-long Ukrainian operation preceded two waves of bridge strikes",
+      "summary": "A weeks-long operation was behind two waves of strikes using long-range missiles and drones developed in Ukraine.",
+      "whyItMatters": "The operation used long-range missiles and drones developed in Ukraine."
+    }
+  ]
+}

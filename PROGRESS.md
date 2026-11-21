@@ -174,3 +174,15 @@ Earlier entries: [pre-3055 archive](docs/progress-archive/2026-11-20-pre-3055.md
 - Next: Nov 21 recall and v16 Tech/Gaming acceptance. No source/schema/UI changes.
 - Full pnpm check passes: static checks, 1,336 units, 336 integrations/four expected skips. pnpm build passes; scheduled-reader Nov 20 verifies five topics/25 real stories/20 posts. git diff --check passes.
 - Initial push rejected after concurrent owner commit 4f32f159 (lead status only); merged without rewriting history and pushed. API/worker restarted; health passes; zero alerts.
+
+## 2026-11-21: iteration 3173 — combined source-bound World rewrite acceptance
+
+- Clean main at 517f5c96; no inherited work. Zero alerts; health/database/Redis and all 37 active sources pass; Destructoid remains intentionally inactive.
+- Nov 21 edition/recall/v16 acceptance awaits 15:00 UTC; today's item 69 evaluation commit used. Continued item 70 without provider calls or runtime changes.
+- Shared manual controls preserve the source-reviewed summit, bridge and E1 prose from 3170–3172; no model output or new semantic acceptance claimed.
+- Combined three-link control retains five IDs/order, both unmatched stories, correct nearest predecessors and three-edition bridge continuity. Unsupported claim in each rewrite position restores all five original stories atomically; saved inputs stay unchanged.
+- Targeted: pnpm exec tsx --test apps/api/test/developing-rewrite-support.test.ts — seven pass.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-20T15:00:00Z; git diff --check. Logs /tmp/3173-{targeted,format,lint,check,build,reader}.log.
+- Reader verifies five topics/25 real stories/20 posts; digest queue has zero failed runs. Public-mode job detail filtering is unavailable; counts-only obs jobs --check passes.
+- Model and whole-edition budget acceptance remain open; production inactive. No source/schema/UI changes. Next: Nov 21 recall/v16 acceptance.
+- Full pnpm check passes: static checks, 1,337 units, 336 integration passes/four expected skips. pnpm build and git diff --check pass; API/worker refresh and final health verification follow push.

@@ -74,6 +74,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 3173: Combined all three source-reviewed Nov 18 World rewrites; five selections and history metadata retained, unsupported claim in any rewrite restores the entire original selection. Shared manual fixture; model/whole-edition budget acceptance open, production inactive.
+
 - [x] 3172: Source-reviewed Nov 18 Crimea bridge rewrite leads with operation preparation/weapons details and retains all five World selections. Combined World/model/budget acceptance open; production inactive.
 
 - [x] 3171: Source-reviewed manual summit greeting rewrite uses current title/excerpt, omits inherited agenda hopes and outcomes, and retains all five World selections. Combined World/model/budget acceptance remains open; production inactive.

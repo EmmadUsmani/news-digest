@@ -6,6 +6,21 @@ import { validateDevelopingRewrite } from '../src/modules/curation/application/d
 import type { EditorialCandidate } from '../src/modules/curation/application/editor';
 import { rewriteDevelopingStories } from '../src/modules/digests/application/rewrite-developing-stories';
 
+const reviewedWorldRewrites = JSON.parse(
+  readFileSync(
+    new URL(
+      './fixtures/developing-world-reviewed-rewrites.json',
+      import.meta.url,
+    ),
+    'utf8',
+  ),
+).rewrites as {
+  id: string;
+  title: string;
+  summary: string;
+  whyItMatters: string;
+}[];
+
 const claim = 'The ministry says no civilians were injured.';
 const candidate: EditorialCandidate = {
   id: 'current',
@@ -226,15 +241,7 @@ void test('saved E1 delay rewrite preserves the diplomats denial and caretaker-g
   )!;
   // Manual source review: chronology does not establish sanctions causality.
   // Both qualifications are in the bounded current excerpt, not inherited history.
-  const rewrite = {
-    id,
-    title:
-      'Israel postpones E1 settlement contracts; diplomats deny UK sanctions prompted delay',
-    summary:
-      'Israel has postponed issuing contracts for a large West Bank settlement days after UK sanctions on building firms in the area. Israeli diplomats insisted the move was not in response to the measures from Downing Street. Attorney general Gali Baharav-Miara objects to the caretaker government led by Benjamin Netanyahu deciding settlement expansion.',
-    whyItMatters:
-      'The E1 settlement is seen as likely to render a two-state solution unviable.',
-  };
+  const rewrite = reviewedWorldRewrites.find((s) => s.id === id)!;
   // The existing conservative guard requires the complete attributed denial.
   for (const denial of [
     'The move was not in response to the measures from Downing Street.',
@@ -324,14 +331,7 @@ void test('saved summit greeting rewrite excludes inherited agenda and outcome c
   );
   // Manual source review: the current title supports the greeting; the excerpt
   // supports the prospective meeting. Earlier agenda hopes are not new facts.
-  const rewrite = {
-    id: current.id,
-    title: 'Trump shakes hands with Putin and Xi ahead of talks in China',
-    summary:
-      'Trump shakes hands with Putin and Xi ahead of talks in China. The three leaders will meet together for the first time on Thursday during a closely-watched summit.',
-    whyItMatters:
-      'The summit brings the three leaders together for the first time.',
-  };
+  const rewrite = reviewedWorldRewrites.find((s) => s.id === current.id)!;
   const result = await rewriteDevelopingStories({
     selected: item.selected,
     evidence: item.originalEditorialEvidence.evidence,
@@ -402,14 +402,7 @@ void test('saved Crimea bridge operation rewrite uses newly reported preparation
   );
   // Manual source review: newly reported preparation and weapons details,
   // without importing earlier traffic disruption, timing or damage claims.
-  const rewrite = {
-    id: current.id,
-    title:
-      'Weeks-long Ukrainian operation preceded two waves of bridge strikes',
-    summary: current.excerpt,
-    whyItMatters:
-      'The operation used long-range missiles and drones developed in Ukraine.',
-  };
+  const rewrite = reviewedWorldRewrites.find((s) => s.id === current.id)!;
   const result = await rewriteDevelopingStories({
     selected: item.selected,
     evidence: item.originalEditorialEvidence.evidence,
@@ -442,4 +435,119 @@ void test('saved Crimea bridge operation rewrite uses newly reported preparation
     result.stories.filter((s) => s.id !== current.id),
     item.selected.filter((s) => s.id !== current.id),
   );
+});
+
+void test('combined saved World rewrites retain five selections and reject one unsupported claim atomically', async () => {
+  const fixture = JSON.parse(
+    readFileSync(
+      new URL(
+        './fixtures/developing-stories-world-2026-11-18.json',
+        import.meta.url,
+      ),
+      'utf8',
+    ),
+  ) as {
+    cases: {
+      topicName: string;
+      selected: {
+        id: string;
+        title: string;
+        summary: string;
+        whyItMatters: string;
+      }[];
+      originalEditorialEvidence: { evidence: EditorialCandidate[] };
+      history: {
+        editionId: string;
+        stories: { id: string; title: string; summary: string }[];
+      }[];
+      reviews: {
+        storyId: string;
+        expectedPredecessors: { editionId: string; storyId: string }[];
+      }[];
+    }[];
+  };
+  const item = fixture.cases[0];
+  // Use every reviewed positive relationship, including the bridge's three-edition chain.
+  const links = item.reviews
+    .filter((r) => r.expectedPredecessors.length)
+    .map((review) => {
+      const nearest = review.expectedPredecessors[0];
+      const edition = item.history.find(
+        (h) => h.editionId === nearest.editionId,
+      )!;
+      const previous = edition.stories.find((s) => s.id === nearest.storyId)!;
+      return {
+        storyId: review.storyId,
+        previousEditionId: edition.editionId,
+        previousStoryId: previous.id,
+        previousHeadline: previous.title,
+        previousSummary: previous.summary,
+        editionCount: review.expectedPredecessors.length + 1,
+      };
+    });
+  assert.equal(links.length, 3);
+  const matched = item.selected.filter((s) =>
+    links.some((l) => l.storyId === s.id),
+  );
+  const responses = matched.map((s) =>
+    reviewedWorldRewrites.find((r) => r.id === s.id)!,
+  );
+  const before = structuredClone(item);
+  const run = (output: typeof responses) =>
+    rewriteDevelopingStories({
+      selected: item.selected,
+      evidence: item.originalEditorialEvidence.evidence,
+      links,
+      rewrite: async (inputs) => {
+        assert.deepEqual(
+          inputs.map((s) => s.selected.id),
+          matched.map((s) => s.id),
+        );
+        for (const input of inputs) {
+          assert.deepEqual(
+            input.evidence,
+            item.originalEditorialEvidence.evidence.find(
+              (e) => e.id === input.selected.id,
+            ),
+          );
+          assert.deepEqual(
+            input.earlierCoverage,
+            links.find((l) => l.storyId === input.selected.id),
+          );
+        }
+        return output;
+      },
+      validate: (value, evidence) =>
+        validateDevelopingRewrite(value, evidence, item.topicName),
+    });
+  const accepted = await run(responses);
+  assert.equal(accepted.status, 'rewritten');
+  assert.deepEqual(
+    accepted.stories.map((s) => s.id),
+    item.selected.map((s) => s.id),
+  );
+  for (const [index, original] of item.selected.entries()) {
+    const replacement = responses.find((r) => r.id === original.id);
+    const link = links.find((l) => l.storyId === original.id);
+    if (!replacement || !link) {
+      assert.deepEqual(accepted.stories[index], original);
+      continue;
+    }
+    const { storyId: _storyId, ...developing } = link;
+    assert.deepEqual(accepted.stories[index], {
+      ...original,
+      ...replacement,
+      developing,
+    });
+  }
+  // A refusal in any position must discard the other two accepted rewrites too.
+  for (let index = 0; index < responses.length; index++) {
+    const invalid = structuredClone(responses);
+    invalid[index].summary = 'The ministry says no civilians were injured.';
+    const refused = await run(invalid);
+    assert.equal(refused.status, 'unchanged');
+    assert.equal(refused.stories, item.selected);
+    assert.deepEqual(refused.stories, before.selected);
+  }
+  assert.deepEqual(item, before);
 });
