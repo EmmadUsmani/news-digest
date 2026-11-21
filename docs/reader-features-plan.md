@@ -75,7 +75,10 @@ and durable cache, with one Sonnet attempt per topic and no repair or model
 fallback. Budget refusal or invalid coverage produces no weekly edition.
 The PostgreSQL input reader filters published scheduled daily snapshots by profile,
 coverage window and publication cutoff before applying the saved-input selector.
-Production triggering, weekly storage, history labels and scheduling remain unconnected.
+The publication workflow now waits for Sunday’s published daily edition, skips
+quiet-topic calls and saves all topics together only after every required edit
+succeeds. Generation keys support retries; regeneration uses a new key.
+The storage adapter, production trigger, history labels and scheduling remain unconnected.
 
 ## Out of scope (owner, Nov 19)
 

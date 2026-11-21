@@ -162,3 +162,15 @@ Earlier entries: [pre-3166 archive](docs/progress-archive/2026-11-21-pre-3166.md
 - Commands: pnpm format; pnpm lint:fix; pnpm check; pnpm build; pnpm exec tsx scripts/check-handbook.ts; pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-20T15:00:00Z; read-only adapter smoke; git diff --check. Final results below.
 - Next: Nov 21/22 reviews first, then weekly persistence/history separation and Sunday scheduling. Logs /tmp/3178-{check,build,handbook,saved-input,reader,sources,jobs}.log.
 - Final pnpm check passes: 1,347 units, 337 integrations/four expected skips; all static checks green. Build/handbook/diff checks pass. API/worker restarted active; health/database/Redis, repeated live reader and zero alerts pass.
+
+## 2026-11-21: iteration 3179 — weekly publication workflow
+
+- Clean main at 8e3a8b72; no inherited work. Zero alerts; health/database/Redis and API/worker active. Nov 21 review awaits 15:00 UTC.
+- Added weekly publication orchestration connecting saved input loading and the budgeted editor to an atomic storage port. Requires Sunday's published daily first; quiet topics make no call; refusal/invalid output or exceptions never save a partial weekly edition.
+- Generation-key retries return the saved snapshot without editing; regeneration uses a new key. Snapshot includes weekly kind, profile, bounds and daily provenance; never invokes daily generation/latest. Database adapter, history and scheduling remain unconnected.
+- Four focused tests pass with real weekly editor/fake provider and in-memory storage: provenance, quiet topics, retry/regeneration immutability, daily prerequisite, partial failures, invalid requests/bounds and exception propagation. No paid calls or model acceptance claimed.
+- Updated reader feature plan and TASKS; no schema or live flow changes. Live Nov 20 reader passes: 9c810e64, five topics/25 stories/20 posts.
+- Commands: pnpm format; pnpm lint:fix; pnpm check; pnpm build; pnpm exec tsx --test apps/api/test/generate-weekly-review.test.ts; pnpm exec tsx scripts/check-handbook.ts; pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-20T15:00:00Z; git diff --check. Final checks below.
+- Full handbook run hit local-tool HTTP 429; filtered retry (`04-edition-pipeline`) passes: 19 pages/one diagram/39 tables. Sources pass (Destructoid intentionally inactive); jobs snapshot has zero digest failures. Initial queue name `digest` was rejected; corrected with unfiltered jobs snapshot.
+- Next: Nov 21/22 reviews first; weekly database publication adapter/history separation and Sunday scheduling. Developing remains blocked/disabled. Logs /tmp/3179-{targeted,check,build,handbook-retry,reader,sources,jobs}.log.
+- Final pnpm check passes: 1,350 units and 337 integration passes/four expected skips; all static checks green. Build, filtered handbook and diff checks pass.
