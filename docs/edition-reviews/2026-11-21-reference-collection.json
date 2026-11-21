@@ -1,0 +1,1170 @@
+{
+  "schemaVersion": 1,
+  "start": "2026-11-20T15:00:00.000Z",
+  "end": "2026-11-21T15:00:00.000Z",
+  "capturedAt": "2026-11-21T15:04:21.472Z",
+  "windowEnded": true,
+  "feeds": [
+    {
+      "topic": "Tech & AI",
+      "name": "Techmeme",
+      "url": "https://www.techmeme.com/feed.xml",
+      "observedAt": "2026-11-21T15:04:18.892Z",
+      "parsed": 15,
+      "stories": [
+        {
+          "title": "An interview with Google DeepMind in-house philosopher Henry Shevlin on being hired to work on machine consciousness, human-AI relationships, and AGI readiness (Cristina Criddle/Financial Times)",
+          "url": "https://www.techmeme.com/261121/p6",
+          "publishedAt": "2026-11-21T11:30:01.000Z",
+          "excerpt": "Cristina Criddle / Financial Times: An interview with Google DeepMind in-house philosopher Henry Shevlin on being hired to work on machine consciousness, human-AI relationships, and AGI readiness \u2014 The in-house philosopher on the problem of consciousness and what it might feel like to be an AI agent",
+          "publisherUrl": "https://www.ft.com/content/6f807d57-f0ea-4251-9f4d-75a6edc8d49a?accessToken=zwAAAaH8y_kikc9vgH1X8OpCUdOfTXWm7cjUmg.MEQCIACh-UVIJLvZdJk2Ho7Q-qsVRoQLNyCmy5zPK9w3Y1lTAiB-BgoDqcF7LPJ1R7yF4te0TrGCjIV8E56IAgl4GYcrnA&sharetype=gift&token=956073db-4440-473e-97bd-a0af2932464c"
+        },
+        {
+          "title": "How quantum computers built from laser-trapped atoms may correct qubit errors more easily than supercooled chips, speeding the race to a usable machine (Cade Metz/New York Times)",
+          "url": "https://www.techmeme.com/261121/p5",
+          "publishedAt": "2026-11-21T07:30:00.000Z",
+          "excerpt": "Cade Metz / New York Times: How quantum computers built from laser-trapped atoms may correct qubit errors more easily than supercooled chips, speeding the race to a usable machine \u2014 Optical tools in a quantum computer at Harvard University.Lucy Lu for The New York Times \u2014 For almost a decade, a Google lab in Santa Barbara \u2026",
+          "publisherUrl": "https://www.nytimes.com/2026/11/20/science/quantum-computer-neutral-atoms.html?smid=nytcore-ios-share&unlocked_article_code=1.R1E.PGHV.x5mP00wlvgC0"
+        },
+        {
+          "title": "NYU's Tristan Buckmaster and Anthropic's Levent Alp\u00f6ge publish an AI-aided proof of Navier-Stokes blowup, saying it closes a loophole in OpenAI's solution (Peter Hall/Scientific American)",
+          "url": "https://www.techmeme.com/261121/p4",
+          "publishedAt": "2026-11-21T06:30:00.000Z",
+          "excerpt": "Peter Hall / Scientific American: NYU's Tristan Buckmaster and Anthropic's Levent Alp\u00f6ge publish an AI-aided proof of Navier-Stokes blowup, saying it closes a loophole in OpenAI's solution \u2014 Two months after getting scooped by OpenAI, N.Y.U. professor Tristan Buckmaster and Anthropic employee Levent Alp\u00f6ge \u2026",
+          "publisherUrl": "https://www.scientificamerican.com/article/ai-just-solved-the-real-navier-stokes-problem/"
+        },
+        {
+          "title": "Microsoft plans to retire its To Do app on June 30, 2027, offering migration to Planner for work and school accounts, but no replacement for personal accounts (Todd Bishop/GeekWire)",
+          "url": "https://www.techmeme.com/261121/p3",
+          "publishedAt": "2026-11-21T06:10:02.000Z",
+          "excerpt": "Todd Bishop / GeekWire: Microsoft plans to retire its To Do app on June 30, 2027, offering migration to Planner for work and school accounts, but no replacement for personal accounts \u2014 Microsoft acquired the popular Wunderlist app in 2015, shut it down in 2020 and told its loyal users that Microsoft To Do would be their new home.",
+          "publisherUrl": "https://www.geekwire.com/2026/microsoft-to-do-users-make-a-big-to-do-over-popular-task-apps-retirement/"
+        },
+        {
+          "title": "Industry insiders say new US export rules affect a broader range of chips, including SoCs used in consumer electronics, extending beyond advanced AI chips (Cheng Ting-Fang/Nikkei Asia)",
+          "url": "https://www.techmeme.com/261121/p2",
+          "publishedAt": "2026-11-21T06:00:55.000Z",
+          "excerpt": "Cheng Ting-Fang / Nikkei Asia: Industry insiders say new US export rules affect a broader range of chips, including SoCs used in consumer electronics, extending beyond advanced AI chips \u2014 TAIPEI \u2014 Tighter U.S. export controls introduced Thursday are having a far broader impact on the global semiconductor supply chain \u2026",
+          "publisherUrl": "https://asia.nikkei.com/business/tech/semiconductors/chip-supply-chain-warns-of-broader-disruption-from-new-us-export-controls"
+        },
+        {
+          "title": "Ubisoft launches Motherbrain, a subsidiary focused on developing \"smart NPCs with memory and AI game masters that manage large-scale systemic worlds\" (Sophie McEvoy/GamesIndustry.biz)",
+          "url": "https://www.techmeme.com/261121/p1",
+          "publishedAt": "2026-11-21T05:15:00.000Z",
+          "excerpt": "Sophie McEvoy / GamesIndustry.biz: Ubisoft launches Motherbrain, a subsidiary focused on developing \u201csmart NPCs with memory and AI game masters that manage large-scale systemic worlds\u201d \u2014 Studio is currently developing \u201csmart NPCs with memory and AI game masters that manage large-scale systemic worlds\u201d",
+          "publisherUrl": "https://www.gamesindustry.biz/ubisoft-launches-motherbrain-a-new-subsidiary-focused-on-ai-driven-gameplay-innovation"
+        },
+        {
+          "title": "Sources: Masayoshi Son recently explored a possible $1T buyout of SK Hynix; SoftBank says the deal is \"no longer under active consideration\" (The Information)",
+          "url": "https://www.techmeme.com/261120/p45",
+          "publishedAt": "2026-11-21T02:45:01.000Z",
+          "excerpt": "The Information: Sources: Masayoshi Son recently explored a possible $1T buyout of SK Hynix; SoftBank says the deal is \u201cno longer under active consideration\u201d \u2014 SoftBank CEO Masayoshi Son recently approached Wall Street institutions about financing a possible trillion-dollar buyout of memory chip giant SK Hynix \u2026",
+          "publisherUrl": "https://www.theinformation.com/articles/softbanks-masayoshi-son-explored-1-trillion-moonshot-buyout-sk-hynix"
+        },
+        {
+          "title": "Sources: the FBI is investigating an apparent breach of its NCIC database, which is used by law enforcement to share info on warrants and background checks (Evan Perez/CNN)",
+          "url": "https://www.techmeme.com/261120/p44",
+          "publishedAt": "2026-11-21T02:35:02.000Z",
+          "excerpt": "Evan Perez / CNN: Sources: the FBI is investigating an apparent breach of its NCIC database, which is used by law enforcement to share info on warrants and background checks \u2014 The FBI is investigating an apparent breach of its nationwide criminal information database that serves as a lifeline between federal \u2026",
+          "publisherUrl": "https://cnn.com/2026/11/20/politics/fbi-hacked-again-target-crime-database"
+        },
+        {
+          "title": "Oracle says it has secured funding for its infrastructure contract with OpenAI and \"any further private discussions with vendors are just additional options\" (@oracle)",
+          "url": "https://www.techmeme.com/261120/p43",
+          "publishedAt": "2026-11-21T00:25:00.000Z",
+          "excerpt": "@oracle: Oracle says it has secured funding for its infrastructure contract with OpenAI and \u201cany further private discussions with vendors are just additional options\u201d \u2014 Oracle has secured all the funding we need to fulfill our contract with OpenAI. With our final capital raise earlier this month, we became the first hyperscaler fully funded for this investment cycle. The financing we outlined at Oracle Investor Day, including vendor financing, is in...",
+          "publisherUrl": "https://x.com/oracle/status/2123884437045760420"
+        },
+        {
+          "title": "Nasdaq 100 fell 5.6% on Friday, taking its loss for the week to 10.4%, its worst run in more than six years, amid fears of a slowdown in the AI investment boom (George Steer/Financial Times)",
+          "url": "https://www.techmeme.com/261120/p42",
+          "publishedAt": "2026-11-20T23:50:00.000Z",
+          "excerpt": "George Steer / Financial Times: Nasdaq 100 fell 5.6% on Friday, taking its loss for the week to 10.4%, its worst run in more than six years, amid fears of a slowdown in the AI investment boom \u2014 Shares in Anthropic and Nvidia tumble as fears over the AI spending boom grip Wall Street \u2014 US tech stocks plunged \u2026",
+          "publisherUrl": "https://www.ft.com/content/9f3c6ed6-c08f-4710-9683-ee2f5eb25841?accessToken=zwAAAaH7iyodkdOfPG7WwI9HENOWg-4vXrJYQQ.MEUCIBpLGE0aJbtCmwWNv_LKucqNz9Ocf7fm-YnyZKCTrYwqAiEAktOWNoh6vwsi_l2Mn4Um3T0q7WOVs8JCm-pwJwLLrcA&sharetype=gift&token=c6d010aa-7792-4679-9ca7-57a6e433dc70"
+        },
+        {
+          "title": "Sources: Wonder is exploring a sale of Grubhub, which it bought in 2024 for $650M; bankers have been in contact with Walmart, Target, Kroger and other retailers (Wall Street Journal)",
+          "url": "https://www.techmeme.com/261120/p41",
+          "publishedAt": "2026-11-20T23:20:00.000Z",
+          "excerpt": "Wall Street Journal: Sources: Wonder is exploring a sale of Grubhub, which it bought in 2024 for $650M; bankers have been in contact with Walmart, Target, Kroger and other retailers \u2014 Bankers have been in contact with Walmart, Target, Kroger and other retailers about a potential purchase",
+          "publisherUrl": "https://www.wsj.com/business/retail/wonder-explores-sale-of-food-delivery-business-grubhub-3c80c830?reflink=desktopwebshare_permalink&st=D3FY3c"
+        },
+        {
+          "title": "Sources: Databricks is in early talks to raise several billion dollars at a ~$225B valuation, after closing a $5B round at a $190B valuation in August (Wall Street Journal)",
+          "url": "https://www.techmeme.com/261120/p40",
+          "publishedAt": "2026-11-20T23:05:04.000Z",
+          "excerpt": "Wall Street Journal: Sources: Databricks is in early talks to raise several billion dollars at a ~$225B valuation, after closing a $5B round at a $190B valuation in August \u2014 The new financing would represent a nearly 20% increase from its August valuation \u2014 Databricks is in early talks to raise several billion dollars \u2026",
+          "publisherUrl": "https://www.wsj.com/tech/ai/databricks-in-early-talks-to-raise-funds-at-225-billion-valuation-e593b1de?reflink=desktopwebshare_permalink&st=f6tFmc"
+        },
+        {
+          "title": "Cursor tells lawmakers it is considering phasing out Chinese open-weight AI models due to \"geopolitical risk\"; Cursor's Composer 2 was built on Kimi K2.5 (Kai Nicol-Schwarz/CNBC)",
+          "url": "https://www.techmeme.com/261120/p39",
+          "publishedAt": "2026-11-20T23:00:01.000Z",
+          "excerpt": "Kai Nicol-Schwarz / CNBC: Cursor tells lawmakers it is considering phasing out Chinese open-weight AI models due to \u201cgeopolitical risk\u201d; Cursor's Composer 2 was built on Kimi K2.5 \u2014 SpaceX's artificial-intelligence coding platform, Cursor, is considering moving away from using of Chinese AI models due to \u201cgeopolitical risk,\u201d CNBC has learned.",
+          "publisherUrl": "https://www.cnbc.com/2026/11/20/cursor-chinese-ai-models-geopolitical-risk.html"
+        },
+        {
+          "title": "Sources: hackers breached the US Department of Agriculture's system that facilitates payments to farmers this week (Julia Ainsley/NBC News)",
+          "url": "https://www.techmeme.com/261120/p38",
+          "publishedAt": "2026-11-20T22:50:01.000Z",
+          "excerpt": "Julia Ainsley / NBC News: Sources: hackers breached the US Department of Agriculture's system that facilitates payments to farmers this week \u2014 Hackers accessed the Agriculture Department's system that facilitates payments to farmers, the agency told employees on Thursday, according to sources.",
+          "publisherUrl": "https://www.nbcnews.com/politics/national-security/agriculture-department-breached-hackers-sources-say-rcna610497"
+        },
+        {
+          "title": "Artificial Analysis says Inkling 2 Mini, with 5.4B active parameters, matches Qwen3.8 27B (xhigh) on its Intelligence Index with ~5x fewer active parameters (Artificial Analysis)",
+          "url": "https://www.techmeme.com/261120/p37",
+          "publishedAt": "2026-11-20T22:10:00.000Z",
+          "excerpt": "Artificial Analysis: Artificial Analysis says Inkling 2 Mini, with 5.4B active parameters, matches Qwen3.8 27B (xhigh) on its Intelligence Index with ~5x fewer active parameters \u2014 Thinking Machines has released Inkling 2 Mini at 20 on the Artificial Analysis Intelligence Index, an open weights looped transformer \u2026",
+          "publisherUrl": "https://artificialanalysis.ai/articles/inkling-2-mini"
+        }
+      ]
+    },
+    {
+      "topic": "Tech & AI",
+      "name": "The Verge",
+      "url": "https://www.theverge.com/rss/index.xml",
+      "observedAt": "2026-11-21T15:04:19.047Z",
+      "parsed": 10,
+      "stories": [
+        {
+          "title": "Our go-to earbuds for taking calls have fallen to their lowest price to date",
+          "url": "https://www.theverge.com/gadgets/1039160/anker-soundcore-liberty-5-pro-black-friday-2026-deal-sale",
+          "publishedAt": "2026-11-21T14:55:28.000Z",
+          "excerpt": "If you\u2019re looking for a new pair of earbuds, the Soundcore Liberty 5 Pro are on sale for $129.99 at Amazon, Best Buy, and Walmart right now. That\u2019s the lowest price we\u2019ve seen for Anker\u2019s excellent wireless earbuds, which normally retail for $169.99 and come in four colors (black, white, blue, and pink) all of which are discounted through November 30th as part of Anker\u2019s ongoing Black Friday promo. While the Liberty 5 Pro have a number of great features \u2014 including support LDAC for high-res audio and an IP55 dust and water resistance rating \u2014 the call quality is what stands out. The microphone does an impressive job cutting out background noise, and my colleague John Higgins praised the Liberty 5 Pro for filtering out emergency vehicles, arborists cutting tree branches, and even loud children. The active noise cancellation is excellent, which helps when you\u2019re trying to hear someone on the other end of the phone whose earbuds aren\u2019t as clear as yours. The charging case also features a handy 0.96-inch screen, so you can adjust the ANC and sound profile on the fly. Read our Anker Soundcore Liberty 5 Pro review."
+        },
+        {
+          "title": "Chess.com\u2019s next move is a new hub for classic games, from mahjong to sudoku",
+          "url": "https://www.theverge.com/games/1038099/chess-classic-games-expansion-ai",
+          "publishedAt": "2026-11-21T14:00:00.000Z",
+          "excerpt": "Chess.com is ready to go a lot bigger than chess. After launching Gambit, a gambling-free poker site, earlier this year, the company is now adding 10 more games: backgammon, checkers, go, hearts, mahjong, shogi, sudoku, solitaire, xiangqi, and a Scrabble alternative called word. They're all part of Chess's new Classic Games platform, which is launching its public beta on Saturday on the web and through a new app for iOS and Android. \"Our cofounders have had many people come up to them and say, 'Hey, I run a mahjong night on Wednesdays' or 'I go to this local bar in Chicago with like five people, and we love playing go, but we lack a Chess.c \u2026"
+        },
+        {
+          "title": "The Xiaomi 18 Pro proves two screens aren\u2019t better than one",
+          "url": "https://www.theverge.com/tech/1038562/xiaomi-18-pro-max-review",
+          "publishedAt": "2026-11-21T13:00:00.000Z",
+          "excerpt": "Xiaomi introduced a second screen to its flagship phones with last year's 17 Pros, but didn't release them outside China. That means the new 18 Pro and Pro Max are the first chance I've had to find out if a screen on the back of a phone is any more useful now than it was when Xiaomi last tried it on 2021's Mi 11 Ultra - not to mention earlier efforts by the likes of Nubia and Vivo. After a week or two with both of Xiaomi's new Pro phones, I'm not entirely sold. The rear display has a single, obvious use case - it's helped me take some of the best selfies I've ever managed - but it isn't very useful otherwise. The rest of the phones are gre \u2026"
+        },
+        {
+          "title": "The game of the year is finally here",
+          "url": "https://www.theverge.com/tech/1039433/gta-vi-alfred-6-clockwisetv-installer",
+          "publishedAt": "2026-11-21T13:00:00.000Z",
+          "excerpt": "Hi, friends! Welcome to Installer No. 153, your guide to the best and Verge-iest stuff in the world. (If you're new here, welcome, thank you for tearing yourself away from GTA to be here, and also you can read all the old editions at the Installer homepage.) This week, I've been reading about nuclear radiation and F1 brains and phone scammers, watching about 10 minutes of Madden before bailing, playing a lot of Madden NFL instead, learning my way around Instagram Edits on the Mac, trying the 12-3-30 workout while watching Mission: Impossible movies in half-hour increments, getting my new Apple HomeView up and running (still don't know why I \u2026"
+        },
+        {
+          "title": "Harbinger is building the unsexy EVs that keep the economy moving",
+          "url": "https://www.theverge.com/transportation/1038448/harbinger-ev-startup-240m-series-d-fedex-army-trucks",
+          "publishedAt": "2026-11-21T12:00:00.000Z",
+          "excerpt": "While legacy automakers tap the brakes on electric vehicles, one startup is hitting the accelerator. Earlier this month, electric truck maker Harbinger raised $240 million in a Series D round, capping a banner stretch that includes a $300 million order from FedEx and a new defense contract with the US military. Harbinger is stacking up wins by skipping the consumer EV hype cycle altogether and focusing on the unglamorous workhorses that keep the economy running: Class 4-6 delivery vans and box trucks. The company's thesis is simple: go after the overlooked commercial segments where legacy trucks are weak and giant automakers can't be bother \u2026"
+        },
+        {
+          "title": "YouTube is reportedly preparing to settle social media addiction claims for $3 billion",
+          "url": "https://www.theverge.com/streaming/1039096/youtube-social-media-addiction-school-districts-settlement",
+          "publishedAt": "2026-11-20T20:43:52.000Z",
+          "excerpt": "YouTube is preparing to pay $3 billion to thousands of school districts to settle claims that its \"addictive design\" harmed kids, according to Bloomberg. Sources tell the publication that YouTube reached the agreement \"in principle,\" and that the deal would also include new safeguards for teens. The settlement would allow Google to avoid a wave of lawsuits filed by US school districts that accuse YouTube, Meta, Snap, and TikTok of negatively impacting the mental health of teen users. The first \"bellwether\" trial of these federal multidistrict litigation (MDL) cases was supposed to start in Kentucky in June, but all four companies settled fo \u2026"
+        },
+        {
+          "title": "Rockstar says GTA VI made $3.79 billion in its first day",
+          "url": "https://www.theverge.com/games/1036279/gta-vi-sales",
+          "publishedAt": "2026-11-20T19:35:06.000Z",
+          "excerpt": "GTA VI earned $3.79 billion in its first day of sales, which set \"a new record for entertainment across any medium,\" according to an announcement from Rockstar Games. The game also sold 32.5 million preorder copies. \"It is with immense gratitude that we enter a new chapter of Rockstar Games with the release of Grand Theft Auto VI,\" Sam Houser, Rockstar's president and founder, said in a statement. \"We are incredibly humbled by the response from players around the world and we couldn't be more excited to share this moment with you.\" Rockstar claims that the game's release, which happened Thursday, was \"the biggest entertainment launch in his \u2026"
+        },
+        {
+          "title": "Eufy\u2019s Omni C28 is 53 percent off ahead of Black Friday",
+          "url": "https://www.theverge.com/gadgets/1037933/eufy-omni-c28-robot-vacuum-deal-sale",
+          "publishedAt": "2026-11-20T19:15:00.000Z",
+          "excerpt": "Hosting Thanksgiving can be fun, but cleaning up afterwards? Not so much. Eufy\u2019s Omni C28 robot vacuum / mop hybrid can help, and thanks to an early Black Friday deal, you can pick it up at a new low price of $379.99 ($420 off its original price) at Amazon, Best Buy, or directly from Eufy (with code WS24C28200NEW1). While this model has dropped to around $499.99 a few times before, it commonly sells for a lot more, making now a great time to consider buying one. The Verge\u2019s smart home reviewer Jennifer Pattison Tuohy named the Eufy Omni C28 one of her top picks after testing 16 robot vacuum mops. She thinks it\u2019s a particularly great fit for apartments and smaller homes. It offers features typically found in pricier flagship models, including a multifunction dock that automatically washes the mop roller with hot water and dries it with hot air, yet it doesn\u2019t take up too much space. The robot itself is also relatively narrow and maneuvers easily around furniture and into tight spaces. It boasts excellent navigation, and had no trouble climbing over the legs of Jen\u2019s lounger, which have tripped up many of the more expensive models she\u2019s tested. The Omni C28 also does a great job cleaning with its mops, particularly on hardwood floors. Surprisingly, it\u2019s powerful enough to lift up dried oatmeal. Unlike most other robot vacuums Jen\u2019s tested, this one lacks a camera, making it a good option if you\u2019re concerned about privacy. Unfortunately, the trade-off is mediocre obstacle\u2026"
+        },
+        {
+          "title": "Trump threatens \u2018tremendous tax\u2019 for moving AI data centers outside the US",
+          "url": "https://www.theverge.com/policy/1038892/trump-foreign-data-centers-tax",
+          "publishedAt": "2026-11-20T18:50:19.000Z",
+          "excerpt": "President Donald Trump promised to put a \"tremendous tax\" on companies that build data centers outside of the US, even as states and cities around the country are placing restrictions on new applications to build them. \"We're not going to allow our companies to build data centers outside of our country,\" Trump said at a press conference Friday following his summit with China President Xi Jinping and Russia President Vladimir Putin. \"They allowed that to happen with chips and everything else, and it was very destructive to our country. It's where we started going behind.\" Should the US allow data centers to be built outside of the country, T \u2026"
+        },
+        {
+          "title": "Multiplying your Switch 2\u2019s storage costs less than usual right now",
+          "url": "https://www.theverge.com/gadgets/1037749/microsd-express-card-nintendo-switch-2-black-friday-2026-deal-sale",
+          "publishedAt": "2026-11-20T18:15:00.000Z",
+          "excerpt": "Expanding your Nintendo Switch 2\u2019s 256GB of built-in storage with a microSD card is pricier than it was with Nintendo\u2019s original console. That\u2019s because microSD Express cards, while physically identical to ones you might have lying around, have faster read and write speeds. Thankfully, Samsung\u2019s 256GB model has dropped to $44.99 at Amazon ahead of Black Friday, which is a few bucks off its usual price but still well below its $79.99 MSRP. Sandisk\u2019s 256GB card, meanwhile, is available for $49.99 ($10 off Amazon\u2019s typical list price) from Amazon and Sandisk, if you prefer one brand over the other for some reason. For those who don\u2019t want to think about upgrading their Switch 2\u2019s storage again, both brands\u2019 512GB microSD Express cards are selling for a fair $99.99 on Amazon. That gives you double the storage for roughly twice the price of a 256GB card, as it should be. I suspect the 256GB option will be enough for most Switch 2 players, unless you buy a lot of games. The Legend of Zelda: Ocarina of Time remake is 24.9 gigabytes, for example. Other Nintendo-developed games tend to be similar in install size, though it\u2019s all over the place for third-party game makers; Resident Evil Requiem (which also recently dropped to $39.99 on Amazon) is relatively small at 28.7 gigs, while The Witcher 3: Wild Hunt \u2014 Remastered is about 50. Some games take up even more storage."
+        }
+      ]
+    },
+    {
+      "topic": "NBA",
+      "name": "CBS Sports NBA",
+      "url": "https://www.cbssports.com/rss/headlines/nba/",
+      "observedAt": "2026-11-21T15:04:19.082Z",
+      "parsed": 36,
+      "stories": [
+        {
+          "title": "2026 NBA betting promos: Get almost $4,000 in bonuses from top online betting apps, sportsbooks for Nov. 21",
+          "url": "https://www.cbssports.com/betting/news/2026-nba-betting-promos-get-almost-4000-in-bonuses-from-top-online-betting-apps-sportsbooks-nov-21/",
+          "publishedAt": "2026-11-21T13:53:16.000Z",
+          "excerpt": "Top NBA betting apps include DraftKings, FanDuel, BetMGM, bet365, Caesars, Fanatics Sportsbook and Hard Rock Bet"
+        },
+        {
+          "title": "NBA injury updates: The latest on Tyrese Haliburton, Anthony Edwards, Kawhi Leonard, Dylan Harper, more",
+          "url": "https://www.cbssports.com/nba/news/nba-injury-updates-tyrese-haliburton-kawhi-leonard-dylan-harper-brandon-ingram/",
+          "publishedAt": "2026-11-20T23:30:29.000Z",
+          "excerpt": "The barrage of injuries to high-profile players has been one of the stories of the NBA season so far"
+        },
+        {
+          "title": "Today's top games to watch, best bets, odds: Oregon at Michigan State, Raptors at Pistons and more",
+          "url": "https://www.cbssports.com/betting/news/todays-top-games-to-watch-best-bets-odds-oregon-at-michigan-state-raptors-at-pistons-and-more/",
+          "publishedAt": "2026-11-20T20:30:29.000Z",
+          "excerpt": "Find best bets and props for the biggest games in sports on Friday from the SportsLine Projection Model and top CBS Sports experts"
+        },
+        {
+          "title": "Timberwolves, Grizzlies reportedly hope to move to Eastern Conference after expansion; who makes more sense?",
+          "url": "https://www.cbssports.com/nba/news/nba-expansion-timberwolves-grizzlies-eastern-conference/",
+          "publishedAt": "2026-11-20T20:11:25.000Z",
+          "excerpt": "Minnesota is more competitive, while Memphis has geography on its side"
+        },
+        {
+          "title": "NBA One-Month Superlatives: MVP, top rookie, best surprise and fresh title predictions",
+          "url": "https://www.cbssports.com/nba/news/nba-one-month-superlatives-mvp-rookie-surprise-title-predictions/",
+          "publishedAt": "2026-11-20T16:30:17.000Z",
+          "excerpt": "CBS Sports' NBA experts are reviewing what's been an interesting month to kick off the 2026-27 NBA season"
+        },
+        {
+          "title": "Damian Lillard stars in his Milwaukee return in another stark reminder of how bleak things are for the Bucks",
+          "url": "https://www.cbssports.com/nba/news/damian-lillard-milwaukee-return-trail-blazers-bucks-bleak-future/",
+          "publishedAt": "2026-11-20T15:30:27.000Z",
+          "excerpt": "In his first game back in Milwaukee, Lillard led Portland to a win over the hapless -- and hopeless -- Bucks"
+        }
+      ]
+    },
+    {
+      "topic": "NBA",
+      "name": "Yahoo NBA",
+      "url": "https://sports.yahoo.com/nba/rss/",
+      "observedAt": "2026-11-21T15:04:19.120Z",
+      "parsed": 50,
+      "stories": [
+        {
+          "title": "The Lakers are playing bad basketball. And winning anyways",
+          "url": "https://sports.yahoo.com/articles/lakers-playing-bad-basketball-winning-142241304.html",
+          "publishedAt": "2026-11-21T14:22:41.000Z",
+          "excerpt": "LOS ANGELES \u2013 Walker Kessler let out a sigh before taking his seat at the podium at Crypto.com Arena on Friday, Nov. 20. \"A win is a win,\" he muttered. As much of a cliche as that saying is, it still somehow manages to encapsulate the night \u2013 or the whole week, actually \u2013 almost perfectly as the Los Angeles Lakers struggled for the third night in a row against another subpar team at home. It took a dramatic rally and a career night from Quentin Grimes to force overtime and survive the Charlotte Hornets with a win on Tuesday. They simply looked overpowered and had no answer for the Utah Jazz on the second night of a back-to-back, losing by 12 and giving the Jazz just their third win of the season. This time, they found themselves trailing the lowly Sacramento Kings by eight at the half after sleepwalking through the first two quarters. Head coach JJ Redick took it upon himself to motivate his players. Nobody would repeat what exactly was said but whatever it was, the messaging was received as the Lakers came back to escape yet again with a 106-104 win over the Kings. \"I can't repeat every word I used,\" Redick said. \"The main message was we gotta be tougher, we gotta bring a little bit of energy. Certain nights, whether it's the team, how we're playing, the atmosphere in the arena, you could just be a little flat, and I thought we just had to be tougher and pick up our energy. \"They accepted the challenge.\" Nobody moreso, perhaps, than Kessler. The Lakers' big man struggled\u2026"
+        },
+        {
+          "title": "One \u2018insane\u2019 five-minute stretch shows just how lost Mitchell Robinson is with Celtics",
+          "url": "https://sports.yahoo.com/articles/one-insane-five-minute-stretch-133000354.html",
+          "publishedAt": "2026-11-21T13:30:00.000Z",
+          "excerpt": "Mitchell Robinson looks like his heart is still in New York. The Celtics\u2019 free-agent acquisition has looked lost in Boston this season, struggling on both ends of the floor and turning the ball over at a career-high rate. Robinson\u2019s troubles reached a new level during a bizarre stretch Wednesday in the third quarter of an eventual 105-101 Nuggets victory. \u201cRobinson wasn\u2019t ready for it on the short roll,\u201d play-by-play man Mike Monaco said on the broadcast. \u201cAnd I don\u2019t know if that was a great pass to Mitchell Robinson on the roll,\u201d Richard Jefferson said on the call. \u201cI don\u2019t think that\u2019s the best place to utilize him.\u201d The Celtics had nine turnovers in the third quarter, and while only one was credited to Robinson officially, he was involved in at least three of them. One was an offensive foul due to a moving screen (officially given to Payton Pritchard) and two of the others were due to poor communication between him and the ball handlers. On one sequence with six minutes remaining in the third quarter, Robinson mishandled a pick-and-roll pass, leading to a dunk at the other end for Denver. Paul George later attempted a pass to him wide open under the basket but Robinson stopped his movement early, and the ball sailed into the stands, drawing a few comments and confused looks from George. This is the worst conditioning and effort I\u2019ve ever seen from a Celtic Outside of a 3-game stretch against some of the worst teams he\u2019s been an eyesore pic.twitter.com/c4tQi4hvwf \u2014\u2026"
+        },
+        {
+          "title": "From 1-5 to above .500, the Suns are doing something right",
+          "url": "https://sports.yahoo.com/articles/1-5-above-500-suns-120000733.html",
+          "publishedAt": "2026-11-21T12:00:00.000Z",
+          "excerpt": "The Phoenix Suns are a game above .500. When this team started the season 1-5, I wasn\u2019t entirely convinced I\u2019d have the opportunity to type those words anytime soon. Yet here we are, thanks to some improved chemistry, particularly among the starting unit, and a favorable stretch of the schedule. How much of this resurgence can be attributed to genuine improvement versus the quality of competition? Only time will tell. We spend so much time dissecting how games are won or lost that we occasionally lose sight of a rather important detail. A win is a win. And in the NBA, every single one of them matters. Yes, the Suns defeated the Utah Jazz by 10 points on Friday night, despite allowing Utah to trim the deficit to four in the closing minutes. Naturally, some will point to that late surge as evidence that this wasn\u2019t a particularly impressive victory. The funny thing? Many of those same people will dismiss Wednesday\u2019s win over the Sacramento Kings because, well, that\u2019s what the Suns were supposed to do. Don\u2019t be that guy. Phoenix put itself in a position to win on Friday night, although Utah certainly helped the cause by missing 13 free throws. The result? A third consecutive road victory and a team that suddenly finds itself on the right side of .500. Winning in the NBA is hard. I don\u2019t care who you\u2019re playing, how many injuries the opposing team is dealing with, or how ugly the basketball might look at times. Every team in this league has talented players capable of making\u2026"
+        },
+        {
+          "title": "The Celtics, in all of their early-season glory, haven\u2019t passed Brad Stevens\u2019 test yet",
+          "url": "https://sports.yahoo.com/articles/celtics-early-season-glory-haven-120000080.html",
+          "publishedAt": "2026-11-21T12:00:00.000Z",
+          "excerpt": "We\u2019re about a fifth of the way through the 2026-27 Boston Celtics season. \u201cReally? It\u2019s already been that long?\u201d I know, right? So far, mostly so good. The Celtics are 11-4, which has them slotted second in the East behind the Philadelphia 76ers \u2014 whom they beat in comfortable fashion last week at Xfinity Mobile Arena, 123-101. For you analytics heads out there, Boston ranks sixth in offensive rating, second in defensive rating, and second in net rating. Paul George, whom the Cs bet on when they traded Jaylen Brown for him (and some nice picks) couldn\u2019t be playing much better. If you need any insight into how the PG-13 Experience has been, look no further than the fanbase collectively referring to him as \u201cPaul God.\u201d The other offseason addition hasn\u2019t panned out as well, but we won\u2019t jump on the pile here. Through this first month, the only real nitpick about this team is the schedule that they\u2019ve had. Multiple games against the putrid Milwaukee Bucks and Chicago Bulls, plus a handful against other struggling squads like the Charlotte Hornets, Dallas Mavericks, Toronto Raptors, and Brooklyn Nets make the 11-4 record feel a bit inflated. Don\u2019t take my word for it; here\u2019s what Brad Stevens had to say about last season\u2019s 56-win team in his end-of-season press conference. \u201cWe have to play well in the regular season to get to where we want to go,\u201d he told reporters back in May. \u201cWe don\u2019t want to undersell the regular season. That said, as I look at us honestly, I look at how we\u2026"
+        },
+        {
+          "title": "Davis, Dybantsa lead Wizards to second straight win",
+          "url": "https://sports.yahoo.com/articles/davis-dybantsa-lead-wizards-second-120000373.html",
+          "publishedAt": "2026-11-21T12:00:00.000Z",
+          "excerpt": "The Washington Wizards rode outstanding games from Anthony Davis and AJ Dybantsa to escape Chicago with a second straight victory. For a second straight game, the win wasn\u2019t easy, pretty, or satisfying. But it was a win. Davis dominated inside against a Bulls roster lacking a serious NBA big man. He finished with 36 points and 11 rebounds. For my money, the most heartening thing from last night\u2019s contest was the performance of Dybantsa, who notched 20 points, 10 rebounds, and 6 assists. Reminder: he\u2019s still just 19 years old. His first step, vertical burst, and power seem surprising even in the ultra-athletic NBA \u2014 even to his ultra-athletic NBA competitors. It\u2019s a good thing Davis and Dybantsa were great because the rest of the team didn\u2019t help much. Trae Young was okay \u2014 16 points, 5 assists, 3 steals, and just 1 turnover. He shot 4-8 from three-point range\u2026and 0-5 from two. Bilal Coulibaly contributed next to nothing on offense but harassed Chicago\u2019s perimeter players on the defensive end and came up with two steals and two blocks. One of those blocks was great \u2014 with just over three minutes to go in the fourth quarter, Bulls wing Norman Powell drove. Coulibaly moved his feet, stayed with Powell step for step, stayed between Powell and the basket, and then maintained verticality when Powell pulled up. Powell ended up shooting the ball into Coulibaly\u2019s raised (and vertical) hand. Once again, the Wizards went with a short postseason-like rotation. Head coach Brian Keefe\u2026"
+        },
+        {
+          "title": "Walker Kessler's first three-pointer as a Laker sparks resurgent second half",
+          "url": "https://sports.yahoo.com/articles/walker-kesslers-first-three-pointer-120000298.html",
+          "publishedAt": "2026-11-21T12:00:00.000Z",
+          "excerpt": "Lakers coaches didn\u2019t know why Walker Kessler was standing in the corner. But when Collin Sexton flung the ball to the center standing behind the three-point arc on the Lakers\u2019 first possession of the fourth quarter, Kessler knew what he was going to do with it. \u201cI\u2019m confident in that shot,\u201d Kessler said with a smirk. The 7-foot-2 center\u2019s strong second half sparked the Lakers\u2019 gritty 106-104 win over the Sacramento Kings on Friday at Crypto.com Arena. After Lakers coach JJ Redick \u201clit [him] up\u201d at halftime, Kessler responded by scoring nine of his 15 points and grabbing six of his seven total rebounds after the break and draining the unexpected long-distance shot that put the Lakers up by one early in the fourth quarter. Redick said the play, with the Lakers (14-3) trailing by two to start the fourth quarter, was a little unorganized, leading to their center somehow standing in the corner. Kessler, who hadn\u2019t attempted a three all season and was 17 for 64 from three-point range during four seasons with the Utah Jazz, took instruction from Sexton to space to the corner instead of slash to the rim. Sexton whipped a one-handed pass over his head to Kessler, who methodically rose up over Dylan Cardwell\u2019s late closeout. Redick told Kessler once during the preseason after a particular timeout that if the ball found him on a called play and it wasn\u2019t for a layup, the center should still shoot. Although Kessler has faith from the coaches and works on his jump shot, Redick isn\u2019t\u2026"
+        },
+        {
+          "title": "Open Thread: Sean Elliott introduces \u201cshunk\u201d into the Spurs vernacular",
+          "url": "https://sports.yahoo.com/articles/open-thread-sean-elliott-introduces-120000705.html",
+          "publishedAt": "2026-11-21T12:00:00.000Z",
+          "excerpt": "On Thursday night the San Antonio Spurs hosted the Los Angeles Clippers. During a fast break, Victor Wembanyama went up, but instead of dunking, he\u2026.well, you be the judge. View this post on Instagram Was it a dunk? Was it a shot? Jared Weiss of The Athletic asked fans that very question. Either way it was Victor Wembanyama doing Victor Wembanyama things. View this post on Instagram Jacob Tobey posted a conversation with Sean Elliott in which the Spurs legend officially locked in on \u201cshunk.\u201d \u201cA shunk.\u201d \u2013 @seanelliott_32 Sean has created a new word \ud83e\udd23\ud83e\udd37\u200d\u2642\ufe0f @spurspic.twitter.com/pjhMrpQ2MW \u2014 Jacob Tobey (@JacobRTobey) November 21, 2026 Was there something behind Wemby not making the shot a slam dunk? Turns out he has a blister. And there you have it. On a totally separate note, if you are interested in hearing Jeff Garcia and I talk about the impact of Dylan Harper\u2019s injury to the Silver & Black as well as a preview of tonight\u2019s Spurs game against the New Orleans Pelicans, check out his podcast Spurs In Focus. Go Spurs Go! Welcome to the Thread. Join in the conversation, start your own discussion, and share your thoughts. This is the Spurs community, your Spurs community. Thanks for being here. Our community guidelines apply which should remind everyone to be cool, avoid personal attacks, not to troll and to watch the language."
+        },
+        {
+          "title": "NBA team grades: Report card for all 30 teams after the first month",
+          "url": "https://sports.yahoo.com/articles/nba-team-grades-report-card-110749452.html",
+          "publishedAt": "2026-11-21T11:07:49.000Z",
+          "excerpt": "The first month of the 2026-27 NBA season is in the books, and it's time to take stock of what's happened so far. Let's hand out some early grades. It might be too soon to draw sweeping conclusions, but there's been enough basketball played to make preliminary judgements about the contenders falling short of expectations and the surprising teams surpassing what most experts anticipated. Evaluating each team's performance goes beyond its record, with roster construction, player development and overall trajectory factoring into whether a season is trending in the right direction. Injuries to several stars and key contributors have shaped the league conversation through the opening month. Some teams have responded well to the adversity. Others have already dug themselves a hole that could prove difficult to escape. As a result, the grades cover a wide range of outcomes: six teams earned an A from USA TODAY Sports through the season's first month, while 10 received a D or F. Here are grades for all 30 NBA teams now that the first month of the 2026-27 season is complete. NBA PANIC METER: Which teams should worry after first month of season? NBA grades for all 30 teams Records as of games played on Nov. 20. Preseason record projections via USA TODAY Sports. Atlanta Hawks: C+ Record: 10-6 Record projection: 43-39 Pace: 51-31 The Hawks are right in the thick of the Eastern Conference playoff race again with guard Nickeil Alexander-Walker leading their backcourt, but there have been\u2026"
+        },
+        {
+          "title": "Looking at Paul George\u2019s torrid start shooting the 3",
+          "url": "https://sports.yahoo.com/articles/looking-paul-george-torrid-start-110000883.html",
+          "publishedAt": "2026-11-21T11:00:00.000Z",
+          "excerpt": "It\u2019s true that in the Boston Celtics\u2019 most recent defeat, a road loss to the Denver Nuggets, Paul George couldn\u2019t hit water if he fell out of a boat. Boston\u2019s second-leading scorer so far in the fledgling stages of the season misfired on all but one of his seven long-range tries, even throwing up an airball after a reload off an offensive board. The 1-for-7 shooting night from deep was far from the only blemish on George\u2019s body of work Wednesday, too. He fouled out of a game for the first time as a Celtic, and foul trouble limited him to just 23 minutes played. But for as much as the nine-time All-Star had an off night, his cold shooting performance stands out as an outlier rather than a point of concern. After all, the numbers tell a story that suggests George\u2019s 3-point effectiveness so far in his maiden campaign in Boston has been almost unprecedented for a player of his age. A fitting place to start when talking about George\u2019s long-range shooting chops this season is that he\u2019s spearheaded the Celtics\u2019 3-point-heavy offensive attack. As has been the status quo under head coach Joe Mazzulla, the 3-point shot is once again a linchpin to Boston\u2019s modus operandi on that side of the ball, and no single Celtic has reaped the rewards of that style of play quite like George. On a team that employs plenty of elite 3-point marksmen such as Jayson Tatum, Payton Pritchard and Sam Hauser, it\u2019s impressively the veteran who paces the Celtics in 3s made per contest at 3.4. The team-high\u2026"
+        },
+        {
+          "title": "Harden passes Bryant for 50-point games",
+          "url": "https://sports.yahoo.com/articles/harden-passes-bryant-50-point-091023933.html",
+          "publishedAt": "2026-11-21T10:18:14.000Z",
+          "excerpt": "James Harden scored 51 points to move third on the all-time list for 50-point NBA games as the Cleveland Cavaliers beat the Indiana Pacers 128-119 in the NBA Cup. The 37-year-old made all 14 of his free throws as his recorded his 26th 50-point game to move above the legendary Kobe Bryant. Harden, who also made six rebounds and provided six assists at Rocket Arena in Cleveland, had not passed 50 points since scoring 55 for the Los Angeles Clippers in November 2025. Legendary centre Wilt Chamberlain holds the NBA record \u2060with 118 50-point games, while Michael Jordan is second with 31. \"When you talk about just basketball, obviously Wilt was elite, but you got Mike and Kobe - shooting guard position, the best to ever do it - so just to be in that conversation, it's very humbling and it's definitely special,\" said an emotional Harden. Aged 37 years and 86 days, he is the fourth oldest player to score 50 points in a game. \"What excites me a lot is even being in my 18th year learning how to still be impactful,\" said Harden, the ninth highest scorer in NBA history with 29,633 points. \"It's easy when you're young - 23, 24, you run around, you jump high and can move fast and get by. Now it's like, you're not as fast. \"That's the evolution of James Harden and figuring that out. \"Tonight was a confidence-booster that I can do it at a high level still.\" The Cavaliers travel to the Chicago Bulls in the NBA on Tuesday."
+        },
+        {
+          "title": "Game Preview: San Antonio Spurs vs New Orleans Pelicans",
+          "url": "https://sports.yahoo.com/articles/game-preview-san-antonio-spurs-080500098.html",
+          "publishedAt": "2026-11-21T08:05:00.000Z",
+          "excerpt": "Basement dwellers for seemingly the zillionth season in a row, it\u2019s tough not to feel for fans of the New Orleans Pelicans. They still have Zion Williamson on the roster and he\u2019s had a solid start to the season. However seven years into his career, the oft-injured Williamson, once seen as the NBA\u2019s next sure-fire superstar, has been unable to drag New Orleans out of irrelevancy. They\u2019ve also dealt with injuries up and down the roster in the early going this season, as well as some roster drama involving a trade request that was made public last Friday from former San Antonio Spurs guard Dejounte Murray. With so much inner turmoil and unfortunate luck, the path forward for New Orleans is as murky as it\u2019s ever been. Meanwhile for San Antonio, their generational draft pick has already made good on his upside, but there is still much work to do for Victor Wembanyama and the Spurs. Without Dylan Harper for the immediate future, they\u2019re coming off a win against another mess of a team in the Los Angeles Clippers. That win came with some concerns, namely the season-high 19 turnovers they accumulated and a 17/42 three point shooting performance that kept Los Angeles in the game until the 4th quarter. Warts and all though, San Antonio has continued to take care of business as they approach the 20-game mark. They\u2019ll need to bring that professionalism once again tonight against an opponent that is this far out in the weeds. San Antonio Spurs (13-3) vs New Orleans Pelicans (5-12)\u2026"
+        },
+        {
+          "title": "Player Grades: Lakers vs. Kings",
+          "url": "https://sports.yahoo.com/articles/player-grades-lakers-vs-kings-072726713.html",
+          "publishedAt": "2026-11-21T07:27:26.000Z",
+          "excerpt": "Not all wins need to be pretty, but it would be nice if the Lakers had one soon. Their current homestand has been defined by some really ugly basketball. Quentin Grimes saved them from a loss against the Hornets and it was a team effort to outlast the Kings on Friday. Fatigue wasn\u2019t an excuse the Lakers wanted to use and it stops holding weight when you\u2019re stringing together home games. At this point, it\u2019s just bad basketball. Every team goes through a rut. The Lakers are mostly winning during theirs. However, let Friday be the last of the ugly games, especially with a match-up with the Spurs looming next week. So, let\u2019s dive into the win. As always, grades are based on expectations for each player. A \u201cB\u201d grade represents the average performance for that player. Matisse Thybulle 27 minutes, 14 points, 1 rebound, 1 assist, 1 steal, 1 block, 1 foul, 5-8 FG, 4-5 3PT, +5 As he said in the walk-off interview on Spectrum SportsNet, this was some regression to the mean. Thybulle was due for a good night from beyond the arc. Grade: A- Ziaire Williams 27 minutes, 5 points, 1 assist, 2-8 FG, 1-6 3PT, -5 If Redick was looking for a larger sample size of Williams with the starters, I think it\u2019s pretty clear at this point that it isn\u2019t working. While he didn\u2019t get into foul trouble on Friday, it was another mostly unimpactful game from Williams, save for the big three he hit in the fourth. Grade: C Walker Kessler 30 minutes, 15 points, 7 rebounds, 2 assists, 1 steal, 3 blocks, 5 fouls, 2\u2026"
+        },
+        {
+          "title": "Lakers needed a little bit from everyone in win against Kings",
+          "url": "https://sports.yahoo.com/articles/lakers-needed-little-bit-everyone-071840934.html",
+          "publishedAt": "2026-11-21T07:18:40.000Z",
+          "excerpt": "LOS ANGELES \u2014 If Friday\u2019s 106-104 win against the Sacramento Kings was any indicator, it\u2019s as if the Lakers have played bad teams so often over the past two weeks that they\u2019ve started to become one. \u201cThat was a\u2014a win\u2019s a win,\u201d Lakers center Walker Kessler said as he labored into his postgame presser. But just as the trillions of cells in the human body help fight a cold, Los Angeles got (and needed) a little bit of everything from everyone to get over this Sacramento flu. Whether it was Kessler\u2019s first 3-point attempt and make of the season, seven assists from Quentin Grimes, who yet again hit a game-sealing three, five combined offensive rebounds from Jarred Vanderbilt and Sandro Mamukelashvili off the bench or 14 points from Matisse Thybulle, the Lakers needed every bit of it. \u201cCertain nights, whether it\u2019s the team, how we\u2019re playing, the atmosphere of the arena, you can just be a little flat,\u201d head coach JJ Redick said. \u201cAnd I thought we just had to be tougher and pick up our energy. They accepted the challenge.\u201d Friday marks the end of a stretch of four games in six nights for the Lakers, who improved to an NBA-best 14-3 record and are one of six teams to reach the 17-game mark. Los Angeles is also tied with three other teams for most back-to-back games thus far at four. They haven\u2019t been absent of casualties during this early war of attrition. Austin Reaves missed his fourth consecutive game with a left heel bruise he suffered against Milwaukee. That the Lakers have\u2026"
+        },
+        {
+          "title": "Rockets sputter late in Denver 133-124",
+          "url": "https://sports.yahoo.com/articles/rockets-sputter-denver-133-124-071019667.html",
+          "publishedAt": "2026-11-21T07:10:19.000Z",
+          "excerpt": "Tonight featured the Rockets third NBA Cup game, which was essentially a must-win after their opening NBA Cup round loss to Dallas. The Rockets would be playing in Denver, against a Nuggets team that seems to be finding its way after initially scuffling this season. Many have mocked and derided the NBA Cup, and sure, it\u2019s a gimmick, and it\u2019s artificial, and so forth. But the sad truth is, professional sports are a gimmick, and are artificial, too. This is just a new wrinkle in the existing structure, not some sort of attack on the traditional and pure nature of NBA basketball. But even if you think it is some sort of assault, don\u2019t you want to watch players trying their hardest, during the regular season? Because they do try hard. These games actually are extra, because hyper competitive NBA players like being hyper competitive. It took a few years, but the players are there, they mean it (at least in the early games). By the time a 14 year old NBA fan today is in their mid 20s, the NBA Cup will always have been part of the NBA for them. Anyhow, the Rockets won\u2019t be moving on in the NBA Cup this year. It\u2019s possible to move on with 3 wins, but not with maybe 2. Those who don\u2019t like this added competition are free to celebrate this. As for tonight, there are two ways of looking at it. The first way is mainly this: The Rockets were on their fifth consecutive road game, which happened to be an NBA Cup game, at altitude in Denver. Denver is where good road trips go to die, and if\u2026"
+        },
+        {
+          "title": "Observations after Sixers come back for strong shorthanded victory",
+          "url": "https://sports.yahoo.com/articles/observations-sixers-come-back-strong-170700167.html",
+          "publishedAt": "2026-11-21T07:00:00.000Z",
+          "excerpt": "Observations after Sixers come back for strong shorthanded victory originally appeared on NBC Sports Philadelphia The Sixers stretched their winning streak to four games and snagged a strong road win Wednesday night over the Magic. They earned a 121-116 victory in Orlando to improve to 13-3 on the season. The Magic dropped to 6-8. Joel Embiid had 26 points, seven assists, six rebounds, three blocks and two steals. VJ Edgecombe posted a season-high 24 points, eight boards and six assists. LeBron James scored 22 points and Anfernee Simons added 18. Magic star Franz Wagner had 27 points, 11 assists and eight rebounds. The Sixers had a long injury list in Orlando. Tyrese Maxey (right foot soreness), Jaylen Brown (left hamstring strain) and Dean Wade (left hamstring soreness/tightness) were among their players out. Sixers head coach Nick Nurse told reporters in Orlando that Brown will be re-evaluated when the team returns to Philadelphia. Orlando was without star forward Paolo Banchero (right high ankle sprain). The Sixers will start a three-game homestand when they face the Bucks on Saturday afternoon. Here are observations on their win over the Magic: New starting five struggles early The Sixers\u2019 undermanned starting lineup was Edgecombe, Simons, Kentavious Caldwell-Pope, James and Embiid. After scoring 37 points in the Sixers\u2019 win over the Nets, Embiid had a subpar start. He began 1 for 6 from the floor and committed a turnover that led to an Anthony Black dunk. The Sixers\u2019\u2026"
+        },
+        {
+          "title": "The 76ers are fun again, so it's the return of Roob's 76ers Stats!",
+          "url": "https://sports.yahoo.com/articles/76ers-fun-again-return-roobs-121311032.html",
+          "publishedAt": "2026-11-21T07:00:00.000Z",
+          "excerpt": "The 76ers are fun again, so it's the return of Roob's 76ers Stats! originally appeared on NBC Sports Philadelphia This 76ers team is a heck of a lot of fun to watch and fun basketball means fun stats! At 13-3, the 76ers are exactly a month into the 5th-best start in franchise history and best since they were 14-2 in 2000-01. Which turned out to be a pretty good year. They were 15-1 in 1949-50 and 1966-67 and 14-2 in 1981-82. To help everybody get through this interminable two-day gap between 76ers games, here\u2019s our first 2026-27 installment of Roob\u2019s 76ers Stats, with a tip of the hat to Stathead. \u2192 The 76ers have been out-rebounded by 34 through 16 games (719-685) and their 13-3 record matches the best in NBA history by a team that\u2019s been out-rebounded after 16 games. Three other teams have been 13-3 despite getting out-rebounded, most recently the 2013-14 Miami Heat. The others are the 1979-80 Bucks and 2012-2013 Spurs. The 76ers are an NBA-best 6-3 this year when they\u2019ve been out-rebounded (which means they\u2019re 7-0 when they have a rebounding edge). \u2192 In the win over Orlando Thursday, V.J. Edgecombe had 24 points, eight rebounds, six assists and two steals, and Joel Embiid had 26 points, six rebounds, seven assists and two steals. It was the first time two 76ers had at least 24 points, six rebounds and assists and two steals in a game in 53 years. In a win over the Celtics at the Spectrum in 1973, Fred Carter had 31 points, six rebounds, six assists and seven steals and\u2026"
+        },
+        {
+          "title": "\u2018It worked every time': How Sixers found a clutch answer at shootaround",
+          "url": "https://sports.yahoo.com/articles/worked-every-time-sixers-found-135320234.html",
+          "publishedAt": "2026-11-21T07:00:00.000Z",
+          "excerpt": "\u2018It worked every time': How Sixers found a clutch answer at shootaround originally appeared on NBC Sports Philadelphia The Sixers created their two cleanest late-game looks several hours before they needed them. During Wednesday morning\u2019s shootaround in Orlando, Nick Nurse had the Sixers work on offensive material they had not consistently used this season. They tested one of those actions during the first half, returned to it throughout the closing minutes and watched it produce the shots they needed to complete a 17-point comeback. \u201cWe worked on some stuff this morning that we hadn\u2019t used before, and they ran all that stuff very, very well and very calmly and with composure,\u201d Nurse told reporters. The Sixers have earned six of their 13 wins after trailing by double digits. They are also 11-0 in games that reached clutch time. Relying on comebacks is not a sustainable plan. The repeated late-game situations, however, have forced a new roster to respond to different lineups, coverages and responsibilities while the season is still young. Each close finish gives Nurse more information about which players and actions hold up when possessions tighten. Wednesday gave him a new option. Anfernee Simons\u2019 clinching three in the Sixers\u2019 121-116 win over the Magic was the final result of that preparation. \u201cThat last play, we ran that play in the first half,\u201d Simons said. \u201cWe worked it a couple of times, and in the second half we ran that play every single time down the stretch, and it\u2026"
+        },
+        {
+          "title": "Observations after Sixers beat Bucks to move to 3-0, Embiid posts triple-double",
+          "url": "https://sports.yahoo.com/articles/observations-sixers-beat-bucks-move-220632710.html",
+          "publishedAt": "2026-11-21T07:00:00.000Z",
+          "excerpt": "Observations after Sixers beat Bucks to move to 3-0, Embiid posts triple-double originally appeared on NBC Sports Philadelphia The Sixers stayed unbeaten Saturday night at Xfinity Mobile Arena, earning a 127-116 win over the Bucks and improving to 3-0 on the season. Joel Embiid had his 10th career regular-season triple-double, tallying 28 points, 11 rebounds and 10 assists. On his 30th birthday, Jaylen Brown posted 27 points and five assists. Tyrese Maxey had 26 points. VJ Edgecombe scored 17 and grabbed 13 boards. The Sixers\u2019 absences on the first night of a back-to-back included LeBron James (low back/sciatica management). Sixers head coach Nick Nurse said pregame that he did not know yet who would be available for his team\u2019s matchup with the Pistons on Sunday. Here are observations on the Sixers\u2019 victory Saturday: Wade debuts, Embiid starts in style Dean Wade made his Sixers debut and started in James\u2019 place. He\u2019d missed the first two games of the regular season with a left ankle sprain. The 3-and-D forward scored the night\u2019s first points by a sinking a corner three-pointer on the opening possession. Embiid also had a sharp start. He moved well, made good decisions and served as the main hub of his team\u2019s offense in the early going. The Sixers\u2019 seven-time All-Star center has often enjoyed facing Myles Turner. He entered the night with an average of 29.4 points in 18 previous games against the Bucks big man. Embiid did a little bit of everything in the first quarter,\u2026"
+        },
+        {
+          "title": "Game Preview: Knicks vs Trail Blazers, November 21, 2026",
+          "url": "https://sports.yahoo.com/articles/game-preview-knicks-vs-trail-070000497.html",
+          "publishedAt": "2026-11-21T07:00:00.000Z",
+          "excerpt": "As we all know, Madison Square Garden isn\u2019t just the most glorious gymnasium on the planet and revered in the world of sports; it\u2019s also famous for the long list of famous musicians who have performed under its unique bicycle-wheel ceiling. Now the Portland Trail Blazers are dropping by for a quick game of hoops on Saturday night, but they might actually be the one franchise that would be adept at bringing out the microphones as well. I mean, who wouldn\u2019t want to hear the newest rendition of all-timers like \u201cBust A Bucket\u201d or \u201cRip City Rhapsody\u201d?! Not to disappoint anybody, but the days of Terry Porter and those shiny lycra dance outfits of the Blazers cheerleaders that would have made Cory Everson proud are long gone. Today\u2019s Rip City Rascals (coming in at 10-5) have their own way of entertaining a crowd, though, which is more than many would have expected before the season. With the return of Damian Lillard and a highly questionable move for \u201cPistol Petey\u201d Ja Morant, the Blazers looked to be about five years late to the modern NBA party but atleast early it turns out they are anything but. Portland is fun under new coach Micah Nori New head coach Micah Nori is making one of the more funky-looking rosters in the Association work so far, and he does it with a very modern, analytical approach. The Blazers shoot and make way more threes than their opponents (outscoring them by about 12+ points from beyond the arc), defend downtown better than 25 other teams in the NBA, and\u2026"
+        },
+        {
+          "title": "Barlow looks set for season debut with Sixers after long days, \u2018miserable' weeks",
+          "url": "https://sports.yahoo.com/articles/barlow-looks-set-season-debut-171031696.html",
+          "publishedAt": "2026-11-21T07:00:00.000Z",
+          "excerpt": "Barlow looks set for season debut with Sixers after long days, \u2018miserable' weeks originally appeared on NBC Sports Philadelphia Dominick Barlow is on the verge of his season debut with the Sixers. The team listed Barlow as probable for its Saturday afternoon matchup with the Bucks at Xfinity Mobile Arena. Barlow practiced Friday and has been making clear progress in his recent on-court work recovering from an injury formally classified as a \u201clower back stress reaction.\u201d He was a reliable rotation fixture last season, playing 71 regular-season games and starting 59. Barlow posted 7.7 points, 4.8 rebounds, 1.2 assists and 0.9 steals per contest in 23.8 minutes per game. The Sixers then made a common-sense call to exercise his $3.4 million option for the 2026-27 season. The 23-year-old described his back injury as \u201can overuse thing.\u201d \u201cI guess there was an area or maybe I started my (offseason) workouts too early,\u201d he said. \u201cI don\u2019t know what it was fully in terms of what caused it. Once it happened, it happened. Nothing I can do about it besides try to correct it and get my body feeling as good as possible.\u201d He called the past few weeks \u201cmiserable\u201d as he rehabbed and waited on the green light by the Sixers\u2019 training staff. \u201cThe days just felt longer,\u201d Barlow said. \u201cTrying to be engaged mentally, which I think I\u2019ve done a good job with, but the physical aspect wasn\u2019t there. I\u2019m somebody that\u2019s prided himself on competing, being available. Not being able to do that was hard, but\u2026"
+        },
+        {
+          "title": "Nets\u2019 Moritz Wagner disappointed after losing to brother in \u2018one of the more conflicting games\u2019",
+          "url": "https://sports.yahoo.com/articles/nets-moritz-wagner-disappointed-losing-062621152.html",
+          "publishedAt": "2026-11-21T06:26:21.000Z",
+          "excerpt": "Brooklyn\u2019s Moritz Wagner had been in the NBA for nine years, alive for 20 more, and never played against his brother Franz in a game that counted. This first one stung, having to watch his younger brother torch his team for 35 points, including a game-winner with 2.8 seconds left in a game the Nets had to have. \u201cI don\u2019t care about him. I wanted to win the game. It\u2019s one of the more conflicting games I\u2019ve ever been a part of,\u201d Moritz, who scored three points in 22 minutes, said afterward. \u201cThat is weird, but we\u2019ve got enough problems going on. I can\u2019t worry about nothing on the other side. I\u2019m trying to win the game, and that one hurts.\u201d It should sting. The Nets had already dropped three straight, including Wednesday\u2019s humiliation against Chicago that prompted a team meeting. Brooklyn jumped to a quick 17-11 lead against Orlando, then coughed up a 27-8 run. The younger Wagner tore up Brooklyn\u2019s defense, including 14 points in the third quarter alone. But it was his 15-footer that won it with 2.8 seconds remaining. \u201cHe\u2019s a great player. He\u2019s gonna be an All-Star many times in this career. And great players make great plays,\u201d Moritz said. \u201cI don\u2019t think we lost the game on that play. There are plenty of opportunities. We turned it over twice down the stretch. We took some questionable shots, didn\u2019t make enough plays, and that\u2019s what happens. Great player, make great plays.\u201d Moritz played for Michigan and was a 2018 first-round pick by Orlando, where he\u2019d spent his entire\u2026"
+        },
+        {
+          "title": "Utah Jazz vs Phoenix Suns: Player Grades",
+          "url": "https://sports.yahoo.com/articles/utah-jazz-vs-phoenix-suns-062432938.html",
+          "publishedAt": "2026-11-21T06:24:32.000Z",
+          "excerpt": "By my money, this was the most disappointing loss of the year thus far. Riding high after two road wins, the team looked exhilarated for the first time all year and the home fans were excited to finally have something to latch onto. You could feel how badly the crowd wanted to root hard for their team, but instead, their team simply decided to not show up. The Jazz only lost by 10 points tonight, but if you could only analyze the game based off of body language and effort, you would guess that it was more than that. They didn\u2019t hustle after loose balls, they made no attempts to patch their poor decision making, and they looked defeated the whole night. This was a bad loss, and the grades will represent that \u2013 not a lot of positives you can take from this one. Note: These grades are more-or-less relative to the player. An A grade for Darryn Peterson is different than an A grade for Tony Bradley. Ace Bailey: D- It is a make or miss league, and Ace Bailey missed. Honestly, that isn\u2019t too surprising; it\u2019s been the status quo up to this point in the season. One of the most underrated skills in the league, fascinatingly enough, is actually making shots \u2013 a reputation alone doesn\u2019t help quite as much. To this point, Ace has a limit on his ceiling until his jump shots go in at a consistent rate, which has not been the case in his collegiate or NBA career. He will rarely go 0-7, but a better shooter will have nights like this even less frequently. Additionally, his defense has become\u2026"
+        },
+        {
+          "title": "Game Recap: Suns survive late Jazz rally to secure 111-101 NBA Cup victory",
+          "url": "https://sports.yahoo.com/articles/game-recap-suns-survive-jazz-061458998.html",
+          "publishedAt": "2026-11-21T06:14:58.000Z",
+          "excerpt": "Man, this game was an emotional rollercoaster, especially late, but the Suns pulled this one out in a big way. For a team that started 1-5, they have turned things around quickly, winning three straight and only losing two in their last nine games. This is a good trend for a team still figuring things out on the fly with their starting lineup. It\u2019s another big win, as this was an NBA Emirates Cup game, which helped them bounce back after their first loss in Group A to the Denver Nuggets. The Phoenix Suns have won 3 straight games. \ud83d\udd25 PHX is 7\u20132 over the last 9 games. pic.twitter.com/g881UYql5Q \u2014 Hoop Central (@TheHoopCentral) November 21, 2026 This game started hot for Phoenix, who took a commanding lead in the first half and held on to it through the third as a lot of free throws were made. In the fourth, the Jazz tried to climb back, cutting the deficit to four, but it was too little, too late as the Suns took care of business on the road. Even though the Suns allowed 17 OREB, their 19 points on 15 turnovers helped them early and led to this deserved win. Devin Booker led Phoenix with 23 points, two rebounds, and three assists, while Miles Bridges and Dillon Brooks each had 18. Bench mob beasts Collin Gillespie and Jordan Goodwin sealed the win: Gillespie added 16 points, 4 rebounds, and 5 assists, while Goodwin grabbed 9 rebounds and 4 assists, doing much of the dirty work alongside Bridges. For the Jazz, Darryn Peterson had 20 points, ten rebounds, and eight assists,\u2026"
+        },
+        {
+          "title": "Lakers squeak by lowly Kings to get back on track",
+          "url": "https://sports.yahoo.com/articles/lakers-squeak-lowly-kings-back-054352299.html",
+          "publishedAt": "2026-11-21T05:43:52.000Z",
+          "excerpt": "The Lakers continue to look like a team in need of the benefits that are supposed to come from this stretch in Southern California. Because after looking like one of the NBA\u2019s best teams for 3 \u00bd weeks regardless of the competition, they\u2019ve struggled against some of the league\u2019s bottom-feeders during their four-game homestand. That was once again the case on Friday night, with the Lakers barely beating the lowly one-win Kings, 106-104, at Crypto.com Arena to get back on track after losing to the Jazz on Wednesday. After Walker Kessler missed a pair of free throws with the Lakers up by two points with five seconds left in the fourth, Zach LaVine grabbed the defensive rebound and dribbled up the court before firing a 29-footer that hit the front rim to secure the victory for the Lakers. But until the final buzzer sounded, there was an unease about whether the Lakers were going to lose back-to-back games for the first time. They trailed 62-54 at halftime, with a general malaise from Tuesday\u2019s overtime win over the Hornets and Wednesday\u2019s loss to the Jazz carrying over into Friday. It showed defensively, with the Lakers allowing too many drives to the rim. It showed with the seven first-quarter turnovers they committed, which directly led to 11 Kings points. But the Lakers, led by Luka Don\u010di\u0107 (25 points, eight assists, four rebounds and two steals), found enough of the groove they had been searching for in the second half to turn what was an 11-point deficit in the third into an\u2026"
+        },
+        {
+          "title": "Quentin Grimes' late three-pointer lifts Lakers to narrow win over Kings",
+          "url": "https://sports.yahoo.com/articles/lakers-hold-off-kings-narrow-054045567.html",
+          "publishedAt": "2026-11-21T05:40:45.000Z",
+          "excerpt": "The Lakers just finished a stretch during which they played four games in six days, a stretch that included back-to-back games this week, a stretch in which their mental and physical fortitude was tested. They were not able to hold up during Wednesday night\u2019s defeat to the Utah Jazz, but the Lakers were able to bounce back with a 106-104 win over the hapless Sacramento Kings on Friday night at Crypto.com Arena behind another winning shot from Quentin Grimes. Even though the Lakers were facing one-win Sacramento, they had to fight to the final few precious seconds to improve to 14-3 and 2-1 in NBA Cup play. They only secured the win after guard Zach LaVine missed a three-pointer just before the buzzer. Read more:How the Lakers' Quentin Grimes wants to maintain his hot shooting, even off the bench Lakers coach JJ Redick said he had some choice words for his players at halftime. \u201cI feel I did a decent job of regulating at halftime. They may have a differing opinion of that,\u201d Redick said. \u201cCan\u2019t repeat every word I used. The main message was, \u2018We\u2019ve got to be tougher. We\u2019ve got to bring a little bit of energy. Certain nights, whether it\u2019s the team, how we\u2019re playing, the atmosphere in the arena, you can just be a little flat.\u2019 And I thought we just had to be tougher and pick up our energy. They accepted the challenge.\u201d The score was tied 103-103 when the Lakers forced Kings rookie guard Darius Acuff Jr. into a turnover. Grimes then hit a step-back three with 56.3 seconds left to\u2026"
+        },
+        {
+          "title": "Harden\u2019s 51 points leads Cavs over the Pacers",
+          "url": "https://sports.yahoo.com/articles/harden-51-points-leads-cavs-053540840.html",
+          "publishedAt": "2026-11-21T05:35:40.000Z",
+          "excerpt": "James Harden put on a vintage performance, dropping an electric 51 points, Donovan Mitchell added 20 of his own, and Mario Hezonja put up a double-double off the bench to lead the Cleveland Cavaliers to a 128-119 victory over the visiting Indiana Pacers in an NBA Cup matchup. Cleveland sits just behind the Miami Heat in NBA Cup Group Stage play, while the Pacers fall to 1-2. Harden finished 15-26 from the floor, including 7 for 11 from beyond the arc, to go with six assists and six rebounds. Oh, and in classic fashion, he was also 14-14 from the free throw line. Cleveland now sits just over .500 at 9-8, beating an Indiana team that was still without star guard Tyrese Haliburton. The Cavs did not have forward Evan Mobley, who is undergoing treatment for a great toe sprain. Peyton Watson returned from a one-game absence due to a back injury, and provided 15 points, four rebounds, and three assists. The two teams were neck and neck in the first half, with the Cavs holding a slight one-point advantage at the break. But it was the 37-year-old Harden who took over in the third quarter, helping Cleveland outscore Indiana 43-23 in the frame. Harden\u2019s 51-point effort, the 26th of his career, puts him past Kobe Bryant for third on the NBA\u2019s all-time 50-point game list. \u201cMy idol, the person I watched growing up,\u201d Harden said in a postgame interview when told he passed Bryant on the all-time list. Harden has been playing much better of late following his slow start, something that the\u2026"
+        },
+        {
+          "title": "Phoenix Suns vs Utah Jazz: Recap and Final Score",
+          "url": "https://sports.yahoo.com/articles/phoenix-suns-vs-utah-jazz-053249018.html",
+          "publishedAt": "2026-11-21T05:32:49.000Z",
+          "excerpt": "The Utah Jazz are back to their losing ways, falling short against the Phoenix Suns with a final score of 111-101. The final score depicts a game that was more competitive than reality. Utah\u2019s successful trip to Los Angeles was a bit of fools gold; once again, the Jazz were slow in their offense, failed to bring intensity on defense, and had lapses of focus that are unacceptable for a team that can no longer use its youth to justify its mistakes. The Jazz missed 13 free throws. They turned over the ball 14 times. They spent multiple possessions walking up the court, entering their offense late, dribbling the air out of the ball, and taking a shot without passing the ball. Look no further than Keyonte George for a primary offender: his four turnovers, ill-advised shots, and lackadaisical effort led him to 14 points on 4-17 shooting. The Jazz\u2019s shooting struggles from three returned, finishing the night 10-29 from three as a team. The combination of George/Peterson/Bailey ended the night an astonishing 0-21 from three. Darryn Peterson led the Jazz with 20 points, 10 rebounds, and eight assists. Peterson and Josh Green were the only Jazz players to finish with a positive plus/minus, sharing a plus-4 each. Importantly, Peterson appeared to tweak his leg after landing on a drive to the basket, although he appeared to finish the game without issue. For the Suns, this wasn\u2019t the prettiest win. Phoenix shot only 45% from the field and 29% from three as a team, led by Devin Booker\u2019s\u2026"
+        },
+        {
+          "title": "Lakers survive in ugly game to down Kings",
+          "url": "https://sports.yahoo.com/articles/lakers-survive-ugly-game-down-053009053.html",
+          "publishedAt": "2026-11-21T05:30:09.000Z",
+          "excerpt": "Another sloppy game saw the Lakers struggle to the finish line before coming away victorious against the Kings on Friday, 106-104. LA remained in a funk not dissimilar from Wednesday\u2019s loss to the Jazz, trailing by as many as 11 points. The bench helped spark a run in the third quarter to get back into the game. A clutch three from Quentin Grimes late pushed LA ahead by three with a minute remaining in the game. Zach LaVine had a chance to win it for the Kings at the buzzer but missed. Matisse Thybulle got off to a hot start with two triples. Everyone in the starting lineup, minus Ziarie Williams, scored a bucket. Keegan Murray and Domantas Sabonis combined for all 12 of Sacramento\u2019s first points. At the 6:53 mark, the game was tied. LA struggled with turnovers early, committing four. Luka Don\u010di\u0107 started scoring and was already close to double figures with nine points. Sabonis and Murray were still leading the Kings with eight points each. Darius Acuff Jr. had four points. At the end of the first, the game was tied. Los Angeles was shooting better than the Kings, 52% to 44%. Luka ended the quarter with 13 points. With his first 3-pointer tonight vs. Sacramento, Luka Don\u010di\u0107 has passed Michael Cooper into 13th place on the Lakers' all-time regular-season list for 3-pointers made. \u2014 Los Angeles Lakers (@Lakers) November 21, 2026 Walker Kessler started the second period strong, scoring four points. Zach LaVine started to heat up for the Kings, scoring four points. It was\u2026"
+        },
+        {
+          "title": "Gritty road trip was enough to give Knicks their mojo back",
+          "url": "https://sports.yahoo.com/articles/gritty-road-trip-enough-knicks-043209758.html",
+          "publishedAt": "2026-11-21T04:32:09.000Z",
+          "excerpt": "It can help to get away. The Knicks left for their four-game road trip a bit unsettled, with questions circling them due to a rocky start to the season. After going 3-1 on the trip and beating potential playoff teams in the Raptors (twice) and Timberwolves, they return as a side rounding back into form and a better team than when they left. \u201cI feel like we\u2019re getting into a good rhythm offensively, defensively,\u201d Josh Hart said after the team\u2019s 102-99 win over the Timberwolves on Thursday night in Minneapolis. \u201cI think you\u2019ll see some of the defensive rotations were on point. Obviously, we can be better. But we\u2019re continuing to learn, gain experience. Every year is different, every team is different. So I think we\u2019re doing that, and I think we\u2019re getting better. \u201cWhenever you win in the league, you continue to build confidence.\u201d It is notable that they won in different ways: through free-flowing offensive showings; through grittier defensive efforts; and on Thursday, a combination of both. None of the three wins were blowouts \u2014 each game was on the line in crunch time. \u201cIt shows that we\u2019re able to win in different ways,\u201d Hart said. \u201cAnd that\u2019s what you have to do in the league. Some days, you\u2019re gonna shoot the cover off the ball and you can win by 10, 15, 20. Other games, it might be a possession game and offensively it\u2019s not really clicking, not knocking down shots, but you\u2019re getting stops defensively and you\u2019re able to pull out stops like that. I think it shows that this\u2026"
+        },
+        {
+          "title": "Brooklyn Nets respond with a fight \u2013 but not a win \u2013 in 113-111 heartbreaker vs Magic",
+          "url": "https://sports.yahoo.com/articles/brooklyn-nets-respond-fight-not-042421685.html",
+          "publishedAt": "2026-11-21T04:24:21.000Z",
+          "excerpt": "There is a funny irony to sports, especially the NBA. You can spend hours and days dissecting what\u2019s wrong with a team, questioning everyone from the top of the organization down. The roster, the direction, and everything in between. And then, two nights later, the team goes out and completely contradicts the narrative, for better or worse. Meet the Brooklyn Nets. After getting embarrassed by 30 points against the Chicago Bulls on Wednesday, the Nets entered Friday night\u2019s matchup against the Orlando Magic with expectations as low as they\u2019ve been this season. The squad entered with a 3-11 record, with five of their losses coming by 15+ points, the most by any team in the league this season. Yet, somehow, 48 hours later, the Nets looked like an entirely different basketball team \u2026 for the better. The energy was palpable, the defensive effort was there, players were diving for loose balls, and the team looked noticeably better. Danny Wolf, getting the start over Egor D\u00ebmin, delivered 20 points and four 3-pointers. Julius Randle added 27 points, nine rebounds, and six assists while Mikel Brown Jr. contributed 18 points off the bench, tied for his career-high. And for a while, it looked like the Nets might actually have something to celebrate. Instead, they were reminded of another cruel reality of basketball: you could do a lot right and still lose games. Despite overcoming an early 13-point deficit and taking a fourth-quarter lead, Brooklyn fell to Orlando, 113-111, on a Franz\u2026"
+        },
+        {
+          "title": "Wizards at Bulls final score: Washington wins 98-94",
+          "url": "https://sports.yahoo.com/articles/wizards-bulls-final-score-washington-041938463.html",
+          "publishedAt": "2026-11-21T04:19:38.000Z",
+          "excerpt": "The Washington Wizards defeated the Chicago Bulls 98-94 on Friday night to earn their second consecutive win and improve to a 6-11 record. Anthony Davis scored 36 points and 11 rebounds to lead Washington to the win. AJ Dybantsa also added 20 points and 10 rebounds. For Chicago, Norman Powell led with 16 points. Washington\u2019s next game is on Sunday when they play the Orlando Magic. Tipoff is at 7 p.m. ET. See you then."
+        },
+        {
+          "title": "James Harden erupts for 51 to pass Kobe Bryant on 50-point games list",
+          "url": "https://sports.yahoo.com/articles/james-harden-erupts-51-pass-040745419.html",
+          "publishedAt": "2026-11-21T04:07:45.000Z",
+          "excerpt": "James Harden turned back the clock Friday, Nov. 20, reminding NBA opponents and fans why he is one of the best scorers in league history. The 37-year-old scored 51 points Friday to lead the Cavaliers to a 128-119 win over the Indiana Pacers in an NBA Cup East Group B game at Rocket Arena in Cleveland. Harden\u2019s 51 points were the most he\u2019s scored in a game this year and came two days shy of the one-year anniversary of his last 50-point game, when, as a member of the Los Angeles Clippers, he shelled out 55 in a win against the Charlotte Hornets on Nov. 22, 2025. 4 minutes and 31 seconds of James Harden scoring buckets tonight. Enjoy. #LetEmKnowpic.twitter.com/Xb4NNZnu7Y \u2014 Cleveland Cavaliers (@cavs) November 21, 2026 But his scoring output Friday night represented a more meaningful milestone: Harden notched his 26th 50-point game of his career, passing Kobe Bryant for third all time in NBA history. Michael Jordan ranks second with 31 such games, while the all-time leader, Wilt Chamberlain, seems likely to retain that record for a very long time having crossed the 50-point threshold an astounding 118 times. JAMES HARDEN 51 POINTS TONIGHT \ud83e\udd2f\ud83e\udd2f HE NOW HAS THE 3RD-MOST 50+ POINT GAMES IN NBA HISTORY!@cavs improve to 2-1 in @emirates NBA Cup Group Play! pic.twitter.com/uUHcvEq3bR \u2014 NBA (@NBA) November 21, 2026 Only three other players have scored at least 50 points this season, and all three are MVP candidates. Los Angeles Lakers star Luka Don\u010di\u0107 has passed the 50-point mark twice,\u2026"
+        },
+        {
+          "title": "NBA Cup 2026: James Harden puts up 51 in Cavs' win over Pacers; shorthanded Raptors fend off Pistons, end 6-game skid",
+          "url": "https://sports.yahoo.com/nba/breaking-news/article/nba-cup-2026-james-harden-puts-up-51-in-cavs-win-over-pacers-shorthanded-raptors-fend-off-pistons-end-6-game-skid-040246744.html",
+          "publishedAt": "2026-11-21T04:02:46.000Z",
+          "excerpt": "James Harden played by far his best game in a Cleveland Cavaliers uniform on Friday night during NBA Cup group play. The 37-year-old guard erupted for 51 points in a 128-119 home win over the Indiana Pacers, a season high and his most since joining the Cavaliers amid the 2025-26 campaign. Cleveland (9-8) improved to 2-1 in Cup competition, knocking on the Miami Heat's door atop East Group B. Indiana (5-11), which trailed the Cavaliers by as many as 24 points, dropped to 1-2 in this year's NBA Cup. Harden shot 15 of 26 from the floor, including 7 of 11 from beyond the arc. He also finished 14 of 14 from the charity stripe and with six rebounds and six assists. The one-time NBA MVP and 11-time All-Star now has the third-most 50-plus-point games in NBA history. With 26 such performances, he passed the late Kobe Bryant (25) on Friday and now trails Michael Jordan (31) and Wilt Chamberlain (118) in that category. While collecting his first 50-piece with the Cavaliers, Harden moved into ninth all-time for most combined NBA regular and postseason points. His handles were on full display. He rained down 3s, and he made an impact at the rim. Cleveland's James Harden (51) delivers the NBA season's fifth 50-point game ... joining the Lakers' Luka Don\u010di\u0107 (53 and 52), San Antonio's Victor Wembanyama (52) and Detroit's Cade Cunningham (52). https://t.co/AW8JecngpY \u2014 Marc Stein (@TheSteinLine) November 21, 2026 Raptors' Scottie Barnes, Pistons' Cade Cunningham trade blows in thriller\u2026"
+        },
+        {
+          "title": "Lakers exceeding expectations this season, but roster isn\u2019t championship material: insiders",
+          "url": "https://sports.yahoo.com/articles/lakers-exceeding-expectations-season-roster-035743117.html",
+          "publishedAt": "2026-11-21T03:57:43.000Z",
+          "excerpt": "The Lakers have emerged as one of the Western Conference\u2019s top teams early in the 2026-27 campaign. But not everyone is convinced Los Angeles\u2019 level of play is sustainable. On The Hoop Collective, ESPN insiders Brian Windhorst, Tim MacMahon and Ben Golliver discussed the heavy workload for Luka Doncic in Tinseltown. The trio believes the team is simply too reliant on Doncic and can\u2019t win a championship with the way the roster is currently built. \u201cNobody whose closet isn\u2019t full of purple-and-gold clothing thought the Lakers were a championship team going into the season,\u201d MacMahon said. \u201cI mean Vegas had them in the mid-40s for wins. You don\u2019t look at this roster and say, \u2018Hey, that\u2019s a championship-or-bust season for the Lakers.\u2019 They are exceeding expectations at this point early in the season.\u201d The Lakers saw several of their free agents find new teams in the offseason, including superstar LeBron James. While general manager Rob Pelinka orchestrated a complete revamp of the roster, many felt as though the team fell short of championship aspirations. The squad has already impressed early this season, but the Lakers evidently still have much to prove among those who doubt their ability to make a deep playoff run."
+        },
+        {
+          "title": "Nets shake up everything but the outcome in heartbreaking fourth straight loss",
+          "url": "https://sports.yahoo.com/articles/nets-shake-everything-outcome-heartbreaking-034116642.html",
+          "publishedAt": "2026-11-21T03:41:16.000Z",
+          "excerpt": "Team meetings. Lineup changes. The Nets tried everything to shake out of their funk. They finally showed some heart. But then they got it broken in a 113-111 loss to the Magic at Barclays Center. They saw Franz Wagner torch them for a game-high 35 points, including a go-ahead midrange basket with 2.8 seconds left. And Julius Randle \u2014 whose turnover in the final minute had let Orlando knot the game at 111-all \u2014 missed an open 3-pointer at the buzzer to seal the loss. Randle had 27 points, nine rebounds and six assists. Brooklyn fought; it just couldn\u2019t quite close the deal. After the Nets (3-12) had embarrassed themselves in Wednesday\u2019s 137-107 non-effort against Chicago, they held a team meeting, with some real talk about what had gone wrong that night and how to fix it. Friday\u2019s effort showed it wasn\u2019t all just talk, but it just wasn\u2019t quite enough. \u201cIt\u2019s hard to come up here and keep having these moral victories. There\u2019s been a lot of those this year,\u201d said Danny Wolf, who replaced Egor D\u00ebmin in the starting lineup. \u201cWe responded very well after that Chicago game. But with how hard guys played, we really wanted that win and we needed that win \u2026 We\u2019ve got to keep doing what worked and playing with that tenacity and that effort. But definitely a tough loss. \u201cAfter that Chicago game, you guys saw it, we saw it, everyone saw it \u2026 it was flat-out embarrassing and everyone knows it. We all knew it. And we knew that change was needed. A conversation like that, it\u2019s open, it\u2019s an\u2026"
+        },
+        {
+          "title": "Pistons vs. Raptors final score: Cade vs. Scottie battle goes to Raps",
+          "url": "https://sports.yahoo.com/articles/pistons-vs-raptors-final-score-032820679.html",
+          "publishedAt": "2026-11-21T03:28:20.000Z",
+          "excerpt": "Two former teammates and two Eastern Conference teams traded body blows all night. A Cade Cunningham 3-pointer to put the Pistons up 102-101 with 20 seconds left was answered by a Scottie Barnes driving layup over two defenders to give the Raptors the lead they would not relinquish. When a Kevin Huerter three came up short as the buzzer sounded, it was decided. Raptors 105-102. Cunningham led Detroit with 23 points and nine assists, but he was outshined on this night by his former Montverde teammate Barnes, who led all scorers with 29 points and hit his first nine shots of the night. While it was appointment television watching the two top players on each team matched up with each other, the rest of the game was pretty much a horror show for the Pistons. Distilling why the Pistons dropped this game will sound very familiar to Pistons fans \u2014 not owning the paint. Detroit surrendered 54 points inside to Toronto and gave up crucial offensive rebounds late. It\u2019s one thing to see Barnes put a great game on you, but Detroit was owned inside by rookie Allen Graves making his first start of the season. He scored 20 points, had 10 rebounds, including four on the offensive end. Detroit simply had no answer for him. Certainly not John Collins. The overmatched emergency starting center struggled again in just under 20 minutes of action. He was just 1-of-4 from the floor for three points and six rebounds. The return of Isaiah Joe from injury isn\u2019t looking very different from when he was\u2026"
+        },
+        {
+          "title": "Rockets Eye NBA Cup Match Up With Nuggets",
+          "url": "https://sports.yahoo.com/articles/rockets-eye-nba-cup-match-023000463.html",
+          "publishedAt": "2026-11-21T02:30:00.000Z",
+          "excerpt": "Houston Rockets vs. Indiana Pacers November 20, 2026 Time: 9pm CST Location: Ball Arena (no pucks), Denver, Colorado TV: Amazon Prime Vidya Radio:KBME Sports Talk 790 / KLTN 102.9 (en espa\u00f1ol) Probable Starting Lineups Rockets: Fred VanVleet, Tari Eason/Amen Thompson, Jabari Smith Jr., Kevin Durant, ? \u2013 Both Sengun and Adams are Day To Day Nuggies: Jamal Murray, Christian Braun, Cam Johnson, Aaron Gordon, Nikola Rikola It turns out that Alpie will play tonight, and we still have the memory of Ricky Carlisle losing it, and getting teched out of the game versus Indiana over a legitimate injury to Sengun, inflicted by a Pacer. Classy, Ricky. Varun Shankar of the Chronicle announced that both Adams and Sengun will play, and that Sengun has a black eye and will wear goggles. Can the Rockets start a new win streak? Tune in tonight and come chat with us at TDS or on the SB Nation App!"
+        },
+        {
+          "title": "Hawks keep NBA Cup chances alive, defeat Hornets 111-97",
+          "url": "https://sports.yahoo.com/articles/hawks-keep-nba-cup-chances-022223402.html",
+          "publishedAt": "2026-11-21T02:22:23.000Z",
+          "excerpt": "The Atlanta Hawks were in action on Friday evening to face the Charlotte Hornets in an NBA Cup game. The Hawks came into this game 1-1 in group play, while the Hornets are 0-2 and looking for their first win. This was a big game for both teams if they wanted to stay in the race. The Hawks were still without Kingston Flemings for the third straight game, while the Hornets were without Kon Knueppel, Grayson Allen, Dennis Schroder and Grant Williams. Jalen Johnson got it started for the Hawks, turning defense into offense for an easy two points. Jalen says hello everybody \u203c\ufe0f pic.twitter.com/4XHtTbEoiZ \u2014 Atlanta Hawks (@ATLHawks) November 21, 2026 Dyson Daniels was up next for the Hawks, and he knocked down a 3-pointer to keep things rolling. Dyson for three! pic.twitter.com/8VtpYnMuMq \u2014 Atlanta Hawks (@ATLHawks) November 21, 2026 It was a six-point lead for the Hawks, but the Hornets were able to erase that quickly, and also extended their own lead to as much as eight halfway through the quarter. The Hornets continued to extend their lead as the Hawks tried to find some rhythm on offense. They were able to do that late in the quarter and cut down their deficit. Going into the second, the Hawks trailed 31-23. The Hawks went on a run to start the quarter, and it began with their defense. It was the unit that led the charge, and Zuby Ejiofor threw down a huge dunk over two defenders. Ba-ZU-ka \ud83d\udee0\ufe0f pic.twitter.com/o66B4b2FcS \u2014 Atlanta Hawks (@ATLHawks) November 21, 2026 Daniels then\u2026"
+        },
+        {
+          "title": "Celtics could be without two starters against Kings",
+          "url": "https://sports.yahoo.com/articles/celtics-could-without-two-starters-020541383.html",
+          "publishedAt": "2026-11-21T02:05:41.000Z",
+          "excerpt": "SACRAMENTO \u2014 The Celtics could be without Jayson Tatum and Derrick White when they face the Sacramento Kings on Saturday night. Tatum is listed as questionable due to rest, while White is listed as questionable with a left AC joint contusion (the acromioclavicular joint connects the collarbone to the top of the shoulder blade). The Celtics are playing on the first night of a back-to-back; they face the Kings on Saturday at 10pm ET, and then the Golden State Warriors on Sunday at 8:30pm ET. White has yet to miss any games this season; he\u2019s averaging 12.7 points, 5 assists, and 3 rebounds per game, while shooting 42.5% from the field and 30.6% from three. Tatum has missed one game to rest; he\u2019s averaging 26.4 points, 6.8 assists, and 6.6 rebounds, shooting 42.8% from the field and 33.3% from three. If both players rest, there are a number of candidates to enter the starting lineup Baylor Scheierman has started two games this season and would be a likely candidate to start in the event that either Tatum or White is sidelined. Scheierman is averaging 5.7 points, 3.7 rebounds, and 1.5 assists in 19.4 minutes per game. Payton Pritchard, who has yet to start a game this season, could also potentially start. Pritchard is averaging 13.7 points, 3.8 assists, and 3.1 rebounds in 27.3 minutes per game, the fourth-most on the team. It\u2019s also possible that Jordan Walsh will see a reduced role on Saturday; Walsh, who has started 10 of 15 games this year, played less than 5 minutes in\u2026"
+        },
+        {
+          "title": "Moritz Wagner\u2019s first-ever chance to face his brother Franz is nothing short of \u2018awkward\u2019",
+          "url": "https://sports.yahoo.com/articles/moritz-wagner-first-ever-chance-015201415.html",
+          "publishedAt": "2026-11-21T01:52:01.000Z",
+          "excerpt": "Brooklyn\u2019s Moritz Wagner has been in the NBA for nine years and alive for 20 more, and he had never, ever played against his brother, Franz, in a game that counted. That is, until Friday night. The Wagner siblings faced off when the Nets hosted Franz\u2019s Orlando Magic, and they squared off against each other for the first time. \u201cIt\u2019s awkward, I\u2019m not gonna lie. I don\u2019t really know how to compartmentalize it, really deal with it, and try to focus on the game plan and see what happens emotionally,\u201d Moritz said beforehand. \u201cIt\u2019s a dilemma because you want him to do well. At the same time, you game plan for him, you prepare to limit him. So, it\u2019s an awkward feeling. I\u2019ve never been in this position. \u201cIt\u2019s weird. It\u2019s definitely a new role I\u2019ve got to grow into. But it\u2019s also fun, and we talked about that [Thursday]. It\u2019s an absolute privilege, and for our family it\u2019s really cool because we\u2019ve established each other as independent NBA players on two different sides and get to play against each other in this league and have 20 people here watching us. So it\u2019s very special, and it\u2019s gonna be an emotional night for our family.\u201d Moritz played for Michigan and was a 2018 first-round pick by Orlando, where he\u2019d spent his entire career until signing with the Nets this summer. Franz, four years his junior, had followed in his footsteps and starred for the Wolverines before being picked eighth overall by the Magic in 2021. \u201cMy whole NBA career I played with him. The first time in my life\u2026"
+        },
+        {
+          "title": "Jalen Rose admits interest in \u2018Inside the NBA\u2019 job after Charles Barkley\u2019s ringing endorsement",
+          "url": "https://sports.yahoo.com/articles/jalen-rose-admits-interest-inside-014631453.html",
+          "publishedAt": "2026-11-21T01:46:31.000Z",
+          "excerpt": "Charles Barkley already has an idea of who he wants to replace him on \u201cInside the NBA\u201d \u2014 Jalen Rose. Rose, the former NBA player and longtime analyst, said Thursday that he would be interested in joining the award-winning studio show, with Barkley\u2019s blessing, of course. \u201cI love Charles, and yes, that would be something that I would be interested in,\u201d Rose told Front Office Sports. \u201cI love Charles, and yes, that would be something that I would be interested in.\u201d Jalen Rose addressed the possibility of taking over for Charles Barkley on \u201cInside the NBA\u201d once he retires. New episode drops at 11 p.m. ET on Samsung TV+ or check your local listings. pic.twitter.com/Vm4uiOrtB9 \u2014 Front Office Sports Tonight (@FOSTonight) November 20, 2026 Rose, 53, also expressed appreciation for the opportunities he has received to work alongside Barkley and the rest of the show\u2019s cast, as the show opens up to other NBA standouts, like Rose and Draymond Green. \u201cI appreciate my opportunities the last couple of years to not only contribute to Inside the NBA, but work with TNT on college basketball with Adam Lefkoe, Jamal Mashburn and Bruce Pearl,\u201d Rose said. \u201cIt\u2019s been a lot of fun for me.\u201d Rose\u2019s comments came more than a month after Barkley publicly endorsed Rose as his ideal replacement while on \u201cBetMGM Gameday Live.\u201d \u201cI think Draymond would do a good job,\u201d Barkley said in early October. \u201cI like Draymond, but Jalen Rose is fantastic. He\u2019s substituted for us sometimes, Jalen Rose is unbelievable,\u2026"
+        },
+        {
+          "title": "Game Thread: Phoenix Suns vs Utah Jazz",
+          "url": "https://sports.yahoo.com/articles/game-thread-phoenix-suns-vs-013000032.html",
+          "publishedAt": "2026-11-21T01:30:00.000Z",
+          "excerpt": "The Suns tied their longest win streak for the third time this season with their wins against the Denver Nuggets and the Sacramento Kings. Can they extend it tonight for their longest of the year against a depleted Jazz team? Let\u2019s hope so!"
+        },
+        {
+          "title": "Game Preview #17: Wolves vs Grizzlies Thread",
+          "url": "https://sports.yahoo.com/articles/game-preview-17-wolves-vs-010000150.html",
+          "publishedAt": "2026-11-21T01:00:00.000Z",
+          "excerpt": "Remember when there was a \u201cbudding rivalry\u201d between the Minnesota Timberwolves and Memphis Grizzlies? A drama filled first round playoff matchup between future faces of the league, Anthony Edwards and Ja Morant. Karl-Anthony Towns Sr. and Tee Morant became the cutest \u201cDads of the NBA\u201d bromance. Dillon Brooks, Mike Conley, Kyle Anderson\u2026just so many storylines. That was only four years ago. Now these two teams couldn\u2019t appear to be any further away from that. The Grizzlies have zero players remaining on their 2022 roster. The Wolves roster just Anthony Edwards and Jaden McDaniels from their respective squad. The connection these two franchises share is more about who gets to join the Eastern Conference in a few years. In the meantime, contrary to what many thought, Memphis is standing right above Minnesota in the Western Conference standings! Game Info Who:Minnesota Timberwolves (11-5) vs. Memphis Grizzlies (12-4) When: Saturday, November 21 at 7:00 PM CT Where: Target Center \u2014 Minneapolis, MN Local TV: DAZN-MIN Radio: 830 WCCO The Numbers MIN MEM OFFRTG 113.9 (14th) * 121.2 (1st) OFFRTG DEFRTG * 104.1 (1st) 111.3 (9th) DEFRTG NETRTG * 9.8 (4th) * 9.9 (3rd) NETRTG eFG% 54.8 (9th) * 57.1 (2nd) eFG% FTr * .288 (12th) .269 (18th) FTr TOV% 15.9 (18th) 15.9 (18th) TOV% OREB% 34.0 (6th) * 34.7 (4th) OREB% PACE * 100.87 (9th) 100.01 (13th) PACE FBPS * 16.7 (5th) 16.6 (7th) FBPS 2nd PTS * 18.3 (3rd) 16.6 (7th) 2nd PTS PITP * 50.4 (7th) 50.0 (8th) PITP * \u2013 Denotes leader What to Watch\u2026"
+        },
+        {
+          "title": "Jusuf Nurkic injury update released",
+          "url": "https://sports.yahoo.com/articles/jusuf-nurkic-injury-released-003605409.html",
+          "publishedAt": "2026-11-21T00:36:05.000Z",
+          "excerpt": "The Utah Jazz released an injury update on Jusuf Nurkic today. It looks like Nurkic was re-evaluated, is making progress, and will be re-evaluated again in one week. Injury update on Jusuf Nurki\u0107 pic.twitter.com/EaaKicvScU \u2014 Utah Jazz (@utahjazz) November 20, 2026 It would have been nice to hear that Nurkic was returning, so this doesn\u2019t feel like great news. Although, there aren\u2019t any setbacks so it looks like this also isn\u2019t bad news either. What Jazz fans can be happy about is the emergence of Mo Bamba as a legitimate force inside for Utah in his last five or so games. Bamba has been legitimately great and a big part of the Jazz staying close against some of the better teams and winning their last two. With the Jazz getting this level of play from Bamba, it\u2019s allowing them to let Nurkic heal without much heartburn. Also, this is not a bad thing because it gives Bamba a chance to prove if all of this is real. Utah may be fine with Nurkic off the bench when he eventually returns because Mo Bamba has been that good. What a difference a week makes in the NBA. One week it feels like the sky is falling, the next you\u2019re wondering if Mo Bamba migh win comeback player of the year."
+        },
+        {
+          "title": "Cavs vs. Pacers game thread",
+          "url": "https://sports.yahoo.com/articles/cavs-vs-pacers-game-thread-003000562.html",
+          "publishedAt": "2026-11-21T00:30:00.000Z",
+          "excerpt": "The Cleveland Cavaliers will try to pick up a much-needed NBA Cup win against the Indiana Pacers. Share your thoughts as the game unfolds. If you aren\u2019t a member of the community, sign up so you can talk to your fellow Cavaliers fans and make your voice heard!"
+        },
+        {
+          "title": "3 thoughts as the Mavericks face another winnable matchup at home against the Los Angeles Clippers",
+          "url": "https://sports.yahoo.com/articles/3-thoughts-mavericks-face-another-000400677.html",
+          "publishedAt": "2026-11-21T00:04:00.000Z",
+          "excerpt": "The Dallas Mavericks (8-7) remain an interesting case study in the topsy-turvy NBA ahead of Saturday\u2019s clash with the Los Angeles Clippers (4-10), and their own penchant for wild swings in performance level are only part of that story. They\u2019ve got significant injuries holding them back in some ways, but that comes against the backdrop of players like Zaccharie Risacher and Caleb Martin, who are enjoying various levels of resurgence this year. Kyrie Irving is back and generally playing well, but how back is he really, and how committed are the Mavericks to seeing Irving finish the season with the team? Naji Marshall is playing the role in terms of minutes of a guy who just got extended for three years after setting a career-high scoring mark, but he\u2019s averaging just 10.9 points and 2.8 rebounds per game in November, so what gives there? Marshall seems to simply be the lesser evil right now in the mid-off between himself and Max Christie. The stew is pungent and rich, and it should not be overlooked that, despite the mounting question marks, an 8-7 record is at least one step ahead of schedule as we near the season\u2019s quarter pole. The best part about that record is the chance to make it 9-7 against another vulnerable opponent at American Airlines Center on Saturday. Let\u2019s set the scene. Clippers background The Clip Show this year is a Darius Garland-Brook Lopez-Rui Hachimura production, with a little Keaton Wagler and Derrick Jones Jr. sprinkled in thus far. The 38-year-old\u2026"
+        },
+        {
+          "title": "Pistons vs Raptors Discussion: Game Time, TV, Odds, and More",
+          "url": "https://sports.yahoo.com/articles/pistons-vs-raptors-discussion-game-000000408.html",
+          "publishedAt": "2026-11-21T00:00:00.000Z",
+          "excerpt": "The Toronto Raptors are scuffling in the first leg of the NBA season, but there is certainly a lot of talent there. Yes, Kawhi Leonard is absent with news of managing knee pain and swelling that surely puts a shiver up the spine of every Toronto fan. But they also still have Scottie Barnes, and he is delivering the young star goods as advertised. He is averaging 23.8 points, 7.4 rebounds, and 4.7 assists a night. On certain nights, he looks like the young superstar that represents his clearly attainable ceiling. On other nights, he and his team\u2019s offense struggle and can\u2019t seem to get unstuck from the mud. He\u2019s doing a lot of things, but he isn\u2019t doing it as efficiently or consistently as you\u2019d like. The real problems with the Raptors, though, lie elsewhere. Nobody can seemingly hit a three. RJ Barrett is getting to the line five times a game and hitting just 60% from the charity stripe. Collin Murray-Boyles has regressed, and Jakob Poeltl\u2019s game has fallen off a cliff. It feels like if you solve Scottie, it helps you solve Barrett and Immanuel Quickley, and therefore, you solve the Raptors. Toronto has dropped six straight, and will be without the services of Barrett tonight. Watching an Ausar Thompson and Scottie Barnes matchup could be electric. Barnes doesn\u2019t have the defensive chops Ausar does, and Ausar doesn\u2019t have the offensive versatility, but both could be liable to pull off a triple-double tonight. Cade Cunningham is also expected back tonight after sitting out\u2026"
+        },
+        {
+          "title": "LIVE DISCUSSION: Orlando Magic at Brooklyn Nets, 7:30 P.M. ET",
+          "url": "https://sports.yahoo.com/articles/live-discussion-orlando-magic-brooklyn-235000046.html",
+          "publishedAt": "2026-11-20T23:50:00.000Z",
+          "excerpt": "The Nets managed to make ABA Night a painful experience. With Julius Erving and members of the championship teams in the building, Brooklyn got blown out by 30 points against Chicago. Dr. J said he \u201cfully anticipated the Nets to be so fired up having us here.\u201d He wasn\u2019t exactly wrong to expect more. Julius Randle called it one of the worst games of his 13-year career, and the Nets have now lost three straight by double figures. They\u2019ll try to get back on track Friday against the Orlando Magic, who are also coming off a loss and will be without Paolo Banchero. Game Info & How to Watch Who: Brooklyn Nets vs. Orlando Magic When: Friday, November 20, 7:30 p.m. ET Where: Barclays Center, Brooklyn, NY TV/Streaming: YES Network, DAZN Nets vs. Magic Injury Report Brooklyn Nets OUT: Grant Nelson (right ankle sprain) Orlando Magic OUT: Paolo Banchero (ankle) OUT: Jonathan Isaac (knee) OUT: Izaiyah Nelson (ankle) OUT: Noah Penda (hamstring) Game Preview Friday brings a personal storyline. Franz Wagner will face his older brother, Moritz, for the first time as opponents after the latter spent the first five seasons of Franz\u2019s NBA career as his teammate in Orlando before signing with Brooklyn this summer. \u201cIt\u2019s definitely going to be a little weird,\u201d Franz said. \u201cWe\u2019ve obviously played in practice against each other. But I look at it as a huge blessing to be able to share the court together at this level. I\u2019m really happy for him in the situation that he\u2019s in. I think me, Moe and the\u2026"
+        },
+        {
+          "title": "Wizards at Bulls Discussion",
+          "url": "https://sports.yahoo.com/articles/wizards-bulls-discussion-233000673.html",
+          "publishedAt": "2026-11-20T23:30:00.000Z",
+          "excerpt": "The Washington Wizards (5-11) finally snapped their eight-game losing streak with a 103-99 win over the Toronto Raptors on Wednesday. AJ Dybantsa scored a career-high 23 points, and Kyshawn George added 20 points to secure a much-needed victory. The Wizards travel to Chicago on Friday to face the Bulls (4-10), who are 3-1 over their last four games. Caleb Wilson, who scored 30 points against Washington on Oct. 24, recently injured his hand and won\u2019t play Friday. Brian Keefe altered his rotation in Wednesday\u2019s win. Tre Johnson didn\u2019t play in the second half, and Bub Carrington didn\u2019t play for the first time in his 180-game NBA career. Khris Middleton and Will Riley took their minutes. Here are the Wizards\u2019 projected starters: PG: Trae Young SG: AJ Dybantsa SF: Kyshawn George PF: Anthony Davis C: Alex Sarr Game information: Opponent: Chicago Bulls Tip-off: 8 p.m. Location: United Center TV: Monumental Sports Network Radio: 106.7 The Fan You can chat about the game in the comments below!"
+        },
+        {
+          "title": "CSR Weekend Warriors",
+          "url": "https://sports.yahoo.com/articles/csr-weekend-warriors-230000334.html",
+          "publishedAt": "2026-11-20T23:00:00.000Z",
+          "excerpt": "Greetings, Panthers fans. Welcome to the weekend. Feel free to use this thread to chat about (almost) anything you want: video games, food, movies, non-football sports, you name it. As long as it\u2019s allowed by the site\u2019s ToS, it\u2019s fair game here. You know the drill. If you don\u2019t then follow the handy instruction below to sign up and join the conversation: This is now an open thread Join the conversation! Sign up for a user account and get: Fewer ads Create community posts Comment on articles, community posts Rec comments, community posts New, improved notifications system! Download the SB Nation app on iOS or Android."
+        }
+      ]
+    },
+    {
+      "topic": "Gaming",
+      "name": "GamesIndustry.biz",
+      "url": "https://www.gamesindustry.biz/feed",
+      "observedAt": "2026-11-21T15:04:19.666Z",
+      "parsed": 60,
+      "stories": [
+        {
+          "title": "GTA 6 hits $3.79 billion in its first day on sale, becoming \"the biggest entertainment launch in history\"",
+          "url": "https://www.gamesindustry.biz/gta-6-hits-379-billion-in-its-first-day-on-sale-becoming-the-biggest-entertainment-launch-in-history",
+          "publishedAt": "2026-11-20T20:24:00.000Z",
+          "excerpt": "Rockstar has announced that GTA 6 achieved $3.79 billion in retail sales in its first day on sale, \"setting a new record for entertainment across any medium, and becoming the biggest entertainment launch in history.\" Read more"
+        },
+        {
+          "title": "Ampere Analysis: Over 2m UK and US Xbox players accessed GTA 6 before official launch by switching location to New Zealand",
+          "url": "https://www.gamesindustry.biz/ampere-analysis-over-1m-uk-and-us-xbox-players-accessed-gta-6-before-official-launch-by-switching-location-to-new-zealand",
+          "publishedAt": "2026-11-20T15:21:00.000Z",
+          "excerpt": "Over two million Xbox players in the UK and US accessed Grand Theft Auto 6 before its official launch by changing their location to New Zealand, according to Ampere Analysis. Read more"
+        },
+        {
+          "title": "GTA 6: the first billion-dollar game may also be the last | Opinion",
+          "url": "https://www.gamesindustry.biz/gta-6-the-first-billion-dollar-game-may-also-be-the-last",
+          "publishedAt": "2026-11-20T15:02:20.000Z",
+          "excerpt": "What does a billion dollars look like on screen? Or $1.5bn, or perhaps $2bn; estimates swing around a little for just how much money has been spent creating GTA 6. The one thing that\u2019s certain is that it\u2019s the most expensive game ever made \u2013 in fact, by far the most expensive piece of media ever made. Read more"
+        }
+      ]
+    },
+    {
+      "topic": "Gaming",
+      "name": "Eurogamer",
+      "url": "https://www.eurogamer.net/feed",
+      "observedAt": "2026-11-21T15:04:19.705Z",
+      "parsed": 60,
+      "stories": [
+        {
+          "title": "GTA 6 has a 99 Metascore from critics, but players are review bombing it",
+          "url": "https://www.eurogamer.net/gta-6-review-bombed-metacritic-user-score",
+          "publishedAt": "2026-11-21T14:19:40.000Z",
+          "excerpt": "Grand Theft Auto 6 might be one of the best-reviewed games of all time, but you wouldn't know it from its Metacritic user score.\u2026"
+        },
+        {
+          "title": "GTA 6 features the series' first non-binary character, says actor Jesse James Rose, and players can't hurt them",
+          "url": "https://www.eurogamer.net/gta-6-first-non-binary-character-jesse-james-rose",
+          "publishedAt": "2026-11-21T12:50:00.000Z",
+          "excerpt": "Grand Theft Auto 6 features the first non-binary character in the series' history, according to actor Jesse James Rose, who plays the role of a museum curator in the game.\u2026"
+        },
+        {
+          "title": "What if Vampire Survivors met Grand Theft Auto 2? Maniac is a brilliant mash-up that dares to ask that question",
+          "url": "https://www.eurogamer.net/grand-theft-auto-6-vampire-survivors-maniac-interview",
+          "publishedAt": "2026-11-21T10:00:00.000Z",
+          "excerpt": "What would you get if you combined the chaotic top-down action of old-school Grand Theft Auto 2 with the chaotic top-down action of Vampire Survivors? That's the question Soldat and King Arthur's Gold developer Transhuman asked when it started working on 2024's roguelite shooter Maniac. The result is a delight, yet Maniac remains frustratingly underappreciated.\u2026"
+        },
+        {
+          "title": "What we've been playing - \"It's slow, it's awkward, it's weird, and it's hard\"",
+          "url": "https://www.eurogamer.net/what-weve-been-playing-its-slow-its-awkward-its-weird-and-its-hard",
+          "publishedAt": "2026-11-21T08:00:00.000Z",
+          "excerpt": "Did anything notable happen this week? Not that I can remember. The weather was quite rainy - will that do? I'm just being silly, of course. We've had - and I suppose are still having - an historic week in video games, as Grand Theft Auto 6 arrives. It's dominated everything and I fear it's going to dominate this article too. But a reminder: next week is our \"Not-GTA Week\", so we'll be making a concerted effort to talk about games, probably smaller games, that aren't Godzilla blockbusters.\u2026"
+        },
+        {
+          "title": "GTA 6 is officially the biggest entertainment launch of all time, selling 32.5 million pre-sale copies and a bonkers $3.79 billion in its first day",
+          "url": "https://www.eurogamer.net/gta-6-biggest-entertainment-launch",
+          "publishedAt": "2026-11-20T20:00:40.000Z",
+          "excerpt": "Surprise, surprise - GTA 6 is officially the biggest entertainment launch of all time, surpassing its predecessor's 13-year-long record and the already optimistic analyst estimates.\u2026"
+        },
+        {
+          "title": "After taking seven years to make Persona 6 and four years to make Persona 5, Atlus promises future games will come quicker",
+          "url": "https://www.eurogamer.net/persona-6-games-come-quicker-atlus",
+          "publishedAt": "2026-11-20T19:23:00.000Z",
+          "excerpt": "Persona 6 is still slowly chugging in the background, but developer Atlus is promising that future games in its beloved RPG series won't take quite as long as they used to.\u2026"
+        },
+        {
+          "title": "GTA 6 credits actually include 'Florida Joker', the viral internet personality who once demanded $10 million from Rockstar Games",
+          "url": "https://www.eurogamer.net/gta-6-credits-florida-joker-rockstar",
+          "publishedAt": "2026-11-20T18:23:50.000Z",
+          "excerpt": "Lawrence Sullivan, better known to the online world as the 'Florida Joker', is in GTA 6. After accusing Rockstar Games of using his likeness without consent and then demanding a $10m payout, the two parties have seemingly settled their differences.\u2026"
+        },
+        {
+          "title": "Nvidia co-founder Jensen Huang accused of decades of bullying and workplace abuse in new investigation",
+          "url": "https://www.eurogamer.net/jensen-huang-nvidia-investigation-harassment",
+          "publishedAt": "2026-11-20T17:19:50.000Z",
+          "excerpt": "An investigation into the workplace behavior of Nvidia co-founder Jensen Huang, who resigned recently after a series of extramarital affairs came to light, has uncovered decades of harassment, verbal employee abuse and \"cultish\" behaviour at the company which has long played a major role in PC gaming.\u2026"
+        },
+        {
+          "title": "13 arrested in Shanghai as police crackdown on bootleg Final Fantasy 7 Tifa figurine operation",
+          "url": "https://www.eurogamer.net/final-fantasy-7-bootleg-tifa-figurine-china-13-arrested",
+          "publishedAt": "2026-11-20T16:39:30.000Z",
+          "excerpt": "Chinese police have arrested 13 individuals in Shanghai allegedly involved in a bootleg Final Fantasy 7 Tifa figurine business, after consumers reported the operation. They are currently being investigated on suspicion of selling infringing reproductions.\u2026"
+        },
+        {
+          "title": "GTA 6 players are already pulling off high-flying tricks and other impressive stunts, just days after launch",
+          "url": "https://www.eurogamer.net/gta-6-plane-vehicle-stunts-impressive",
+          "publishedAt": "2026-11-20T15:59:00.000Z",
+          "excerpt": "One of the best things to emerge from Grand Theft Auto over the years has been the community's truly spectacular stunts: players soaring under bridges, leaping across buildings, and more. And with GTA 6's release this week, we've seen the first signs of the trend continuing in a brand-new world.\u2026"
+        },
+        {
+          "title": "Star Wars: Galactic Racer studio \"didn't dream\" Biddy Blas would be as popular as he is",
+          "url": "https://www.eurogamer.net/biddy-blas-star-wars-galactic-racer-viral-scrib-doon",
+          "publishedAt": "2026-11-20T15:54:10.000Z",
+          "excerpt": "Fuse Games, the developer of Star Wars: Galactic Racer, has said it \"didn't dream\" the pod racing game's background character Biddy Blas would become as popular as he has.\u2026"
+        },
+        {
+          "title": "It took me less than an hour to find my first incredibly minor Rockstar easter egg in GTA 6 - but it has some big implications for Leonida",
+          "url": "https://www.eurogamer.net/gta-6-early-game-connection-rockstar-gta-5",
+          "publishedAt": "2026-11-20T15:19:30.000Z",
+          "excerpt": "Are you wondering how connected the worlds of GTA 5 and GTA 6 are? Well, I've got some news for you. Keep on reading below if you'd like some very minor spoilers for the early game of GTA 6, spoilers for GTA 5, as well as some information about how the new game links to GTA 5 and other Rockstar games.\u2026"
+        }
+      ]
+    },
+    {
+      "topic": "World news & politics",
+      "name": "BBC World",
+      "url": "https://feeds.bbci.co.uk/news/world/rss.xml",
+      "observedAt": "2026-11-21T15:04:20.403Z",
+      "parsed": 24,
+      "stories": [
+        {
+          "title": "Zelensky says Crimean Bridge strikes 'fair response' as he meets UK's Streeting",
+          "url": "https://www.bbc.co.uk/news/articles/c6wy0qj7w5zqo?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-11-21T13:17:38.000Z",
+          "excerpt": "Ukraine's president says Kyiv acted after 109 separate Russian aerial attacks on bridges in Ukraine."
+        },
+        {
+          "title": "Tech stock sell-off drags markets down as Anthropic shares slide",
+          "url": "https://www.bbc.co.uk/news/articles/c6808ym10vzgo?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-11-20T22:42:47.000Z",
+          "excerpt": "Pressures weighed on US markets, with the S&P 500 and the Dow Jones Industrial Average pushed into correction territory."
+        },
+        {
+          "title": "Fight over fossil fuels leaves COP31 climate talks in deadlock",
+          "url": "https://www.bbc.co.uk/news/articles/c6ly5w40eg07o?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-11-21T14:54:24.000Z",
+          "excerpt": "Countries from nearly 200 countries are in a deadlock to try and get a new global climate agreement."
+        },
+        {
+          "title": "FBI reportedly investigating apparent hack of its criminal database",
+          "url": "https://www.bbc.co.uk/news/articles/cvze7de86pk3o?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-11-21T09:34:20.000Z",
+          "excerpt": "The National Crime Information Center database is used by federal and local law enforcement to share information."
+        },
+        {
+          "title": "French police officers sentenced for beating of music producer Michel Zecler",
+          "url": "https://www.bbc.co.uk/news/articles/ck9d7e9wvvweo?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-11-20T22:37:09.000Z",
+          "excerpt": "The court has upheld the 2020 beating of the black music producer as an aggravated circumstance of racism."
+        },
+        {
+          "title": "Man convicted of starting Palisades fire in Los Angeles",
+          "url": "https://www.bbc.co.uk/news/articles/c64gn0gy8rj3o?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-11-21T04:34:00.000Z",
+          "excerpt": "The 30-year-old LA resident was convicted of arson leading to wildfires that killed 12 people and destroyed more than 6,800 buildings."
+        },
+        {
+          "title": "Deal with EU not dependent on tuition fees agreement, Miliband says",
+          "url": "https://www.bbc.co.uk/news/articles/cm9w9p4geke8o?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-11-21T09:40:55.000Z",
+          "excerpt": "Brussels sources had previously suggested the bloc might not apply the wider deal until fees were lowered for EU students in Britain."
+        },
+        {
+          "title": "In a year of AI solving maths problems, an Anthropic worker says he may have cracked the biggest",
+          "url": "https://www.bbc.co.uk/news/articles/c6pqr2g7w059o?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-11-20T23:08:57.000Z",
+          "excerpt": "A mathematician at Anthropic says he used an AI to prove the famed Riemann hypothesis, though verification will take some time."
+        },
+        {
+          "title": "Mamdani announces plan to close New York's Rikers Island jail by 2032",
+          "url": "https://www.bbc.co.uk/news/articles/cmjeqv89egylo?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-11-21T00:01:39.000Z",
+          "excerpt": "Plans to shutter the troubled facility date back to 2019, when the city council first voted to close it but delays arose over where to place inmates."
+        },
+        {
+          "title": "Trafalgar Square Christmas tree felled in Norway",
+          "url": "https://www.bbc.co.uk/news/articles/cx8dv4327dnpo?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-11-21T08:10:03.000Z",
+          "excerpt": "The 21m tree is Oslo\u2019s annual thank you for Britain\u2019s support during World War Two."
+        },
+        {
+          "title": "Zelensky says Putin is a 'killer' after Trump calls Russian leader a friend",
+          "url": "https://www.bbc.co.uk/news/articles/cxnv4zvmdy0jo?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-11-21T08:10:25.000Z",
+          "excerpt": "Earlier this week, Trump greeted Putin ahead of a meeting in China and said the pair have a \"great relationship\"."
+        },
+        {
+          "title": "Denmark accuses Russia of plotting to assassinate US-Ukrainian rapper",
+          "url": "https://www.bbc.co.uk/news/articles/cmde1lj4yjxno?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-11-21T10:26:36.000Z",
+          "excerpt": "The Russian embassy in Denmark has denied the allegation, which has led to Russia's defence attach\u00e9 being expelled."
+        },
+        {
+          "title": "Trump threatens ban on US firms building AI data centres overseas",
+          "url": "https://www.bbc.co.uk/news/articles/cmde1lw9y54ko?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-11-20T20:54:12.000Z",
+          "excerpt": "The US president provided little detail on the potential policy, saying others in his team were hearing about it for the first time."
+        },
+        {
+          "title": "Indian man sentenced to 19-plus years in plot to assassinate US-based Sikh separatist leader",
+          "url": "https://www.bbc.co.uk/news/articles/cq702ez8d4lwo?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-11-20T19:27:49.000Z",
+          "excerpt": "Nikhil Gupta pleaded guilty to murder-for-hire, conspiracy to commit murder-for-hire, and conspiracy to commit money laundering in February."
+        },
+        {
+          "title": "US declassifies more UFO footage filmed in the Middle East",
+          "url": "https://www.bbc.co.uk/news/videos/cqdr1x8mypnko?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-11-20T23:15:20.000Z",
+          "excerpt": "The Pentagon has released an eighth tranche of UFO records, which includes three video clips recorded in 2020, 2023 and 2026."
+        },
+        {
+          "title": "Miami or Vice City? Tour the real-world inspiration for GTA 6",
+          "url": "https://www.bbc.co.uk/news/videos/c8wy5d43zp9qo?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-11-20T18:48:48.000Z",
+          "excerpt": "BBC News Mundo\u2019s Rafael Rojas visits the real-life Miami locations that inspired Vice City, GTA 6\u2019s fictionalised setting."
+        },
+        {
+          "title": "What the new UK-EU deal could mean for future post-Brexit relations",
+          "url": "https://www.bbc.co.uk/news/videos/c90k6gl3lyxeo?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-11-20T21:43:22.000Z",
+          "excerpt": "The BBC's political and Europe editors analyse the new agreements between the UK and EU."
+        },
+        {
+          "title": "Cost of living protests sweep across Europe",
+          "url": "https://www.bbc.co.uk/news/videos/c6dx12ppeqn4o?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-11-20T16:45:34.000Z",
+          "excerpt": "Thousands marched across European cities on Friday to protest against the cost of living and other issues."
+        },
+        {
+          "title": "What we know about the latest Russian missile strikes on Ukraine",
+          "url": "https://www.bbc.co.uk/news/videos/c65y19wy3xl8o?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-11-20T15:14:01.000Z",
+          "excerpt": "Russia struck bridges and railway stations in the capital Kyiv in a major attack."
+        },
+        {
+          "title": "They were fined $811m for conning detained migrants, but the scams didn't stop",
+          "url": "https://www.bbc.co.uk/news/articles/cqgm0zlkgrm2o?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-11-21T01:02:39.000Z",
+          "excerpt": "How convicted fraudsters made millions from detained immigrants, evaded efforts to shut down their bail business and left migrants behind bars."
+        },
+        {
+          "title": "ANC fights to keep control of South Africa's key cities after election setback",
+          "url": "https://www.bbc.co.uk/news/articles/cqpv94d10rwpo?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-11-21T00:34:51.000Z",
+          "excerpt": "The ANC appears reluctant to replicate its national power-sharing deal with the pro-business DA at the local level."
+        },
+        {
+          "title": "These dead pets were meant to be cremated - then their bodies appeared on a livestream",
+          "url": "https://www.bbc.co.uk/news/articles/cmn502ek17yvo?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-11-20T23:20:33.000Z",
+          "excerpt": "Grieving Filipinos confront a distressing reality: their dogs and cats may not have received the send-off they paid for."
+        },
+        {
+          "title": "A new Nepal, an old neighbour - Balendra Shah's India test on first visit",
+          "url": "https://www.bbc.co.uk/news/articles/c6jre8xd83qgo?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-11-20T23:28:17.000Z",
+          "excerpt": "Trade, connectivity and regional cooperation will be on top of the agenda when Nepal's PM meets his India counterpart."
+        },
+        {
+          "title": "'I tell my son it's just fireworks': Life inside Yemeni city besieged by Houthis",
+          "url": "https://www.bbc.co.uk/news/articles/cx7v2d8q879eo?at_campaign=rss&at_medium=RSS",
+          "publishedAt": "2026-11-20T22:14:17.000Z",
+          "excerpt": "Orla Guerin speaks to seven people trapped in the key city of Taiz, cut off from the outside world for weeks."
+        }
+      ]
+    },
+    {
+      "topic": "World news & politics",
+      "name": "Guardian World",
+      "url": "https://www.theguardian.com/world/rss",
+      "observedAt": "2026-11-21T15:04:20.428Z",
+      "parsed": 45,
+      "stories": [
+        {
+          "title": "Haitians excited but uneasy as El Salvador troops fight gangs",
+          "url": "https://www.theguardian.com/world/2026/nov/21/excitement-unease-haiti-el-salvador-troops-gangs-war-bukele",
+          "publishedAt": "2026-11-21T11:00:57.000Z",
+          "excerpt": "Foreign combatants in Port-au-Prince welcomed by many after years of gang control but some fear offensive could exacerbate volatile situation A bullet-peppered mural of the Haitian striker Emmanuel Sanon covers the facade of Port-au-Prince\u2019s main football ground. But more than two years have passed since any sports stars graced the pitch. In 2024, as the surrounding city was almost entirely captured by heavily armed gangs, Sylvio Cator stadium \u2013 where football greats including Brazil\u2019s Ronaldo and Roberto Carlos once played \u2013 also fell under criminal control, its dilapidated red and blue stands used as an outpost by fighters working for a gang boss called Izo. Haiti\u2019s national team, the Grenadiers, found itself homeless and was forced to play its World Cup qualifying games abroad.\u2026"
+        },
+        {
+          "title": "China commits to low-carbon electrification and help for others to improve",
+          "url": "https://www.theguardian.com/environment/2026/nov/21/china-commits-low-carbon-electrification-help-others-improve",
+          "publishedAt": "2026-11-21T09:47:57.000Z",
+          "excerpt": "Exclusive: Countries at Cop31 are being urged to commit to deriving 35% of their energy from electricity by 2035 Cop31 live \u2013 latest updates China is pushing for rapid electrification of its economy using low-carbon energy and will help other countries do the same, a senior member of the Chinese delegation at the Cop31 UN climate summit has said. Wang Yi, a professor of energy and environment policy at the Chinese Academy of Sciences and a senior adviser to China\u2019s government, said: \u201cEnd-use electrification is a very clear direction. We can follow this direction while making the source of electricity clean. That\u2019s the way to go forward.\u201d\u2026"
+        },
+        {
+          "title": "Trump threatens \u2018tremendous penalties\u2019 for US tech firms that build datacenters abroad",
+          "url": "https://www.theguardian.com/us-news/2026/nov/20/trump-datacenters-white-house",
+          "publishedAt": "2026-11-20T21:47:41.000Z",
+          "excerpt": "President gives wide-ranging White House press conference and says he has \u2018fantastic relationships\u2019 with Putin and Xi Donald Trump threatened on Friday to impose \u201ctremendous penalties\u201d on American tech companies that build datacenters outside the US, though he gave no details and told reporters he had not yet informed his own officials about the plan. In a discursive press conference from the White House briefing room, Trump also said he would \u201clook into\u201d the report that Iran had been planning to possibly detonate a \u201cdirty bomb\u201d in Washington DC, and backed JD Vance over comments the vice-president made blaming Republican midterm losses on the Iran war.\u2026"
+        },
+        {
+          "title": "Nasdaq erases all 2026 gains as AI sell-off dampens Anthropic\u2019s second day of trading",
+          "url": "https://www.theguardian.com/business/2026/nov/20/global-stock-markets-slump-anthropic-ipo-ai-sell-off",
+          "publishedAt": "2026-11-20T21:38:17.000Z",
+          "excerpt": "The Nasdaq lost trillions in value, with the AI startup\u2019s IPO failing to buoy it as investors question huge sums being poured into AI buildout Who are Anthropic\u2019s seven co-founders, now worth $180bn? As Anthropic\u2019s stock dropped during its second day of trading, the wider stock market dipped with it. On Friday, the Nasdaq Composite erased all its gains for 2026 and closed down 5% from its value on 1 January. The Dow Jones Industrial Average and S&P 500 closed in correction territory. Anthropic\u2019s record-breaking IPO failed to stem a global sell-off in AI-linked companies, and the tech-heavy Nasdaq erased some $4tn in market value this week, according to the Wall Street Journal.\u2026"
+        },
+        {
+          "title": "Teenager allegedly organised arsons and kidnapping on Signal during Melbourne hospitality wars",
+          "url": "https://www.theguardian.com/australia-news/2026/nov/21/teenager-allegedly-organised-arsons-and-kidnapping-on-signal-during-melbourne-hospitality-wars-ntwnfb",
+          "publishedAt": "2026-11-21T04:44:00.000Z",
+          "excerpt": "Victoria police say boy, 17, communicated with offenders under username \u2018Onepercent\u2019 Get our breaking news email, free app or daily news podcast Victorian police allege a 17-year-old boy tasked others to carry out a series of arsons, home invasions and a mistaken identity kidnapping that resulted in the partial amputation of a victim\u2019s finger during Melbourne\u2019s hospitality wars. The boy, who was arrested on Friday afternoon, allegedly communicated with the offenders under the username \u201cOnepercent\u201d on the encrypted communications app Signal.\u2026"
+        },
+        {
+          "title": "Victorian Greens seek urgent injunction over how-to-vote cards mimicking party\u2019s branding but preferencing it last",
+          "url": "https://www.theguardian.com/australia-news/2026/nov/21/victorian-greens-seek-urgent-injunction-over-how-to-vote-cards-mimicking-branding-but-preferencing-it-last-ntwnfb",
+          "publishedAt": "2026-11-21T00:26:56.000Z",
+          "excerpt": "Exclusive: Independent candidate Tosh-Jake Finnigan\u2019s cards instruct people to vote in a way that would benefit Liberal party Get our daily political email, free app or daily news podcast The Victorian Greens are seeking an urgent injunction from the supreme court to stop an independent candidate distributing how-to-vote cards that allegedly mimic the party\u2019s branding and urge people to preference it last. As prepoll opened on Wednesday morning, Tosh-Jake Finnigan\u2019s campaign team handed out how-to-vote cards that used the minor party\u2019s colour scheme, font and triangle logo with the banner \u201cVote 1 Green Values\u201d.\u2026"
+        },
+        {
+          "title": "NSW passes Mount Pleasant coalmine law as Greens claim change an attempt to head off One Nation",
+          "url": "https://www.theguardian.com/australia-news/2026/nov/21/nsw-passes-hunter-valley-coalmine-law-as-greens-claim-change-an-attempt-to-head-off-one-nation-ntwnfb",
+          "publishedAt": "2026-11-20T23:09:57.000Z",
+          "excerpt": "Labor says allowing mine to increase production reflects \u2018gravity of situation facing hundreds of workers\u2019 \u2013 but critics call it \u2018unprecedented and dangerous\u2019 Get our breaking news email, free app or daily news podcast The New South Wales government has passed special legislation to allow a coalmine in the Hunter Valley to increase production by 32% in its final act of parliament before the March state election, in which the region will be a key battleground for One Nation. After a marathon session in the legislative council on Friday, the Minns government and the Coalition voted at 1.36am on Saturday morning to allow the Mount Pleasant mine to increase its annual extraction rate from 12.5MT to 16.5MT until 2032.\u2026"
+        },
+        {
+          "title": "British man recalls \u2018despair\u2019 over son\u2019s death after fall from Cyprus window",
+          "url": "https://www.theguardian.com/uk-news/2026/nov/21/british-man-recalls-despair-over-sons-death-after-fall-from-cyprus-window",
+          "publishedAt": "2026-11-21T14:35:20.000Z",
+          "excerpt": "Joshua Foster tells of moment he \u2018lost control\u2019 of two-year-old when he fell from fourth storey of hotel A British father who was fined by the courts after his two-year-old son fell from a fourth-floor window during a family holiday in Cyprus has recalled his \u201cdespair\u201d when the boy slipped from his grasp. Joshua Foster was handed a \u20ac3,000 (\u00a32,500) penalty after he pleaded guilty to a charge of causing death through a reckless, rash or dangerous act. Prosecutors in Cyprus had refused to drop the case against him.\u2026"
+        },
+        {
+          "title": "Denmark to expel Russian diplomat over alleged plot to kill US-Ukrainian rapper",
+          "url": "https://www.theguardian.com/world/2026/nov/20/denmark-russian-diplomat-us-ukrainian-rapper-attempted-killing",
+          "publishedAt": "2026-11-21T14:03:50.000Z",
+          "excerpt": "Moscow intelligence thought to be behind plan to kill musician Kyivstoner before concert in Denmark Denmark\u2019s foreign minister has said Russia\u2019s defence attache in Copenhagen would be expelled after Moscow was suspected of being behind an attempted killing of a US-Ukrainian rapper. \u201cWe have just summoned the Russian ambassador to the ministry of foreign affairs and notified him of the government\u2019s decision to expel the Russian defence attache from Denmark,\u201d Lars L\u00f8kke Rasmussen told a news conference. The expulsion will happen within seven days.\u2026"
+        },
+        {
+          "title": "Rejoining EU \u2018on the table\u2019 as UK makes deals on trade and young people",
+          "url": "https://www.theguardian.com/politics/2026/nov/21/rejoining-eu-uk-trade-youth-deals-ed-miliband",
+          "publishedAt": "2026-11-21T11:33:01.000Z",
+          "excerpt": "All options open in future talks, says Ed Miliband, while prime minister hails \u2018a good day for Britain and Europe\u2019 The UK rejoining the EU could be on the table in informal discussions between Andy Burnham and European leaders in Brussels, Ed Miliband has said. The foreign secretary said \u201call options\u201d would be examined in the process, after the prime minister agreed deals on trade and young people with the bloc on Friday.\u2026"
+        },
+        {
+          "title": "\u2018So what if there\u2019s a hole? It hasn\u2019t collapsed\u2019: Kyiv residents unbothered by Russian attacks on city\u2019s bridges",
+          "url": "https://www.theguardian.com/world/2026/nov/21/kyiv-russian-attacks-bridges",
+          "publishedAt": "2026-11-21T05:00:50.000Z",
+          "excerpt": "Despite dodging tears in the tarmac, people are confident in city\u2019s infrastructure \u2013 and will not worry about what has not happened yet Mykola expects to drive his battered beige passenger minibus 20 to 24 times a day past the holes in the road on Kyiv\u2019s damaged Northern Bridge that were caused by a Russian ballistic missile attack on Tuesday. Buses are now the only motor transport allowed across the normally busy multi-lane crossing, though on their way into the city centre they have to skirt the tears in the tarmac, using the only functioning lane to get by.\u2026"
+        },
+        {
+          "title": "Tourists are throwing fewer coins into Rome\u2019s Trevi fountain \u2013 is \u20ac2 entry fee to blame?",
+          "url": "https://www.theguardian.com/world/2026/nov/21/charity-hit-coin-throwing-rome-trevi-fountain-caritas-italy",
+          "publishedAt": "2026-11-21T05:00:49.000Z",
+          "excerpt": "Charity that collects the coins says donations are down by \u00a3200,000 after a barrier was put in place to restrict access When Jeff Clinton, an American visiting Rome with his wife for the first time, found a US one-cent coin on a street close to Termini train station, he knew precisely what he was going to do with it. \u201cI\u2019ll throw it into the Trevi fountain,\u201d said Clinton, holding the copper coin in the palm of his hand as the couple admired the landmark. He was well aware of the tradition among tourists of tossing a coin over their shoulder and into the waters of the baroque masterpiece, in a ritual fabled to ensure a return visit to the city or make other dreams come true.\u2026"
+        },
+        {
+          "title": "When you see smoke, run: Rohingya who escaped Myanmar\u2019s genocide tell their stories",
+          "url": "https://www.theguardian.com/world/2026/nov/21/rohingya-who-escaped-myanmars-genocide-tell-their-stories",
+          "publishedAt": "2026-11-21T04:00:47.000Z",
+          "excerpt": "Survivors recount rivers red with blood and burning nearby villages serving as an urgent warning to flee their homes Smoke was often the signal to run \u2013 seen from a distance, it was the indication for Rohingya that a neighbouring village was under attack and that theirs would be next. In other places, they saw the rivers run red and would pull out the bodies, perform quick burial rites and then flee.\u2026"
+        },
+        {
+          "title": "Indian man sentenced to 19 years in prison for conspiring to kill Sikh separatist in New York",
+          "url": "https://www.theguardian.com/us-news/2026/nov/20/indian-man-sentenced-prison-murder-plot-sikh-separatist",
+          "publishedAt": "2026-11-20T18:24:12.000Z",
+          "excerpt": "Nikhil Gupta admitted to plotting with Indian government official to hire hitman to murder dual US-Canadian citizen An Indian \u2060man was sentenced to more \u2060than 19 \u200byears in US prison on Friday after admitting to orchestrating a failed Indian government-backed plot to kill a Sikh separatist in New York \u2060City, in connection with what US and Canadian authorities have called a broader effort to target Indian dissidents. Nikhil Gupta, 55, pleaded guilty in February to murder-for-hire, conspiracy \u2060to commit murder-for-hire and conspiracy to commit money laundering.\u2026"
+        },
+        {
+          "title": "Cold gives way to rain in parts of UK as weather warning issued for south-west England",
+          "url": "https://www.theguardian.com/uk-news/2026/nov/21/uk-weather-cold-rain-warning-south-west-england",
+          "publishedAt": "2026-11-21T14:51:37.000Z",
+          "excerpt": "Flood alerts in place and risk of power cuts as more than 100mm predicted to fall on Dartmoor on Sunday Cold snaps are to make way for heavy rain in some parts of the country as the Met Office issued a weather warning for south-west England. It said there will be a slow-moving band of rain moving across Devon and Cornwall, with more than 100mm due to fall on Dartmoor. The warning will be in place from 6am on Sunday until midnight.\u2026"
+        },
+        {
+          "title": "Princess of Wales speaks about impact of cancer diagnosis in BBC film Heal",
+          "url": "https://www.theguardian.com/uk-news/2026/nov/21/princess-of-wales-impact-cancer-diagnosis-bbc-film-heal",
+          "publishedAt": "2026-11-21T14:42:56.000Z",
+          "excerpt": "Documentary records Catherine taking on Three Peaks challenge and finding \u2018sense of hope alongside uncertainty\u2019 The Princess of Wales has spoken candidly about the impact of her cancer diagnosis in a BBC documentary to be aired later this month. \u201cCancer does change you,\u201d Catherine, 44, says in the trailer for the 30-minute programme. \u201cIt changes your body. It changes you physically, but there\u2019s a much, much deeper part to what a cancer diagnosis shifts in you.\u201d\u2026"
+        },
+        {
+          "title": "Reform UK considers pact with Restore Britain to overcome stalling performance in polls",
+          "url": "https://www.theguardian.com/politics/2026/nov/21/reform-uk-considers-pact-restore-britain-stalling-performance-polls",
+          "publishedAt": "2026-11-21T12:22:54.000Z",
+          "excerpt": "Thursday\u2019s byelection in Castle Bromwich will be latest test for Nigel Farage\u2019s party as rival eats into support Voters go to the polls in the village of Castle Bromwich in the West Midlands on Thursday in a little-noticed election that is the latest test for Reform at a time when it is particularly vulnerable. Yet, while it is the Conservatives who are edging ahead in recent polls, the decisive difference could well be the performance of Restore Britain \u2013 the hard-right party set up by Rupert Lowe after the MP fell out with Nigel Farage.\u2026"
+        },
+        {
+          "title": "\u2018Music was our teacher\u2019: the sound system pioneers reviving the scene in Manchester and beyond",
+          "url": "https://www.theguardian.com/news/2026/nov/21/sound-system-pioneers-music-manchester-windrush",
+          "publishedAt": "2026-11-21T12:00:58.000Z",
+          "excerpt": "Manchester-based Megatone Sound Foundation and Baron Turbo Charge have rejuvenated the culture to offer a sense of belonging and empowerment For a generation of young Black Mancunians, some of the history lessons that mattered most were not taught in classrooms, but through towering stacks of amps and speakers, turntables and Jamaican records. \u201cWe didn\u2019t know where we fit in. We didn\u2019t know our history. Our parents were busy working two or three jobs,\u201d says Errol \u201cBarzy\u201d Beaumont, a founder member of Baron Turbo Charge, Manchester\u2019s long-running reggae sound system. \u201cIt was the records \u2013 Burning Spear, Bob Marley, Culture, that were telling us about our culture, which wasn\u2019t on the school curriculum. For us, the sound system was not just entertainment \u2013 it was an education.\u201d\u2026"
+        },
+        {
+          "title": "Black Friday deals for liquid Brazilian butt lifts criticised over safety fears",
+          "url": "https://www.theguardian.com/lifeandstyle/2026/nov/21/black-friday-deals-liquid-brazilian-butt-lifts-criticised-safety-fears",
+          "publishedAt": "2026-11-21T11:08:21.000Z",
+          "excerpt": "Experts say BBLs and other cosmetic procedures can be risky and seasonal offers at clinics in England could make people rush decisions Clinics in England are promoting seasonal deals \u2013 including for Black Friday \u2013 on liquid Brazilian butt lifts (BBLs), despite concerns about the risks of the procedure. The government is consulting on limiting liquid BBLs, vampire facials and deep chemical peels in England to qualified healthcare professionals. The proposals follow the death of Alice Webb, a 33-year-old mother of five, after a botched liquid BBL in a Gloucester salon in 2024. Her family have called for laws against \u201ccosmetic cowboys\u201d to be introduced before more people die.\u2026"
+        },
+        {
+          "title": "Federal judge denies request to release man shot by immigration agents in New York",
+          "url": "https://www.theguardian.com/us-news/2026/nov/21/new-york-judge-ice-shooting-immigration",
+          "publishedAt": "2026-11-21T14:52:30.000Z",
+          "excerpt": "Oscar Belgal, a Dominican national, was shot by ICE agents as he drove his five-year-old son home from school A federal judge on Friday declined to release from custody a man who was shot and wounded by immigration officers as they arrested him in New York in October. The US district court judge Hector Gonzalez said in a written ruling that agents may have made a procedural error in serving an arrest warrant on Oscar Belgal before he was given a notice to appear in immigration court. However, he wrote, that was merely a technical error that does not require Belgal to be released from federal custody pending deportation proceedings.\u2026"
+        },
+        {
+          "title": "\u2018Hell dorm\u2019: Florida prisoners testify about 119F heat indexes and walls that sweat",
+          "url": "https://www.theguardian.com/us-news/2026/nov/21/florida-prisoner-lawsuit-extreme-heat",
+          "publishedAt": "2026-11-21T14:38:58.000Z",
+          "excerpt": "Temperatures in a concrete facility contributed to one man\u2019s death after he struggled to breathe, prisoners allege On Tuesday afternoon Dwayne Wilson, 69, a thin Black man dressed in a light gray prison uniform, testified about the stifling heat he experienced in the Dade correctional institute, a concrete state prison south of Miami, Florida, without air conditioning. He removed his glasses and wiped his eyes as he spoke. \u201cIt was so hot,\u201d he said, his voice catching. \u201cIt\u2019s so hot sometimes you have to put water on the floor just to try to keep cool.\u201d Wilson said he\u2019s housed in the H dorms, a T-shaped building with one-to-two-person cells, nicknamed \u201chell dorm\u201d by prisoners because its concrete walls radiate heat absorbed from the sun. The plaintiff\u2019s law firm, the Florida Justice Institute, convinced a judge to allow 31 sensors to be temporarily installed throughout the prison during the summer of 2025. They recorded temperature and humidity levels that Stefano Shiavon, a professor of civil and environmental engineering with expertise in thermal comfort, used to calculate the heat index. He found it to be above 88F (31C) 97% of the time, with the highest heat indexes often recorded at night, including one reading in the H dorm dayroom equivalent to 119F (48C) at 10pm one July day last year. \u201cThe walls sweat,\u201d Wilson said. \u201cIt\u2019s miserable in the cell at night because, again, it\u2019s so hot. No air comes to the bed we sleep at and the bed is soaked in sweat.\u201d\u2026"
+        },
+        {
+          "title": "USDA, FBI breached by hackers amid spate of tech outages \u2013 reports",
+          "url": "https://www.theguardian.com/us-news/2026/nov/21/usda-fbi-outages-cyber-attack",
+          "publishedAt": "2026-11-21T14:09:02.000Z",
+          "excerpt": "Latest intrusions targeted farmer-payment system at the USDA and the FBI\u2019s National Crime Information Center Hackers breached the US Department of Agriculture (USDA) and the FBI, national media reported on Friday, amid deepening concerns over a spate of tech outages at key American institutions. The breaches were first reported by NBC News and CNN respectively, and it remained unclear whether they were related and who was responsible.\u2026"
+        },
+        {
+          "title": "US pursuit of \u2018Trump-class\u2019 warships has blown cost of new fleet by billions, report warns",
+          "url": "https://www.theguardian.com/us-news/2026/nov/21/trump-class-warships",
+          "publishedAt": "2026-11-21T13:00:00.000Z",
+          "excerpt": "Iran war stretching fleet\u2019s capacity, navy chief admits, as CBO finds estimated cost of new ships \u2018unrealistically low\u2019 The US navy\u2019s commitment to the new Trump-class battleships has blown out the cost of its new fleet by billions of dollars, a report to the US Congress has found, as the acting secretary of the navy conceded this week the Iran war was \u201cstretching\u201d the fleet\u2019s capacity. The challenges facing the world\u2019s biggest naval force were highlighted this week, when the return of the USS George Washington from the Middle East on Wednesday ended a rare three-month period when the US had no aircraft carrier across all of the Pacific. Deployments have been regularly running beyond 300 days, with the maintenance and repair of ships deferred so they can stay at sea longer.\u2026"
+        },
+        {
+          "title": "Race to lead Senate Democrats the latest battlefield in party\u2019s tussle over Israel",
+          "url": "https://www.theguardian.com/us-news/2026/nov/21/senate-democrats-chuck-schumer-chris-van-hollen",
+          "publishedAt": "2026-11-21T12:00:57.000Z",
+          "excerpt": "Chris Van Hollen and Chuck Schumer represent conflicting visions on issue that has become \u2018litmus test\u2019 for Democratic voters The race to lead the Democratic Party\u2019s incoming Senate majority has become the latest battlefield between two conflicting visions for how the US should relate to Israel \u2013 a once unquestioned ally whose collapsing standing among the US public has become a defining feature of American politics. Chuck Schumer, the veteran New York Senator and current Democratic minority leader, is one of Israel\u2019s most reliable supporters in Congress. As he views it, according to an interview he gave last year, his \u201cjob\u201d is to \u201ckeep the left pro-Israel\u201d.\u2026"
+        }
+      ]
+    },
+    {
+      "topic": "U.S. news & politics",
+      "name": "NPR Politics",
+      "url": "https://feeds.npr.org/1014/rss.xml",
+      "observedAt": "2026-11-21T15:04:20.480Z",
+      "parsed": 10,
+      "stories": [
+        {
+          "title": "How a GOP redistricting 'dummymander' in North Carolina backfired by 2 seats",
+          "url": "https://www.npr.org/2026/11/21/nx-s1-6044778/how-a-gop-redistricting-dummymander-in-north-carolina-backfired-by-2-seats",
+          "publishedAt": "2026-11-21T12:40:21.000Z",
+          "excerpt": "In North Carolina, Republican lawmakers redrew voting maps, aiming to gain one seat in Congress. Instead, they lost two seats, in a classic example of what political scientists call a \"dummymander.\""
+        },
+        {
+          "title": "The New Yorker's Jason Zengerle on Hakeem Jeffries' rise to first Black House speaker",
+          "url": "https://www.npr.org/2026/11/21/nx-s1-6047580/the-new-yorkers-jason-zengerle-on-hakeem-jeffries-rise-to-first-black-house-speaker",
+          "publishedAt": "2026-11-21T12:40:19.000Z",
+          "excerpt": "Hakeem Jeffries is set to become the first-ever African American speaker of the U.S. House of Representatives. NPR's Scott Simon talks to Jason Zengerle of The New Yorker about the rise of Jeffries."
+        },
+        {
+          "title": "Week in Politics: Trump returns from Asia; hails trip as one of best in history",
+          "url": "https://www.npr.org/2026/11/21/nx-s1-6047376/week-in-politics-trump-returns-from-asia-hails-trip-as-one-of-best-in-history",
+          "publishedAt": "2026-11-21T12:40:15.000Z",
+          "excerpt": "President Trump returned from his trip to Asia, saying it was one of the most successful presidential visits to that continent -- or anywhere else -- in American history."
+        },
+        {
+          "title": "An effort to circumvent the Electoral College may be within reach. But hurdles remain",
+          "url": "https://www.npr.org/2026/11/21/nx-s1-6044237/electoral-college-national-popular-vote-interstate-compact",
+          "publishedAt": "2026-11-21T10:00:00.000Z",
+          "excerpt": "A national effort to ensure that only winners of the popular vote become president could reach a critical milestone soon. (Image credit: Mark Felix)"
+        },
+        {
+          "title": "The latest from Trump's press conference",
+          "url": "https://www.npr.org/2026/11/20/nx-s1-6047636/trump-presser",
+          "publishedAt": "2026-11-20T21:38:21.000Z",
+          "excerpt": "President Trump gave a wide-ranging press conference following his historic trip to Asia where he met with Chinese President Xi and Russian President Putin."
+        },
+        {
+          "title": "A second judge blocks Trump's arch, saying it's unlikely to succeed in court",
+          "url": "https://www.npr.org/2026/11/20/nx-s1-6048675/trump-arch-blocked-arlington",
+          "publishedAt": "2026-11-20T18:25:09.000Z",
+          "excerpt": "A federal judge in Virginia said she will issue a preliminary injunction against Trump's arch, going a step further than the D.C. federal judge who temporarily blocked construction earlier this week. (Image credit: John McDonnell)"
+        },
+        {
+          "title": "Trump initially accepted the midterm results, but most GOP voters doubt they were fair",
+          "url": "https://www.npr.org/2026/11/20/nx-s1-6047605/midterm-election-distrust-republicans",
+          "publishedAt": "2026-11-20T17:00:00.000Z",
+          "excerpt": "Less than half of Republicans nationwide considered the midterm elections \"free and fair,\" according to new polling. (Image credit: Spencer Platt)"
+        },
+        {
+          "title": "Trump touts meeting with Xi and Putin but offers few results",
+          "url": "https://www.npr.org/2026/11/20/nx-s1-6047594/trump-asia-trip-xi-putin-press-conference",
+          "publishedAt": "2026-11-20T15:00:00.000Z",
+          "excerpt": "At a White House press conference Friday, Trump offered little in actual results of the meetings, beyond a joint statement on unity over some issues. (Image credit: Kevin Dietsch)"
+        }
+      ]
+    },
+    {
+      "topic": "U.S. news & politics",
+      "name": "Guardian US",
+      "url": "https://www.theguardian.com/us-news/rss",
+      "observedAt": "2026-11-21T15:04:20.524Z",
+      "parsed": 33,
+      "stories": [
+        {
+          "title": "Federal judge denies request to release man shot by immigration agents in New York",
+          "url": "https://www.theguardian.com/us-news/2026/nov/21/new-york-judge-ice-shooting-immigration",
+          "publishedAt": "2026-11-21T14:52:30.000Z",
+          "excerpt": "Oscar Belgal, a Dominican national, was shot by ICE agents as he drove his five-year-old son home from school A federal judge on Friday declined to release from custody a man who was shot and wounded by immigration officers as they arrested him in New York in October. The US district court judge Hector Gonzalez said in a written ruling that agents may have made a procedural error in serving an arrest warrant on Oscar Belgal before he was given a notice to appear in immigration court. However, he wrote, that was merely a technical error that does not require Belgal to be released from federal custody pending deportation proceedings.\u2026"
+        },
+        {
+          "title": "\u2018Hell dorm\u2019: Florida prisoners testify about 119F heat indexes and walls that sweat",
+          "url": "https://www.theguardian.com/us-news/2026/nov/21/florida-prisoner-lawsuit-extreme-heat",
+          "publishedAt": "2026-11-21T14:38:58.000Z",
+          "excerpt": "Temperatures in a concrete facility contributed to one man\u2019s death after he struggled to breathe, prisoners allege On Tuesday afternoon Dwayne Wilson, 69, a thin Black man dressed in a light gray prison uniform, testified about the stifling heat he experienced in the Dade correctional institute, a concrete state prison south of Miami, Florida, without air conditioning. He removed his glasses and wiped his eyes as he spoke. \u201cIt was so hot,\u201d he said, his voice catching. \u201cIt\u2019s so hot sometimes you have to put water on the floor just to try to keep cool.\u201d Wilson said he\u2019s housed in the H dorms, a T-shaped building with one-to-two-person cells, nicknamed \u201chell dorm\u201d by prisoners because its concrete walls radiate heat absorbed from the sun. The plaintiff\u2019s law firm, the Florida Justice Institute, convinced a judge to allow 31 sensors to be temporarily installed throughout the prison during the summer of 2025. They recorded temperature and humidity levels that Stefano Shiavon, a professor of civil and environmental engineering with expertise in thermal comfort, used to calculate the heat index. He found it to be above 88F (31C) 97% of the time, with the highest heat indexes often recorded at night, including one reading in the H dorm dayroom equivalent to 119F (48C) at 10pm one July day last year. \u201cThe walls sweat,\u201d Wilson said. \u201cIt\u2019s miserable in the cell at night because, again, it\u2019s so hot. No air comes to the bed we sleep at and the bed is soaked in sweat.\u201d\u2026"
+        },
+        {
+          "title": "USDA, FBI breached by hackers amid spate of tech outages \u2013 reports",
+          "url": "https://www.theguardian.com/us-news/2026/nov/21/usda-fbi-outages-cyber-attack",
+          "publishedAt": "2026-11-21T14:09:02.000Z",
+          "excerpt": "Latest intrusions targeted farmer-payment system at the USDA and the FBI\u2019s National Crime Information Center Hackers breached the US Department of Agriculture (USDA) and the FBI, national media reported on Friday, amid deepening concerns over a spate of tech outages at key American institutions. The breaches were first reported by NBC News and CNN respectively, and it remained unclear whether they were related and who was responsible.\u2026"
+        },
+        {
+          "title": "US pursuit of \u2018Trump-class\u2019 warships has blown cost of new fleet by billions, report warns",
+          "url": "https://www.theguardian.com/us-news/2026/nov/21/trump-class-warships",
+          "publishedAt": "2026-11-21T13:00:00.000Z",
+          "excerpt": "Iran war stretching fleet\u2019s capacity, navy chief admits, as CBO finds estimated cost of new ships \u2018unrealistically low\u2019 The US navy\u2019s commitment to the new Trump-class battleships has blown out the cost of its new fleet by billions of dollars, a report to the US Congress has found, as the acting secretary of the navy conceded this week the Iran war was \u201cstretching\u201d the fleet\u2019s capacity. The challenges facing the world\u2019s biggest naval force were highlighted this week, when the return of the USS George Washington from the Middle East on Wednesday ended a rare three-month period when the US had no aircraft carrier across all of the Pacific. Deployments have been regularly running beyond 300 days, with the maintenance and repair of ships deferred so they can stay at sea longer.\u2026"
+        },
+        {
+          "title": "This is how badly Trump\u2019s Republican endorsements did in the midterms",
+          "url": "https://www.theguardian.com/us-news/2026/nov/21/trump-republican-endorsements-midterms",
+          "publishedAt": "2026-11-21T12:00:58.000Z",
+          "excerpt": "The Guardian analyzed US Senate, House and governors\u2019 races, showing Trump\u2019s dwindling influence over the GOP Donald Trump often boasts about the power of his \u201cComplete and Total Endorsement\u201d of candidates, but in the 2026 midterms, his endorsements carried less weight than they did two years ago. Half of the Senate candidates Trump endorsed lost, and most of the governors the US president endorsed were defeated by Democratic candidates in this month\u2019s blue wave midterm elections, according to an analysis by the Guardian.\u2026"
+        },
+        {
+          "title": "Race to lead Senate Democrats the latest battlefield in party\u2019s tussle over Israel",
+          "url": "https://www.theguardian.com/us-news/2026/nov/21/senate-democrats-chuck-schumer-chris-van-hollen",
+          "publishedAt": "2026-11-21T12:00:57.000Z",
+          "excerpt": "Chris Van Hollen and Chuck Schumer represent conflicting visions on issue that has become \u2018litmus test\u2019 for Democratic voters The race to lead the Democratic Party\u2019s incoming Senate majority has become the latest battlefield between two conflicting visions for how the US should relate to Israel \u2013 a once unquestioned ally whose collapsing standing among the US public has become a defining feature of American politics. Chuck Schumer, the veteran New York Senator and current Democratic minority leader, is one of Israel\u2019s most reliable supporters in Congress. As he views it, according to an interview he gave last year, his \u201cjob\u201d is to \u201ckeep the left pro-Israel\u201d.\u2026"
+        },
+        {
+          "title": "New Orleans Catholic clergy abuse survivors begin receiving payments from $305m bankruptcy settlement",
+          "url": "https://www.theguardian.com/us-news/2026/nov/21/new-orleans-catholic-clergy-abuse-settlement",
+          "publishedAt": "2026-11-21T11:00:57.000Z",
+          "excerpt": "Arrival of payments in contentious legal saga that began in 2020 is \u2018a weight off my shoulders\u2019, one survivor said Hundreds of clergy sexual abuse survivors have received more than half of the $305m bankruptcy settlement that the archdiocese of New Orleans reached with them last year, a milestone that marks the beginning of the end of a years-long legal saga. The trustee overseeing the settlement fund, Don Massey, confirmed on Friday that $180m had been distributed to 450 of about 740 survivors, either directly or through their lawyers if they retained legal representation. Massey said he and his staff are working hard to get payments in the rest of the survivors\u2019 hands by the end of the year but are still waiting on hundreds of distribution forms from survivors and their lawyers.\u2026"
+        },
+        {
+          "title": "Fair-weather Silicon Valley pivots away from the right after blue wave: \u2018I\u2019m not Maga\u2019",
+          "url": "https://www.theguardian.com/us-news/2026/nov/21/silicon-valley-pivot-us-midterms",
+          "publishedAt": "2026-11-21T11:00:56.000Z",
+          "excerpt": "From Elon Musk to Palantir\u2019s Alex Karp, CEOs are softening hardline stances in expectation of an influx of Democrats A short two years ago, Elon Musk stood before an audience of tens of thousands of people in New York City and proudly told them: \u201cI\u2019m not just Maga. I\u2019m dark, gothic Maga.\u201d On Wednesday, Musk spoke with much less conviction. \u201cI\u2019m not Maga,\u201d he said. \u201cWell, at least I\u2019m not sure what Maga means.\u201d The richest person in the world added he felt \u201cfoolish\u201d for spending some $500m to elect Republicans in the midterms. \u201cIf I could rewind the clock, I would have spent less money,\u201d he said at the New York Times\u2019 DealBook conference, adding that he did not have \u201csome sort of blind adherence to a set of policies by the Republican party\u201d.\u2026"
+        },
+        {
+          "title": "Republican senator blocks Trump cyber nominee over January 6 denial",
+          "url": "https://www.theguardian.com/us-news/2026/nov/20/tillis-republican-senator-trump-cyber-nominee",
+          "publishedAt": "2026-11-20T23:48:38.000Z",
+          "excerpt": "Thom Tillis move comes after Michael LoSapio, nominated for Cisa role, told hearing \u2018I don\u2019t believe it was an attack\u2019 Senator Thom Tillis, the outgoing North Carolina Republican who is due to be replaced by a Democrat, has reportedly blocked a confirmation vote on Donald Trump\u2019s nominee to lead a key US cybersecurity agency, Michael LoSapio, after he denied during a hearing that the Capitol was attacked on January 6 2021. Tillis, who declined to run for re-election and after repeated clashes with Trump\u2019s, confirmed to HuffPost on Friday that he has placed a hold on LoSapio\u2019s nomination to serve as a director of the US Cybersecurity and Infrastructure Agency (Cisa). His block on the nomination will prevent it from being included in a package of nominees to be voted on next month, before the Republicans lose their majority in the Senate.\u2026"
+        },
+        {
+          "title": "Trump threatens \u2018tremendous penalties\u2019 for US tech firms that build datacenters abroad",
+          "url": "https://www.theguardian.com/us-news/2026/nov/20/trump-datacenters-white-house",
+          "publishedAt": "2026-11-20T21:47:41.000Z",
+          "excerpt": "President gives wide-ranging White House press conference and says he has \u2018fantastic relationships\u2019 with Putin and Xi Donald Trump threatened on Friday to impose \u201ctremendous penalties\u201d on American tech companies that build datacenters outside the US, though he gave no details and told reporters he had not yet informed his own officials about the plan. In a discursive press conference from the White House briefing room, Trump also said he would \u201clook into\u201d the report that Iran had been planning to possibly detonate a \u201cdirty bomb\u201d in Washington DC, and backed JD Vance over comments the vice-president made blaming Republican midterm losses on the Iran war.\u2026"
+        },
+        {
+          "title": "\u2018Worth fighting for\u2019: senators vow to restore financial watchdog agency after Guardian investigation",
+          "url": "https://www.theguardian.com/us-news/2026/nov/20/senators-consumer-financial-protection-bureau",
+          "publishedAt": "2026-11-20T18:51:16.000Z",
+          "excerpt": "Democrats \u2013 including incoming banking chair and both majority leader candidates \u2013 said wealthy interests were prioritized over the needs of working Americans In response to a Guardian investigation, four US Senate Democrats say they will work to resurrect a financial watchdog agency that has abandoned dozens of enforcement actions under the second Trump administration. The Guardian found that after the Consumer Financial Protection Bureau (CFPB) dropped more than 20 lawsuits against banks and corporations accused of a range of financial misconduct, complaints against those firms rose by an average of more than 75%. In many of these recent complaints, consumers described the same issues the CFPB\u2019s suits had sought to address.\u2026"
+        },
+        {
+          "title": "Lauren Boebert says Trump \u2018did some things to hurt\u2019 her constituents",
+          "url": "https://www.theguardian.com/us-news/2026/nov/20/lauren-boebert-trump-midterms",
+          "publishedAt": "2026-11-20T18:51:09.000Z",
+          "excerpt": "Controversial Colorado Republican narrowly lost House seat in midterms but says \u2018I\u2019m not mad at the president\u2019 Lauren Boebert says Donald Trump \u201cdid some things that hurt\u201d her constituents before they voted the pugnacious Colorado Republican out of her US House seat during midterm elections, which saw her and the president\u2019s party lose control of Congress. \u201cThis could be a referendum on President Trump,\u201d Boebert said to the Associated Press in an interview published on Thursday. \u201cIt could be the referendum on Congress or the Republican party. I think it\u2019s all of it.\u2026"
+        },
+        {
+          "title": "Fiona the hippo\u2019s death was tragic. But blaming a \u2018bad mom\u2019 is absurd | Arwa Mahdawi",
+          "url": "https://www.theguardian.com/commentisfree/2026/nov/21/fiona-the-hippo-death-bad-mom-scapegoat",
+          "publishedAt": "2026-11-21T13:00:01.000Z",
+          "excerpt": "The beloved animal died after ingesting a hat. Some are seeking a scapegoat \u2013 and we\u2019ve heard this story before \u201cDo they know the identity of the mother of the boy with the hat Fiona swallowed??\u201d asks one Facebook post with thousands of likes. \u201cShe should be charged!!\u201d Spend a few minutes scrolling social media, and you will find endless variations of this statement. On Thursday, Fiona, a beloved hippo, died after eating a hat that had fallen into her enclosure at the Cincinnati zoo. Now a lot of angry people are out for blood. Arwa Mahdawi is a Guardian columnist Dismantling patriarchy: An evening of conversation, art and resistance. On Monday 1 March 2027, join Arwa Mahdawi and One Billion Rising as we bring together activists and artists to question patriarchy, power, and celebrate resistance. What would a world beyond patriarchy look like? And what will it take to get there? Book tickets here or at guardian.live\u2026"
+        },
+        {
+          "title": "I\u2019m a priest. Silicon Valley\u2019s search for the \u2018soul\u2019 of AI is deeply troubling | Rev Kevin Deal",
+          "url": "https://www.theguardian.com/commentisfree/2026/nov/21/silicon-valleys-ai-soul-search",
+          "publishedAt": "2026-11-21T12:00:58.000Z",
+          "excerpt": "Humans experience beauty and sit with mysteries. Unlike AI, we do not exist merely for utility Last month, religious leaders from across San Francisco gathered behind closed doors to discuss what it means to be human in the age of artificial intelligence. Anthropic, the AI company operating only a couple of miles from my parish, has been courting priests, rabbis and theologians. Its billionaire cofounder, Christopher Olah, has even pressed Vatican advisers to take seriously the possibility that his company\u2019s chatbot might possess consciousness.\u2026"
+        },
+        {
+          "title": "The far right is menacing Europe \u2013 but it is fragile. What the extremists and voters want isn\u2019t the same | Gordon Brown",
+          "url": "https://www.theguardian.com/commentisfree/2026/nov/21/far-right-menacing-europe-extremists-voters-spain-election-gordon-brown",
+          "publishedAt": "2026-11-21T05:00:48.000Z",
+          "excerpt": "As Spain heads into a critical election, polling shows that many voters attracted by rightwing parties don\u2019t really agree with their ideas When Spain goes to the polls on 29 November, its citizens will be the first of some 200 million people in Europe eligible to vote in the following 12 months; 2027 will be a year of elections \u2013 including France, Poland, Estonia and Italy \u2013 which will be critical to the future of Europe. This will be the biggest electoral test in nearly 100 years of the strength and threat of extreme rightwing populist nationalism. Thirty years ago, around the turn of the 21st century, the left was ascendant, in charge or in coalition in 13 out of the EU\u2019s 15 member states. Today, with Denmark the only social democratic-led government in the north of Europe, and Lithuania the only one in the east, Spain stands alongside tiny Malta as the only centre-left government in Europe\u2019s south. Gordon Brown was UK prime minister from 2007 to 2010\u2026"
+        },
+        {
+          "title": "If Democrats want to win, blue-collar populists are the key | Dustin Guastella and Jared Abbott",
+          "url": "https://www.theguardian.com/commentisfree/2026/nov/20/democrats-blue-collar-populists",
+          "publishedAt": "2026-11-20T15:00:33.000Z",
+          "excerpt": "Our analysis shows that \u2018Bernie-Dog\u2019 candidates are the most underrated success stories in US politics Democrats had a huge night on 3 November. The party ran an average of about 15 points ahead of Kamala Harris\u2019s 2024 margins, and picked up seats that Trump carried by double digits just two years ago. Of course, the size and scope of the blue wave make it hard to draw specific lessons, and the results will inevitably serve as a Rorschach test reflecting each commentator\u2019s prior beliefs. Democrats of all stripes won elections in all sorts of unlikely places.\u2026"
+        },
+        {
+          "title": "Cavaliers\u2019 James Harden rolls back years with \u2018vintage\u2019 51-point explosion to pass Kobe Bryant",
+          "url": "https://www.theguardian.com/sport/2026/nov/21/james-harden-51-points-kobe-bryant-cavaliers-pacers-nba",
+          "publishedAt": "2026-11-21T12:52:38.000Z",
+          "excerpt": "Cavaliers star scores 51 in 128-119 win over Pacers Harden passes Bryant with 26th career 50-point game Only Chamberlain, Jordan have more 50-point games James Harden\u2019s game has evolved over the past couple of seasons, with the Cleveland Cavaliers guard now counted on more to create open shots for teammates than to be the prolific scorer he was during his first 12 years in the league. On Friday night, though, Harden showed he can still produce the kind of performance that leaves fans and teammates in awe.\u2026"
+        },
+        {
+          "title": "Russell lashes out at Verstappen after Las Vegas GP clash: \u2018He\u2019s screwing all of us\u2019",
+          "url": "https://www.theguardian.com/sport/2026/nov/21/max-verstappen-las-vegas-gp-f1-pole-position-qualifying-kimi-antonelli",
+          "publishedAt": "2026-11-21T06:00:55.000Z",
+          "excerpt": "Red Bull driver on front row alongside Mercedes rival Antonelli quickest in qualifying but will start from sixth George Russell has condemned Max Verstappen with a damning indictment of his driving at the Las Vegas Grand Prix, saying the Dutchman was \u201cscrewing\u201d other drivers and that the Red Bull driver believed he was \u201cbigger and better than everyone else\u201d. After the pair came together on the street circuit during the final practice session on Friday, Russell had clearly had enough with Verstappen\u2019s approach at overtaking him while he was preparing for a flying lap.\u2026"
+        },
+        {
+          "title": "Grand Theft Auto VI appears to mock NFL sexual misconduct scandals in radio parody",
+          "url": "https://www.theguardian.com/sport/2026/nov/20/gta-6-deshaun-watson-justin-tucker-nfl-sexual-misconduct-parody",
+          "publishedAt": "2026-11-20T22:16:06.000Z",
+          "excerpt": "Comedian Stavros Halkias voices fictional shock jock Segment echoes Watson, Tucker misconduct allegations Rockstar\u2019s latest skewers American sports culture The long-awaited Grand Theft Auto VI appears to have taken aim at the NFL\u2019s sexual misconduct scandals \u2013 and the culture of excuses surrounding them \u2013 with a satirical segment on the video game\u2019s fictional conservative talk radio station bearing striking similarities to allegations against Cleveland Browns quarterback Deshaun Watson and Kansas City Chiefs kicker Justin Tucker. The segment features comedian and voice actor Stavros Halkias defending Anthony Ross, a fictional player for the Vice City Manatees, after an \u201calleged\u201d incident involving a team masseuse. Although neither Watson nor Tucker are mentioned by name, the circumstances closely resemble allegations made against both players.\u2026"
+        },
+        {
+          "title": "The Super Bowl of F1: how Las Vegas GP has hit the jackpot after turbulent start",
+          "url": "https://www.theguardian.com/sport/2026/nov/20/super-bowl-formula-one-las-vegas-grand-prix-jackpot",
+          "publishedAt": "2026-11-20T19:00:37.000Z",
+          "excerpt": "George Russell calls it the biggest race on the Formula One calendar bar Monaco \u2013 and the numbers back him up That Formula One has achieved a palpable success in hosting a race in Las Vegas is impossible to ignore. Even with this year\u2019s outing a dead rubber and with the city in perhaps its least flattering light, the cold drizzle of a Thursday afternoon beneath gunmetal-grey skies, the fans who have flocked to Nevada were irrepressibly enthusiastic. Long queues stretched out into the streets before the gates were even open and it seems many locals who were initially cool to the somewhat disruptive F1 circus have embraced the fans, their fervour for the sport and the positive impact of the race.\u2026"
+        },
+        {
+          "title": "Judge approves $7.25bn Bayer payout to settle claims that Roundup causes cancer",
+          "url": "https://www.theguardian.com/business/2026/nov/20/bayer-roundup-cancer-litigation",
+          "publishedAt": "2026-11-20T23:42:43.000Z",
+          "excerpt": "German company faced 65,000 claims from people who said they developed cancer after using weedkiller A Missouri judge on Friday approved Bayer\u2019s $7.25bn settlement of lawsuits \u2060alleging that its weedkiller \u200bRoundup causes cancer, potentially resolving litigation that has weighed on the German company for close to a decade. Judge Timothy Boyer of a state court in St Louis \u2060found the settlement \u201cfair, reasonable and adequate\u201d.\u2026"
+        },
+        {
+          "title": "Nasdaq erases all 2026 gains as AI sell-off dampens Anthropic\u2019s second day of trading",
+          "url": "https://www.theguardian.com/business/2026/nov/20/global-stock-markets-slump-anthropic-ipo-ai-sell-off",
+          "publishedAt": "2026-11-20T21:38:17.000Z",
+          "excerpt": "The Nasdaq lost trillions in value, with the AI startup\u2019s IPO failing to buoy it as investors question huge sums being poured into AI buildout Who are Anthropic\u2019s seven co-founders, now worth $180bn? As Anthropic\u2019s stock dropped during its second day of trading, the wider stock market dipped with it. On Friday, the Nasdaq Composite erased all its gains for 2026 and closed down 5% from its value on 1 January. The Dow Jones Industrial Average and S&P 500 closed in correction territory. Anthropic\u2019s record-breaking IPO failed to stem a global sell-off in AI-linked companies, and the tech-heavy Nasdaq erased some $4tn in market value this week, according to the Wall Street Journal.\u2026"
+        },
+        {
+          "title": "\u2018Trust was hard won\u2019: Bell Pond, summer 1983, Worcester, Massachusetts \u2013 in pictures",
+          "url": "https://www.theguardian.com/artanddesign/gallery/2026/nov/21/bell-pond-monograph-stephen-dirado-photographer",
+          "publishedAt": "2026-11-21T08:00:53.000Z",
+          "excerpt": "Arriving one afternoon on a whim at a public swimming pond during a heatwave, photographer Stephen DiRado introduced himself to anyone willing to pay attention \u2013 and kept coming back. Bell Pond, available from TBW Books, captures intimate portraits of a working-class community\u2026"
+        },
+        {
+          "title": "'I forgot that I was 35': Mamdani tore his achilles while playing soccer - video",
+          "url": "https://www.theguardian.com/football/video/2026/nov/20/zohran-mamdani-tore-his-achilles-while-playing-soccer-video",
+          "publishedAt": "2026-11-20T21:09:53.000Z",
+          "excerpt": "New York City mayor Zohran Mamdani showed up at a press conference on 20 November with crutches, saying that he tore his achilles while playing in a friendly soccer match on Thursday and is out of action until next summer Fresh injury blow for Arsenal as Zohran Mamdani is sidelined with achilles tear\u2026"
+        }
+      ]
+    }
+  ]
+}

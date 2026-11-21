@@ -161,3 +161,13 @@ synthetic publication fingerprint and golden dispatch map now use v16; authored
 response text and expected publication are unchanged. Next scheduled Tech/Gaming AI acceptance
 remains open; the consolidated Nov 20 review and per-topic event recall/miss
 causes are the next task once this breakage fix is deployed and healthy.
+
+## Scheduled recovery — Nov 21, iteration 3300
+
+The next scheduled edition, `61c32e18-49e8-4118-a5f2-a3cfc8296c38`,
+published at 15:03:22.911 UTC with five Sonnet stories each for Tech and Gaming.
+The read-only scheduled reader gate accepts both sections with v16 deployed;
+NBA/World also use Sonnet and U.S. uses Haiku. This closes next-edition model
+acceptance without a paid replay or changing validation/caps. Nov 20 remains an
+immutable fallback edition. The [Nov 21 daily review](edition-reviews/2026-11-21.md)
+records the reader checks, reference-event recall and missed-event causes.
