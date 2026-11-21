@@ -3,7 +3,10 @@ import { test } from 'node:test';
 
 import type { SelectedSocialPost } from '@digest/contracts';
 
-import type { SocialSelectionServices } from '../src/modules/social/public/editorial-selection';
+import {
+  editTopicPosts,
+  type SocialSelectionServices,
+} from '../src/modules/social/public/editorial-selection';
 import { previewTopicEventSelection } from '../src/modules/social/public/joint-topic-selection';
 
 const time = '2026-11-03T11:00:00Z';
@@ -214,4 +217,86 @@ void test('Reddit joint evidence preserves zero counts and ratios', async () => 
     ],
     blueskyPosts: [],
   });
+});
+
+void test('crowded joint shortlist retains the X reservation and stronger Reddit/Bluesky alternatives', async () => {
+  const h = harness();
+  h.services.socialTriage.score = async (_topic, candidates) => ({
+    scores: candidates.map((post) => ({
+      id: post.id,
+      relevance: 9,
+      importance:
+        post.id.startsWith('reddit:') || post.id.startsWith('bluesky:')
+          ? 10
+          : 8,
+      rationale: 'Scripted qualification',
+      event: post.id,
+    })),
+    unscoredIds: [],
+  });
+  let calls = 0;
+  h.services.socialEditor.editOutcome = async (_topic, candidates, budget) => {
+    calls++;
+    assert.equal(budget, 5);
+    assert.equal(candidates.length, 10);
+    assert.deepEqual(
+      candidates.slice(0, 4).map((post) => post.platform),
+      ['x', 'x', 'x', 'x'],
+    );
+    assert.deepEqual(
+      candidates.slice(4, 6).map((post) => post.id),
+      ['reddit:outage', 'bluesky:expansion'],
+    );
+    const posts = candidates.slice(0, 5).map((post) => ({
+      id: post.id,
+      whyItMatters: '',
+      rationale: 'Scripted pick',
+    }));
+    return {
+      status: 'complete',
+      value: { model: 'scripted', posts, eventBudgetPreview: posts },
+    };
+  };
+  const x = input.candidates[0];
+  const result = await previewTopicEventSelection(h.services, {
+    ...input,
+    budget: 5,
+    candidates: [
+      ...Array.from({ length: 10 }, (_, index) => ({
+        ...x,
+        externalId: `launch-${index}`,
+      })),
+      input.candidates[1],
+    ],
+  });
+  h.services.socialEditor.edit = async (_topic, candidates) => {
+    assert.equal(candidates.length, 10);
+    assert.ok(candidates.every((post) => post.platform === 'x'));
+    return { model: 'scripted', posts: [] };
+  };
+  await editTopicPosts(
+    h.services,
+    input.topic,
+    [
+      ...Array.from({ length: 10 }, (_, index) => ({
+        ...x,
+        externalId: `launch-${index}`,
+      })),
+      input.candidates[1],
+    ],
+    [],
+    5,
+    input.runId,
+  );
+  assert.equal(calls, 1);
+  assert.equal(result.eventBudgetPreview?.length, 5);
+  assert.equal(
+    result.eventBudgetPreview?.filter((post) => post.platform === 'x').length,
+    4,
+  );
+  assert.equal(
+    result.eventBudgetPreview?.find((post) => post.platform === 'reddit')
+      ?.externalId,
+    'outage',
+  );
 });

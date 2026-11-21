@@ -8,6 +8,7 @@ import {
   editTopicPosts,
   type SocialSelectionServices,
 } from './editorial-selection';
+import { shortlistEventCandidates } from './event-shortlist';
 import { previewJointEventSelection } from './joint-event-editor';
 
 // Evaluation only: qualify each platform using its normal gates, then spend
@@ -71,18 +72,16 @@ export async function previewTopicEventSelection(
       } satisfies SelectedSocialPost,
     })),
   ];
-  // Match the primary shortlist's X reservation and ten-candidate bound.
-  // Stable ties retain each platform's existing engagement ordering.
-  combined.sort(
-    (a, b) =>
-      Number(b.editorial.platform === 'x') -
-        Number(a.editorial.platform === 'x') ||
-      b.editorial.interestingness - a.editorial.interestingness ||
-      b.editorial.relevance - a.editorial.relevance,
-  );
   return previewJointEventSelection(services.socialEditor, {
     topic: input.topic,
-    candidates: combined.slice(0, 10),
+    candidates: shortlistEventCandidates(
+      combined,
+      input.budget,
+      (candidate) => ({
+        ...candidate.editorial,
+        platform: candidate.snapshot.platform,
+      }),
+    ),
     stories: input.stories,
     budget: input.budget,
     runId: input.runId,

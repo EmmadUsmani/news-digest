@@ -7,6 +7,7 @@ import type {
   TriageResult,
   TriageTopic,
 } from '../../curation/public/editorial';
+import { shortlistEventCandidates } from './event-shortlist';
 
 type PostEditorial = NonNullable<
   DigestPreview['topics'][number]['postEditorial']
@@ -221,7 +222,7 @@ export async function editTopicPosts<T extends EditorialPost>(
     const post = candidates.find((p) => editorialId(p) === id);
     return post?.platform === 'x' ? (post.xSearchRanking?.bonus ?? 0) : 0;
   };
-  const shortlist = qualifyingScores
+  const ranked = qualifyingScores
     .sort(
       (a, b) =>
         b.importance + engagement(b.id) - (a.importance + engagement(a.id)) ||
@@ -269,10 +270,13 @@ export async function editTopicPosts<T extends EditorialPost>(
             },
           ]
         : [];
-    })
-    // Keep good X candidates available even when Reddit triage scores higher.
-    .sort((a, b) => Number(b.platform === 'x') - Number(a.platform === 'x'))
-    .slice(0, 10);
+    });
+  const shortlist = options.prepareJointReview
+    ? shortlistEventCandidates(ranked, budget, (candidate) => candidate)
+    : ranked
+        // Keep the scheduled shortlist unchanged until event acceptance.
+        .sort((a, b) => Number(b.platform === 'x') - Number(a.platform === 'x'))
+        .slice(0, 10);
   if (options.prepareJointReview) {
     result.qualifiedCandidates = shortlist.map((editorial) => {
       const snapshot = candidates.find(

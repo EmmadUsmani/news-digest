@@ -3846,3 +3846,18 @@ The wrapper retains its final preference check. Ordinary scheduled picks are
 unchanged. Offline fresh/cache coverage demonstrates a feasible X alternative
 when the unrestricted optimum uses too many other platforms. Saved Nov 17–18
 comparisons still pass; semantic acceptance and Nov 12–16 comparison remain open.
+
+## Joint shortlist alternatives (iteration 3366)
+
+The opt-in joint qualification path now reserves the existing 70% X
+allowance, then fills the remaining ten-candidate shortlist by interestingness
+and relevance. It applies this at both X/Reddit preparation and cross-platform
+merging; previously ten qualifying X posts could hide stronger Reddit and
+Bluesky candidates before event comparison. Stable score ties preserve upstream
+ordering. Scheduled shortlists remain unchanged.
+
+A scripted crowded-pool regression verifies four reserved X choices for a
+five-post budget, stronger Reddit and Bluesky alternatives in the shared
+request, one editor call, accepted snapshots and unchanged scheduled X-first
+shortlisting. No new labels, fixtures or provider calls. Semantic and Nov 12–16
+acceptance remain open; this fixes candidate availability, not measured recall.
