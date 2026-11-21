@@ -1420,7 +1420,31 @@ void test('weekly database input isolates published daily windows and selects sa
 void test('weekly PostgreSQL publication is atomic, immutable and separate from daily latest', async () => {
   assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
   const daily = new PostgresPreviewRepository();
-  const store = new PostgresWeeklyPublicationStore(daily);
+  let editorConstructions = 0;
+  let providerCalls = 0;
+  let refuse = false;
+  const store = new PostgresWeeklyPublicationStore(daily, () => {
+    editorConstructions++;
+    return {
+      weeklyModel: llmConfig({}).sonnet,
+      weeklyLlm: {
+        async json(_request, parse) {
+          providerCalls++;
+          return refuse
+            ? null
+            : parse({
+                stories: [
+                  {
+                    title: 'Weekly saved reporting',
+                    summary: 'Saved daily facts.',
+                    references: ['d0:s0'],
+                  },
+                ],
+              });
+        },
+      },
+    };
+  });
   const id = crypto.randomUUID();
   const regeneratedId = crypto.randomUUID();
   const generationKey = `weekly-${id}`;
@@ -1440,6 +1464,17 @@ void test('weekly PostgreSQL publication is atomic, immutable and separate from 
     const latest = await daily.latest(true);
     assert.equal(await store.find(generationKey), null);
     assert.equal(await store.sundayDailyPublished(target), false);
+    const request = {
+      ...target,
+      id: crypto.randomUUID(),
+      generationKey: `${generationKey}-generated`,
+      topics: [
+        { id: fixture('non-ai-golden').topics[0].id, name: 'Golden science' },
+        { id: 'quiet', name: 'Quiet' },
+      ],
+    };
+    assert.equal(await store.generate(request), null);
+    assert.equal(editorConstructions, 0);
     await assert.rejects(
       store.sundayDailyPublished({ ...target, scheduledAt: 'invalid' }),
     );
@@ -1472,7 +1507,12 @@ void test('weekly PostgreSQL publication is atomic, immutable and separate from 
         VALUES ($1,NULL,'2095-02-05T15:00:00Z','2095-02-06T15:00:00Z',$2,$3,$4)`,
         [
           crypto.randomUUID(),
-          JSON.stringify({ ...fixture('non-ai-golden'), id: generationKey }),
+          JSON.stringify({
+            ...fixture('non-ai-golden'),
+            id: generationKey,
+            windowStart: '2095-02-05T15:00:00Z',
+            windowEnd: '2095-02-06T15:00:00Z',
+          }),
           kind,
           publishedAt,
         ],
@@ -1485,6 +1525,55 @@ void test('weekly PostgreSQL publication is atomic, immutable and separate from 
         }),
         false,
       );
+    }
+
+    const generated = await store.generate(request);
+    assert.ok(generated);
+    assert.equal(
+      generated.topics[0].review?.stories[0].coverage[0].editionId,
+      generationKey,
+    );
+    assert.equal(generated.topics[0].review?.model, llmConfig({}).sonnet.id);
+    assert.equal(generated.topics[1].review, null);
+    assert.equal(providerCalls, 1);
+    assert.equal(editorConstructions, 1);
+    assert.deepEqual(await store.generate(request), generated);
+    assert.equal(providerCalls, 1);
+    refuse = true;
+    const refusedKey = `${generationKey}-refused`;
+    assert.equal(
+      await store.generate({
+        ...request,
+        id: crypto.randomUUID(),
+        generationKey: refusedKey,
+      }),
+      null,
+    );
+    assert.equal(await store.find(refusedKey), null);
+    // The default production factory also returns saved retries without credentials.
+    const noEditor = new PostgresWeeklyPublicationStore(daily);
+    try {
+      assert.deepEqual(await noEditor.generate(request), generated);
+      assert.equal(process.env.ANTHROPIC_API_KEY, '');
+      const missingKey = `${generationKey}-missing-key`;
+      assert.equal(
+        await noEditor.generate({
+          ...request,
+          id: crypto.randomUUID(),
+          generationKey: missingKey,
+        }),
+        null,
+      );
+      assert.equal(await noEditor.find(missingKey), null);
+      const quiet = await noEditor.generate({
+        ...request,
+        id: crypto.randomUUID(),
+        generationKey: `${generationKey}-quiet`,
+        topics: [{ id: 'quiet', name: 'Quiet' }],
+      });
+      assert.equal(quiet?.topics[0].review, null);
+    } finally {
+      await noEditor.db.end();
     }
 
     await assert.rejects(

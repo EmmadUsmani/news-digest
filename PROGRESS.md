@@ -185,3 +185,14 @@ Earlier entries: [pre-3166 archive](docs/progress-archive/2026-11-21-pre-3166.md
 - Commands: pnpm format; pnpm lint:fix; pnpm check; pnpm build; pnpm --filter @digest/api exec drizzle-kit generate --name weekly_publications; pnpm exec tsx scripts/check-handbook.ts 04-edition-pipeline; pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-20T15:00:00Z; git diff --check. Final results below.
 - Next: Nov 21/22 reviews first, then production wiring, weekly history labels and Sunday scheduling. Developing remains blocked/disabled. Logs /tmp/3180-{check,build,handbook,reader,sources,jobs}.log.
 - Final pnpm check passes: 1,350 units, 338 integration passes/four expected skips; all static checks green. Build/diff checks pass. Migration applied live; final handbook (`--owner-services`) passes 19 pages/21 diagrams/40 tables without warnings. API/worker restarted active; health/database/Redis, live daily reader (five topics/25 stories/20 posts) and zero alerts pass.
+
+## 2026-11-21: iteration 3181 — production weekly generation entry point
+
+- Clean main at c6515712; no inherited work. Zero alerts; health/database/Redis and active sources pass; no failed digest jobs. Nov 21 review awaits 15:00 UTC.
+- Connected PostgreSQL weekly generation to saved daily input loading, atomic immutable storage and the existing shared budgeted Sonnet editor. Lazy editor creation keeps prerequisite waits, quiet topics and saved retries free of provider construction; missing credentials/refusal publishes nothing.
+- Extended isolated PostgreSQL regression through the real input reader, weekly editor and storage with a fake provider: daily provenance/model retained, quiet topic skipped, one edit, retry reuse, refusal and missing-key atomicity, credential-free quiet publication. No paid calls or scheduled jobs enabled.
+- Updated reader feature plan, affected pipeline handbook and TASKS. Weekly reader history and Sunday scheduling remain unfinished; developing stays blocked/disabled.
+- Commands: pnpm format; pnpm lint:fix; pnpm check; pnpm build; pnpm exec tsx scripts/check-handbook.ts 04-edition-pipeline; pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-20T15:00:00Z; pnpm obs alerts/sources/jobs; git diff --check. Final results below.
+- Handbook passes: 19 pages/one unchanged diagram/40 tables. Live Nov 20 reader passes: 9c810e64, five topics/25 stories/20 posts. Logs /tmp/3181-{check,build,handbook,reader,sources,jobs}.log.
+- Next: Nov 21/22 reviews first; weekly history labels and Sunday scheduling.
+- Final pnpm check passes: 1,350 units, 338 integrations/four expected skips; static checks, build, filtered handbook and diff checks pass. API/worker restarted active; health/database/Redis, repeated live daily reader and zero alerts verified. No migrations or paid calls.

@@ -80,7 +80,11 @@ quiet-topic calls and saves all topics together only after every required edit
 succeeds. Generation keys support retries; regeneration uses a new key.
 The PostgreSQL publication adapter stores whole immutable snapshots in a separate
 weekly table, with generation-key retries and a published Sunday daily prerequisite.
-Production wiring, reader history labels and scheduling remain unconnected.
+The production generation entry point connects saved daily inputs and atomic storage
+to the shared budgeted Sonnet editor. Editor creation is lazy: waiting for Sunday
+daily, quiet topics and saved retries need no provider or credentials. Missing
+credentials or a refused edit publishes nothing. Reader history labels and Sunday
+scheduling remain unconnected.
 
 ## Out of scope (owner, Nov 19)
 

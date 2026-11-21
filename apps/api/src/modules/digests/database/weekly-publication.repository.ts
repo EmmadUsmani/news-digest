@@ -3,10 +3,13 @@ import { drizzle } from 'drizzle-orm/node-postgres';
 
 import { database } from '../../../libs/db/connections';
 import { digestPreviews, weeklyPublications } from '../../../libs/db/schema';
-import type {
-  WeeklyPublication,
-  WeeklyPublicationStore,
+import { editorialServices } from '../../curation/public/editorial';
+import {
+  generateWeeklyReview,
+  type WeeklyPublication,
+  type WeeklyPublicationStore,
 } from '../application/generate-weekly-review';
+import { WeeklyReviewEditor } from '../application/weekly-review-editor';
 import { weeklyReviewInput } from '../domain/weekly-review-input';
 
 /** Dedicated storage keeps weekly snapshots out of every daily latest/history query. */
@@ -15,7 +18,32 @@ export class PostgresWeeklyPublicationStore implements WeeklyPublicationStore {
   private readonly orm = drizzle(this.db);
   constructor(
     private readonly inputs: Pick<WeeklyPublicationStore, 'weeklyReviewInput'>,
+    private readonly editorial: (
+      db: typeof this.db,
+    ) => Pick<
+      NonNullable<ReturnType<typeof editorialServices>>,
+      'weeklyLlm' | 'weeklyModel'
+    > | null = editorialServices,
   ) {}
+
+  /** Production entry point; editor construction stays lazy so prerequisites,
+   * quiet topics and saved retries never need credentials or provider calls. */
+  generate(request: Parameters<typeof generateWeeklyReview>[2]) {
+    return generateWeeklyReview(
+      this,
+      {
+        edit: async (topic, input, runId) => {
+          const services = this.editorial(this.db);
+          if (!services) return null;
+          return new WeeklyReviewEditor(
+            services.weeklyLlm,
+            services.weeklyModel,
+          ).edit(topic, input, runId);
+        },
+      },
+      request,
+    );
+  }
 
   weeklyReviewInput(target: Parameters<typeof weeklyReviewInput>[1]) {
     return this.inputs.weeklyReviewInput(target);
