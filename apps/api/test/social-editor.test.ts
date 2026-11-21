@@ -1433,7 +1433,7 @@ void test('event preview admits only independently qualified replacements and re
   }
 });
 
-void test('event preview preserves picks when baseline text was shortened, including upstream story context', async () => {
+void test('event preview requires complete baseline and replacement text, including upstream story context', async () => {
   const story = {
     title: 'Model launch',
     summary: 'A company announced a model.',
@@ -1445,6 +1445,8 @@ void test('event preview preserves picks when baseline text was shortened, inclu
     'summary',
     'upstream',
     'omitted-story',
+    'replacement',
+    'replacement-boundary',
   ] as const) {
     const input = [
       {
@@ -1457,7 +1459,13 @@ void test('event preview preserves picks when baseline text was shortened, inclu
       {
         ...candidates[0],
         id: 'robot',
-        text: 'An independent lab released a robot.',
+        text:
+          kind === 'replacement'
+            ? 'An independent lab released a robot.'.padEnd(1200) +
+              ' Correction: this release has been cancelled.'
+            : kind === 'replacement-boundary'
+              ? 'An independent lab released a robot.'.padEnd(1200)
+              : 'An independent lab released a robot.',
       },
     ];
     const source = {
@@ -1511,7 +1519,9 @@ void test('event preview preserves picks when baseline text was shortened, inclu
     assert.ok(result.value.eventReview, kind);
     assert.deepEqual(
       result.value.eventBudgetPreview,
-      kind === 'complete' ? [{ ...post, id: 'robot' }] : null,
+      kind === 'complete' || kind === 'replacement-boundary'
+        ? [{ ...post, id: 'robot' }]
+        : null,
       kind,
     );
     assert.deepEqual(await run(), result);

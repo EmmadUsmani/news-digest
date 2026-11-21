@@ -415,7 +415,9 @@ export class SocialPostEditor {
               throw new LlmValidationFailure('invalid-social-selection');
             for (const item of alternatives.data) {
               const source = compact.find(({ id }) => id === item.id);
-              if (!source)
+              // A replacement must carry complete evidence too: a cut-off
+              // qualification can reverse an apparently supported fact.
+              if (!source || source.textTruncated)
                 throw new LlmValidationFailure('invalid-social-selection');
               checkDates(item, source.text);
               assertAbsenceSupport(
