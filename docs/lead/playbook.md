@@ -97,9 +97,8 @@ anything unpushed. So does deleting the clone.
   more than the agent's summary did. The same goes for saved editions and code.
 - **Check that a test was fair** before rejecting an idea.
 - **Agent reviews are good but cautious.** Read the numbers, then make the call.
-- **Agent quiet with no commits:** read `~/agent-control/status/heartbeat.json`
-  and `logs/iter-<n>.jsonl` on the VM. The supervisor retries crashes every 5
-  minutes forever, so a crash loop looks like a quiet agent.
+- **Agent quiet with no commits:** on the VM, `logs/iter-<n>.final.md` says why;
+  a crash loop retried every 5 minutes also looks quiet.
 - **Before touching the supervisor,** diff `~/agent-control/` with `main`; check
   for `STOP`. Over ssh, `systemctl --user` needs `XDG_RUNTIME_DIR=/run/user/$UID`.
 - **`/admin` returns 200 for any path** once the gate passes, because the page is
