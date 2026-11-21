@@ -3,6 +3,8 @@ import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 
+import { planJointEventBudget } from '../apps/api/src/modules/social/domain/joint-event-budget';
+
 const root = new URL('../docs/edition-reviews/', import.meta.url);
 const saved = JSON.parse(
   readFileSync(new URL('2026-11-18-bluesky-selection.json', root), 'utf8'),
@@ -233,6 +235,27 @@ for (const [date, editionId, expectedSlots, expectedRetained] of [
         best = subset;
     }
     assert.ok(admissibleSubsets > 0);
+    // Exercise the actual bounded planner against this independent exhaustive
+    // oracle. Existing retain labels conservatively stand for unique facts;
+    // they are not inferred annotations for production candidate pools.
+    const plannedIds = planJointEventBudget({
+      stories: stories.map((slot) => ({ ...slot, materialFacts: [] })),
+      candidates: posts.map((slot) => ({
+        ...slot,
+        materialFacts: slot.retain ? [slot.id] : [],
+      })),
+      selectedPostIds: posts.map((slot) => slot.id),
+      postBudget: posts.length,
+    });
+    const planned = [
+      ...stories,
+      ...posts.filter((slot) => plannedIds.includes(slot.id)),
+    ];
+    assert.equal(
+      concentration(planned).largest * best.length,
+      concentration(best).largest * planned.length,
+      `Planner differs from exhaustive oracle: ${topic}`,
+    );
     assert.ok(
       slots.filter((slot) => slot.retain).every((slot) => best.includes(slot)),
     );

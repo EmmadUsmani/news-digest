@@ -3638,3 +3638,25 @@ replacement remains necessary to seek broader coverage.
 [Numbers and scope](edition-reviews/2026-11-18-joint-event-comparison.md#exhaustive-deletion-bound-iteration-3350).
 This uses existing agent labels, adds no reference set and does not enable
 production selection. Nov 12–16/full-window acceptance remains open.
+
+## Joint event replacement planner (iteration 3351)
+
+`planJointEventBudget` searches at most ten already-qualified post candidates,
+keeping stories fixed. It accepts supplied event and material-fact identities;
+it does not infer those identities from wording or decide post quality. Every
+original event and event-scoped material fact must survive. It changes picks
+only for a strictly lower largest-event share, comparing exact fractions;
+equal-share alternatives prefer more events, then more original picks. Without
+an improvement it preserves the original post order.
+
+The existing Nov 17–18 evaluator checks its result against the independent
+168-subset oracle, with retained posts conservatively assigned unique facts.
+All ten topic comparisons match the oracle. Six unit regressions cover
+replacement, merged fact coverage, event/fact preservation, stable selections,
+empty inputs and invalid/unbounded inputs. Synthetic replacement cases are
+algorithm checks, not live editorial evidence. No new reference labels or
+fixtures, provider calls or production selection changes.
+
+Production integration still needs evidence-backed annotations for qualified
+replacement candidates and the Nov 12–18 before/after acceptance. The planner
+alone does not close item 69 or solve Gaming's saved 30% concentration.
