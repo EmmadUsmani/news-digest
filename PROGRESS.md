@@ -126,3 +126,13 @@ Earlier entries: [through iteration 3182](docs/progress-archive/2026-11-21-throu
 - Verification: targeted eight tests pass; existing saved evaluator passes; pnpm format; pnpm lint:fix. Full check/build and service verification results follow.
 - Next: Nov 22 daily review/three-edition miss-cause fix, developing reader acceptance; finish real candidate event-budget comparison; Sunday weekly acceptance.
 - Final: pnpm check exits 0 (1,368 unit passes; 341 integration passes/four expected skips); build, saved evaluator and diff checks pass. API/worker restarted active; startup probe initially raced readiness, retry healthz and Nov 21 local reader pass (five topics/25 stories/15 posts); zero alerts. Logs /tmp/3352-*.log.
+
+## 2026-11-21: iteration 3353 — same-call semantic event review
+
+- Clean main at 1e86cff8; no inherited changes. Zero alerts, healthy healthz/database/Redis, 38 monitored sources healthy and no failed digest jobs. Nov 22 scheduled review remains first when available.
+- Added evaluation-only event/fact annotations to the existing social selection request, with no separate model call. Exact bounded per-item evidence, complete coverage, collision-safe story IDs and restored post aliases connect editor output to the existing evidence bridge.
+- Invalid/missing reviews preserve valid original picks and return null without retry; cache reads revalidate evidence. Previously selected posts are refused in this mode because their unannotated slots would make review incomplete. Normal scheduled requests/picks and model/token caps unchanged.
+- This is an annotation transport, not semantic acceptance or qualification of rejected replacements. No live model call, reference labels/fixtures or production event-budget change. TASKS/RANKING updated; no owner handbook behavior changed.
+- Verification: social-editor targeted suite 29/29 and existing saved event evaluator pass; pnpm format/lint:fix; full check/build and service results follow. Logs /tmp/3353-*.log.
+- Next: Nov 22 daily review/three-edition miss-cause fix and developing reader acceptance; finish real candidate event-budget comparison; Sunday weekly acceptance.
+- Final: pnpm check exits 0 (1,370 unit passes; 341 integration passes/four expected skips); pnpm build and git diff --check pass. API/worker restarted active; healthz healthy, local Nov 21 scheduled reader verifies five topics/25 stories/15 posts; zero alerts. Reader's unnecessary explicit env-file attempt failed because that file is absent; normal configured invocation passes without reading secrets.

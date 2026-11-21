@@ -3676,3 +3676,20 @@ and unique protected fact IDs; these are conservative offline annotations.
 Exact excerpts establish text identity, not semantic correctness or exhaustive
 fact coverage. No new labels/fixtures or paid calls. Production remains
 unconnected pending candidate semantic annotations and Nov 12–18 acceptance.
+
+## Same-call event annotations (iteration 3353)
+
+`SocialPostEditor.editOutcome` accepts evaluation-only `reviewEvents`. The
+existing budgeted selection request then asks for event/fact annotations for
+every bounded candidate and covered story, with exact excerpts. Story IDs are
+collision-safe; long post aliases are restored after validation. Cached reviews
+are checked again against the exact bounded evidence. Missing, incomplete or
+stale annotations return a null review alongside valid original selections,
+without another call. Existing model/token caps and normal selection stay unchanged.
+
+This supplies semantic review data for the pending saved-pool comparison; it
+does not establish semantic correctness, material-fact completeness or qualify
+rejected candidates as replacements. Evaluation refuses previously selected
+posts because their unannotated slots would make a joint comparison incomplete.
+No live call, new reference labels or production event-budget switch is added.
+Nov 12–18 comparison and deployment acceptance remain open.

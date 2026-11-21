@@ -1244,3 +1244,99 @@ void test('saved clipped X posts retain visible evidence and request clipping is
     );
   }
 });
+
+void test('opt-in event review shares selection call, binds bounded evidence and restores long IDs on cache reads', async () => {
+  const id =
+    'at://did:plc:long-author-identity/app.bsky.feed.post/very-long-id';
+  const input = [{ ...candidates[0], id, platform: 'bluesky' as const }];
+  const annotations = [
+    {
+      id: 'post1',
+      event: 'launch',
+      eventEvidence: 'announced a model',
+      materialFacts: [{ id: 'announcement', evidence: 'announced a model' }],
+    },
+    {
+      id: 'story1',
+      event: 'launch',
+      eventEvidence: 'Model launch',
+      materialFacts: [],
+    },
+  ];
+  const h = harness([
+    { posts: [{ ...post, id: 'post1' }], eventAnnotations: annotations },
+  ]);
+  const run = (runId: string) =>
+    h.editor.editOutcome(
+      topic,
+      input,
+      1,
+      runId,
+      [],
+      [{ title: 'Model launch', summary: 'A company announced a model.' }],
+      { reviewEvents: true },
+    );
+  const result = await run('first');
+  assert.equal(result.status, 'complete');
+  if (result.status !== 'complete') return;
+  assert.equal(result.value.posts[0].id, id);
+  assert.deepEqual(result.value.eventReview?.candidates, [
+    { id, text: input[0].text },
+  ]);
+  assert.equal(result.value.eventReview?.annotations[0].id, id);
+  assert.equal(result.value.eventReview?.annotations[1].id, 'story1');
+  assert.equal(
+    result.value.eventReview?.stories[0].text,
+    'Model launch\nA company announced a model.',
+  );
+  assert.deepEqual(await run('cached'), result);
+  assert.equal(h.calls.length, 1);
+  assert.match(h.calls[0].instructions, /Event review v1/);
+  assert.equal(JSON.parse(h.calls[0].prompt).coveredStories[0].id, 'story1');
+});
+
+void test('bad or missing event annotations preserve valid picks without retry or cache contamination', async () => {
+  for (const eventAnnotations of [
+    undefined,
+    [],
+    [
+      {
+        id: 'one',
+        event: 'launch',
+        eventEvidence: 'unseen linked article',
+        materialFacts: [],
+      },
+    ],
+  ]) {
+    const h = harness([
+      {
+        ...valid,
+        ...(eventAnnotations === undefined ? {} : { eventAnnotations }),
+      },
+    ]);
+    const run = () =>
+      h.editor.editOutcome(topic, candidates, 1, 'review', [], [], {
+        reviewEvents: true,
+      });
+    const result = await run();
+    assert.equal(result.status, 'complete');
+    if (result.status !== 'complete') continue;
+    assert.deepEqual(result.value.posts, valid.posts);
+    assert.equal(result.value.eventReview, null);
+    assert.deepEqual(await run(), result);
+    assert.equal(h.calls.length, 1);
+  }
+  const h = harness();
+  await assert.rejects(() =>
+    h.editor.editOutcome(
+      topic,
+      candidates,
+      1,
+      'partial',
+      [{ text: 'Earlier post', author: 'A' }],
+      [],
+      { reviewEvents: true },
+    ),
+  );
+  assert.equal(h.calls.length, 0);
+});

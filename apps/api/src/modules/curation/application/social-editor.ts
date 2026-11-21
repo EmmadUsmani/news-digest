@@ -1,5 +1,10 @@
 import { z } from 'zod';
 
+import {
+  type EventBudgetAnnotation,
+  type EventBudgetEvidence,
+  selectWithEventBudget,
+} from '../../social/public/event-budget';
 import type { ModelPrice } from '../domain/llm.port';
 import { assertAbsenceSupport } from './absence-support';
 import {
@@ -49,7 +54,39 @@ export type DroppedSocialPosts = z.infer<typeof droppedSocialPostsSchema>;
 export type SocialEditorialResult = z.infer<typeof selectionSchema> & {
   model: string;
   droppedPosts?: DroppedSocialPosts;
+  eventReview?: SocialEventReview | null;
 };
+// Opt-in evidence for saved-pool evaluation, never a production selection rule.
+export interface SocialEventReview {
+  stories: EventBudgetEvidence[];
+  candidates: EventBudgetEvidence[];
+  annotations: EventBudgetAnnotation[];
+}
+const eventAnnotationsSchema = z
+  .array(
+    z
+      .object({
+        id: z.string(),
+        event: z.string().min(1).max(200),
+        eventEvidence: z.string().min(1).max(1200),
+        materialFacts: z
+          .array(
+            z
+              .object({
+                id: z.string().min(1).max(200),
+                evidence: z.string().min(1).max(1200),
+              })
+              .strict(),
+          )
+          .max(10),
+      })
+      .strict(),
+  )
+  .max(20);
+const eventReviewInstructions = `
+Event review v1 (evaluation only): return an additional eventAnnotations array alongside posts. Annotate EVERY supplied candidate and covered story, even candidates you decline. Each annotation is {"id":"supplied ID","event":"shared event identity","eventEvidence":"exact nonempty excerpt from that item's supplied text","materialFacts":[{"id":"event-scoped fact identity","evidence":"exact excerpt from that item's supplied text"}]}.
+Use the same event identity only for the same concrete development, never merely a shared person, team, company or subject. List every material fact conveyed by each item; facts shared within an event use the same fact identity, while distinct facts have distinct identities. Covered story text is its title followed by a newline and its summary. Evidence must occur verbatim in that individual item's bounded text. Do not infer unseen linked or media content. These annotations do not qualify a candidate or change the required post selection format. No other additional keys.
+`;
 export type SocialEditorialOutcome =
   | { status: 'complete'; value: SocialEditorialResult }
   | {
@@ -113,6 +150,7 @@ export class SocialPostEditor {
       'platform' | 'text' | 'author'
     >[] = [],
     coveredStories: { title: string; summary: string }[] = [],
+    options: { reviewEvents?: boolean } = {},
   ): Promise<SocialEditorialOutcome> {
     if (
       !Number.isInteger(budget) ||
@@ -120,6 +158,7 @@ export class SocialPostEditor {
       budget > 20 ||
       candidates.length > 10 ||
       alreadySelected.length > 20 ||
+      (options.reviewEvents && alreadySelected.length > 0) ||
       coveredStories.length > 10 ||
       new Set(candidates.map((c) => c.id)).size !== candidates.length ||
       candidates.some(
@@ -160,6 +199,18 @@ export class SocialPostEditor {
         engagementEvidence: c.engagementEvidence?.slice(0, 1200),
       };
     });
+    const boundedStories = coveredStories.map(({ title, summary }, index) => {
+      let id = `story${index + 1}`;
+      while (compact.some((post) => post.id === id)) id = `_${id}`;
+      return { id, title: title.slice(0, 300), summary: summary.slice(0, 400) };
+    });
+    const reviewEvidence = {
+      stories: boundedStories.map(({ id, title, summary }) => ({
+        id,
+        text: `${title}\n${summary}`,
+      })),
+      candidates: compact.map(({ id, text }) => ({ id, text })),
+    };
     const blueskyOnly = candidates.every((c) => c.platform === 'bluesky');
     const checkDates = (
       post: { whyItMatters: string; rationale: string },
@@ -245,7 +296,7 @@ export class SocialPostEditor {
         );
       return { posts, droppedPosts: { ...modelDrops } };
     };
-    const validate = (
+    const validateSelection = (
       value: unknown,
     ): z.infer<typeof selectionSchema> & {
       droppedPosts?: DroppedSocialPosts;
@@ -286,6 +337,48 @@ export class SocialPostEditor {
       }
       return parsed;
     };
+    const validate = (value: unknown) => {
+      if (!options.reviewEvents) return validateSelection(value);
+      // An absent or malformed review must not trigger another paid attempt or
+      // discard otherwise valid picks. Cache the refusal alongside selection.
+      const envelope = z
+        .object({
+          posts: z.unknown(),
+          droppedPosts: z.unknown().optional(),
+          eventAnnotations: z.unknown().optional(),
+          eventReview: z.unknown().optional(),
+        })
+        .strict()
+        .parse(value);
+      const selection = validateSelection({
+        posts: envelope.posts,
+        ...(envelope.droppedPosts === undefined
+          ? {}
+          : { droppedPosts: envelope.droppedPosts }),
+      });
+      // Cached entries retain the original wire annotations, not a trusted
+      // prevalidated result: exact bounded evidence is checked on every read.
+      const parsed = eventAnnotationsSchema.safeParse(
+        envelope.eventAnnotations,
+      );
+      let eventReview: SocialEventReview | null = null;
+      if (
+        parsed.success &&
+        selectWithEventBudget({
+          ...reviewEvidence,
+          selectedPostIds: compact.map(({ id }) => id),
+          postBudget: 20,
+          annotations: parsed.data,
+        }).status === 'complete'
+      ) {
+        eventReview = { ...reviewEvidence, annotations: parsed.data };
+      }
+      return {
+        ...selection,
+        eventAnnotations: parsed.success ? parsed.data : null,
+        eventReview,
+      };
+    };
     const prompt = JSON.stringify({
       topic: {
         id: topic.id.slice(0, 200),
@@ -297,9 +390,10 @@ export class SocialPostEditor {
       candidates: compact,
       ...(coveredStories.length
         ? {
-            coveredStories: coveredStories.map(({ title, summary }) => ({
-              title: title.slice(0, 300),
-              summary: summary.slice(0, 400),
+            coveredStories: boundedStories.map(({ id, title, summary }) => ({
+              ...(options.reviewEvents ? { id } : {}),
+              title,
+              summary,
             })),
           }
         : {}),
@@ -351,7 +445,8 @@ export class SocialPostEditor {
                   /X posts come from verified embeds;.*?do not pad\./,
                   'Bluesky posts are official API observations, not fact-checked claims. Select exceptional posts without padding.',
                 )
-              : instructions),
+              : instructions) +
+            (options.reviewEvents ? eventReviewInstructions : ''),
           prompt,
           maxOutputTokens: 4000,
         },
@@ -365,6 +460,26 @@ export class SocialPostEditor {
               ...post,
               id: aliases.get(post.id)!,
             })),
+            ...(options.reviewEvents
+              ? {
+                  eventReview:
+                    'eventReview' in outcome.value && outcome.value.eventReview
+                      ? {
+                          stories: outcome.value.eventReview.stories,
+                          candidates: outcome.value.eventReview.candidates.map(
+                            (item) => ({ ...item, id: aliases.get(item.id)! }),
+                          ),
+                          annotations:
+                            outcome.value.eventReview.annotations.map(
+                              (item) => ({
+                                ...item,
+                                id: aliases.get(item.id) ?? item.id,
+                              }),
+                            ),
+                        }
+                      : null,
+                }
+              : {}),
             model: model.id,
             ...(blueskyOnly ? { droppedPosts: { ...totals } } : {}),
           },
