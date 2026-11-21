@@ -3774,3 +3774,20 @@ picks also refuse it: this request supplies their text without stable review IDs
 so joint event/fact preservation cannot be established. Normal picks remain
 unchanged. This closes a transport gap, not semantic or Nov 12–18 acceptance;
 cross-platform admission still needs a joint review of every retained pick.
+
+## Joint platform editor path (iteration 3361)
+
+An evaluation-only entry point now submits a single already-qualified shortlist
+of up to ten X/Reddit/Bluesky candidates with selected stories. One editor review
+assigns shared event/fact identities across platforms; independent platform
+previews cannot establish that equivalence. Snapshot text, author, platform,
+publication time and stable IDs must match the editorial evidence before any
+call. Existing relevance/interestingness gates remain mandatory.
+
+The real editor with scripted transport/cache removes one redundant X launch
+post while retaining the story, a Bluesky robot release and a Reddit game
+release. Exact platform metrics, media, display text and provenance survive.
+Plans violating X preference are refused as a whole; missing outcome support
+and failed outcomes never fall back to another editor call. This is transport
+acceptance only: no paid call, new labels/fixtures or scheduled selection change.
+Semantic annotations and the full saved Nov 12–18 comparison remain required.

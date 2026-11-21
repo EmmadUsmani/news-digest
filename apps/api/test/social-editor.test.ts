@@ -2,12 +2,15 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 
+import type { SelectedSocialPost } from '@digest/contracts';
+
 import { llmConfig } from '../src/modules/curation/adapters/config';
 import { BudgetedLlm } from '../src/modules/curation/application/budgeted-llm';
 import { SocialPostEditor } from '../src/modules/curation/application/social-editor';
 import type { LlmRequest } from '../src/modules/curation/domain/llm.port';
 import type { LlmLedger } from '../src/modules/curation/domain/llm-ledger.port';
 import { socialStoryContext } from '../src/modules/digests/domain/social-story-context';
+import { previewJointEventSelection } from '../src/modules/social/public/joint-event-editor';
 
 const topic = {
   id: 'tech',
@@ -1560,4 +1563,218 @@ void test('event preview requires complete baseline and replacement text, includ
       assert.equal(h.calls.length, 1);
     }
   }
+});
+
+void test('joint platform preview uses one real editor review and cache, preserving complete snapshots', async () => {
+  const texts = [
+    'A company announced a model.',
+    'A lab released a robot.',
+    'A studio released a game.',
+  ];
+  const snapshots: SelectedSocialPost[] = [
+    {
+      platform: 'x',
+      externalId: 'one',
+      url: 'https://x.com/lab/status/1',
+      author: 'Lab',
+      authorUrl: 'https://x.com/lab',
+      publishedAt: candidates[0].publishedAt,
+      text: texts[0],
+      metrics: { likes: 42 },
+      reasons: ['Qualified X'],
+      displayText: 'Original display',
+    },
+    {
+      platform: 'bluesky',
+      externalId: 'robot',
+      url: 'https://bsky.app/profile/lab/post/robot',
+      author: 'Lab',
+      publishedAt: candidates[0].publishedAt,
+      observedAt: candidates[0].publishedAt,
+      text: texts[1],
+      metrics: { likes: 12, replies: 1, reposts: 2 },
+      reasons: ['Qualified Bluesky'],
+      media: [
+        {
+          type: 'image',
+          thumbnail: 'https://cdn.bsky.app/thumb.jpg',
+          fullsize: 'https://cdn.bsky.app/full.jpg',
+          alt: 'Robot',
+        },
+      ],
+    },
+    {
+      platform: 'reddit',
+      externalId: 'game',
+      url: 'https://reddit.com/r/games/comments/game',
+      author: 'Studio',
+      authorUrl: 'https://reddit.com/u/studio',
+      publishedAt: candidates[0].publishedAt,
+      observedAt: candidates[0].publishedAt,
+      text: texts[2],
+      title: 'Game release',
+      subreddit: 'games',
+      metrics: { score: 100, comments: 5, upvoteRatio: 0.9 },
+      thumbnail: null,
+      externalUrl: null,
+      reasons: ['Qualified Reddit'],
+    },
+  ];
+  const ids = ['one', 'bluesky:robot', 'reddit:game'];
+  const picks = ids.map((id) => ({
+    id,
+    whyItMatters: '',
+    rationale: 'A concrete release.',
+  }));
+  const h = harness([
+    {
+      posts: picks,
+      qualifiedAlternatives: [],
+      eventAnnotations: [
+        ...ids.map((id, index) => ({
+          id,
+          event: ['launch', 'robot', 'game'][index],
+          eventEvidence: texts[index],
+          materialFacts: [],
+        })),
+        {
+          id: 'story1',
+          event: 'launch',
+          eventEvidence: 'Model launch',
+          materialFacts: [],
+        },
+      ],
+    },
+  ]);
+  const input = {
+    topic,
+    budget: 3,
+    runId: 'joint',
+    stories: [{ title: 'Model launch', summary: texts[0] }],
+    candidates: snapshots.map((snapshot, index) => ({
+      snapshot,
+      editorial: {
+        ...candidates[0],
+        id: ids[index],
+        platform: snapshot.platform,
+        text: snapshot.text,
+        author: snapshot.author,
+      },
+    })),
+  };
+  const run = () => previewJointEventSelection(h.editor, input);
+  const result = await run();
+  assert.equal(result.status, 'complete');
+  assert.deepEqual(
+    result.posts.map(({ platform }) => platform),
+    ['x', 'bluesky', 'reddit'],
+  );
+  assert.deepEqual(
+    result.eventBudgetPreview?.map(({ platform }) => platform),
+    ['bluesky', 'reddit'],
+  );
+  assert.deepEqual(result.eventBudgetPreview?.[0], {
+    ...snapshots[1],
+    whyItMatters: '',
+    reasons: ['Qualified Bluesky', 'Editor: A concrete release.'],
+  });
+  assert.deepEqual(
+    result.eventBudgetPreview?.[1].metrics,
+    snapshots[2].metrics,
+  );
+  assert.deepEqual(await run(), result);
+  assert.equal(h.calls.length, 1);
+  assert.deepEqual(snapshots[1].reasons, ['Qualified Bluesky']);
+  await assert.rejects(() =>
+    previewJointEventSelection(h.editor, {
+      ...input,
+      candidates: input.candidates.map((candidate, index) =>
+        index
+          ? candidate
+          : {
+              ...candidate,
+              editorial: { ...candidate.editorial, text: 'Different evidence' },
+            },
+      ),
+    }),
+  );
+  assert.equal(h.calls.length, 1);
+});
+
+void test('joint platform preview refuses X-displacing plans and unavailable outcomes without fallback calls', async () => {
+  const snapshot = (externalId: string) => ({
+    platform: 'x' as const,
+    externalId,
+    text: candidates[0].text,
+    author: candidates[0].author,
+    publishedAt: candidates[0].publishedAt,
+    url: `https://x.com/lab/status/${externalId}`,
+    authorUrl: 'https://x.com/lab',
+    metrics: {},
+    reasons: [],
+  });
+  const first = snapshot('one');
+  const blue: SelectedSocialPost = {
+    ...snapshot('blue'),
+    platform: 'bluesky',
+    url: 'https://bsky.app/profile/lab/post/blue',
+    observedAt: first.publishedAt,
+    metrics: { likes: 1, replies: 0, reposts: 0 },
+  };
+  const input = {
+    topic,
+    budget: 1,
+    runId: 'preference',
+    stories: [],
+    candidates: [first, blue].map((snapshot) => ({
+      snapshot,
+      editorial: {
+        ...candidates[0],
+        id:
+          snapshot.platform === 'x'
+            ? snapshot.externalId
+            : `bluesky:${snapshot.externalId}`,
+        platform: snapshot.platform,
+      },
+    })),
+  };
+  let calls = 0;
+  const editor = {
+    async edit() {
+      throw new Error('Unexpected fallback');
+    },
+    async editOutcome() {
+      calls++;
+      return {
+        status: 'complete' as const,
+        value: {
+          model: 'fake',
+          posts: [post],
+          eventBudgetPreview: [{ ...post, id: 'bluesky:blue' }],
+        },
+      };
+    },
+  };
+  const result = await previewJointEventSelection(editor, input);
+  assert.equal(result.posts[0].platform, 'x');
+  assert.equal(result.eventBudgetPreview, null);
+  assert.equal(calls, 1);
+  const unavailable = await previewJointEventSelection(
+    {
+      ...editor,
+      async editOutcome() {
+        calls++;
+        return { status: 'failed' as const, failures: ['Budget unavailable'] };
+      },
+    },
+    input,
+  );
+  assert.equal(unavailable.eventBudgetPreview, null);
+  assert.equal(calls, 2);
+  const empty = await previewJointEventSelection(editor, {
+    ...input,
+    budget: 0,
+  });
+  assert.deepEqual(empty.eventBudgetPreview, []);
+  assert.equal(calls, 2);
 });

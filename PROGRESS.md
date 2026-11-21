@@ -140,3 +140,12 @@ Earlier entries: [through iteration 3300](docs/progress-archive/2026-11-21-throu
 - TASKS/RANKING updated. Full verification and deployment recorded below; logs /tmp/3360-*.log.
 - Next: Nov 22 daily/developing reader acceptance and three-edition miss-cause fix; complete semantic event-budget comparison for Nov 12–18 and joint cross-platform admission; Sunday weekly acceptance.
 - Final: pnpm format, pnpm lint:fix, pnpm check (1,377 unit passes; 341 integration passes/four expected skips), pnpm build and git diff --check pass. Scheduled reader probe verifies Nov 21 five topics/25 stories/15 posts. API/worker health and alerts checked after push/restart.
+
+## 2026-11-21: iteration 3361 — joint cross-platform event review
+
+- Clean main at 7a575fcc; no inherited work. Alerts zero and healthz healthy; source/queue snapshots saved in /tmp/3361-{sources,jobs}.json.
+- Added evaluation-only joint editor entry point for already-qualified X/Reddit/Bluesky shortlists: one shared event/fact namespace, exact snapshot/evidence binding, existing score gates, bounded inputs and X-preference refusal.
+- One real-editor scripted/cache regression preserves all three platform snapshots and removes a redundant launch post; refusal/unavailable/zero-budget cases avoid fallback calls. No paid calls, new labels/fixtures, UI or scheduled behavior changes.
+- TASKS/RANKING updated; handbook system behavior unchanged. Initial targeted run caught wrong scripted short IDs; corrected to actual supplied IDs.
+- Verification/deployment results follow. Next: Nov 22 daily/developing acceptance and miss-cause fix; full saved event-budget comparison/semantic acceptance; Sunday weekly acceptance.
+- Final: pnpm format, pnpm lint:fix, pnpm check (1,379 unit; 341 integration passes/four expected skips), pnpm build and git diff --check pass. Targeted editor tests 33/33 and saved Nov 17–18 evaluator pass with zero external calls. Reader confirms five topics/25 stories/15 posts; API/worker restart and final health/alerts checked after push. Logs /tmp/3361-*.log.
