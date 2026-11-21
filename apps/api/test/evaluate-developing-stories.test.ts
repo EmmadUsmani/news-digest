@@ -54,7 +54,7 @@ void test('manual positive and negative controls pass offline replay; all linked
   assert.equal(report.controlsPassed, true);
   assert.equal(
     report.cases.reduce((n, c) => n + c.links.length, 0),
-    7,
+    8,
   );
   assert.ok(report.cases.every((c) => c.status === 'replayed'));
 });
@@ -345,5 +345,30 @@ void test('Nov 15 Huang recap requires every leadership predecessor and rejects 
       )?.acceptance,
       'fail',
     );
+  }
+});
+
+void test('Nov 17 World requires second-day Kerch continuity and rejects shared-war or shared-policy links', async () => {
+  const index = fixture.cases.length - 1;
+  const item = fixture.cases[index];
+  assert.equal(item.topicName, 'World news & politics');
+  assert.equal(item.reviews!.length, 4);
+  assert.equal(
+    item.reviews!.some((r) => r.storyId === item.stories[4].id),
+    false,
+  );
+  for (const variant of ['missing', 'mine', 'strike', 'sanctions']) {
+    const records = controls();
+    if (variant === 'missing') records[index].groups = [];
+    if (variant === 'mine')
+      records[index].groups.push(['current:1', 'history:1:0']);
+    if (variant === 'strike')
+      records[index].groups.push(['current:2', 'history:0:3']);
+    if (variant === 'sanctions')
+      records[index].groups.push(['current:3', 'history:0:4']);
+    const report = await evaluateDevelopingStories(fixture.cases, records);
+    assert.equal(report.controlsPassed, false, variant);
+    assert.ok(report.cases[index].reviews.some((r) => r.acceptance === 'fail'));
+    assert.equal(report.semanticAcceptance, 'not-established');
   }
 });

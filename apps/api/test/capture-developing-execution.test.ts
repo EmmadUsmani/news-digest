@@ -156,7 +156,10 @@ void test('saved Peltola, GTA and Zelda captures bind complete admitted executio
     }[];
   };
   const cases = fixture.cases.filter(
-    (item) => item.selected && item.originalEditorialEvidence,
+    (item) =>
+      item.editionId === 'cd357e84-9383-4e10-b60c-c8318da4b314' &&
+      item.selected &&
+      item.originalEditorialEvidence,
   );
   assert.equal(cases.length, 2);
   const editionTopics: Omit<Topic, 'grouping' | 'llm' | 'model'>[] = [];

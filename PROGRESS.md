@@ -102,3 +102,17 @@ Earlier entries: [pre-3055 archive](docs/progress-archive/2026-11-20-pre-3055.md
 - Verification: pnpm format; pnpm lint:fix; pnpm check (results below). Logs /tmp/3166-{format,lint,check,evaluation}.log.
 - Next: Nov 21 scheduled recall/v16 Tech and Gaming acceptance; Nov 12–16 joint comparisons remain. Semantic/model/budget acceptance still blocks developing stories.
 - Full pnpm check passes: static checks/API build, 1,321 units, 336 integrations/four expected skips. Final formatting/diff checks pass; commit/push and healthy service revision refresh follow.
+
+## 2026-11-21: iteration 3167 — review saved World developing continuity
+
+- Clean main at a91d5a44; no inherited work. Zero alerts; health/database/Redis pass; 37 active sources healthy, Destructoid intentionally inactive.
+- Nov 21–22 daily recall/v16 acceptance await publication; today's item 69 commit used. Continued item 70 without paid calls or production changes.
+- Reviewed Nov 17 World selections against 25 historical stories/seven snapshots: second-day Kerch continuation, three nonmatches; peace-talk continuity remains unresolved.
+- Added exact saved source evidence/prose from existing 2901 export; Python equality checks preserve every export field and every older fixture case.
+- Existing replay and immutable snapshot checks cover four new labels; missing Kerch/shared-war/shared-policy challenges fail. Initial new failure-count assertion was too narrow for whole-response rejection and corrected.
+- Targeted tests: pnpm exec tsx --test apps/api/test/evaluate-developing-stories.test.ts apps/api/test/developing-saved-evidence.test.ts — 48 pass.
+- Scheduled-reader Nov 20 passes five topics/25 real stories/20 posts; pnpm obs sources --check passes. No schema/source/UI/runtime changes; developing feature remains inactive.
+- Full check caught two legacy two-case assumptions after adding original World evidence; scoped the Nov 18 execution and extended generic request coverage. Seven capture tests pass.
+- Verification: pnpm format; pnpm lint:fix; full pnpm check rerun (results below). Logs /tmp/3167-{format,lint,check,reader,targeted,capture}.log.
+- Next: scheduled Nov 21 recall and v16 Tech/Gaming acceptance. Model semantics and whole-edition budget acceptance remain open; no cap changes.
+- Full pnpm check passes: static checks/API build, 1,327 units, 336 integrations/four expected skips. Final formatting/diff checks pass; commit/push and healthy service refresh follow.

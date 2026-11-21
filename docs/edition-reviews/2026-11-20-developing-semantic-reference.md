@@ -296,3 +296,23 @@ absent, so this adds no supported rewrite or model acceptance. Production stays
 inactive. Existing replay and snapshot controls consume the added membership;
 missing, partial and chip-category-contaminated groups must fail while the IPO
 control still passes. No provider calls or budget changes.
+
+## Partial Nov 17 World selection review — iteration 3167
+
+Reviewed all five selections against 25 earlier stories in seven saved history
+snapshots. Exact prose and original editorial excerpts come from the existing
+iteration 2901 export; four decisions now join the saved matching fixture.
+
+| Selection                          | Decision                                           | Source basis                                                                                                                                                                                                                   |
+| ---------------------------------- | -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Kerch Bridge second-day strike     | Link Nov 16 `733be6fd-e052-4658-9350-db0dc72950c6` | Current original excerpt explicitly says a second day at the same bridge. Do not import earlier drone, traffic or timing details into the new strike.                                                                          |
+| Hormuz vessel fires                | No predecessor                                     | Naval-mine incident differs from Bahrain drone attack, Gulf oil spills and Iran diplomacy.                                                                                                                                     |
+| Southern Ukraine double-tap attack | No predecessor                                     | Rescue operation and continuing strikes differ from Kerch, prisoner exchange and negotiations.                                                                                                                                 |
+| UK settlement-company sanctions    | No predecessor                                     | A new sanctions action differs from the earlier multinational appeal for Gaza access, including the separately sanctioned activist group.                                                                                      |
+| Ukraine peace talks                | Unresolved; no label                               | Current excerpt reports progress and disputed European participation. Earlier Abu Dhabi talks, Moscow envoys and Donbas proposal may belong to the same negotiating process; saved text cannot establish the exact continuity. |
+
+The manual control preserves Kerch continuity and rejects shared-war or
+shared-policy false links. Existing snapshot checks consume all four labels.
+These are agent decisions, not provider matching or rewrite acceptance. The
+second-day excerpt supports a development, but no model rewrite is accepted;
+production remains inactive and whole-edition budget acceptance remains open.

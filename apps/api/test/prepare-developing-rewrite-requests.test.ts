@@ -156,11 +156,11 @@ void test('saved positive memberships capture original evidence without replacin
       links,
     });
   }
-  assert.equal(cases.length, 2);
+  assert.equal(cases.length, 3);
   const before = structuredClone(cases);
   const model = llmConfig({}).sonnet;
   const report = await prepareDevelopingRewriteRequests(cases, model);
-  assert.equal(report.requestCount, 2);
+  assert.equal(report.requestCount, cases.length);
   for (const [index, item] of cases.entries()) {
     const link = item.links[0];
     assert.deepEqual(

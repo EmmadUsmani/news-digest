@@ -1981,6 +1981,308 @@
           "expectedPredecessors": []
         }
       ]
+    },
+    {
+      "editionId": "6216cb7a-3b6a-4fff-9e35-5fe959eb0c8e",
+      "profileId": "00000000-0000-4000-8000-000000000001",
+      "topicId": "00000000-0000-4000-8000-000000000014",
+      "topicName": "World news & politics",
+      "windowEnd": "2026-11-17 15:00:00+00",
+      "originalEditorialEvidence": {
+        "promptSha256": "9875fe217f0960c5a9c896c0924c7b024ef6c9554d9ef6a24a47c5ec3b1a967a",
+        "evidence": [
+          {
+            "id": "3806d892-e21b-4884-98be-e43b55e3ad7a",
+            "title": "‘Unprecedented’ Ukraine attack on Crimean bridge",
+            "excerpt": "Ukraine has struck the Kerch Bridge linking Russia to Russian-annexed Crimea for a second day.",
+            "sources": ["Al Jazeera", "BBC World", "NPR World"]
+          },
+          {
+            "id": "ce39b958-3d43-445b-8126-436177ca6daa",
+            "title": "Vessels on fire after naval mine hit in Hormuz Strait, Iran says",
+            "excerpt": "Two vessels have caught fire after hitting a naval mine in the Strait of Hormuz.",
+            "sources": ["Al Jazeera"]
+          },
+          {
+            "id": "b6cc9453-dfe5-48e5-86f1-25ab63126245",
+            "title": "Ukraine accuses Russia of targeting rescue operation after 'double-tap' strike kills 72",
+            "excerpt": "Efforts to recover bodies after a “double-tap” attack in southern Ukraine are being hampered by continuing Russian strikes, officials say.",
+            "sources": ["BBC World"]
+          },
+          {
+            "id": "31358d6e-138b-4560-bc14-a59b86990a10",
+            "title": "Ed Miliband announces first sanctions on Israeli firms working in West Bank",
+            "excerpt": "Move is designed to hinder building of more illegal settlements, which Foreign Office says Israel has ‘refused to clamp down on’ UK politics live – latest updates Ed Miliband has announced the first set of sanctions against Israeli companies planning to build illegal settlements in the West Bank, after he pledged to try to prevent settlements that destroy the chances of a two-state solution. The UK foreign secretary also announced he was placing sanctions on a rightwing activist Israeli group involved in trying to block aid into Gaza as recently as last month.…",
+            "sources": ["The Guardian World"]
+          },
+          {
+            "id": "f503f4e2-bcda-4f19-b441-ab36f44cb7e6",
+            "title": "Ukraine holds peace talks with US, Europe as conflict escalates",
+            "excerpt": "Kushner reports progress towards a deal, but Moscow says it has not agreed to European participation in the next talks.",
+            "sources": ["Al Jazeera"]
+          }
+        ]
+      },
+      "selected": [
+        {
+          "id": "3806d892-e21b-4884-98be-e43b55e3ad7a",
+          "title": "Ukraine strikes Kerch Bridge linking Russia to Crimea for second day",
+          "summary": "Ukraine has struck the Kerch Bridge linking Russia to Russian-annexed Crimea for a second day, according to Al Jazeera, BBC World and NPR World. The headline describes the attack as 'unprecedented'.",
+          "whyItMatters": "Strikes on a key crossing between Russia and Crimea are a significant escalation in the Ukraine conflict."
+        },
+        {
+          "id": "ce39b958-3d43-445b-8126-436177ca6daa",
+          "title": "Two vessels catch fire after naval mine hit in Strait of Hormuz, Iran says",
+          "summary": "Two vessels have caught fire after hitting a naval mine in the Strait of Hormuz, Iran says, per Al Jazeera.",
+          "whyItMatters": "Incidents in the Strait of Hormuz affect shipping through a major global energy route amid the US-Israel war on Iran."
+        },
+        {
+          "id": "b6cc9453-dfe5-48e5-86f1-25ab63126245",
+          "title": "Ukraine accuses Russia of targeting rescue operation after 'double-tap' strike kills 72",
+          "summary": "Ukraine accuses Russia of targeting a rescue operation after a 'double-tap' attack in southern Ukraine killed 72, according to BBC World. Officials say continuing Russian strikes are hampering efforts to recover bodies.",
+          "whyItMatters": "A reported double-tap strike killing 72 people and hindering rescue work is a major humanitarian and conflict development."
+        },
+        {
+          "id": "31358d6e-138b-4560-bc14-a59b86990a10",
+          "title": "Ed Miliband announces first UK sanctions on Israeli firms working in West Bank",
+          "summary": "UK Foreign Secretary Ed Miliband has announced the first sanctions against Israeli companies planning to build settlements in the West Bank. He also announced sanctions on a rightwing Israeli activist group involved in trying to block aid into Gaza, according to The Guardian World.",
+          "whyItMatters": "The sanctions are a direct UK policy measure aimed at settlement building, which the Foreign Office says Israel has refused to clamp down on."
+        },
+        {
+          "id": "f503f4e2-bcda-4f19-b441-ab36f44cb7e6",
+          "title": "Ukraine holds peace talks with US and Europe as conflict escalates",
+          "summary": "Ukraine held peace talks with the US and Europe, according to Al Jazeera. Kushner reports progress towards a deal.",
+          "whyItMatters": "Diplomatic talks involving the US and Europe could shape efforts to end the Ukraine conflict."
+        }
+      ],
+      "stories": [
+        {
+          "id": "3806d892-e21b-4884-98be-e43b55e3ad7a",
+          "title": "Ukraine strikes Kerch Bridge linking Russia to Crimea for second day",
+          "summary": "Ukraine has struck the Kerch Bridge linking Russia to Russian-annexed Crimea for a second day, according to Al Jazeera, BBC World and NPR World. The headline describes the attack as 'unprecedented'."
+        },
+        {
+          "id": "ce39b958-3d43-445b-8126-436177ca6daa",
+          "title": "Two vessels catch fire after naval mine hit in Strait of Hormuz, Iran says",
+          "summary": "Two vessels have caught fire after hitting a naval mine in the Strait of Hormuz, Iran says, per Al Jazeera."
+        },
+        {
+          "id": "b6cc9453-dfe5-48e5-86f1-25ab63126245",
+          "title": "Ukraine accuses Russia of targeting rescue operation after 'double-tap' strike kills 72",
+          "summary": "Ukraine accuses Russia of targeting a rescue operation after a 'double-tap' attack in southern Ukraine killed 72, according to BBC World. Officials say continuing Russian strikes are hampering efforts to recover bodies."
+        },
+        {
+          "id": "31358d6e-138b-4560-bc14-a59b86990a10",
+          "title": "Ed Miliband announces first UK sanctions on Israeli firms working in West Bank",
+          "summary": "UK Foreign Secretary Ed Miliband has announced the first sanctions against Israeli companies planning to build settlements in the West Bank. He also announced sanctions on a rightwing Israeli activist group involved in trying to block aid into Gaza, according to The Guardian World."
+        },
+        {
+          "id": "f503f4e2-bcda-4f19-b441-ab36f44cb7e6",
+          "title": "Ukraine holds peace talks with US and Europe as conflict escalates",
+          "summary": "Ukraine held peace talks with the US and Europe, according to Al Jazeera. Kushner reports progress towards a deal."
+        }
+      ],
+      "history": [
+        {
+          "editionId": "93aefc45-33d7-4639-ad53-78e316a40f14",
+          "publishedAt": "2026-11-16 15:03:11.281+00",
+          "stories": [
+            {
+              "id": "c2b4440d-7438-4e00-92ea-94a91265295f",
+              "title": "Estonia to close Russia border crossings after attempted drone factory arson attack",
+              "summary": "Estonia is set to close border crossings with Russia following an attempted arson attack on a drone factory. The Estonian government says Russia was behind the attempted sabotage, which the Kremlin denies."
+            },
+            {
+              "id": "d5872a78-a690-4dae-a7a2-bebc16cb35f9",
+              "title": "China says Xi, Trump and Putin will hold trilateral talks in Shenzhen on 'world peace'",
+              "summary": "The Chinese foreign ministry has confirmed a trilateral meeting of Xi Jinping, Donald Trump and Vladimir Putin in Shenzhen on Thursday, on the sidelines of the Apec summit. It said the talks will cover topics of \"groundbreaking significance\" including \"safeguarding world peace\". Beijing stopped short of confirming specific agenda items, and many hope the leaders will discuss denuclearisation."
+            },
+            {
+              "id": "92729d10-6212-433b-a2ab-a2d3dc0994f6",
+              "title": "Houthis edge closer to Aden as Yemeni forces pull out of Bab al-Mandeb",
+              "summary": "Houthi forces are moving closer to Aden after Yemeni forces retreated from the Red Sea coast around Bab al-Mandeb. The development is described as threatening global maritime security."
+            },
+            {
+              "id": "733be6fd-e052-4658-9350-db0dc72950c6",
+              "title": "Ukraine hits Kerch bridge linking Russia and occupied Crimea",
+              "summary": "The Guardian reports that Ukraine hit the Kerch bridge connecting occupied Crimea with Russia during an overnight drone barrage. Local channels reported a Ukrainian kamikaze drone crashed into one of the bridge's arches at 5.38am local time. The strike temporarily paralysed road traffic and left thousands of drivers stranded."
+            },
+            {
+              "id": "155a8eb8-5a61-4a41-b219-ccabb29dfebe",
+              "title": "UK and allies urge Israel to allow rapid humanitarian access to Gaza",
+              "summary": "The UK, Australia, Canada and Italy called on Israel to allow rapid humanitarian access to Gaza. They say Israeli authorities are holding back vital supplies at the borders, including tents."
+            }
+          ]
+        },
+        {
+          "editionId": "a0fa3916-f1dc-4fbd-8d76-2884d5e01c06",
+          "publishedAt": "2026-11-15 15:03:33.094+00",
+          "stories": [
+            {
+              "id": "3cccf465-358b-4c2c-aa89-85b7feb44404",
+              "title": "Iran targets US military base in Bahrain with drone attack",
+              "summary": null
+            },
+            {
+              "id": "960621a8-61b7-4569-b2aa-f4964574eea3",
+              "title": "In calling for an end to the Iran War, Vance walks a thin line with Trump",
+              "summary": null
+            },
+            {
+              "id": "4aba097c-9e4a-4159-9e21-fc6a8ac60475",
+              "title": "Give Donbas, take NATO seat: Could new US pitch work for Ukraine, Russia?",
+              "summary": null
+            },
+            {
+              "id": "fad61782-c1cc-4d87-8343-ef70b67bf8e0",
+              "title": "Drone attacks on power stations plunge Sudan’s cities into darkness",
+              "summary": null
+            },
+            {
+              "id": "fbd83e46-dadc-418d-b7f3-6a1d5a6e3ce5",
+              "title": "Israel kills Hamas commander in strike on Gaza camp, officials say",
+              "summary": null
+            }
+          ]
+        },
+        {
+          "editionId": "b9d55088-892a-4e34-b77c-a398d64c6a9f",
+          "publishedAt": "2026-11-14 15:03:47.533+00",
+          "stories": []
+        },
+        {
+          "editionId": "f901ba6c-cba3-4116-8539-fd0e92b98ec4",
+          "publishedAt": "2026-11-13 15:01:37.761+00",
+          "stories": []
+        },
+        {
+          "editionId": "b1be5a12-2972-4eeb-9bff-82cbb10c1b07",
+          "publishedAt": "2026-11-12 15:03:52.392+00",
+          "stories": [
+            {
+              "id": "d5c62e3c-08c9-49e4-bcd6-d098818bf087",
+              "title": "Israeli airstrike on Nasser hospital in Gaza kills six, hospital director says",
+              "summary": "An Israeli airstrike on Nasser hospital in Khan Younis killed six people, including a surgeon and a disabled man, and wounded 28 others, according to the hospital director. The Israeli military said in a statement that it struck a Hamas commander and other fighters at the hospital."
+            },
+            {
+              "id": "5cc12bb2-4a70-4191-856e-8c6dbf4b8084",
+              "title": "Ukraine says military Starlink disrupted again as US envoys meet Putin in Moscow",
+              "summary": "Ukraine says its military Starlink service was disrupted again as US envoys Jared Kushner and Steve Witkoff met Putin in Moscow. Later on Thursday, Kushner and Witkoff will travel to Dublin to meet Ukraine's Volodymyr Zelensky."
+            },
+            {
+              "id": "c49b0263-e5e1-486e-97db-c61fce4a92f3",
+              "title": "Fighting intensifies in Yemen as Houthis deny targeting Mecca",
+              "summary": "Fighting has intensified in Yemen, and the Houthis deny targeting Mecca. The World Health Organization says more than 320,000 people have been displaced in Yemen fighting since August 1."
+            },
+            {
+              "id": "7f4a914d-801f-4494-ade3-0ecac5f72505",
+              "title": "Xi Jinping says Taiwan's 'complete reunification' with China will happen",
+              "summary": "Chinese President Xi Jinping says Taiwan's complete reunification with China will happen and that the tide of history 'cannot be stopped'. Taiwan rejects 'one country, two systems'."
+            },
+            {
+              "id": "ca1f805e-60f5-4cdf-b3a9-14fdbe43b3b1",
+              "title": "Hundreds of oil spills in Gulf since US war on Iran began in February, Guardian reports",
+              "summary": "The Guardian reports that since the US war on Iran began in February, there have been hundreds of oil spills in the Gulf. Throughout October, oil tankers were struck by missiles or sea mines in the Strait of Hormuz and spilled crude into the sea."
+            }
+          ]
+        },
+        {
+          "editionId": "eb6e962e-200d-4efc-9f6f-2c7e58743bd8",
+          "publishedAt": "2026-11-11 15:02:39.127+00",
+          "stories": [
+            {
+              "id": "2ca0e3de-de7a-4b28-b28b-abfffc7f39ba",
+              "title": "Russia and Ukraine agree to large prisoner-of-war exchange, officials say",
+              "summary": "Russia and Ukraine have agreed to a large exchange of prisoners of war, officials say. U.S.-mediated talks in Abu Dhabi led to the decision, which is described as the biggest humanitarian release since the war began in 2022."
+            },
+            {
+              "id": "69a6fa9a-140b-4805-8ded-869ffebae608",
+              "title": "Ebola cases in Congo top 11,000 in its deadliest outbreak",
+              "summary": "Congo's government said Wednesday that the country's Ebola outbreak has topped 11,000 cases. The figure underscores the severity of the situation as the country grapples with the relentless spread of the disease."
+            },
+            {
+              "id": "6bfaa225-de2d-4d87-b15f-f7cc44faeda3",
+              "title": "Three men accused of Iran-backed plot against U.K. base hosting U.S. jets",
+              "summary": "Iran-backed operatives have been charged over nearly 20 attacks, including a plot on a U.K. base housing U.S. troops. NPR reports that federal prosecutors arrested three men accused of being Iran-backed operatives."
+            },
+            {
+              "id": "a617efef-46e9-4381-aefe-603851cdd4de",
+              "title": "Spain hit by widespread disruption in first general strike in 14 years",
+              "summary": "Spain is seeing widespread disruption in its first general strike for 14 years. Protests are also expected in the biggest cities less than three weeks before Spaniards vote in parliamentary elections."
+            },
+            {
+              "id": "745c51ca-bf1a-4e0c-b281-ad1a069bde35",
+              "title": "Gaza floods subside as Palestinians assess damage after deadly sandbank collapse",
+              "summary": "As floods in Gaza subside, Palestinians are assessing the human and material damage. A sandbank collapse in Deir el-Balah buried families alive, and survivors describe desperate rescue attempts."
+            }
+          ]
+        },
+        {
+          "editionId": "dbbf2d66-424c-4c74-ac11-59b04f6830a4",
+          "publishedAt": "2026-11-10 15:03:40.22+00",
+          "stories": [
+            {
+              "id": "29c1283f-509b-403e-af16-8ffaf5fbac66",
+              "title": "Oil prices drop after Trump declares US war on Iran \"effectively over\"",
+              "summary": "The Guardian's First Thing newsletter reports that oil prices fell after Donald Trump declared the US war on Iran \"effectively over\" at a White House press conference. Trump said Israel and Gulf allies in the region were well protected from Iran. He said the US remained \"locked and loaded, ready to go for any reason\"."
+            },
+            {
+              "id": "8e76c495-f9e8-4e9e-8eaf-7233e85802ac",
+              "title": "US-mediated Russia-Ukraine talks begin in Abu Dhabi",
+              "summary": "A two-day, US-mediated session on ending the Russia-Ukraine war has begun in Abu Dhabi, the UAE capital. It is the first such meeting since February. The White House said before the discussions that the talks will focus on security guarantees."
+            },
+            {
+              "id": "b00c2c34-aab2-49d3-abbc-62d368674dcd",
+              "title": "Israel's new parliament sworn in as rivals compete to form government",
+              "summary": "Israel's new parliament is to be sworn in as leaders compete to form a government. Gadi Eisenkot, described as Benjamin Netanyahu's main political rival, has the first chance to build a new government and oust the prime minister."
+            },
+            {
+              "id": "9cbecc3c-e382-402e-8e71-379c595ce582",
+              "title": "Hegseth vows to defend \"warriors\" as Massie seeks his impeachment",
+              "summary": "US Secretary of Defense Pete Hegseth has criticised an attempt by Representative Thomas Massie to impeach him. Hegseth promised to defend \"warriors\", according to the headline."
+            },
+            {
+              "id": "6af8f375-6ea8-467a-af5b-47b4f269382b",
+              "title": "Viktor Orbán's brother detained in people-smuggling investigation",
+              "summary": "Hungarian authorities have detained a brother of Viktor Orbán in a people-smuggling investigation, Prime Minister Péter Magyar said, according to The Guardian. The national asset protection and recovery office said a joint operation with police led to four arrests and searches of homes in Budapest and Pest county."
+            }
+          ]
+        }
+      ],
+      "reviewedStoryId": "3806d892-e21b-4884-98be-e43b55e3ad7a",
+      "expectedPredecessors": [
+        {
+          "editionId": "93aefc45-33d7-4639-ad53-78e316a40f14",
+          "storyId": "733be6fd-e052-4658-9350-db0dc72950c6"
+        }
+      ],
+      "reviews": [
+        {
+          "storyId": "3806d892-e21b-4884-98be-e43b55e3ad7a",
+          "expectedPredecessors": [
+            {
+              "editionId": "93aefc45-33d7-4639-ad53-78e316a40f14",
+              "storyId": "733be6fd-e052-4658-9350-db0dc72950c6"
+            }
+          ],
+          "rationale": "Same Kerch Bridge attack sequence; current original excerpt explicitly reports a second day. Earlier drone, traffic and timing details must not be carried forward as facts about the second strike."
+        },
+        {
+          "storyId": "ce39b958-3d43-445b-8126-436177ca6daa",
+          "expectedPredecessors": [],
+          "rationale": "Hormuz naval-mine vessel fires are distinct from Bahrain drone attack, Gulf oil spills and Iran-war diplomacy. Shared conflict and geography do not establish the same incident."
+        },
+        {
+          "storyId": "b6cc9453-dfe5-48e5-86f1-25ab63126245",
+          "expectedPredecessors": [],
+          "rationale": "Southern Ukraine double-tap attack and recovery operation are distinct from the Kerch Bridge strikes, prisoner exchange and peace negotiations. Shared war does not establish continuity."
+        },
+        {
+          "storyId": "31358d6e-138b-4560-bc14-a59b86990a10",
+          "expectedPredecessors": [],
+          "rationale": "First UK sanctions on West Bank settlement companies and aid-blocking activist group are a different policy action from the earlier multinational appeal for Gaza access. Shared minister, country and aid concern do not establish the same event."
+        }
+      ]
     }
   ]
 }
