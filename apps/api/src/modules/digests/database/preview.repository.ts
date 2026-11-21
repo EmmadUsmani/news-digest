@@ -17,9 +17,11 @@ import {
   desc,
   DrizzleQueryError,
   eq,
+  gt,
   isNotNull,
   isNull,
   lt,
+  lte,
   ne,
   sql,
 } from 'drizzle-orm';
@@ -75,6 +77,7 @@ import { rankFallback } from '../domain/rank';
 import { assessRelevance } from '../domain/relevance';
 import { socialStoryContext } from '../domain/social-story-context';
 import { usesTechEditorialContext } from '../domain/tech-editorial-context';
+import { weeklyReviewInput } from '../domain/weekly-review-input';
 import { loadArticleCandidates } from './article-candidates';
 /** Explicit, per-test-edition discovery only. Both pools come from one shared
  * discovery so fallback and editorial selection cannot trigger separate calls. */
@@ -142,6 +145,37 @@ export class PostgresPreviewRepository
         ...row,
         publishedAt: new Date(row.publishedAt!).toISOString(),
         topics: (snapshot as DigestPreview).topics,
+      })),
+      target,
+    );
+  }
+  // Read saved publications only; the selector owns regeneration and topic rules.
+  async weeklyReviewInput(target: Parameters<typeof weeklyReviewInput>[1]) {
+    const empty = weeklyReviewInput([], target); // Validate slot before querying.
+    const rows = await this.orm
+      .select({
+        profileId: digestPreviews.profileId,
+        publishedAt: digestPreviews.publishedAt,
+        snapshot: digestPreviews.snapshot,
+      })
+      .from(digestPreviews)
+      .where(
+        and(
+          target.profileId === null
+            ? isNull(digestPreviews.profileId)
+            : eq(digestPreviews.profileId, target.profileId),
+          eq(digestPreviews.kind, 'scheduled'),
+          isNotNull(digestPreviews.publishedAt),
+          lte(digestPreviews.publishedAt, empty.windowEnd),
+          gt(digestPreviews.windowEnd, empty.windowStart),
+          lte(digestPreviews.windowEnd, empty.windowEnd),
+        ),
+      );
+    return weeklyReviewInput(
+      rows.map((row) => ({
+        ...row,
+        kind: 'daily',
+        snapshot: row.snapshot as DigestPreview,
       })),
       target,
     );

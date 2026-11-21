@@ -73,7 +73,9 @@ coverage retains daily edition IDs and original URLs. This validates structure
 and provenance. Weekly execution uses the existing budget ledger, input limits
 and durable cache, with one Sonnet attempt per topic and no repair or model
 fallback. Budget refusal or invalid coverage produces no weekly edition.
-Production triggering, storage, history labels and scheduling remain unconnected.
+The PostgreSQL input reader filters published scheduled daily snapshots by profile,
+coverage window and publication cutoff before applying the saved-input selector.
+Production triggering, weekly storage, history labels and scheduling remain unconnected.
 
 ## Out of scope (owner, Nov 19)
 

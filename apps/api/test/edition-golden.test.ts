@@ -1285,3 +1285,133 @@ void test('developing history reads only seven earlier published same-profile to
     await adapter.onModuleDestroy();
   }
 });
+
+void test('weekly database input isolates published daily windows and selects saved regenerations', async () => {
+  assert.equal(process.env.NEWS_DIGEST_ISOLATED_TEST, '1');
+  const adapter = new PostgresPreviewRepository();
+  const ids: string[] = [];
+  const topicId = crypto.randomUUID();
+  const target = {
+    profileId: null,
+    topicId,
+    scheduledAt: '2095-02-06T17:00:00Z',
+  };
+  try {
+    const cases = [
+      { name: 'boundary', end: '2095-01-30T17:00:00Z' },
+      { name: 'old version', end: '2095-02-05T15:00:00Z' },
+      {
+        name: 'new version',
+        end: '2095-02-05T15:00:00Z',
+        published: '2095-02-06T16:00:00Z',
+      },
+      { name: 'Sunday', end: '2095-02-06T15:00:00Z' },
+      { name: 'future window', end: '2095-02-07T15:00:00Z' },
+      {
+        name: 'late publication',
+        end: '2095-02-04T15:00:00Z',
+        published: '2095-02-06T18:00:00Z',
+      },
+      { name: 'private', end: '2095-02-03T15:00:00Z', unpublished: true },
+      {
+        name: 'test',
+        end: '2095-02-03T15:00:00Z',
+        kind: 'test',
+        unpublished: true,
+      },
+      { name: 'foreign', end: '2095-02-03T15:00:00Z', foreign: true },
+      { name: 'manual', end: '2095-02-03T15:00:00Z', kind: 'manual' },
+    ];
+    for (const item of cases) {
+      const id = crypto.randomUUID();
+      ids.push(id);
+      const start = new Date(Date.parse(item.end) - 86400000).toISOString();
+      await adapter.db.query(
+        `INSERT INTO digest_previews
+          (id,profile_id,window_start,window_end,snapshot,kind,published_at)
+          VALUES ($1,$2,$3,$4,$5,$6,$7)`,
+        [
+          id,
+          item.foreign ? '00000000-0000-4000-8000-000000000001' : null,
+          start,
+          item.end,
+          {
+            id,
+            windowStart: start,
+            windowEnd: item.end,
+            topics: [
+              {
+                id: topicId,
+                stories: [
+                  { id: item.name, title: item.name, summary: 'Saved summary' },
+                ],
+                posts: [{ id: item.name, text: 'Saved post' }],
+              },
+            ],
+          },
+          item.kind ?? 'scheduled',
+          item.unpublished ? null : (item.published ?? item.end),
+        ],
+      );
+    }
+    const result = await adapter.weeklyReviewInput(target);
+    assert.deepEqual(
+      result.editions.map((edition) => edition.stories[0].title),
+      ['new version', 'Sunday'],
+    );
+    assert.deepEqual(
+      result.editions.map((edition) => edition.editionId),
+      [ids[2], ids[3]],
+    );
+    assert.equal(result.editions[0].posts[0].text, 'Saved post');
+    result.editions[0].stories[0].title = 'Mutated';
+    assert.equal(
+      (await adapter.weeklyReviewInput(target)).editions[0].stories[0].title,
+      'new version',
+    );
+    assert.equal(
+      (
+        await adapter.weeklyReviewInput({
+          ...target,
+          topicId: crypto.randomUUID(),
+        })
+      ).editions.length,
+      0,
+    );
+    assert.deepEqual(
+      (
+        await adapter.weeklyReviewInput({
+          ...target,
+          profileId: '00000000-0000-4000-8000-000000000001',
+        })
+      ).editions.map((edition) => edition.stories[0].title),
+      ['foreign'],
+    );
+    await assert.rejects(
+      adapter.weeklyReviewInput({ ...target, scheduledAt: 'invalid' }),
+      /Sunday/,
+    );
+  } finally {
+    const cleanup = await adapter.db.connect();
+    try {
+      await cleanup.query('BEGIN');
+      await cleanup.query(
+        'ALTER TABLE digest_previews DISABLE TRIGGER immutable_digest_preview',
+      );
+      await cleanup.query(
+        'DELETE FROM digest_previews WHERE id=ANY($1::uuid[])',
+        [ids],
+      );
+      await cleanup.query(
+        'ALTER TABLE digest_previews ENABLE TRIGGER immutable_digest_preview',
+      );
+      await cleanup.query('COMMIT');
+    } catch (error) {
+      await cleanup.query('ROLLBACK');
+      throw error;
+    } finally {
+      cleanup.release();
+    }
+    await adapter.onModuleDestroy();
+  }
+});

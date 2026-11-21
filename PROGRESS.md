@@ -151,3 +151,14 @@ Earlier entries: [pre-3166 archive](docs/progress-archive/2026-11-21-pre-3166.md
 - Commands: pnpm format; pnpm lint:fix; pnpm check; pnpm build; pnpm exec tsx --test apps/api/test/weekly-review-editor.test.ts; pnpm exec tsx scripts/check-handbook.ts; pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-20T15:00:00Z; git diff --check. Results below.
 - Next: Nov 21/22 reviews first; weekly persistence/history separation, then Sunday scheduling and live reader acceptance. Developing remains blocked/disabled.
 - Final pnpm check passes: 1,347 unit tests, 336 integration passes/four expected skips; all static checks green. Build/handbook/diff checks pass. API/worker restarted active; health/database/Redis, repeated live reader and zero alerts pass. Logs /tmp/3177-{check,build,handbook,targeted-final,reader-final,alerts-final}.log.
+
+## 2026-11-21: iteration 3178 — PostgreSQL weekly input loading
+
+- Clean main at 1eba5feb; no inherited changes. Zero alerts; health/database/Redis pass; active sources healthy, Destructoid intentionally inactive. No failed digest jobs; Nov 21 review awaits 15:00 UTC.
+- Connected the weekly saved-input selector to PostgreSQL: explicit profile, scheduled publication, seven-day coverage bounds and publication cutoff; latest saved regeneration and Sunday daily inclusion retained. Invalid slots reject before querying.
+- Isolated database regression covers old/new regenerations, exact lower boundary, future coverage/publication, private/test/manual/foreign exclusions, missing topics, profile selection and immutable saved text. No migrations or live publication writes.
+- Read-only live smoke loads five published daily editions per topic, 25 stories each and 19/22/17/22/19 posts. This is the current partial week, not weekly editorial acceptance. No provider calls or cap changes.
+- Live Nov 20 reader passes: edition 9c810e64, five topics/25 stories/20 posts. Weekly generation, persistence/history separation and Sunday scheduling remain unconnected; developing disabled.
+- Commands: pnpm format; pnpm lint:fix; pnpm check; pnpm build; pnpm exec tsx scripts/check-handbook.ts; pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-20T15:00:00Z; read-only adapter smoke; git diff --check. Final results below.
+- Next: Nov 21/22 reviews first, then weekly persistence/history separation and Sunday scheduling. Logs /tmp/3178-{check,build,handbook,saved-input,reader,sources,jobs}.log.
+- Final pnpm check passes: 1,347 units, 337 integrations/four expected skips; all static checks green. Build/handbook/diff checks pass. API/worker restarted active; health/database/Redis, repeated live reader and zero alerts pass.
