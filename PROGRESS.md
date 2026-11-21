@@ -120,3 +120,13 @@ Earlier entries: [through iteration 3300](docs/progress-archive/2026-11-21-throu
 - Verification: targeted social editor/context tests 33/33; saved evaluator passes twenty fresh/cache comparisons (bounded plus expanded), zero external calls; pnpm format, pnpm lint:fix, pnpm build pass. Full check/deployment results below. Logs /tmp/3358-*.log.
 - Next: Nov 22 daily/developing acceptance and miss-cause fix; event-budget semantic annotations/qualified alternatives/Nov 12–16 comparison; Sunday weekly acceptance.
 - Final: pnpm check passes (1,373 unit, 341 integration/four expected skips), build and diff checks pass. API/worker restarted active; healthz healthy, Nov 21 reader probe passes five topics/25 stories/15 posts, final alerts zero.
+
+## 2026-11-21: iteration 3359 — real-selector event-budget preview
+
+- Clean main at d74eb47b; no inherited work. Healthz healthy, zero alerts, sources check passes; digest-generation counts show zero failed/active, next run Nov 22 15:00 UTC.
+- Added explicit evaluation-only event-budget preview to the real X/Reddit selector: normal triage/shortlist, one outcome call, complete-summary request and upstream truncation metadata retained. No scheduled caller opts in; original picks unchanged.
+- Preview maps back to full snapshots/metrics/display text and semantic/editor provenance. If X preference would remove a planned post, refuse the entire preview rather than silently lose an event/fact. Invalid previews preserve original picks; failed outcomes do not retry.
+- Targeted selector tests pass 15/15; saved Nov 17–18 editor replay still passes with zero external calls. TASKS/RANKING updated; owner handbook behavior unchanged.
+- Verification/deployment results follow below; logs /tmp/3359-*.log. No paid calls, new reference labels or fixtures, cap changes or UI changes.
+- Next: Nov 22 daily/developing reader acceptance and three-edition miss-cause fix; semantic event annotations/full Nov 12–18 comparison and cross-platform acceptance; Sunday weekly publication acceptance.
+- Final: pnpm format/lint:fix/check/build pass (1,375 unit, 341 integration/four expected skips). First check caught an opt-out null preview leaking into saved snapshots; fixed by omitting the field unless requested, then reran the full suite. git diff --check passes; deployment/reader/alerts checked after push.

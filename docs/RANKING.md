@@ -3752,3 +3752,14 @@ Ten saved Nov 17–18 fresh/cache comparisons preserve all 81 labelled events an
 retained facts: Nov 18 NBA 33.33%→14.29%, U.S. 22.22%→12.50%, others unchanged.
 Scripted annotations only; zero external calls and scheduled selection unchanged.
 [Scope and remaining acceptance](edition-reviews/2026-11-18-joint-event-comparison.md#complete-summary-editor-path-iteration-3358).
+
+## Real selector event-budget preview (iteration 3359)
+
+The X/Reddit selector now accepts an explicit evaluation-only preview option.
+It uses its normal triage gates, ten-item shortlist and one editor outcome call,
+then maps preview picks back to complete platform snapshots and editorial reasons.
+X preference runs on previews too; if it removes a planner pick, the whole preview
+is refused so downstream filtering cannot silently lose an event or material fact.
+Original picks remain separate and unchanged. Failed outcomes do not retry.
+No scheduled caller opts in, no external calls were made, and the Nov 12–16
+comparison, semantic annotations and full cross-platform acceptance remain open.

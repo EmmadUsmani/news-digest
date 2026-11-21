@@ -35,7 +35,12 @@ export interface SocialSelectionServices {
         SocialEditorialCandidate,
         'platform' | 'text' | 'author'
       >[],
-      coveredStories?: { title: string; summary: string }[],
+      coveredStories?: {
+        title: string;
+        summary: string;
+        textTruncated?: boolean;
+      }[],
+      options?: { reviewEvents?: boolean; completeStoryEvidence?: boolean },
     ): Promise<SocialEditorialOutcome>;
     edit(
       topic: TriageTopic,
@@ -111,7 +116,12 @@ export async function editTopicPosts<T extends EditorialPost>(
   fallback: T[],
   budget: number,
   runId: string,
-  coveredStories: { title: string; summary: string }[] = [],
+  coveredStories: {
+    title: string;
+    summary: string;
+    textTruncated?: boolean;
+  }[] = [],
+  options: { previewEventBudget?: boolean } = {},
 ) {
   const editorial: PostEditorial = {
     mode: 'non-ai',
@@ -124,6 +134,9 @@ export async function editTopicPosts<T extends EditorialPost>(
         : 'Non-AI selection: social editor unavailable within caps.',
   };
   const result = {
+    ...(options.previewEventBudget
+      ? { eventBudgetPreview: null as T[] | null }
+      : {}),
     posts: preferX(
       fallback,
       fallback.filter((p) => p.platform === 'x').length,
@@ -252,14 +265,32 @@ export async function editTopicPosts<T extends EditorialPost>(
     // Keep good X candidates available even when Reddit triage scores higher.
     .sort((a, b) => Number(b.platform === 'x') - Number(a.platform === 'x'))
     .slice(0, 10);
-  const edited = await services.socialEditor.edit(
-    topic,
-    shortlist,
-    Math.min(20, budget),
-    runId,
-    [],
-    coveredStories,
-  );
+  // Evaluation only: use the real shortlist and editor in one call. No
+  // production caller opts in until saved-edition acceptance is complete.
+  const outcome =
+    options.previewEventBudget && services.socialEditor.editOutcome
+      ? await services.socialEditor.editOutcome(
+          topic,
+          shortlist,
+          Math.min(20, budget),
+          runId,
+          [],
+          coveredStories,
+          { reviewEvents: true, completeStoryEvidence: true },
+        )
+      : null;
+  const edited = outcome
+    ? outcome.status === 'complete'
+      ? outcome.value
+      : null
+    : await services.socialEditor.edit(
+        topic,
+        shortlist,
+        Math.min(20, budget),
+        runId,
+        [],
+        coveredStories,
+      );
   if (!edited) return result;
   const shortlistIds = new Set(shortlist.map((post) => post.id));
   if (
@@ -274,32 +305,48 @@ export async function editTopicPosts<T extends EditorialPost>(
   // Reserve about 70% of slots for qualifying X candidates. If the editor
   // declines them, leave slots empty rather than substituting Reddit filler.
   const xCount = shortlist.filter((p) => p.platform === 'x').length;
-  const chosen = edited.posts.flatMap((p) => {
-    const original = candidates.find((c) => editorialId(c) === p.id);
-    return original ? [original] : [];
-  });
-  result.posts = preferX(chosen, xCount, budget).map((original) => {
-    const p = edited.posts.find((p) => p.id === editorialId(original))!;
-    const score = triage.scores.find((s) => s.id === p.id)!;
-    return {
-      ...original,
-      whyItMatters: p.whyItMatters,
-      reasons: [
-        original.platform === 'x'
-          ? 'Verified X post passes time, text and exclusion checks.'
-          : 'Reddit post passes window, topic, safety and historical-strength checks.',
-        `Semantic relevance ${score.relevance}/10; interestingness ${score.importance}/10: ${score.rationale}`,
-        `Editor: ${p.rationale}`,
-        ...(original.platform === 'x'
-          ? [
-              original.xSearchRanking?.reason ??
-                'No usable X search engagement ranking evidence.',
-            ]
-          : []),
-        'Semantic shortlist orders by interestingness plus bounded reported engagement, then relevance; media contents and measured growth were not inferred.',
-      ],
-    };
-  });
+  const materialize = (selection: SocialEditorialResult['posts']) => {
+    const chosen = selection.flatMap((p) => {
+      const original = candidates.find((c) => editorialId(c) === p.id);
+      return original ? [original] : [];
+    });
+    return preferX(chosen, xCount, budget).map((original) => {
+      const p = selection.find((p) => p.id === editorialId(original))!;
+      const score = triage.scores.find((s) => s.id === p.id)!;
+      return {
+        ...original,
+        whyItMatters: p.whyItMatters,
+        reasons: [
+          original.platform === 'x'
+            ? 'Verified X post passes time, text and exclusion checks.'
+            : 'Reddit post passes window, topic, safety and historical-strength checks.',
+          `Semantic relevance ${score.relevance}/10; interestingness ${score.importance}/10: ${score.rationale}`,
+          `Editor: ${p.rationale}`,
+          ...(original.platform === 'x'
+            ? [
+                original.xSearchRanking?.reason ??
+                  'No usable X search engagement ranking evidence.',
+              ]
+            : []),
+          'Semantic shortlist orders by interestingness plus bounded reported engagement, then relevance; media contents and measured growth were not inferred.',
+        ],
+      };
+    });
+  };
+  result.posts = materialize(edited.posts);
+  if (options.previewEventBudget && edited.eventBudgetPreview) {
+    const preview = edited.eventBudgetPreview;
+    if (
+      preview.length <= Math.min(20, budget) &&
+      new Set(preview.map(({ id }) => id)).size === preview.length &&
+      preview.every(({ id }) => shortlistIds.has(id))
+    ) {
+      const mapped = materialize(preview);
+      // Platform preference must not silently remove an event/fact that the
+      // joint planner promised to preserve. Refuse the entire preview instead.
+      if (mapped.length === preview.length) result.eventBudgetPreview = mapped;
+    }
+  }
   result.postSelectionMethod = 'verified-semantic-engagement-v3';
   editorial.mode = 'ai';
   editorial.model = edited.model;

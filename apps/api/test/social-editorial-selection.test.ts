@@ -73,6 +73,7 @@ void test('social orchestration bounds shortlist, preserves post identity and st
     2,
     'test',
   );
+  assert.equal(Object.hasOwn(result, 'eventBudgetPreview'), false);
   assert.equal(result.postSelectionMethod, 'verified-semantic-engagement-v3');
   assert.equal(result.postEditorial.mode, 'ai');
   assert.equal(result.posts[0].text, posts[0].text);
@@ -773,4 +774,208 @@ void test('X/Reddit orchestration transports selected news only to final editing
   }
   assert.equal(edits, 3);
   assert.deepEqual(original, posts[0]);
+});
+
+void test('event-budget evaluation traverses the real shortlist and preserves full post metadata without changing picks', async () => {
+  const pick = (id: string) => ({
+    id,
+    whyItMatters: `Context ${id}`,
+    rationale: `Choice ${id}`,
+  });
+  let calls = 0;
+  const candidates = posts.slice(0, 3).map((post) => ({
+    ...post,
+    metrics: { likes: 42 },
+    displayText: `${post.text}\nhttps://example.org`,
+  }));
+  const services: SocialSelectionServices = {
+    socialTriage: {
+      async score(_topic, supplied) {
+        return {
+          scores: supplied.map(({ id }) => ({
+            id,
+            relevance: 8,
+            importance: 7,
+            event: 'fixture',
+            rationale: 'Synthetic score',
+          })),
+          unscoredIds: [],
+        };
+      },
+    },
+    socialEditor: {
+      async edit() {
+        throw new Error('Must use a single outcome call for preview');
+      },
+      async editOutcome(
+        _topic,
+        shortlist,
+        budget,
+        _run,
+        selected,
+        stories,
+        options,
+      ) {
+        calls++;
+        assert.deepEqual(
+          shortlist.map(({ id }) => id),
+          ['0', '1', '2'],
+        );
+        assert.equal(budget, 2);
+        assert.deepEqual(selected, []);
+        assert.equal(stories?.[0].textTruncated, true);
+        assert.deepEqual(options, {
+          reviewEvents: true,
+          completeStoryEvidence: true,
+        });
+        return {
+          status: 'complete',
+          value: {
+            model: 'fake',
+            posts: [pick('0'), pick('1')],
+            eventBudgetPreview: [pick('2')],
+          },
+        };
+      },
+    },
+  };
+  const result = await editTopicPosts(
+    services,
+    topic,
+    candidates,
+    [],
+    2,
+    'offline',
+    [{ title: 'Story', summary: 'Summary', textTruncated: true }],
+    { previewEventBudget: true },
+  );
+  assert.equal(calls, 1);
+  assert.deepEqual(
+    result.posts.map(({ externalId }) => externalId),
+    ['0', '1'],
+  );
+  assert.deepEqual(
+    result.eventBudgetPreview?.map(({ externalId }) => externalId),
+    ['2'],
+  );
+  assert.deepEqual(result.eventBudgetPreview?.[0].metrics, { likes: 42 });
+  assert.equal(
+    result.eventBudgetPreview?.[0].displayText,
+    candidates[2].displayText,
+  );
+  assert.equal(result.eventBudgetPreview?.[0].whyItMatters, 'Context 2');
+  assert.ok(
+    result.eventBudgetPreview?.[0].reasons.includes('Editor: Choice 2'),
+  );
+  assert.equal(candidates[2].whyItMatters, undefined);
+  // An invalid preview cannot displace a valid original selection.
+  services.socialEditor.editOutcome = async () => ({
+    status: 'complete',
+    value: {
+      model: 'fake',
+      posts: [pick('0')],
+      eventBudgetPreview: [pick('missing')],
+    },
+  });
+  const refused = await editTopicPosts(
+    services,
+    topic,
+    candidates,
+    [],
+    2,
+    'offline',
+    [],
+    { previewEventBudget: true },
+  );
+  assert.equal(refused.eventBudgetPreview, null);
+  assert.deepEqual(
+    refused.posts.map(({ externalId }) => externalId),
+    ['0'],
+  );
+});
+
+void test('event-budget preview refuses a platform-filtered selection and never retries an unavailable outcome', async () => {
+  type Candidate = Omit<SelectedPost, 'platform'> & {
+    platform: 'x' | 'reddit';
+  };
+  const candidates: Candidate[] = [
+    posts[0],
+    posts[1],
+    { ...posts[2], platform: 'reddit' },
+  ];
+  const pick = (id: string) => ({
+    id,
+    whyItMatters: '',
+    rationale: 'Synthetic choice',
+  });
+  let calls = 0;
+  const services: SocialSelectionServices = {
+    socialTriage: {
+      async score(_topic, supplied) {
+        return {
+          scores: supplied.map(({ id }) => ({
+            id,
+            relevance: 8,
+            importance: 7,
+            event: 'fixture',
+            rationale: 'Synthetic score',
+          })),
+          unscoredIds: [],
+        };
+      },
+    },
+    socialEditor: {
+      async edit() {
+        throw new Error('No second attempt allowed');
+      },
+      async editOutcome() {
+        calls++;
+        return {
+          status: 'complete',
+          value: {
+            model: 'fake',
+            posts: [pick('0')],
+            eventBudgetPreview: [pick('reddit:2')],
+          },
+        };
+      },
+    },
+  };
+  const result = await editTopicPosts(
+    services,
+    topic,
+    candidates,
+    [posts[0]],
+    2,
+    'offline',
+    [],
+    { previewEventBudget: true },
+  );
+  assert.equal(calls, 1);
+  assert.equal(result.eventBudgetPreview, null);
+  assert.deepEqual(
+    result.posts.map(({ externalId }) => externalId),
+    ['0'],
+  );
+  services.socialEditor.editOutcome = async () => {
+    calls++;
+    return { status: 'failed', failures: ['budget-refused'] };
+  };
+  const refused = await editTopicPosts(
+    services,
+    topic,
+    candidates,
+    [posts[0]],
+    2,
+    'offline',
+    [],
+    { previewEventBudget: true },
+  );
+  assert.equal(calls, 2);
+  assert.equal(refused.eventBudgetPreview, null);
+  assert.equal(refused.postEditorial.mode, 'non-ai');
+  assert.deepEqual(
+    refused.posts.map(({ externalId }) => externalId),
+    ['0'],
+  );
 });
