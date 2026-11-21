@@ -55,3 +55,29 @@ set for Nov 18, not a replay of a proposed model selector. Complete the same
 bounded comparison for Nov 12–17, then evaluate a real selection change with
 material-fact retention as well as event share. Item 69's deployment gate
 remains open; do not tune against these agent labels before owner review.
+
+## Exhaustive deletion bound (iteration 3350)
+
+The same evaluator now enumerates every subset of the published posts while
+keeping all stories, all labelled events and every slot marked as carrying
+material facts. It uses existing labels only; it makes no model calls. This
+is an optimistic feasibility bound for deletion, not a production selector.
+
+| Topic                 | Nov 17 before → best | Nov 18 before → best | Subsets searched, both days |
+| --------------------- | -------------------: | -------------------: | --------------------------: |
+| Tech & AI             |      22.22% → 22.22% |      12.50% → 12.50% |                          24 |
+| NBA                   |      11.11% → 11.11% |      33.33% → 14.29% |                          32 |
+| Gaming                |      10.00% → 10.00% |      30.00% → 30.00% |                          64 |
+| World news & politics |      11.11% → 11.11% |      25.00% → 25.00% |                          24 |
+| U.S. news & politics  |      12.50% → 12.50% |      22.22% → 12.50% |                          24 |
+
+All 168 subsets are enumerated; 15 preserve the required facts and events.
+For Gaming, keeping the redundant WoW slot gives a lower concentration than
+deleting it: 30% versus 33.33%. No permissible deletion improves on 30%.
+For Nov 17, all slots carry retained facts, so only the original selection
+is admissible in each topic. NBA membership remains provisional as above.
+
+Reject a deletion-only event budget as the complete solution. Further build
+work must consider alternative candidate posts that add different events,
+rather than only pruning the published picks. Nov 12–16 candidate replay and
+the full Nov 12–18 deployment gate remain open. No runtime change is shipped.

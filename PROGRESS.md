@@ -93,3 +93,14 @@ Earlier entries: [through iteration 3182](docs/progress-archive/2026-11-21-throu
 - Direct targeted invocation was rejected by the isolation guard; verification uses disposable services. First full check caught enrichment of legacy integration-key private tests; fixed caller to use shared publication policy. Handbook length failure fixed by shortening the bullet.
 - Next: Nov 22 daily review and three-edition miss-cause tally/fix first; developing reader acceptance, then Sunday weekly acceptance. Event-budget implementation remains open and authorized.
 - Final pnpm check exits 0: 1,360 unit passes; 341 integration passes/four expected skips; all static checks pass. Build and handbook (19 pages/40 tables) pass. API/worker restarted active; health, Nov 21 local reader (five topics/25 stories/15 posts) and zero alerts pass. Public HTTPS remains unreachable from this VM (curl exit 7/status 000); no external HTTPS acceptance claimed. Logs /tmp/3349-*.log.
+
+## 2026-11-21: iteration 3350 — event-budget deletion feasibility
+
+- Clean main at 2c2071f1; no inherited changes. Zero alerts, healthy healthz/database/Redis, 38 monitored sources healthy and no failed digest jobs.
+- Item 73 authorizes event-budget build work now. Both social routes already receive selected-story context; no extra prompt-only deployment made.
+- Extended the existing offline evaluator to enumerate all 168 post subsets in existing Nov 17–18 labels, preserving stories, labelled events and every slot marked as adding material facts; 15 subsets admissible. No new labels/fixtures, provider calls or runtime selection changes.
+- Only Nov 18 NBA (33.33%→14.29%) and U.S. (22.22%→12.50%) improve. Gaming cannot beat its original 30%; deleting WoW raises it to 33.33%. Nov 17 cannot improve by deletion; NBA provisional event membership unchanged.
+- Rejected deletion-only implementation as a complete event budget, beyond the prior single manual-subset rejection. Candidate replacement and Nov 12–16/full-window replay remain open; no overall item 69 acceptance claimed. Updated TASKS/RANKING and existing comparison.
+- Commands: pnpm obs alerts/jobs/sources; curl -fsS localhost:8000/healthz; pnpm exec tsx scripts/evaluate-saved-nba-event-breadth.ts; pnpm format; pnpm lint:fix; pnpm check; pnpm build; check-scheduled-reader.ts 2026-11-21T15:00:00Z; git diff --check. Final results follow.
+- Next: Nov 22 edition review and three-edition miss-cause fix first; developing reader acceptance; candidate-replacement event-budget build and Sunday weekly acceptance.
+- Final verification: pnpm check exits 0 (1,360 units; 341 integrations/four expected skips), build and exhaustive evaluator pass; diff clean. API/worker restarted active and healthy; local Nov 21 reader passes five topics/25 stories/15 posts. No UI/runtime change or paid replay. Logs /tmp/3350-*.log.

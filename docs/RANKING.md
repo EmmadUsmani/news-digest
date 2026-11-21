@@ -3624,3 +3624,17 @@ NBA 11.11% provisional, Gaming 10%, World 11.11%, U.S. 12.50%. The existing
 offline evaluator covers Nov 17–18 with no paid calls or production changes.
 Nov 12–16 and real-selector/material-fact acceptance remain open. These are
 agent labels pending owner review, not candidate-pool recall.
+
+## Event-budget deletion feasibility (iteration 3350)
+
+The existing evaluator now exhaustively searches 168 post subsets in the
+Nov 17–18 saved joint labels, preserving stories, labelled events and all
+slots marked as contributing material facts. Fifteen subsets are admissible.
+Only Nov 18 NBA (33.33%→14.29%) and U.S. (22.22%→12.50%) can improve.
+Gaming cannot beat its original 30% without dropping protected facts;
+removing the WoW repeat instead raises its share to 33.33%. Nov 17 cannot
+improve by deletion. Reject deletion-only implementation; candidate
+replacement remains necessary to seek broader coverage.
+[Numbers and scope](edition-reviews/2026-11-18-joint-event-comparison.md#exhaustive-deletion-bound-iteration-3350).
+This uses existing agent labels, adds no reference set and does not enable
+production selection. Nov 12–16/full-window acceptance remains open.

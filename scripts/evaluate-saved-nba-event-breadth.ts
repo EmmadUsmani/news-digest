@@ -200,15 +200,69 @@ for (const [date, editionId, expectedSlots, expectedRetained] of [
         largestShare: largest / items.length,
       };
     }
+    // Search the entire post-deletion policy space, not just the hand-picked
+    // subset. Stories and every slot labelled as adding material facts stay.
+    // These labels are an evaluation oracle, never a runtime selection input.
+    const stories = slots.filter((slot) => slot.kind === 'story');
+    const posts = slots.filter((slot) => slot.kind === 'post');
+    assert.ok(posts.length <= 20, 'Bound exhaustive offline enumeration');
+    const events = [...new Set(slots.map((slot) => slot.event))].sort();
+    let admissibleSubsets = 0;
+    let best = slots;
+    for (let mask = 0; mask < 2 ** posts.length; mask++) {
+      const selected = posts.filter((_, index) => mask & (1 << index));
+      if (posts.some((post) => post.retain && !selected.includes(post)))
+        continue;
+      const subset = [...stories, ...selected];
+      if (
+        JSON.stringify(
+          [...new Set(subset.map((slot) => slot.event))].sort(),
+        ) !== JSON.stringify(events)
+      )
+        continue;
+      admissibleSubsets++;
+      const candidate = concentration(subset);
+      const current = concentration(best);
+      // Compare exact fractions; retain more supplied facts on a tie.
+      if (
+        candidate.largest * current.slots < current.largest * candidate.slots ||
+        (candidate.largest * current.slots ===
+          current.largest * candidate.slots &&
+          candidate.slots > current.slots)
+      )
+        best = subset;
+    }
+    assert.ok(admissibleSubsets > 0);
+    assert.ok(
+      slots.filter((slot) => slot.retain).every((slot) => best.includes(slot)),
+    );
     return {
       topic,
       before: concentration(slots),
       after: concentration(retained),
+      deletionPolicyBound: {
+        enumeratedSubsets: 2 ** posts.length,
+        admissibleSubsets,
+        best: concentration(best),
+        removedIds: slots
+          .filter((slot) => !best.includes(slot))
+          .map((slot) => slot.id),
+        improves:
+          concentration(best).largest * slots.length <
+          concentration(slots).largest * best.length,
+      },
     };
   });
   assert.equal(
     joint.topics.flatMap((topic) => topic.slots).length,
     expectedSlots,
+  );
+  assert.deepEqual(
+    comparison.map((topic) => topic.deletionPolicyBound.improves),
+    date === '2026-11-18'
+      ? [false, true, false, false, true]
+      : [false, false, false, false, false],
+    'Deletion feasibility changed; review material-fact labels before accepting',
   );
   assert.equal(
     joint.topics.flatMap((topic) => topic.slots).filter((slot) => slot.retain)
