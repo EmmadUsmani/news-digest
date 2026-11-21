@@ -1432,3 +1432,107 @@ void test('event preview admits only independently qualified replacements and re
     assert.equal(h.calls.length, 1);
   }
 });
+
+void test('event preview preserves picks when baseline text was shortened, including upstream story context', async () => {
+  const story = {
+    title: 'Model launch',
+    summary: 'A company announced a model.',
+  };
+  for (const kind of [
+    'complete',
+    'post',
+    'title',
+    'summary',
+    'upstream',
+    'omitted-story',
+  ] as const) {
+    const input = [
+      {
+        ...candidates[0],
+        text:
+          kind === 'post'
+            ? candidates[0].text.padEnd(1200) + ' An exclusive new fact.'
+            : candidates[0].text,
+      },
+      {
+        ...candidates[0],
+        id: 'robot',
+        text: 'An independent lab released a robot.',
+      },
+    ];
+    const source = {
+      title:
+        kind === 'title' ? story.title.padEnd(300) + ' extra' : story.title,
+      summary:
+        kind === 'summary' || kind === 'upstream'
+          ? story.summary.padEnd(400) + ' An exclusive new fact.'
+          : story.summary,
+    };
+    const covered =
+      kind === 'upstream'
+        ? socialStoryContext([source])
+        : kind === 'omitted-story'
+          ? socialStoryContext(Array.from({ length: 11 }, () => story))
+          : [source];
+    const h = harness([
+      {
+        ...valid,
+        qualifiedAlternatives: [{ ...post, id: 'robot' }],
+        eventAnnotations: [
+          {
+            id: 'one',
+            event: 'launch',
+            eventEvidence: 'announced a model',
+            materialFacts: [],
+          },
+          {
+            id: 'robot',
+            event: 'robot',
+            eventEvidence: 'released a robot',
+            materialFacts: [],
+          },
+          ...covered.map((_, index) => ({
+            id: `story${index + 1}`,
+            event: 'launch',
+            eventEvidence: 'Model launch',
+            materialFacts: [],
+          })),
+        ],
+      },
+    ]);
+    const run = () =>
+      h.editor.editOutcome(topic, input, 1, kind, [], covered, {
+        reviewEvents: true,
+      });
+    const result = await run();
+    assert.equal(result.status, 'complete');
+    if (result.status !== 'complete') continue;
+    assert.deepEqual(result.value.posts, valid.posts);
+    assert.ok(result.value.eventReview, kind);
+    assert.deepEqual(
+      result.value.eventBudgetPreview,
+      kind === 'complete' ? [{ ...post, id: 'robot' }] : null,
+      kind,
+    );
+    assert.deepEqual(await run(), result);
+    assert.equal(h.calls.length, 1, kind);
+    if (kind === 'complete') {
+      const shortened = await h.editor.editOutcome(
+        topic,
+        input,
+        1,
+        kind,
+        [],
+        [{ ...story, textTruncated: true }],
+        { reviewEvents: true },
+      );
+      assert.equal(shortened.status, 'complete');
+      if (shortened.status === 'complete') {
+        assert.deepEqual(shortened.value.posts, valid.posts);
+        assert.equal(shortened.value.eventBudgetPreview, null);
+      }
+      assert.deepEqual(await run(), result);
+      assert.equal(h.calls.length, 1);
+    }
+  }
+});

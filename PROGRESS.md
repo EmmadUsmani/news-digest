@@ -147,3 +147,14 @@ Earlier entries: [through iteration 3182](docs/progress-archive/2026-11-21-throu
 - Commands: pnpm obs alerts/jobs/sources; curl localhost:8000/healthz; tsx --test apps/api/test/social-editor.test.ts; evaluate-saved-nba-event-breadth.ts; pnpm format; pnpm lint:fix; pnpm check. Final build/deployment results follow.
 - Next: Nov 22 daily review/three-edition miss-cause fix and developing reader acceptance; finish saved event-budget comparison; Sunday weekly acceptance.
 - Final: pnpm check exits 0 (1,371 unit passes; 341 integration passes/four expected skips); build, saved evaluator and git diff --check pass. API/worker restarted active; reader probe initially raced readiness, retry verifies Nov 21 five topics/25 stories/15 posts. Healthz healthy and zero alerts. Logs /tmp/3354-*.log.
+
+## 2026-11-21: iteration 3355 — retain picks when event evidence is shortened
+
+- Clean main at 1b0af0a5; no inherited changes. Zero alerts, healthz healthy, all 38 monitored sources healthy; no failed digest jobs, next edition Nov 22 15:00 UTC. Historical ingestion/social failures remain non-active with healthy collectors.
+- Found that exact-excerpt annotations could permit replacing a baseline slot whose omitted text carries an unreviewed material fact. Preview now refuses if selected post or covered-story evidence was shortened.
+- Story context propagates truncation metadata, including omitted stories; ordinary scheduled prompts/selection retain their bounds. Valid bounded annotations remain available, while refused previews retain original picks without retry.
+- Regression covers selected-post/title/summary shortening, upstream shortening/omission, complete-text replacement, and cache completeness revalidation without additional calls. No new reference reviews, labels, fixtures or paid calls.
+- TASKS/RANKING updated; no owner handbook behavior changed. Full saved Nov 12–18 comparison and deployment acceptance remain open.
+- Verification: pnpm exec tsx --test apps/api/test/social-editor.test.ts (31/31); saved event evaluator; pnpm format; pnpm lint:fix; pnpm check (1,372 unit passes, 341 integration passes/four expected skips); pnpm build; git diff --check all pass. Logs /tmp/3355-*.log.
+- Next: Nov 22 edition/miss-cause review and developing reader acceptance; finish event-budget saved comparison; Sunday weekly acceptance.
+- Deployment: API/worker restarted active; curl localhost:8000/healthz healthy; check-scheduled-reader.ts 2026-11-21T15:00:00Z verifies five topics/25 stories/15 posts; pnpm obs alerts reports zero alerts.

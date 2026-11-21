@@ -3710,3 +3710,19 @@ This connects qualification to the evaluator, not to scheduled selection.
 Qualification and semantic completeness still require the saved Nov 12–18
 comparison; scripted unit responses are not live model acceptance. No paid
 calls, new labels or fixtures, or token-cap changes were made.
+
+## Complete baseline evidence for previews (iteration 3355)
+
+Event-budget previews now refuse replacement or deletion when a selected post
+exceeds the supplied 1,200-character text, or a covered story exceeds its
+300-character title or 400-character summary. The story-context helper carries
+a truncation marker, including when it omits stories beyond its ten-story
+bound, so prior shortening cannot silently make an incomplete baseline appear
+complete. Ordinary social selection and prompts retain their existing bounds.
+
+Valid annotations on shortened text remain available for evaluation, but the
+preview is null and original picks survive without retry. Cache reads recheck
+the caller's completeness metadata rather than trusting a saved preview. This
+protects facts absent from the annotation input; it does not establish that
+model annotations list every fact in complete text. Saved Nov 12–18 semantic
+comparison and production acceptance remain open. No paid calls or new labels.

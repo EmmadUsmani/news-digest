@@ -128,7 +128,11 @@ export class SocialPostEditor {
       SocialEditorialCandidate,
       'platform' | 'text' | 'author'
     >[] = [],
-    coveredStories: { title: string; summary: string }[] = [],
+    coveredStories: {
+      title: string;
+      summary: string;
+      textTruncated?: boolean;
+    }[] = [],
   ): Promise<SocialEditorialResult | null> {
     const outcome = await this.editOutcome(
       topic,
@@ -150,7 +154,11 @@ export class SocialPostEditor {
       SocialEditorialCandidate,
       'platform' | 'text' | 'author'
     >[] = [],
-    coveredStories: { title: string; summary: string }[] = [],
+    coveredStories: {
+      title: string;
+      summary: string;
+      textTruncated?: boolean;
+    }[] = [],
     options: { reviewEvents?: boolean } = {},
   ): Promise<SocialEditorialOutcome> {
     if (
@@ -380,7 +388,21 @@ export class SocialPostEditor {
       // retry. A malformed review must never invalidate the original picks.
       let eventBudgetPreview: z.infer<typeof selectionSchema>['posts'] | null =
         null;
-      if (eventReview) {
+      // Exact excerpts cannot account for facts outside the supplied text.
+      // Refuse replacement/deletion when any baseline evidence was shortened,
+      // including story context bounded by the caller before reaching us.
+      const completeBaseline =
+        coveredStories.every(
+          (story) =>
+            !story.textTruncated &&
+            story.title.length <= 300 &&
+            story.summary.length <= 400,
+        ) &&
+        selection.posts.every(
+          (post) =>
+            compact.find(({ id }) => id === post.id)?.textTruncated !== true,
+        );
+      if (eventReview && completeBaseline) {
         const alternatives = selectionSchema.shape.posts.safeParse(
           envelope.qualifiedAlternatives,
         );
