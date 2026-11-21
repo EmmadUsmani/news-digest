@@ -115,3 +115,14 @@ Earlier entries: [through iteration 3182](docs/progress-archive/2026-11-21-throu
 - Commands: pnpm obs alerts/jobs/sources; curl localhost:8000/healthz; tsx --test apps/api/test/joint-event-budget.test.ts; evaluate-saved-nba-event-breadth.ts; pnpm format; pnpm lint:fix; pnpm check; pnpm build; check-scheduled-reader.ts; git diff --check. Final results follow.
 - Next: Nov 22 daily review/three-edition miss-cause fix first, developing reader acceptance; integrate evidence-backed replacement annotations and finish bounded event-budget comparison; Sunday weekly acceptance.
 - Final verification: pnpm check exits 0 (1,366 unit passes; 341 integration passes/four expected skips); build, independent oracle and formatting/diff checks pass. API/worker restarted active; healthz, local scheduled reader (five topics/25 stories/15 posts) and zero alerts pass. Logs /tmp/3351-*.log. No paid replay or runtime selection change.
+
+## 2026-11-21: iteration 3352 — evidence-bound event selection bridge
+
+- Clean main at 96dc8f76; no inherited changes. Zero alerts, healthz healthy, all 38 sources healthy, no failed digest jobs; next edition Nov 22 15:00 UTC.
+- Added a public bridge from complete editorial event/fact annotations to the bounded planner. Exact current-text excerpts required; missing, duplicate, unknown or stale reviews preserve baseline objects/order. Invalid caller selections still fail.
+- Returns original qualified candidate objects so source metadata/rationale survive replacement. Exact excerpts bind text only, not semantic correctness or complete fact coverage; production remains unconnected.
+- Existing ten Nov 17–18 comparisons now traverse the bridge and agree with planner/oracle; no new labels/fixtures or provider calls. Two regressions cover metadata identity, evidence refusal and invalid baseline handling.
+- TASKS/RANKING updated. No owner handbook behavior changed. Nov 12–16 comparison, semantic replacement annotations and full acceptance remain open.
+- Verification: targeted eight tests pass; existing saved evaluator passes; pnpm format; pnpm lint:fix. Full check/build and service verification results follow.
+- Next: Nov 22 daily review/three-edition miss-cause fix, developing reader acceptance; finish real candidate event-budget comparison; Sunday weekly acceptance.
+- Final: pnpm check exits 0 (1,368 unit passes; 341 integration passes/four expected skips); build, saved evaluator and diff checks pass. API/worker restarted active; startup probe initially raced readiness, retry healthz and Nov 21 local reader pass (five topics/25 stories/15 posts); zero alerts. Logs /tmp/3352-*.log.

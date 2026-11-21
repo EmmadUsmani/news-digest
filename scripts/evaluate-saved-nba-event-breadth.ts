@@ -4,6 +4,7 @@ import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 
 import { planJointEventBudget } from '../apps/api/src/modules/social/domain/joint-event-budget';
+import { selectWithEventBudget } from '../apps/api/src/modules/social/public/event-budget';
 
 const root = new URL('../docs/edition-reviews/', import.meta.url);
 const saved = JSON.parse(
@@ -247,6 +248,27 @@ for (const [date, editionId, expectedSlots, expectedRetained] of [
       selectedPostIds: posts.map((slot) => slot.id),
       postBudget: posts.length,
     });
+    const evidenceBound = selectWithEventBudget({
+      stories,
+      candidates: posts,
+      selectedPostIds: posts.map((slot) => slot.id),
+      postBudget: posts.length,
+      annotations: slots.map((slot) => ({
+        id: slot.id,
+        event: slot.event,
+        eventEvidence: slot.text,
+        materialFacts:
+          slot.kind === 'post' && slot.retain
+            ? [{ id: slot.id, evidence: slot.text }]
+            : [],
+      })),
+    });
+    assert.equal(evidenceBound.status, 'complete');
+    assert.deepEqual(
+      evidenceBound.posts.map((post) => post.id),
+      plannedIds,
+    );
+    for (const post of evidenceBound.posts) assert.ok(posts.includes(post));
     const planned = [
       ...stories,
       ...posts.filter((slot) => plannedIds.includes(slot.id)),

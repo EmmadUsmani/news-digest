@@ -3660,3 +3660,19 @@ fixtures, provider calls or production selection changes.
 Production integration still needs evidence-backed annotations for qualified
 replacement candidates and the Nov 12–18 before/after acceptance. The planner
 alone does not close item 69 or solve Gaming's saved 30% concentration.
+
+## Evidence-bound event selection (iteration 3352)
+
+The selection bridge requires one annotation per current story and qualified
+post candidate, with an exact source excerpt for each event and material fact.
+Missing, duplicate, unknown or stale annotations retain original post objects
+and order. Valid annotations feed the bounded planner and return the original
+candidate objects, preserving source metadata and rationale. Invalid baseline
+IDs/budgets still fail rather than being concealed by an annotation refusal.
+
+All ten existing Nov 17–18 comparisons now also traverse this bridge and agree
+with the planner/oracle. Existing retain labels use full saved text as evidence
+and unique protected fact IDs; these are conservative offline annotations.
+Exact excerpts establish text identity, not semantic correctness or exhaustive
+fact coverage. No new labels/fixtures or paid calls. Production remains
+unconnected pending candidate semantic annotations and Nov 12–18 acceptance.
