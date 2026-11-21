@@ -38,7 +38,9 @@ details, budgets and rules stay in the items. Every new item goes on this list.
 8. Use waiting time for evaluation, and count stories and posts per event
    (item 69).
    Item 72 (Nov 21): ship developing stories now with a defined acceptance,
-   and no idle runs while items 69 or 70 have work.
+   and no idle runs while items 69 or 70 have work. Item 73 (Nov 21): one paid
+   matching run, then enable developing stories; item 69's event budget starts
+   now.
 9. Reader features: developing stories, why picked, week in review (item 70,
    owner-approved Nov 19).
 10. Then item 38's list for choosing meaningful work. Item 42 says what to do
@@ -3189,6 +3191,8 @@ Item 71 (Nov 19) replaces the pace of steps 2 to 5 above: close the Nov 19 audit
 
 ## 69. Use waiting time for evaluation; count stories and posts per event (2026-11-19)
 
+> **Nov 21:** item 73 says the one-commit-a-day limit covers only step 1. Step 2 is build work.
+
 **Why:** after its last commit at 20:12 UTC on Nov 18, the agent ran more than
 80 iterations with no commits while it waited for the next edition. On Nov 18,
 NBA spent three slots on one Lakers game. Stories and posts are chosen
@@ -3287,6 +3291,8 @@ Protect the morning edition.
 
 ## 72. NOW: ship developing stories; no idle runs while items 69 and 70 have work (2026-11-21)
 
+> **Nov 21, later:** item 73 settles the matching and budget acceptance. Follow it.
+
 **Why:** item 70 has had about 70 developing-story commits since Nov 19 and no
 ack, and the Nov 20 edition has no developing stories. Most recent commits
 re-review or "verify" old Nov 15 to 18 editions. The plan's line "production
@@ -3346,3 +3352,56 @@ ack: 2026-11-21 (3174), existing manual pair (2026-11-18, not model output): “
 ack: 2026-11-21 (3174), existing manual pair (2026-11-17, not model output): “Ukraine hits Kerch bridge linking Russia and occupied Crimea” → “Ukraine strikes Kerch Bridge linking Russia to Crimea for second day”.
 
 ack: 2026-11-21 (3174), item 70 feature 2: readers can open Why this beneath stories/posts to read only the saved editor selection rationale; older items without it show nothing. Live edition 9c810e64-1004-4669-86b5-57bb91ff3654; keyboard/click, collapsed defaults, no overflow/page errors pass at 390/1440 in light/dark. Screenshots: [mobile story](docs/screenshots/ui/why-this-live-story-390-light.png), [desktop story](docs/screenshots/ui/why-this-live-story-1440-dark.png), [mobile post](docs/screenshots/ui/why-this-live-post-390-dark.png), [desktop post](docs/screenshots/ui/why-this-live-post-1440-light.png). No AI calls, backfill or cap changes; scores and operational reason arrays remain private.
+
+## 73. NOW: one paid matching run, enable developing stories, start the event budget (2026-11-21)
+
+**Why:** after `85b41f05` (15:18 UTC Nov 21) the agent ran 45 iterations in a
+row with no commit; 157 of 180 runs on Nov 21 had none. Each run gave two
+reasons. Both come from unclear steering, and the owner settled them on Nov 21:
+
+- The developing-stories matcher has no cached responses, and item 72 also
+  said "no paid replays". The owner allows one paid run.
+- Item 69's "at most one commit a day" was read as covering all of item 69.
+  It covers only step 1, the waiting-time labels.
+
+**Budget acceptance has passed.** Item 72 step 2 passes when the worst day fits
+$0.65. The preflight's worst day was $0.613774. "Complete feature coverage" is
+not part of the test. Don't re-run the budget preflight. The runtime
+reservations still guard the cap.
+
+**Priority:** Current order line 8, with items 69 and 72. Items 68 and 71 (the
+Nov 22 review and the fix after it) still come first, and so does the morning
+edition.
+
+**What to do:**
+
+1. **Matching, once, paid:** run the matcher over the saved Nov 12 to 18
+   editions (`apps/api/test/fixtures/developing-stories-saved-2026-11-12-18.json`),
+   making the model calls it needs. Run it outside 13:00 to 16:00 UTC and
+   after that day's scheduled edition has published, and keep the run inside
+   that day's remaining daily cap. If the run would exceed it, stop and write
+   one line in `NEEDS_FROM_HUMAN.md`. List every matched pair in the ack. If
+   a pair is plainly wrong, raise the threshold and rerun once, reusing the
+   responses already cached. That is the whole semantic acceptance.
+2. **Enable** developing stories for scheduled editions and deploy outside
+   13:00 to 16:00 UTC. Replace the "Production stays disabled" lines in
+   `docs/reader-features-plan.md` and remove the item 72 blocker from
+   `NEEDS_FROM_HUMAN.md`.
+3. **Event budget (item 69 step 2) starts now.** It is build work and not
+   limited to one commit a day. Measure the largest-event share on saved Nov
+   12 to 18 editions before and after, as item 69 says, and ship it or reject
+   it with the numbers.
+4. After the next scheduled edition, do item 72 step 4, then go on to week in
+   review.
+
+**What not to do:** no more than one paid matching run, plus one rerun from
+cache. No new reference reviews, fixtures or "verify ... control" commits. No
+checkpoint commits (item 66). Don't raise a cap.
+
+**Done when:** developing stories appear in a published edition, and the event
+budget is deployed or rejected. The ack reports the matching run's actual cost,
+the matched pairs, the edition ID with a reader screenshot, and the
+largest-event share before and after.
+
+**Limits:** AI caps unchanged (daily $0.65, monthly $20). One paid matching run
+only. No deploys between 13:00 and 16:00 UTC. Protect the morning edition.
