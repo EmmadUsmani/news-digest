@@ -19,6 +19,8 @@ export type { TriageScore } from '../application/triage';
 const services = new WeakMap<
   Pool,
   {
+    developingLlm: Pick<BudgetedLlm, 'json'>;
+    developingModel: ReturnType<typeof llmConfig>['sonnet'];
     weeklyLlm: Pick<BudgetedLlm, 'json'>;
     weeklyModel: ReturnType<typeof llmConfig>['sonnet'];
     triage: CandidateTriage;
@@ -57,6 +59,8 @@ export function editorialServices(db: Pool) {
       : undefined,
   );
   const result = {
+    developingLlm: llm,
+    developingModel: config.sonnet,
     weeklyLlm: llm,
     weeklyModel: config.sonnet,
     validationDiagnostics: () => llm.validationDiagnostics(),

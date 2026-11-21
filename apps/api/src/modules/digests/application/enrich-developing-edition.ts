@@ -7,7 +7,7 @@ import { rewriteSelectedDevelopingStories } from './rewrite-selected-developing-
 
 type TopicInput = Parameters<typeof enrichSelectedDevelopingStories>[0];
 
-// Prepared only: callers must admit the complete budget before invoking this.
+// Uses caller-supplied budgeted ports; optional enrichment follows normal selection.
 // Atomicity applies to returned stories, not already-settled provider charges.
 export async function enrichDevelopingEdition<T extends TopicInput>(
   topics: readonly T[],

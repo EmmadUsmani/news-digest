@@ -9,8 +9,7 @@ import {
 import type { developingLinks } from '../domain/developing-links';
 import { rewriteDevelopingStories } from './rewrite-developing-stories';
 
-// Prepared orchestration only: generation does not invoke this helper.
-// The caller must provide a budgeted port after whole-edition admission.
+// Fixed-selection rewrite using the caller’s budgeted port.
 export function rewriteSelectedDevelopingStories<
   S extends {
     id: string;
@@ -22,7 +21,11 @@ export function rewriteSelectedDevelopingStories<
   selected: readonly S[];
   evidence: readonly EditorialCandidate[];
   links: ReturnType<typeof developingLinks>;
-  llm: LlmPort;
+  llm: {
+    complete(
+      ...args: Parameters<LlmPort['complete']>
+    ): Promise<{ text: string }>;
+  };
   model: ModelPrice;
   runId: string;
   topicId: string;

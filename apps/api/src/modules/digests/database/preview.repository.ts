@@ -36,6 +36,7 @@ import {
   topics as topicTable,
   xSearchTopicSettings,
 } from '../../../libs/db/schema';
+import type { EditorialCandidate } from '../../curation/public/developing-rewrite';
 import { developmentEditorialServices } from '../../curation/public/development-editorial';
 import { readEditionCost } from '../../curation/public/edition-cost';
 import { editorialServices } from '../../curation/public/editorial';
@@ -53,6 +54,7 @@ import {
 } from '../adapters/digest-notifications';
 import { observeEdition } from '../adapters/edition-logging';
 import { editorEvidence } from '../application/editor-evidence';
+import { enrichDevelopingEdition } from '../application/enrich-developing-edition';
 import { parallelTopics } from '../application/parallel-topics';
 import {
   politicsStories,
@@ -454,6 +456,7 @@ export class PostgresPreviewRepository
             return result;
           };
           let pairedPromise: ReturnType<typeof preparePair> | undefined;
+          const developingEvidence = new Map<string, EditorialCandidate[]>();
           const selections = await parallelTopics(topics, async (topic) => {
             const paired =
               politics.length === 2 && politicsTopicIds.includes(topic.id)
@@ -586,6 +589,7 @@ export class PostgresPreviewRepository
                   candidates,
                   usesTechEditorialContext(topic.name),
                 );
+                developingEvidence.set(topic.id, evidence.candidates);
                 const result = await editorialServices.editor.edit(
                   context,
                   evidence.candidates,
@@ -752,6 +756,88 @@ export class PostgresPreviewRepository
               stories,
             };
           });
+          // Normal selection settles first; optional enrichment shares its ledger
+          // and cannot prevent publication when matching or rewriting is refused.
+          if (
+            scheduledKey &&
+            !testEdition &&
+            newEditionPublication('scheduled', scheduledKey, new Date())
+              .kind === 'scheduled' &&
+            this.editorial
+          ) {
+            const services = this.editorial;
+            const publishedAt = new Date().toISOString();
+            try {
+              const inputs = await Promise.all(
+                selections.map(async (topic) => ({
+                  topicId: topic.id,
+                  topicName: topic.name,
+                  runId,
+                  publishedAt,
+                  editorialMode:
+                    topic.editorial.mode === 'ai'
+                      ? ('ai' as const)
+                      : ('fallback' as const),
+                  selected: topic.stories.map((story) => ({
+                    ...story,
+                    summary: story.summary ?? story.excerpt,
+                    whyItMatters: story.whyItMatters ?? '',
+                  })),
+                  evidence: (developingEvidence.get(topic.id) ?? []).filter(
+                    (item) =>
+                      topic.stories.some((story) => story.id === item.id),
+                  ),
+                  history: await this.developingHistory({
+                    id: runId,
+                    profileId,
+                    publishedAt,
+                    topicId: topic.id,
+                  }),
+                  grouping: services.grouping,
+                  model: services.developingModel,
+                  llm: {
+                    complete: async (
+                      request: Parameters<
+                        typeof services.developingLlm.json
+                      >[0],
+                    ) => {
+                      const value = await services.developingLlm.json(
+                        request,
+                        (result) => {
+                          if (!Array.isArray(result))
+                            throw new Error('Developing rewrite refused');
+                          return result;
+                        },
+                        { repair: false },
+                      );
+                      if (!value)
+                        throw new Error('Developing budget or rewrite refused');
+                      return { text: JSON.stringify(value) };
+                    },
+                  },
+                })),
+              );
+              const enriched = await enrichDevelopingEdition(inputs);
+              if (enriched.status === 'completed') {
+                for (const topic of selections) {
+                  const updated = enriched.topics.find(
+                    (item) => item.topicId === topic.id,
+                  )!.stories;
+                  if (!updated.some((story) => 'developing' in story)) continue;
+                  topic.stories = topic.stories.map((story, index) => ({
+                    ...story,
+                    ...updated[index],
+                  }));
+                  if (topic.editorial.mode === 'ai')
+                    topic.editorial.brief = topic.stories
+                      .slice(0, 4)
+                      .map((story) => story.title);
+                }
+              }
+            } catch {
+              // Database/model refusal leaves the entire original edition intact.
+            }
+          }
           progress.stage = 'publishing';
           await report();
           const snapshot: DigestPreview = {

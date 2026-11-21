@@ -17,8 +17,7 @@ type EnrichmentInput<S extends SelectedStory = SelectedStory> = Omit<
   publishedAt: string;
 };
 
-// Prepared only. Generation must first admit the complete matching/rewrite plan
-// and supply budgeted ports; this helper neither reserves nor publishes.
+// Callers supply budgeted ports; this helper neither reserves nor publishes.
 export async function enrichSelectedDevelopingStories<S extends SelectedStory>(
   input: EnrichmentInput<S>,
 ) {

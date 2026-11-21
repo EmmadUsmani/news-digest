@@ -99,9 +99,9 @@ article-template, AsciiDoc document bodies or MediaWiki prose for submissions wi
   allowances and explains when a paid option is disabled on the server.
 - **History:** every edition is kept. The UI can browse and reopen any past
   edition by its id.
-- **Developing stories:** saved links show “Developing”, the edition count and
-  “Earlier coverage” to the previous story. Matching is still in offline review;
-  scheduled generation does not yet save these links.
+- **Developing stories:** after scheduled selection, Haiku matches seven prior editions
+  and Sonnet rewrites from current evidence; saved “Earlier coverage” links open the
+  previous story. Shared caps apply; refusal keeps the original selection.
 
 > [!NOTE]
 > Production enabled `LLM_STORY_GROUPING_ENABLED=1` on Nov 4 for the Nov 5

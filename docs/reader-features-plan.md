@@ -29,8 +29,10 @@ Implementation decision: [selected-story enrichment](decisions/2026-11-19-develo
 Matching acceptance passed Nov 21: eight paid Haiku calls cost $0.009843; seven
 selected stories link to twelve predecessor occurrences. Every model pair is in
 the item 73 ack. Item 73 accepts the existing $0.613774/$0.65 budget preflight.
-Scheduled publication wiring and deployment are next; then check the first real
-edition’s developing summaries and earlier-coverage links.
+Scheduled publication now enriches accepted selections after normal story/post
+editing, using the shared budget ledger/cache. Refusal preserves the original
+edition. Check the first real edition’s developing summaries and earlier-coverage
+links on Nov 22.
 
 ## 2. Why this was picked
 

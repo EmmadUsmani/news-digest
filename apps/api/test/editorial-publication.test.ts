@@ -53,6 +53,7 @@ const edit = {
 async function harness(
   options: {
     scheduledKey?: string;
+    developing?: 'accept' | 'refuse';
     incomplete?: boolean;
     refused?: boolean;
     quiet?: boolean;
@@ -347,6 +348,59 @@ async function harness(
             },
           },
   });
+  let developingCalls = 0;
+  if (options.developing) {
+    repository.developingHistory = async () => [
+      {
+        editionId: '00000000-0000-4000-8000-000000000088',
+        publishedAt: '2026-10-31T15:00:00Z',
+        stories: [
+          { id, title: 'Model planned', summary: 'A model was planned.' },
+        ],
+      },
+    ];
+    Object.assign(repository.editorial!, {
+      grouping: {
+        async groupWithResult(
+          _topic: string,
+          items: { id: string; title: string }[],
+        ) {
+          developingCalls++;
+          assert.equal(items[0].title, candidate.title);
+          return {
+            status: 'validated',
+            groups: [items.map((item) => item.id)],
+          };
+        },
+      },
+      developingModel: config.sonnet,
+      developingLlm: {
+        async json(
+          request: { prompt: string },
+          validate: (value: unknown) => unknown,
+          settings: { repair: boolean },
+        ) {
+          developingCalls++;
+          assert.equal(settings.repair, false);
+          const data = JSON.parse(request.prompt);
+          assert.equal(data.stories[0].currentEvidence.title, candidate.title);
+          assert.equal(
+            data.stories[0].currentEvidence.excerpt,
+            candidate.excerpt,
+          );
+          if (options.developing === 'refuse') return null;
+          return validate([
+            {
+              id,
+              title: 'Model is available today',
+              summary: 'The model is available today.',
+              whyItMatters: 'Builders have another tool.',
+            },
+          ]);
+        },
+      },
+    });
+  }
   const progress: EditionProgress[] = [];
   const snapshot = digestPreviewSchema.parse(
     await repository.generate(
@@ -384,6 +438,13 @@ async function harness(
     assert.equal(legacyGroupingCalls, 0);
   }
   assert.ok(calls.includes('COMMIT'));
+  if (options.developing)
+    assert.equal(
+      developingCalls,
+      options.scheduledKey && !options.scheduledKey.startsWith('integration:')
+        ? 2
+        : 0,
+    );
   return snapshot;
 }
 void test('publication stores semantic recovery, source provenance, editor text and audit evidence', async () => {
@@ -776,5 +837,31 @@ void test('compact ownership wire output survives production publication with ex
         'wire aliases never enter saved reader evidence',
       );
     }
+  }
+});
+
+void test('scheduled publication saves developing prose and links using original source evidence', async () => {
+  const snapshot = await harness({
+    scheduledKey: 'daily:developing',
+    developing: 'accept',
+  });
+  const story = snapshot.topics[0].stories[0];
+  assert.equal(story.title, 'Model is available today');
+  assert.equal(
+    story.developing?.previousEditionId,
+    '00000000-0000-4000-8000-000000000088',
+  );
+  assert.equal(story.url, candidate.url);
+  assert.deepEqual(snapshot.topics[0].editorial?.brief, [story.title]);
+});
+void test('developing refusal preserves scheduled selection and manual generation makes no enrichment calls', async () => {
+  for (const scheduledKey of [
+    'daily:refused',
+    undefined,
+    'integration:private',
+  ]) {
+    const snapshot = await harness({ scheduledKey, developing: 'refuse' });
+    assert.equal(snapshot.topics[0].stories[0].title, edit.stories[0].headline);
+    assert.equal(snapshot.topics[0].stories[0].developing, undefined);
   }
 });
