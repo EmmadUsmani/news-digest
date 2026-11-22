@@ -162,6 +162,17 @@ export function WeeklyEdition() {
             Coverage: {date(edition.data.windowStart)} –{' '}
             {date(edition.data.windowEnd)} (UTC)
           </p>
+          <nav aria-label="Topics in this week’s review" className="my-6">
+            <ul className="flex list-none flex-wrap gap-x-5 gap-y-1 p-0">
+              {edition.data.topics.map((topic) => (
+                <li key={topic.id}>
+                  <a href={`#weekly-topic-${topic.id}`} className={linkStyle}>
+                    {topic.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
           {edition.data.topics.map((topic) => (
             <section
               key={topic.id}
@@ -170,7 +181,8 @@ export function WeeklyEdition() {
             >
               <h2
                 id={`weekly-topic-${topic.id}`}
-                className="font-sans text-2xl leading-tight font-semibold"
+                tabIndex={-1}
+                className="scroll-mt-6 font-sans text-2xl leading-tight font-semibold"
               >
                 {topic.name}
               </h2>

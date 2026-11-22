@@ -133,6 +133,34 @@ async function main() {
           .getByRole('heading', { name: fixture.topics[0].stories[0].title })
           .waitFor();
         await page.getByText('No stories in this week’s review.').waitFor();
+        const topicNavigation = page.getByRole('navigation', {
+          name: 'Topics in this week’s review',
+        });
+        const quietLink = topicNavigation.getByRole('link', {
+          name: 'Quiet topic',
+        });
+        await quietLink.focus();
+        await page.keyboard.press('Enter');
+        const quietHeading = page.getByRole('heading', {
+          name: 'Quiet topic',
+          exact: true,
+        });
+        await quietHeading.waitFor();
+        assert.equal(
+          await quietHeading.evaluate(
+            (element) => element === document.activeElement,
+          ),
+          true,
+        );
+        assert.equal(
+          new URL(page.url()).hash,
+          `#weekly-topic-${fixture.topics[1].id}`,
+        );
+        await topicNavigation
+          .getByRole('link', { name: topic.name, exact: true })
+          .click();
+        assert.equal(new URL(page.url()).hash, `#weekly-topic-${topic.id}`);
+        await page.evaluate(() => window.scrollTo(0, 0));
         assert.equal(
           await page
             .locator(

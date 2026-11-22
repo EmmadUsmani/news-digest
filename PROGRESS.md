@@ -77,3 +77,12 @@ Earlier entries: [through iteration 3369](docs/progress-archive/2026-11-22-throu
 - Added rejection/capacity table to Nov 21 review; TASKS and NEEDS_FROM_HUMAN record unfinished replacement and constraints. No source/handbook behavior changes. Nov 22 tally/deploy hold retained; next independent work is item 70.
 - Verification: pnpm format; pnpm lint:fix; pnpm check passes (1,385 unit; 341 integration; four expected skips); pnpm build; handbook/schema checker; signed-out Nov 21 reader (five topics/25 stories/15 posts); git diff --check. Read-only node /tmp/3430-fetch.cjs and Python membership/capacity assertions pass. Logs /tmp/3430-*.log.
 - Commit/push and API/worker restart/final health follow.
+
+## 2026-11-22: iteration 3431 — weekly topic navigation
+
+- Clean main at fd063f53; no inherited changes. Alerts clear; healthz database/Redis healthy.
+- Added topic jump links above weekly summaries, including quiet sections; headings accept keyboard focus and leave space above the destination.
+- Extended existing Playwright smoke checks for keyboard focus/hash navigation; refreshed four explicitly synthetic detail screenshots and inspected the mobile light image. Live weekly history remains empty before Sunday 17:00 UTC.
+- Updated affected owner handbook and TASKS. No model calls, source changes, cap changes or selection changes. Item 74 baseline-capacity constraint and Nov 22 tally/deploy hold remain; developing/weekly real-edition acceptance still due today.
+- Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm exec tsx scripts/smoke-reader-weekly.ts (390/1440 light/dark); pnpm exec tsx scripts/check-handbook.ts edition-pipeline (19 pages, 40 tables); pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-21T15:00:00Z (five topics/25 stories/15 posts). An initial reader command without its required cutoff returned usage; corrected command passes.
+- Full pnpm check passes: 1,385 unit and 341 integration passes, four expected skips. Build and git diff --check pass. Commit/push and API/worker restart/final health follow. Logs: /tmp/3431-*.log.
