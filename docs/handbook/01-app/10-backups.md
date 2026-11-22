@@ -12,6 +12,8 @@
 Run `systemctl --user start news-digest-backup.service` for both local and
 remote copies, or `systemctl --user start news-digest-restore-check.service`
 for local restore verification. Both skip 13:00–16:00 UTC.
+Restore checks use a disposable Docker disk volume, removed with the container,
+and keep the 384 MB memory limit.
 Before the system-ownership rollout, `python3 ops/backups/rehearse_system.py`
 takes a fresh private backup and runs the application migration runner twice
 through `0012_nullable_system_ownership`, leaving account migrations pending,

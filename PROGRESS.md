@@ -106,3 +106,12 @@ Earlier entries: [through iteration 3358](docs/progress-archive/2026-11-21-throu
 - `pnpm console sources check` opened the interactive console without running a check; no source-check success claimed.
 - Verification and deployment results follow. Next: Nov 22 daily/developing review, three-edition cause tally/fix, first Sunday weekly acceptance.
 - Final: pnpm format; pnpm lint:fix; pnpm check (1,385 unit passes; 341 integration passes/four expected skips); pnpm build; handbook/schema checker; git diff --check pass. Logs /tmp/3369-*.log. Commit/push and API/worker restart/final health follow.
+
+## 2026-11-22: iteration 3418 — recover Sunday backup restore verification
+
+- Clean main at 3f2576df; no inherited changes. Alerts zero; healthz database/Redis healthy. Found failed 03:20 Sunday restore unit during service triage; reproduced without exposing private SQL/data.
+- Kernel confirms cgroup OOM: tmpfs database data counted against the restore container’s 384 MB cap as the backup grew. Use Postgres’s disposable anonymous disk volume instead; unchanged memory/CPU/network limits, existing docker rm -fv removes the volume.
+- Restarted restore-check successfully: real Nov 22 backup checksum/count verification passes, 40 tables/187,697 rows; no leftover restore containers. Four Python backup tests pass. Handbook/TASKS updated.
+- pnpm format, pnpm lint:fix, pnpm build, handbook checker and signed-out Nov 21 reader probe pass (five topics/25 stories/15 posts). Full pnpm check running; final results below.
+- No paid calls or selection changes. Next: Nov 22 daily/developing acceptance after 15:00 UTC, three-edition miss-cause fix, weekly acceptance after 17:00 UTC.
+- Final: pnpm check passes (1,385 unit passes; 341 integration passes/four expected skips); git diff --check passes. Build/format/lint/handbook and real restore/reader verified; commit/push and API/worker restart follow. Logs: /tmp/3418-*.log.

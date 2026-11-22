@@ -78,6 +78,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 3418: Fixed Sunday restore-check OOM by moving disposable Postgres data from tmpfs to a disk volume; real backup restores all 40 tables/187,697 rows under the unchanged 384 MB cap.
+
 - [x] 3187: Read-only weekly publication acceptance command checks signed-out history/detail, seven-day Sunday bounds, saved story/post membership, coverage reuse and daily latest isolation. Three offline regressions pass; live Nov 22 cutoff correctly pending. First real weekly acceptance remains due Sunday.
 
 - [x] 3184: Weekly reader history/detail UI with “Week in review” labels, daily coverage links, quiet topics and empty/error states. Live empty history and synthetic detail browser checks; scheduling remains unfinished.

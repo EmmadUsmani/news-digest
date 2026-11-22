@@ -124,7 +124,9 @@ def restore(verify=None, socket_directory=None):
         '--mount', f'type=bind,source={socket_directory},target=/var/run/postgresql']
     try:
         run(['docker', 'run', '-d', '--name', container, '--network', 'none', '--memory', '384m',
-             '--cpus', '1', '--tmpfs', '/var/lib/postgresql/data:rw',
+             # Postgres uses an anonymous disk volume, removed by docker rm -v.
+             # tmpfs charged the entire restored database against the memory cap.
+             '--cpus', '1',
              '-e', 'POSTGRES_HOST_AUTH_METHOD=trust', '-e', 'POSTGRES_DB=news_digest',
              *mounts, IMAGE], stdout=subprocess.DEVNULL)
         for _ in range(60):
