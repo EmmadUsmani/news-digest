@@ -79,6 +79,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 3434: Weekly coverage includes direct original article/post links with descriptive accessible names; mobile/desktop light/dark browser checks and synthetic screenshots refreshed. Real publication acceptance remains due at 17:00 UTC.
+
 - [x] 3433: Weekly detail headings and browser tabs identify the saved week; archive tabs include page numbers, with mobile/desktop browser checks and refreshed synthetic screenshots.
 
 - [x] 3432: Weekly archive pagination returns keyboard focus to its page-labelled heading after loading; forward/back browser checks on mobile/desktop.

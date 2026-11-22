@@ -246,6 +246,15 @@ export function WeeklyEdition() {
                         >
                           {date(coverage.publishedAt)} · {coverage.title}
                         </Link>
+                        <a
+                          href={coverage.url}
+                          className={`${linkStyle} block text-sm`}
+                          aria-label={`Original ${coverage.kind === 'post' ? 'post' : 'article'}: ${coverage.title}`}
+                        >
+                          Original{' '}
+                          {coverage.kind === 'post' ? 'post' : 'article'}
+                          {' ↗'}
+                        </a>
                       </li>
                     ))}
                   </ul>

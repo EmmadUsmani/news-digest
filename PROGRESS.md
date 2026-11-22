@@ -104,3 +104,12 @@ Earlier entries: [through iteration 3369](docs/progress-archive/2026-11-22-throu
 - Updated affected owner handbook and TASKS. No model calls, source/cap/selection changes; item 74 constraint/deploy hold and today's real-edition acceptances remain.
 - Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; weekly Playwright smoke; handbook/schema checker (19 pages/40 tables); signed-out Nov 21 reader (five topics/25 stories/15 posts); git diff --check. Final check results below; logs /tmp/3433-*.log.
 - Final: standalone pnpm check exits zero (1,385 unit passes; 341 integration passes/four expected skips). Initial combined formatting/lint/check process ended with exit 143 after typecheck; standalone rerun passes. Build/browser/reader/handbook and git diff --check pass. Commit/push and API/worker restart follow.
+
+## 2026-11-22: iteration 3434 — weekly original coverage links
+
+- Clean main at 4dd733fb; no inherited changes. Alerts clear; healthz database/Redis healthy. Daily/developing acceptance due after 15:00 UTC, weekly after 17:00.
+- Weekly coverage now links directly to saved original articles/posts alongside daily edition links, with descriptive accessible names and keyboard focus. No model calls, source/selection/cap changes.
+- Extended existing browser smoke for both original URL kinds/focus at 390/1440 light/dark; refreshed explicitly synthetic screenshots. Inspected mobile light and separated source links onto their own lines; rebuilt and repeated browser verification.
+- Updated affected handbook and TASKS. Item 74 capacity constraint/deployment hold remains; Nov 22 tally and real developing/weekly acceptance remain next.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; weekly browser smoke; handbook/schema check (19 pages/40 tables); signed-out Nov 21 reader (five topics/25 stories/15 posts); git diff --check. Final results below; logs /tmp/3434-*.log.
+- Final: combined check passed typecheck/lint/format/boundaries but exited 143 during unit tests. Separate pnpm test:unit passes 1,385; pnpm test:integration exits zero (341 passes/four expected skips). Final build/browser and git diff --check pass. Commit/push and API/worker restart/final health follow.

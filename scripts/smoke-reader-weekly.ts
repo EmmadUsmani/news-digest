@@ -231,6 +231,21 @@ async function main() {
             () => document.documentElement.scrollWidth <= innerWidth,
           ),
         );
+        for (const coverage of fixture.topics[0].stories[0].coverage) {
+          const original = page.getByRole('link', {
+            name: `Original ${coverage.kind === 'post' ? 'post' : 'article'}: ${coverage.title}`,
+            exact: true,
+          });
+          assert.equal(await original.getAttribute('href'), coverage.url);
+          await original.focus();
+          assert.equal(
+            await original.evaluate(
+              (element) => element === document.activeElement,
+            ),
+            true,
+          );
+        }
+        await page.evaluate(() => window.scrollTo(0, 0));
         await page.screenshot({
           path: `docs/screenshots/ui/weekly-synthetic-detail-${width}-${theme}.png`,
           fullPage: true,
