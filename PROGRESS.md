@@ -135,3 +135,13 @@ Earlier entries: [through iteration 3358](docs/progress-archive/2026-11-21-throu
 - Item 74 remains open: saved Nov 20/21 reach/input/cost measurement and final editor-event preservation are next; no saved-pool improvement or cost result claimed. Wiring/deploy held for Nov 22 tally and budget gate.
 - No model calls, source changes or live selection changes. Full verification results below.
 - Verification: pnpm format; pnpm lint:fix; pnpm check (1,386 unit passes; 341 integration passes/four expected skips); pnpm build; git diff --check pass. Signed-out Nov 21 reader: five topics/25 stories/15 posts. Logs /tmp/3425-*.log. Commit/push and API/worker restart follow.
+
+## 2026-11-22: iteration 3426 — reject ineffective overlap backfill
+
+- Clean main at 070dd4d7; no inherited changes. pnpm obs alerts clear; healthz database/Redis healthy.
+- Replayed production editorialShortlist against the union of saved Nov 20/21 candidate pools and saved triage. Exact baseline ownership ID equality and ordered backfill identity assertions pass for both days.
+- Both shared pools already have 40 unique reports; policy adds zero reports/missed events, editor input +0 bytes and estimate +$0. All topics retain baseline editor reach/events. Separate source-pool reconstruction was rejected because publication uses the union.
+- Saved ownership has 23/28 events in 40 reports: within-event report redundancy is the remaining bottleneck. Removed unused helper and synthetic helper tests; no live selection changes or model calls. Review/TASKS record rejection and per-topic 0/0 miss reach.
+- Next: event-level admission preserving baseline events within unchanged caps, saved-pool measurement, then Nov 22 tally/deployment gate. No claim that item 74 fix or budget acceptance is complete.
+- Verification running: pnpm format; pnpm lint:fix; pnpm check; pnpm build; handbook checker; signed-out Nov 21 scheduled reader. Logs /tmp/3426-*.log. Final results below.
+- Final: pnpm check passes (1,385 unit passes; 341 integration passes/four expected skips); format/lint/build/handbook and signed-out reader pass (five topics/25 stories/15 posts). Exact saved-pool identity assertions pass; git diff --check clean. Commit/push and API/worker restart follow.

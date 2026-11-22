@@ -8,33 +8,6 @@ import { jointStoryTriage, type TriagePort } from './joint-story-triage';
 
 export type StoryPool = { scope: StoryScope; candidates: Candidate[] };
 
-// Prepared item 74 policy; publication keeps its existing inputs until the
-// saved-window reach/cost gate and three-day cause tally have passed.
-// Keep every old top-twenty report, then spend only unused shared capacity.
-export function fillSharedStoryPool(pools: StoryPool[]): StoryPool[] {
-  const selected = pools.map((pool) => ({
-    scope: pool.scope,
-    candidates: pool.candidates.slice(0, 20),
-  }));
-  const seen = new Set(
-    selected.flatMap((pool) => pool.candidates.map((c) => c.id)),
-  );
-  if (pools.length !== 2) throw new Error('Expected two story scopes');
-  for (
-    let index = 20;
-    index < Math.max(...pools.map((p) => p.candidates.length));
-    index++
-  ) {
-    for (const [scopeIndex, pool] of pools.entries()) {
-      const candidate = pool.candidates[index];
-      if (!candidate || seen.has(candidate.id) || seen.size >= 40) continue;
-      selected[scopeIndex].candidates.push(candidate);
-      seen.add(candidate.id);
-    }
-  }
-  return selected;
-}
-
 // Shared article IDs can be observed through both topic/source associations.
 // Retain one report, union source evidence, and refuse inconsistent snapshots.
 function sharedPools(pools: StoryPool[]): StoryPool[] | null {
