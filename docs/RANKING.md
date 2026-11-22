@@ -3872,3 +3872,15 @@ any Bluesky candidate replaced that entire instruction with Bluesky-only
 guidance. Single-platform instructions remain unchanged. The real-editor
 scripted/cache regression checks all three provenance statements and the
 preference; scheduled callers remain unchanged.
+
+## Event-budget deployment decision (iteration 3368)
+
+Reject the current scripted preview for deployment. The joint-platform replay
+improves two of ten Nov 17–18 topic-editions (NBA 33.33% → 14.29%, U.S.
+22.22% → 12.50% on Nov 18), with all 81 labelled topic-events and required
+facts retained. Eight topic-editions remain unchanged. This is scripted
+annotation transport, not semantic acceptance on saved candidate alternatives.
+Nov 12–16 shares remain unmeasured. Scheduled selection stays unchanged and
+item 69 remains open; further infrastructure-only preview extensions stop.
+The [decision and per-topic numbers](edition-reviews/2026-11-18-joint-event-comparison.md#deployment-decision-iteration-3368)
+identify the missing acceptance inputs. No paid calls or new reference fixtures.

@@ -128,3 +128,33 @@ scripted call and a cache hit; there are zero external calls.
 This resolves evidence transport for these saved published picks. Semantic
 annotations, qualified unpublished alternatives and the Nov 12–16 comparison
 remain open before deployment acceptance.
+
+## Deployment decision (iteration 3368)
+
+Reject the current scripted-preview implementation for deployment. The Nov 17–18
+joint-platform replay passes, but its annotations come from scripted responses
+and it supplies no independently qualified unpublished replacements. Replacing
+those responses with a live scheduled editor would introduce an unmeasured
+semantic selection change. Additional transport or validation fixes do not
+resolve this acceptance gap.
+
+| Topic                 | Nov 17 before → preview | Nov 18 before → preview | Labelled events, both days |
+| --------------------- | ----------------------: | ----------------------: | -------------------------: |
+| Tech & AI             |         22.22% → 22.22% |         12.50% → 12.50% |                         16 |
+| NBA                   |         11.11% → 11.11% |         33.33% → 14.29% |                         16 |
+| Gaming                |         10.00% → 10.00% |         30.00% → 30.00% |                         17 |
+| World news & politics |         11.11% → 11.11% |         25.00% → 25.00% |                         16 |
+| U.S. news & politics  |         12.50% → 12.50% |         22.22% → 12.50% |                         16 |
+
+All 81 labelled topic-events and required material-fact slots survive; two of
+ten topic-editions improve, eight remain unchanged, and no preview refuses.
+These are offline scripted results, not production editor acceptance.
+Nov 12–16 has no complete joint event labels in this comparison: before/after
+shares are unmeasured, not zero. Item 69's full-window acceptance remains open.
+
+Keep scheduled selection unchanged and retain the opt-in implementation for
+future acceptance. Stop extending this preview with more infrastructure-only
+commits. The next event-budget step must measure real saved-pool editor output
+and the missing dates without paid replays or new reference-review fixtures,
+or explicitly report that those inputs are unavailable. The Nov 22 daily and
+developing-story review and subsequent miss-cause fix retain priority.

@@ -86,3 +86,12 @@ Earlier entries: [through iteration 3358](docs/progress-archive/2026-11-21-throu
 - TASKS/RANKING updated; no handbook behavior change, semantic labels, fixtures or paid calls. Reader probe with an unnecessary env-file flag failed before execution; ordinary existing local DB defaults pass.
 - Full verification/deployment results follow; logs /tmp/3367-*.log. Next: Nov 22 daily/developing acceptance and miss-cause fix; event-budget real-pool acceptance/Nov 12–16 comparison; Sunday weekly acceptance.
 - Final: pnpm format; pnpm lint:fix; pnpm check (1,385 unit passes; 341 integration passes/four expected skips); pnpm build; git diff --check pass. API/worker restarted active; healthz/alerts healthy, signed-out reader confirms five topics/25 stories/15 posts. Commit/push follow.
+
+## 2026-11-21: iteration 3368 — reject scripted preview for deployment
+
+- Clean main at 1d1c4978; no inherited work. Alerts zero, healthz healthy, all 38 sources healthy; digest queue has zero failures and Nov 21 signed-out reader passes (25 stories/15 posts).
+- Re-ran saved joint-platform evaluation: two of ten Nov 17–18 topic-editions improve (NBA 33.33%→14.29%, U.S. 22.22%→12.50%); all 81 labelled topic-events/material facts survive; zero provider calls.
+- Explicitly rejected current scripted preview for deployment; scripted labels/placeholder snapshots cannot establish real-pool semantic acceptance. Full item 69 remains open; Nov 12–16 shares unmeasured. Scheduled selection unchanged.
+- TASKS/RANKING/comparison record decision and stop infrastructure-only preview extensions. No new reference fixtures, labels, paid calls or handbook behavior change.
+- Verification/deployment results follow; logs /tmp/3368-*.log. Next: real saved-pool/missing-date acceptance evidence, Nov 22 daily/developing review and miss-cause fix; Sunday weekly acceptance.
+- Final: pnpm format; pnpm lint:fix; pnpm check (1,385 unit passes; 341 integration passes/four expected skips); saved evaluator; handbook/schema checker; git diff --check pass. pnpm build passes. Push/restart and final health follow. Queue probes initially used an unknown name/private state filter; corrected public digest-generation counts pass.
