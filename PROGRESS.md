@@ -115,3 +115,14 @@ Earlier entries: [through iteration 3358](docs/progress-archive/2026-11-21-throu
 - pnpm format, pnpm lint:fix, pnpm build, handbook checker and signed-out Nov 21 reader probe pass (five topics/25 stories/15 posts). Full pnpm check running; final results below.
 - No paid calls or selection changes. Next: Nov 22 daily/developing acceptance after 15:00 UTC, three-edition miss-cause fix, weekly acceptance after 17:00 UTC.
 - Final: pnpm check passes (1,385 unit passes; 341 integration passes/four expected skips); git diff --check passes. Build/format/lint/handbook and real restore/reader verified; commit/push and API/worker restart follow. Logs: /tmp/3418-*.log.
+
+## 2026-11-22: iteration 3424 — locate not-shortlisted bottleneck
+
+- Clean main at 013e268f; no inherited work. Alerts zero, healthz database/Redis healthy; no new service failures (only historical transient check units).
+- Item 74 step 1: traced all 46 Nov 20/21 topic-event misses using saved grouping/ownership, triage and editor memberships; full stage/topic table and every route in Nov 21 review.
+- Largest stage is pre-ownership 20-report cap: 18 misses; pre-group 40-report cap six, final ten-event admission ten, triage nine, earlier candidate stages three.
+- Read-only candidate/source/timestamp probes explain newest-200 Kyiv exclusion, late-arriving prison report and Tech-only datacenter routing. No model calls, scripts, schemas or selection changes.
+- Owner accepts event-budget rejection: closed TASKS step 2 and removed its obsolete NEEDS_FROM_HUMAN entry.
+- Next: general pre-group bottleneck fix and saved Nov 20/21 reach/input/cost replay; hold deployment for Nov 22 tally and daily-cap gate.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (1,385 unit passes; 341 integration passes/four expected skips); pnpm build; handbook/schema checker; git diff --check pass. Signed-out scheduled reader verifies Nov 21 five topics/25 stories/15 posts. Logs /tmp/3424-*.log.
+- Commit/push and API/worker restart/final health follow; no selection deployment.

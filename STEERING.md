@@ -3481,3 +3481,5 @@ cost change and the three-day tally.
 
 **Limits:** AI caps unchanged (daily $0.65, monthly $20). No deploys between
 13:00 and 16:00 UTC. Protect the morning edition.
+
+ack: 2026-11-22 (3424), item 74 step 1: traced all 46 Nov 20–21 not-shortlisted topic-event misses in docs/edition-reviews/2026-11-21.md. Largest stage: pre-ownership 20-report cap, 18 (World 8/U.S. 10); pre-group 40-report cap six, final ten-event admission ten, triage nine, earlier pool/arrival/routing three. No model calls or selection changes. Removed closed event-budget blocker; next is general fix and saved-pool cost/reach measurement, deployment held for Nov 22 tally.
