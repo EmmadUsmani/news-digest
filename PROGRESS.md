@@ -86,3 +86,12 @@ Earlier entries: [through iteration 3369](docs/progress-archive/2026-11-22-throu
 - Updated affected owner handbook and TASKS. No model calls, source changes, cap changes or selection changes. Item 74 baseline-capacity constraint and Nov 22 tally/deploy hold remain; developing/weekly real-edition acceptance still due today.
 - Verification: pnpm format; pnpm lint:fix; pnpm build; pnpm exec tsx scripts/smoke-reader-weekly.ts (390/1440 light/dark); pnpm exec tsx scripts/check-handbook.ts edition-pipeline (19 pages, 40 tables); pnpm exec tsx scripts/check-scheduled-reader.ts 2026-11-21T15:00:00Z (five topics/25 stories/15 posts). An initial reader command without its required cutoff returned usage; corrected command passes.
 - Full pnpm check passes: 1,385 unit and 341 integration passes, four expected skips. Build and git diff --check pass. Commit/push and API/worker restart/final health follow. Logs: /tmp/3431-*.log.
+
+## 2026-11-22: iteration 3432 — weekly archive pagination focus
+
+- Clean main at f549dc92; no inherited changes. Alerts clear; healthz database/Redis healthy.
+- Weekly archive pagination now focuses and scrolls to its heading after the requested page loads; the heading describes the current page for screen readers.
+- Extended Playwright checks for forward/back pagination focus and page descriptions at 390/1440 in light/dark. Screenshots regenerated unchanged; mobile light detail inspected. Live weekly history still empty before 17:00 UTC.
+- No model calls, source/selection/cap changes or handbook behavior changes. Item 74 capacity constraint and Nov 22 tally/deploy hold remain; daily/developing acceptance and weekly acceptance still due today.
+- Verification: pnpm format; pnpm lint:fix; pnpm build; weekly Playwright smoke; handbook/schema check (19 pages/40 tables); signed-out Nov 21 reader (five topics/25 stories/15 posts); git diff --check. First concurrent check caught import sorting before autofix finished; corrected and reran full check. Logs /tmp/3432-*.log.
+- Final verification: full check's typecheck/lint/format/boundaries and 1,385 unit tests pass; combined process terminated with exit 143 before integration summary. Separate pnpm test:integration exits zero: 341 passes/four expected skips. Build, browser, reader, handbook/schema checks pass. Commit/push and API/worker restart/final health follow.

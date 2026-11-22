@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { Link, useParams, useSearch } from '@tanstack/react-router';
-import type { ReactNode } from 'react';
+import { type ReactNode, type Ref, useEffect, useRef } from 'react';
 
 import { ThemeToggle } from './components/theme-toggle';
 import { Button } from './components/ui/button';
@@ -16,7 +16,15 @@ const date = (value: string) =>
     day: 'numeric',
     timeZone: 'UTC',
   });
-function WeeklyPage({ children }: { children: ReactNode }) {
+function WeeklyPage({
+  children,
+  headingRef,
+  page,
+}: {
+  children: ReactNode;
+  headingRef?: Ref<HTMLHeadingElement>;
+  page?: number;
+}) {
   return (
     <main className="mx-auto min-h-screen max-w-2xl px-[20px] pb-16 [overflow-wrap:anywhere] sm:px-[24px]">
       <ReaderSkipLink target="weekly-content" />
@@ -31,6 +39,8 @@ function WeeklyPage({ children }: { children: ReactNode }) {
       </header>
       <div className="pt-12">
         <h1
+          ref={headingRef}
+          aria-description={page ? `Page ${page}` : undefined}
           id="weekly-content"
           tabIndex={-1}
           className="m-0 scroll-mt-6 font-sans text-3xl leading-tight font-semibold tracking-tight"
@@ -66,8 +76,16 @@ function ReadError({
 export function WeeklyArchive() {
   const { page } = useSearch({ from: '/weekly-editions' });
   const history = useQuery(weeklyHistoryQuery((page - 1) * 20));
+  const heading = useRef<HTMLHeadingElement>(null);
+  const previousPage = useRef(page);
+  useEffect(() => {
+    if (previousPage.current === page || history.isPending) return;
+    previousPage.current = page;
+    heading.current?.focus({ preventScroll: true });
+    heading.current?.scrollIntoView({ behavior: 'instant', block: 'start' });
+  }, [page, history.isPending]);
   return (
-    <WeeklyPage>
+    <WeeklyPage headingRef={heading} page={page}>
       <p className="text-[var(--secondary)]">
         The week’s biggest stories, with links to daily coverage.
       </p>

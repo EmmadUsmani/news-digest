@@ -79,6 +79,8 @@ Details and original evidence links: [2455 handoff archive](docs/progress-archiv
 
 ## Latest completed steps
 
+- [x] 3432: Weekly archive pagination returns keyboard focus to its page-labelled heading after loading; forward/back browser checks on mobile/desktop.
+
 - [x] 3431: Weekly review topic navigation lets readers jump directly to each topic, including quiet sections; keyboard and mobile/desktop browser verification. First real weekly publication remains due Nov 22 at 17:00 UTC.
 
 - [x] 3418: Fixed Sunday restore-check OOM by moving disposable Postgres data from tmpfs to a disk volume; real backup restores all 40 tables/187,697 rows under the unchanged 384 MB cap.

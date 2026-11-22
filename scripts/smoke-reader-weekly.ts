@@ -126,6 +126,43 @@ async function main() {
         await weeklyLink.waitFor();
         await page.getByRole('link', { name: 'Older weeks →' }).click();
         await page.getByText('No weekly editions on this page.').waitFor();
+        const archiveHeading = page.getByRole('heading', {
+          name: 'Week in review',
+          exact: true,
+        });
+        assert.equal(
+          await archiveHeading.evaluate(
+            (element) => element === document.activeElement,
+          ),
+          true,
+        );
+        // Move focus away, then exercise the reverse pagination with a keyboard.
+        const newerLink = page.getByRole('link', { name: '← Newer weeks' });
+        assert.equal(
+          await archiveHeading.getAttribute('aria-description'),
+          'Page 2',
+        );
+        await newerLink.focus();
+        await page.keyboard.press('Enter');
+        await weeklyLink.waitFor();
+        assert.equal(
+          await archiveHeading.evaluate(
+            (element) => element === document.activeElement,
+          ),
+          true,
+        );
+        assert.equal(
+          await archiveHeading.getAttribute('aria-description'),
+          'Page 1',
+        );
+        await page.getByRole('link', { name: 'Older weeks →' }).click();
+        await page.getByText('No weekly editions on this page.').waitFor();
+        assert.equal(
+          await archiveHeading.evaluate(
+            (element) => element === document.activeElement,
+          ),
+          true,
+        );
         await page.getByRole('link', { name: '← Newer weeks' }).click();
         await weeklyLink.focus();
         await page.keyboard.press('Enter');
