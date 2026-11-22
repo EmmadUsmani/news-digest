@@ -9,8 +9,9 @@ with no lost facts, and Nov 12-16 can't be measured without paid editor calls
 (`3f2576df`). The agent is idling again: 48 no-commit runs from 00:17 to 04:52
 UTC, broken by a restore-check OOM fix (`cfaaac8c`), then idle again until the
 15:00 edition. Misses so far: "not shortlisted" leads both days (Nov 20 22 of
-40, Nov 21 24 of 40). Proposed to owner: start item 71's fix on Nov 20-21 pools
-now, deploy only after the Nov 22 tally.
+40, Nov 21 24 of 40). Owner approved item 74 (`8d6477fc`): find the stage where
+those misses drop out, fix it, and measure on Nov 20-21 pools now. The deploy
+waits for the Nov 22 three-day tally. Event budget closed as rejected.
 
 - Item 68, Missed stories: Current order line 2, just below breakages
   (owner's ranking). Recall per topic goes in each daily edition review, and a
@@ -31,5 +32,7 @@ looked into. Lines 8 and 9 were placed by the lead; the owner can reorder them.
 - Check that waiting time doesn't turn into daily checkpoint commits (item 66)
   or idle runs.
 - Item 73: developing stories in the Nov 22 edition, with a reader screenshot.
-  Idle runs recurred; re-steer waits on the owner.
+- Item 74: by about 15:00 UTC Nov 22, a stage table in the Nov 21 review and
+  before/after editor-input reach on Nov 20-21. Idle runs before then mean the
+  steer didn't take. After the Nov 22 review: deployed, or held with numbers.
 - When "why this" ships, the owner reviews the screenshots.
