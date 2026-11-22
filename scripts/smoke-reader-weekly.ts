@@ -136,6 +136,10 @@ async function main() {
           ),
           true,
         );
+        assert.equal(
+          await page.title(),
+          'Week in review · Page 2 | News Digest',
+        );
         // Move focus away, then exercise the reverse pagination with a keyboard.
         const newerLink = page.getByRole('link', { name: '← Newer weeks' });
         assert.equal(
@@ -169,6 +173,16 @@ async function main() {
         await page
           .getByRole('heading', { name: fixture.topics[0].stories[0].title })
           .waitFor();
+        await page
+          .getByRole('heading', {
+            name: 'Week in review · November 22, 2026',
+            exact: true,
+          })
+          .waitFor();
+        assert.equal(
+          await page.title(),
+          'Week in review · November 22, 2026 | News Digest',
+        );
         await page.getByText('No stories in this week’s review.').waitFor();
         const topicNavigation = page.getByRole('navigation', {
           name: 'Topics in this week’s review',
@@ -226,6 +240,21 @@ async function main() {
         await page
           .getByText('This weekly edition could not be found.')
           .waitFor();
+        assert.equal(await page.title(), 'Week in review | News Digest');
+        await page
+          .getByRole('link', { name: 'All weekly editions', exact: true })
+          .last()
+          .click();
+        await weeklyLink.waitFor();
+        assert.equal(
+          await page.title(),
+          'Week in review · Page 1 | News Digest',
+        );
+        await page
+          .getByRole('link', { name: 'News Digest', exact: true })
+          .click();
+        await page.waitForURL(`${origin}/`);
+        assert.equal(await page.title(), 'News Digest');
         assert.deepEqual(errors, []);
         await context.close();
       }

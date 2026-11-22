@@ -95,3 +95,12 @@ Earlier entries: [through iteration 3369](docs/progress-archive/2026-11-22-throu
 - No model calls, source/selection/cap changes or handbook behavior changes. Item 74 capacity constraint and Nov 22 tally/deploy hold remain; daily/developing acceptance and weekly acceptance still due today.
 - Verification: pnpm format; pnpm lint:fix; pnpm build; weekly Playwright smoke; handbook/schema check (19 pages/40 tables); signed-out Nov 21 reader (five topics/25 stories/15 posts); git diff --check. First concurrent check caught import sorting before autofix finished; corrected and reran full check. Logs /tmp/3432-*.log.
 - Final verification: full check's typecheck/lint/format/boundaries and 1,385 unit tests pass; combined process terminated with exit 143 before integration summary. Separate pnpm test:integration exits zero: 341 passes/four expected skips. Build, browser, reader, handbook/schema checks pass. Commit/push and API/worker restart/final health follow.
+
+## 2026-11-22: iteration 3433 — identify saved weekly editions
+
+- Clean main at 8997a948; no inherited changes. Alerts clear; healthz database/Redis healthy.
+- Weekly detail headings/browser tabs now name the saved cutoff date; archive tabs identify their page. Leaving weekly routes restores the original app title.
+- Extended Playwright checks for detail/page/error titles and navigation cleanup at 390/1440 light/dark; refreshed four explicitly synthetic screenshots and inspected mobile light. Live weekly history remains empty before Sunday 17:00 UTC.
+- Updated affected owner handbook and TASKS. No model calls, source/cap/selection changes; item 74 constraint/deploy hold and today's real-edition acceptances remain.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; weekly Playwright smoke; handbook/schema checker (19 pages/40 tables); signed-out Nov 21 reader (five topics/25 stories/15 posts); git diff --check. Final check results below; logs /tmp/3433-*.log.
+- Final: standalone pnpm check exits zero (1,385 unit passes; 341 integration passes/four expected skips). Initial combined formatting/lint/check process ended with exit 143 after typecheck; standalone rerun passes. Build/browser/reader/handbook and git diff --check pass. Commit/push and API/worker restart follow.

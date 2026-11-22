@@ -1,7 +1,7 @@
 # Edition pipeline
 
 Scheduled and on-demand editions run topics **in parallel** and save one immutable snapshot.
-Weekly generation uses saved daily coverage, the shared AI budget and separate immutable storage with retry keys; it requires Sunday’s published daily edition. Public weekly history and detail are at `/api/weekly-editions` and `/api/weekly-editions/:id`, with summaries and daily coverage links. Private profiles stay excluded. Readers open “Week in review” from Past editions, browse weekly history at `/weekly-editions`, jump to a topic using the links above the summaries, and follow saved daily coverage from each summary. The shared digest worker runs it Sundays at 17:00 UTC, with three attempts and five-minute exponential backoff; recovery stops after six hours.
+Weekly generation uses saved daily coverage, the shared AI budget and separate immutable storage with retry keys; it requires Sunday’s published daily edition. Public weekly history and detail are at `/api/weekly-editions` and `/api/weekly-editions/:id`, with summaries and daily coverage links. Private profiles stay excluded. Readers open “Week in review” from Past editions, browse weekly history at `/weekly-editions`, identify each saved week by its dated heading and browser tab, jump to a topic using the links above the summaries, and follow saved daily coverage from each summary. The shared digest worker runs it Sundays at 17:00 UTC, with three attempts and five-minute exponential backoff; recovery stops after six hours.
 
 ```mermaid
 flowchart LR

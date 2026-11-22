@@ -20,11 +20,20 @@ function WeeklyPage({
   children,
   headingRef,
   page,
+  title = 'Week in review',
 }: {
   children: ReactNode;
   headingRef?: Ref<HTMLHeadingElement>;
   page?: number;
+  title?: string;
 }) {
+  useEffect(() => {
+    const previousTitle = document.title;
+    document.title = `${title}${page ? ` · Page ${page}` : ''} | News Digest`;
+    return () => {
+      document.title = previousTitle;
+    };
+  }, [title, page]);
   return (
     <main className="mx-auto min-h-screen max-w-2xl px-[20px] pb-16 [overflow-wrap:anywhere] sm:px-[24px]">
       <ReaderSkipLink target="weekly-content" />
@@ -45,7 +54,7 @@ function WeeklyPage({
           tabIndex={-1}
           className="m-0 scroll-mt-6 font-sans text-3xl leading-tight font-semibold tracking-tight"
         >
-          Week in review
+          {title}
         </h1>
         {children}
       </div>
@@ -159,7 +168,13 @@ export function WeeklyEdition() {
   const { id } = useParams({ from: '/weekly-editions/$id' });
   const edition = useQuery(weeklyEditionQuery(id));
   return (
-    <WeeklyPage>
+    <WeeklyPage
+      title={
+        edition.data
+          ? `Week in review · ${date(edition.data.windowEnd)}`
+          : 'Week in review'
+      }
+    >
       <Link to="/weekly-editions" search={{ page: 1 }} className={linkStyle}>
         ← All weekly editions
       </Link>
