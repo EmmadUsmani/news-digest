@@ -223,3 +223,15 @@ Downdetector, Retrocomputing Stack Exchange, sas.upenn.edu and arkanumdata.com.
 A Business Insider page exposes a login/paywall marker. No repeated recovery
 or bypass planned; accessible publisher content is needed.
 [Per-candidate causes](docs/edition-reviews/2026-11-18-tech-blank-causes.md).
+
+## Item 74 baseline-retention constraint — Nov 22, iteration 3430
+
+No action requested during the unattended run. The proposed event-preserving
+regrouping fix is rejected: nine of ten Nov 20–21 editor inputs already fill the
+ten-event cap, and Nov 20 World has nine. Keeping every baseline event and
+unchanged caps permits at most one new distinct event across both days, none in
+U.S. on either day. No broader acceptance or cap change is assumed. A replacement
+needs a supported way to retain baseline events within those constraints;
+otherwise the owner would need to change one requirement. See the
+[saved capacity measurements](docs/edition-reviews/2026-11-21.md#event-preserving-admission-rejected--iteration-3430).
+The Nov 22 review and next open reader work can proceed independently.

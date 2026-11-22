@@ -67,3 +67,13 @@ Earlier entries: [through iteration 3369](docs/progress-archive/2026-11-22-throu
 - Saved ranked-tail reach, real editor-input retention/size/cost and Nov 22 tally/deployment gate remain open. No affected handbook behavior or source changes.
 - Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build; handbook/schema checker; signed-out scheduled reader. Results below; logs /tmp/3429-*.log.
 - Final: pnpm check passes (1,392 unit passes; 341 integration passes/four expected skips); build, handbook/schema, signed-out Nov 21 reader (five topics/25 stories/15 posts), and git diff --check pass. Archived entries through 3369. Commit/push and API/worker restart follow.
+
+## 2026-11-22: iteration 3430 — reject saturated event-preserving admission
+
+- Clean main at ce7bdef2; no inherited work. Alerts clear; healthz database/Redis healthy.
+- Read-only saved Nov 20/21 candidatePrompt inspection: nine of ten topic inputs have ten candidates, Nov 20 World nine. Politics candidates map to distinct saved ownership groups in their topic.
+- Preserving every baseline event within ten slots permits at most one new event total, none in U.S. on either day, regardless of ranked-tail order. This invalidates the proposed root fix before further regrouping/replay.
+- Removed inactive 3427–3429 helpers/tests; no production selection/prompt/cap changes or model calls. Reach remains 0/0 per-topic; input/cost delta zero, not counterfactual acceptance.
+- Added rejection/capacity table to Nov 21 review; TASKS and NEEDS_FROM_HUMAN record unfinished replacement and constraints. No source/handbook behavior changes. Nov 22 tally/deploy hold retained; next independent work is item 70.
+- Verification: pnpm format; pnpm lint:fix; pnpm check passes (1,385 unit; 341 integration; four expected skips); pnpm build; handbook/schema checker; signed-out Nov 21 reader (five topics/25 stories/15 posts); git diff --check. Read-only node /tmp/3430-fetch.cjs and Python membership/capacity assertions pass. Logs /tmp/3430-*.log.
+- Commit/push and API/worker restart/final health follow.
