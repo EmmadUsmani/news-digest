@@ -95,3 +95,14 @@ Earlier entries: [through iteration 3358](docs/progress-archive/2026-11-21-throu
 - TASKS/RANKING/comparison record decision and stop infrastructure-only preview extensions. No new reference fixtures, labels, paid calls or handbook behavior change.
 - Verification/deployment results follow; logs /tmp/3368-*.log. Next: real saved-pool/missing-date acceptance evidence, Nov 22 daily/developing review and miss-cause fix; Sunday weekly acceptance.
 - Final: pnpm format; pnpm lint:fix; pnpm check (1,385 unit passes; 341 integration passes/four expected skips); saved evaluator; handbook/schema checker; git diff --check pass. pnpm build passes. Push/restart and final health follow. Queue probes initially used an unknown name/private state filter; corrected public digest-generation counts pass.
+
+## 2026-11-22: iteration 3369 — resolve event-budget input availability
+
+- Clean main at ff60bfe4; no inherited changes. Alerts zero; healthz database/Redis healthy.
+- Read-only live cache census: 22,369 entries, zero eventAnnotations/eventReview/eventBudgetPreview keys; parsed editor responses are stored directly. No real cached semantic acceptance output exists.
+- Existing joint evaluator covers Nov 17–18 only; Nov 12–16 editions/social reviews do not supply complete joint labels. Missing shares remain unmeasured.
+- Recorded concrete input blocker in comparison/TASKS/NEEDS_FROM_HUMAN; retain deployment rejection and stop repeat cache/infrastructure work without new inputs. No paid calls, new labels/fixtures or product changes.
+- Signed-out scheduled reader passes Nov 21: five topics/25 stories/15 posts. Weekly Nov 22 gate correctly pending; daily/developing acceptance due 15:00 UTC.
+- `pnpm console sources check` opened the interactive console without running a check; no source-check success claimed.
+- Verification and deployment results follow. Next: Nov 22 daily/developing review, three-edition cause tally/fix, first Sunday weekly acceptance.
+- Final: pnpm format; pnpm lint:fix; pnpm check (1,385 unit passes; 341 integration passes/four expected skips); pnpm build; handbook/schema checker; git diff --check pass. Logs /tmp/3369-*.log. Commit/push and API/worker restart/final health follow.

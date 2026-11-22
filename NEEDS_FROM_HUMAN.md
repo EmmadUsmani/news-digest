@@ -223,3 +223,13 @@ Downdetector, Retrocomputing Stack Exchange, sas.upenn.edu and arkanumdata.com.
 A Business Insider page exposes a login/paywall marker. No repeated recovery
 or bypass planned; accessible publisher content is needed.
 [Per-candidate causes](docs/edition-reviews/2026-11-18-tech-blank-causes.md).
+
+## Event-budget acceptance inputs unavailable (2026-11-22, iteration 3369)
+
+Item 69 remains undeployed: 22,369 live cache entries contain no event-review
+annotations or previews, and the joint comparison has complete labels only for
+Nov 17–18. Nov 12–16 before/after shares remain unmeasured. Existing no-paid-
+replay limits prevent obtaining model acceptance output now. No immediate
+action requested; proceed with scheduled reader acceptance and the miss-cause
+fix. Resume this acceptance only with new saved responses or owner direction.
+See [decision and evidence](docs/edition-reviews/2026-11-18-joint-event-comparison.md).

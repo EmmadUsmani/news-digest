@@ -158,3 +158,25 @@ commits. The next event-budget step must measure real saved-pool editor output
 and the missing dates without paid replays or new reference-review fixtures,
 or explicitly report that those inputs are unavailable. The Nov 22 daily and
 developing-story review and subsequent miss-cause fix retain priority.
+
+## Saved acceptance inputs unavailable (iteration 3369)
+
+A read-only check of the live `llm_cache` on Nov 22 found 22,369 entries,
+zero with `eventAnnotations`, zero with `eventReview`, and zero with
+`eventBudgetPreview`. The budgeted editor stores its parsed response directly
+in this table. Thus there is no cached event-review response to replay for
+semantic acceptance; ordinary social selections cannot supply the missing
+event identities or material-fact annotations.
+
+The existing joint evaluator enumerates Nov 17 and 18 only. Its complete
+joint-label files cover those dates; the Nov 12–16 social reviews and saved
+editions are available, but are not complete joint event/fact annotations.
+Their largest-event before/after shares remain unmeasured. No fixture, label,
+provider call or production behavior was added for this check.
+
+**Acceptance is blocked on unavailable inputs.** Keep the deployment rejection
+above. Do not repeat cache censuses or extend preview infrastructure unless
+new saved event-review responses become available or the owner changes the
+no-paid-replay constraint. Continue the Nov 22 daily/developing review and
+three-edition miss-cause fix when the scheduled edition publishes; the first
+weekly publication check follows Sunday's daily edition.
