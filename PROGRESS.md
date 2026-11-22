@@ -154,3 +154,12 @@ Earlier entries: [through iteration 3358](docs/progress-archive/2026-11-21-throu
 - Saved ownership partition capacity check retains Nov 20 23/23 and Nov 21 28/28 baseline groups, releasing 17/12 slots within 40. Baseline input order used: not a scored-tail replay, missed-event reach or final editor preservation acceptance.
 - No model calls or live input/cost changes. Original coverage retention, expanded-input grouping, scored-tail reach/input/cost and final editor-event preservation remain next. Deployment held for Nov 22 tally.
 - Verification: pnpm format; pnpm lint:fix; pnpm check passes (1,388 unit, 341 integration, four expected skips); handbook/schema checker and signed-out Nov 21 reader pass (five topics/25 stories/15 posts). pnpm build and git diff --check pass. Commit/push and API/worker restart/final health follow; logs /tmp/3427-*.log.
+
+## 2026-11-22: iteration 3428 — preserve baseline regrouping coverage
+
+- Clean main at 7b45c586; no inherited changes. Alerts clear; healthz database/Redis healthy; API/worker running.
+- Added inactive restoreEventCoverage guard alongside bounded admission. Restores omitted corroborating IDs; rejects baseline splits/merges/topic reassignment, missing events and malformed partitions. New reports/events remain allowed; inputs unchanged.
+- Five targeted admission/restoration tests pass. Synthetic checks only: actual saved ranked-tail replay, final editor-event retention and whole-day cost gates remain open. Production unconnected; no model calls or selection changes; Nov 22 tally/deploy hold retained.
+- Signed-out scheduled reader passes: Nov 21, five topics/25 stories/15 posts. Handbook/schema checker passes (40 tables). No affected handbook behavior or source changes.
+- Verification: pnpm format; pnpm lint:fix; pnpm check; pnpm build. First check caught review-note whitespace added after format; corrected with Prettier and reran. Final results recorded below. Logs /tmp/3428-*.log.
+- Final: pnpm check passes (1,390 unit passes; 341 integration passes/four expected skips); build and git diff --check pass. Commit/push and API/worker restart follow; saved replay and final editor/cost acceptance remain next.

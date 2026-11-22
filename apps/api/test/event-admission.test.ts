@@ -1,7 +1,10 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
-import { eventAdmission } from '../src/modules/digests/domain/event-admission';
+import {
+  eventAdmission,
+  restoreEventCoverage,
+} from '../src/modules/digests/domain/event-admission';
 
 void test('event admission preserves every baseline event at all redundancy levels', () => {
   const ranked = Array.from({ length: 80 }, (_, i) => ({ id: String(i) }));
@@ -54,4 +57,70 @@ void test('event admission refuses incomplete, overlapping or foreign membership
     null,
   );
   assert.equal(eventAdmission(ranked, [ranked[0], ranked[0]], groups, 2), null);
+});
+
+void test('coverage restoration retains full baseline evidence and new reports without mutation', () => {
+  const baseline = [
+    { topicId: 'world', ids: ['a', 'b'], label: 'original' },
+    { topicId: 'us', ids: ['c', 'd'], label: 'second' },
+  ];
+  const admitted = ['a', 'c', 'e', 'f'];
+  const regrouped = [
+    { topicId: 'us', ids: ['c', 'e'], label: 'expanded' },
+    { topicId: 'world', ids: ['a'], label: 'retained' },
+    { topicId: 'world', ids: ['f'], label: 'new' },
+  ];
+  const before = structuredClone({ baseline, admitted, regrouped });
+  const result = restoreEventCoverage(baseline, admitted, regrouped)!;
+  assert.deepEqual(
+    result.map((group) => group.ids),
+    [['c', 'e', 'd'], ['a', 'b'], ['f']],
+  );
+  assert.equal(result[0].label, 'expanded');
+  assert.deepEqual({ baseline, admitted, regrouped }, before);
+  result[0].ids.push('mutation');
+  assert.deepEqual({ baseline, admitted, regrouped }, before);
+  assert.deepEqual(restoreEventCoverage([], [], []), []);
+});
+
+void test('coverage restoration refuses merged, split, lost or reassigned baseline events', () => {
+  const baseline = [
+    { topicId: 'world', ids: ['a', 'b'] },
+    { topicId: 'world', ids: ['c'] },
+  ];
+  for (const groups of [
+    [{ topicId: 'world', ids: ['a', 'b', 'c'] }],
+    [
+      { topicId: 'world', ids: ['a'] },
+      { topicId: 'world', ids: ['b', 'c'] },
+    ],
+    [{ topicId: 'world', ids: ['a', 'b'] }],
+    [
+      { topicId: 'us', ids: ['a', 'b'] },
+      { topicId: 'world', ids: ['c'] },
+    ],
+    [
+      { topicId: 'world', ids: ['a', 'b'] },
+      { topicId: 'world', ids: ['c', 'foreign'] },
+    ],
+    [
+      { topicId: 'world', ids: ['a', 'b'] },
+      { topicId: 'world', ids: ['c', 'a'] },
+    ],
+  ])
+    assert.equal(restoreEventCoverage(baseline, ['a', 'b', 'c'], groups), null);
+  assert.equal(
+    restoreEventCoverage(baseline, ['a'], [{ topicId: 'world', ids: ['a'] }]),
+    null,
+  );
+  assert.equal(restoreEventCoverage(baseline, ['a', 'a'], []), null);
+  for (const invalid of [
+    [{ topicId: 'world', ids: [] }],
+    [{ topicId: '', ids: ['a'] }],
+    [{ topicId: 'world', ids: ['a', 'a'] }],
+  ])
+    assert.equal(
+      restoreEventCoverage(invalid, ['a'], [{ topicId: 'world', ids: ['a'] }]),
+      null,
+    );
 });

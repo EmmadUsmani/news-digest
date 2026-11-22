@@ -49,3 +49,54 @@ export function eventAdmission<T extends { id: string }>(
   }
   return ranked.filter(({ id }) => selected.has(id));
 }
+
+// Restore corroborating reports omitted from a bounded regrouping request.
+// Refuse changed baseline event boundaries/ownership rather than silently
+// treating a new partition as proof that the old events survived.
+export function restoreEventCoverage<
+  T extends { ids: readonly string[]; topicId: string },
+>(
+  baseline: readonly T[],
+  admitted: readonly string[],
+  regrouped: readonly T[],
+): T[] | null {
+  const original = new Map<string, number>();
+  for (const [index, group] of baseline.entries()) {
+    if (!group.topicId || !group.ids.length) return null;
+    for (const id of group.ids) {
+      if (!id || original.has(id)) return null;
+      original.set(id, index);
+    }
+  }
+  const input = new Set(admitted);
+  if (input.size !== admitted.length || input.has('')) return null;
+  const seen = new Set<string>();
+  const destination = new Map<number, number>();
+  for (const [index, group] of regrouped.entries()) {
+    if (!group.topicId || !group.ids.length) return null;
+    const ancestors = new Set<number>();
+    for (const id of group.ids) {
+      if (!input.has(id) || seen.has(id)) return null;
+      seen.add(id);
+      const ancestor = original.get(id);
+      if (ancestor === undefined) continue;
+      if (baseline[ancestor].topicId !== group.topicId) return null;
+      ancestors.add(ancestor);
+      const previous = destination.get(ancestor);
+      if (previous !== undefined && previous !== index) return null;
+      destination.set(ancestor, index);
+    }
+    if (ancestors.size > 1) return null;
+  }
+  if (seen.size !== input.size || destination.size !== baseline.length)
+    return null;
+  const result = regrouped.map((group) => ({ ...group, ids: [...group.ids] }));
+  for (const [ancestor, index] of destination) {
+    for (const id of baseline[ancestor].ids)
+      if (!seen.has(id)) {
+        result[index].ids.push(id);
+        seen.add(id);
+      }
+  }
+  return result;
+}
