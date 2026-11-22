@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
+import { fillSharedStoryPool } from '../src/modules/digests/application/joint-story-shortlists';
 import { politicsStories } from '../src/modules/digests/application/politics-stories';
 import type { Candidate } from '../src/modules/digests/domain/rank';
 
@@ -155,5 +156,51 @@ void test('ownership evidence retains groups rejected by destination relevance b
     result.storyOwnership?.inputArticles.some(
       (item) => item.id === 'us' && item.url === article('us').url,
     ),
+  );
+});
+
+void test('prepared shared pool backfills overlap without displacing baseline reports or raising the forty-report cap', () => {
+  const scopes = pools.map((pool) => ({
+    id: pool.settings.id,
+    name: pool.settings.name,
+    description: pool.settings.description,
+    guidance: '',
+  }));
+  for (const overlap of [0, 5, 20]) {
+    const inputs = scopes.map((scope, scopeIndex) => ({
+      scope,
+      candidates: Array.from({ length: 40 }, (_, index) =>
+        article(index < overlap ? `shared-${index}` : `${scopeIndex}-${index}`),
+      ),
+    }));
+    const before = new Set(
+      inputs.flatMap((p) => p.candidates.slice(0, 20).map((c) => c.id)),
+    );
+    const prepared = fillSharedStoryPool(inputs);
+    const after = new Set(
+      prepared.flatMap((p) => p.candidates.map((c) => c.id)),
+    );
+    assert.equal(after.size, 40);
+    assert.ok([...before].every((id) => after.has(id)));
+    assert.equal(
+      inputs[0].candidates.length,
+      40,
+      'input snapshots stay unchanged',
+    );
+    assert.deepEqual(
+      fillSharedStoryPool(inputs),
+      prepared,
+      'deterministic admission',
+    );
+  }
+  const sparse = scopes.map((scope) => ({
+    scope,
+    candidates: [article('shared')],
+  }));
+  assert.equal(
+    new Set(
+      fillSharedStoryPool(sparse).flatMap((p) => p.candidates.map((c) => c.id)),
+    ).size,
+    1,
   );
 });

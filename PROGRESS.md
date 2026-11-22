@@ -126,3 +126,12 @@ Earlier entries: [through iteration 3358](docs/progress-archive/2026-11-21-throu
 - Next: general pre-group bottleneck fix and saved Nov 20/21 reach/input/cost replay; hold deployment for Nov 22 tally and daily-cap gate.
 - Verification: pnpm format; pnpm lint:fix; pnpm check (1,385 unit passes; 341 integration passes/four expected skips); pnpm build; handbook/schema checker; git diff --check pass. Signed-out scheduled reader verifies Nov 21 five topics/25 stories/15 posts. Logs /tmp/3424-*.log.
 - Commit/push and API/worker restart/final health follow; no selection deployment.
+
+## 2026-11-22: iteration 3425 — prepare shared politics pool backfill
+
+- Clean main at 6b78f75a; no inherited work. Alerts zero; healthz database/Redis healthy; failed units are historical check commands.
+- Prepared fillSharedStoryPool, intentionally unconnected to publication: retain both top-20 baselines and fill overlap vacancies round-robin from the scored tails, never exceeding 40 unique reports. No publisher/event/wording rules or cap changes.
+- Four targeted politics tests pass, including overlap 0/5/20, baseline report preservation, deterministic admission, sparse pools and unchanged inputs. Report preservation alone does not establish final editor-event preservation.
+- Item 74 remains open: saved Nov 20/21 reach/input/cost measurement and final editor-event preservation are next; no saved-pool improvement or cost result claimed. Wiring/deploy held for Nov 22 tally and budget gate.
+- No model calls, source changes or live selection changes. Full verification results below.
+- Verification: pnpm format; pnpm lint:fix; pnpm check (1,386 unit passes; 341 integration passes/four expected skips); pnpm build; git diff --check pass. Signed-out Nov 21 reader: five topics/25 stories/15 posts. Logs /tmp/3425-*.log. Commit/push and API/worker restart follow.
