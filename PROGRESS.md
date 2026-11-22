@@ -145,3 +145,12 @@ Earlier entries: [through iteration 3358](docs/progress-archive/2026-11-21-throu
 - Next: event-level admission preserving baseline events within unchanged caps, saved-pool measurement, then Nov 22 tally/deployment gate. No claim that item 74 fix or budget acceptance is complete.
 - Verification running: pnpm format; pnpm lint:fix; pnpm check; pnpm build; handbook checker; signed-out Nov 21 scheduled reader. Logs /tmp/3426-*.log. Final results below.
 - Final: pnpm check passes (1,385 unit passes; 341 integration passes/four expected skips); format/lint/build/handbook and signed-out reader pass (five topics/25 stories/15 posts). Exact saved-pool identity assertions pass; git diff --check clean. Commit/push and API/worker restart follow.
+
+## 2026-11-22: iteration 3427 — prepare bounded event admission
+
+- Clean main at 85afcc85; no inherited work. Alerts clear; healthz database/Redis healthy; API/worker running.
+- Added inactive general regrouping-input admission: retain highest-ranked representative per validated baseline event, fill unseen ranked reports before corroboration, preserve input ranking/cap. No wording heuristics or production connection.
+- Three targeted tests pass: all 1–40 event counts, baseline-event retention, deterministic order, sparse tails, immutability and invalid partitions/caps.
+- Saved ownership partition capacity check retains Nov 20 23/23 and Nov 21 28/28 baseline groups, releasing 17/12 slots within 40. Baseline input order used: not a scored-tail replay, missed-event reach or final editor preservation acceptance.
+- No model calls or live input/cost changes. Original coverage retention, expanded-input grouping, scored-tail reach/input/cost and final editor-event preservation remain next. Deployment held for Nov 22 tally.
+- Verification: pnpm format; pnpm lint:fix; pnpm check passes (1,388 unit, 341 integration, four expected skips); handbook/schema checker and signed-out Nov 21 reader pass (five topics/25 stories/15 posts). pnpm build and git diff --check pass. Commit/push and API/worker restart/final health follow; logs /tmp/3427-*.log.
