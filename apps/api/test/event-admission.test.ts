@@ -2,9 +2,56 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
 import {
+  editorEventAdmission,
   eventAdmission,
   restoreEventCoverage,
 } from '../src/modules/digests/domain/event-admission';
+
+void test('editor cutoff reserves all baseline events even when new ranking displaces them', () => {
+  const ranked = Array.from({ length: 20 }, (_, i) => ({
+    topicId: 'world',
+    ids: [String(i)],
+  }));
+  for (let count = 0; count <= 10; count++) {
+    const baseline = ranked.slice(20 - count);
+    const before = structuredClone({ ranked, baseline });
+    const result = editorEventAdmission(ranked, baseline, 10)!;
+    assert.equal(result.length, 10);
+    assert.deepEqual(result, [...ranked.slice(0, 10 - count), ...baseline]);
+    assert.deepEqual({ ranked, baseline }, before);
+  }
+  assert.deepEqual(editorEventAdmission([], [], 0), []);
+  assert.deepEqual(
+    editorEventAdmission(ranked.slice(0, 2), [], 10),
+    ranked.slice(0, 2),
+  );
+});
+
+void test('editor cutoff refuses lost evidence, changed boundaries, scope and impossible caps', () => {
+  const baseline = [{ topicId: 'world', ids: ['a', 'b'] }];
+  for (const ranked of [
+    [{ topicId: 'world', ids: ['a'] }],
+    [{ topicId: 'world', ids: ['c'] }],
+    [
+      { topicId: 'world', ids: ['a'] },
+      { topicId: 'world', ids: ['b'] },
+    ],
+    [{ topicId: 'us', ids: ['a', 'b'] }],
+    [...baseline, { topicId: 'us', ids: ['c'] }],
+    [...baseline, { topicId: 'world', ids: ['a'] }],
+  ])
+    assert.equal(editorEventAdmission(ranked, baseline, 10), null);
+  for (const limit of [-1, 0, 1.5, NaN, Infinity])
+    assert.equal(editorEventAdmission(baseline, baseline, limit), null);
+  assert.equal(
+    editorEventAdmission(
+      [{ topicId: 'world', ids: ['a', 'b', 'c'] }],
+      [...baseline, { topicId: 'world', ids: ['c'] }],
+      10,
+    ),
+    null,
+  );
+});
 
 void test('event admission preserves every baseline event at all redundancy levels', () => {
   const ranked = Array.from({ length: 80 }, (_, i) => ({ id: String(i) }));

@@ -100,3 +100,33 @@ export function restoreEventCoverage<
   }
   return result;
 }
+
+// Apply a per-topic editor cutoff only after original coverage is restored.
+// Reserve slots for every previously admitted event, then fill by new ranking.
+export function editorEventAdmission<
+  T extends { ids: readonly string[]; topicId: string },
+>(ranked: readonly T[], baseline: readonly T[], limit: number): T[] | null {
+  if (
+    !Number.isInteger(limit) ||
+    limit < 0 ||
+    baseline.length > limit ||
+    new Set([...ranked, ...baseline].map((group) => group.topicId)).size > 1
+  )
+    return null;
+  const ids = ranked.flatMap((group) => [...group.ids]);
+  const restored = restoreEventCoverage(baseline, ids, ranked);
+  // A cutoff must never conceal incomplete evidence restoration.
+  if (
+    !restored ||
+    restored.some((group, i) => group.ids.length !== ranked[i].ids.length)
+  )
+    return null;
+  const original = new Set(baseline.flatMap((group) => [...group.ids]));
+  const selected = new Set<number>();
+  ranked.forEach((group, i) => {
+    if (group.ids.some((id) => original.has(id))) selected.add(i);
+  });
+  for (let i = 0; i < ranked.length && selected.size < limit; i++)
+    selected.add(i);
+  return ranked.filter((_, i) => selected.has(i));
+}
