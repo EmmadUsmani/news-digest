@@ -24,6 +24,8 @@ details, budgets and rules stay in the items. Every new item goes on this list.
 2. Missed stories (item 68): measure what each edition misses and fix the
    biggest cause. Owner ranks it just below breakages (Nov 19).
    Item 71 sets the pace: Nov 19 audit closed, three editions, then one fix.
+   Item 74 (Nov 22): build and measure the "not shortlisted" fix on Nov 20 to 21
+   now, and deploy only after the Nov 22 tally confirms it.
 3. Public access (item 50) is done and the site is shared. Reader accounts
    follow `docs/public-access-plan.md`; later phases need the owner.
 4. U.S. news & politics acceptance (items 56, 57) continues in the daily
@@ -39,8 +41,8 @@ details, budgets and rules stay in the items. Every new item goes on this list.
    (item 69).
    Item 72 (Nov 21): ship developing stories now with a defined acceptance,
    and no idle runs while items 69 or 70 have work. Item 73 (Nov 21): one paid
-   matching run, then enable developing stories; item 69's event budget starts
-   now.
+   matching run, then enable developing stories. Item 74 closes the event
+   budget as rejected.
 9. Reader features: developing stories, why picked, week in review (item 70,
    owner-approved Nov 19).
 10. Then item 38's list for choosing meaningful work. Item 42 says what to do
@@ -3192,6 +3194,7 @@ Item 71 (Nov 19) replaces the pace of steps 2 to 5 above: close the Nov 19 audit
 ## 69. Use waiting time for evaluation; count stories and posts per event (2026-11-19)
 
 > **Nov 21:** item 73 says the one-commit-a-day limit covers only step 1. Step 2 is build work.
+> **Nov 22:** item 74 closes step 2 as rejected (`ff60bfe4`). Step 1 stays.
 
 **Why:** after its last commit at 20:12 UTC on Nov 18, the agent ran more than
 80 iterations with no commits while it waited for the next edition. On Nov 18,
@@ -3253,6 +3256,8 @@ Protect the morning edition.
 Item 72 (Nov 21) defines developing stories' acceptance and replaces the plan's open-ended "inactive" gate.
 
 ## 71. NOW: stop the Nov 19 audit; finish item 68 from the next three editions (2026-11-19)
+
+> **Nov 22:** item 74 builds step 3's fix on Nov 20 to 21 now. The deploy still waits for the three-day tally.
 
 **Why:** item 68 has had about 30 commits and a 550-line Nov 19 review, and still
 has no recall number. The latest census (iteration 2958) says 120 of 153
@@ -3355,6 +3360,8 @@ ack: 2026-11-21 (3174), item 70 feature 2: readers can open Why this beneath sto
 
 ## 73. NOW: one paid matching run, enable developing stories, start the event budget (2026-11-21)
 
+> **Nov 22:** item 74 accepts the event-budget rejection and closes step 3.
+
 **Why:** after `85b41f05` (15:18 UTC Nov 21) the agent ran 45 iterations in a
 row with no commit; 157 of 180 runs on Nov 21 had none. Each run gave two
 reasons. Both come from unclear steering, and the owner settled them on Nov 21:
@@ -3420,3 +3427,57 @@ ack: 2026-11-21 (3348), model pair (2026-11-18): “Ocarina of Time remake is 20
 ack: 2026-11-21 (3348), model pair (2026-11-18): “Peltola nears 50% in Alaska Senate race, the final midterms contest” → “Democrat Mary Peltola wins Alaska Senate seat, beating Republican incumbent Dan Sullivan”.
 ack: 2026-11-21 (3348), model pair (2026-11-17): “Ukraine hits Kerch bridge linking Russia and occupied Crimea” → “Ukraine strikes Kerch Bridge linking Russia to Crimea for second day”.
 ack: 2026-11-21 (3349), item 73 step 2: connected existing developing enrichment to scheduled publication after normal story/post editing, using original current evidence and seven prior published same-profile/topic editions. Existing Haiku/Sonnet ledger/cache and caps apply; matching/rewrite refusal retains original selections. Manual/private editions are excluded using the publication policy. Nov 22 real edition, earlier links, changed-first prose and reader screenshots remain the acceptance step; no additional paid matching replay.
+
+## 74. NOW: build item 71's fix for "not shortlisted" misses while waiting for Nov 22 (2026-11-22)
+
+**Why:** the agent ran 48 iterations in a row with no commit between 00:17 and
+04:52 UTC on Nov 22, waiting for the 15:00 edition. Meanwhile, the Nov 20 and
+21 reviews already show one cause leading by a wide margin. Collected reports
+that never reached the final editor's input were 22 of 40 misses on Nov 20 and
+24 of 40 on Nov 21. Never collected was 8 and 9, and shortlisted but not
+published was 10 and 7. The owner approved building the fix now (Nov 22).
+
+**Priority:** Current order line 2, inside item 71. Protecting the morning
+edition and the Nov 22 review still come first.
+
+**Event budget:** the owner accepts the rejection in `ff60bfe4` as item 73's
+answer. Item 69 step 2 is closed for now. Remove its entry from
+`NEEDS_FROM_HUMAN.md`, and don't do more event-budget work.
+
+**What to do:**
+
+1. **Find the stage.** For every "not shortlisted" miss on Nov 20 and 21, use
+   the saved grouping memberships to find the step where its reports drop out
+   before the final editor's input: grouping, triage score, ranking cut, a
+   per-topic limit, or another step the code shows. Write one table with the
+   counts per stage and per topic in `docs/edition-reviews/2026-11-21.md`.
+   This needs one commit and no new scripts or schemas.
+2. **Fix the largest stage at its root**, in the general selection code. Don't
+   add rules for particular publishers, events or wording. Don't tune to the
+   reference lists.
+3. **Measure the fix on the saved Nov 20 and 21 pools**, with no model calls.
+   Report how many "not shortlisted" misses now reach the editor's input, per
+   topic, before and after. Also report the change in editor input size and
+   its cost estimate. Every event that reached the editor before must still
+   reach it.
+4. **Hold the deploy** until the Nov 22 review. That review adds its Missed
+   section as item 71 says, then tallies all three days. If "not shortlisted"
+   is still the largest cause, deploy outside 13:00 to 16:00 UTC. If another
+   cause is larger, don't deploy. Report the tally and build the fix for the
+   largest cause instead.
+
+**While waiting:** after step 3, if the Nov 22 edition hasn't published, work
+on the next open item in Current order. Don't make idle runs.
+
+**What not to do:** no paid calls, no new reference scripts, fixtures or
+snapshot fields, and no checkpoint commits (item 66). Don't raise a cap. If the
+larger editor input would make the worst saved day exceed the $0.65 daily cap,
+including the developing-stories reservation, don't deploy. Report the numbers.
+
+**Done when:** the three-day tally is in the Nov 22 review, and the fix for the
+largest cause is deployed, or held with its numbers. The ack gives the stage
+table, editor-input reach per topic before and after on Nov 20 and 21, the
+cost change and the three-day tally.
+
+**Limits:** AI caps unchanged (daily $0.65, monthly $20). No deploys between
+13:00 and 16:00 UTC. Protect the morning edition.
