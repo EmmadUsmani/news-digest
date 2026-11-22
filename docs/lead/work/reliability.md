@@ -1,5 +1,11 @@
 # Reliability
 
+**Agent paused by the owner, Nov 22 (on purpose, not an outage):** the owner
+needs the ChatGPT account's Codex usage for another project. The lead created
+`~/agent-control/STOP` at 07:39 UTC during iteration 3434, which then finishes and
+stops. The app and its timers keep running. Resume only when the owner says so:
+`rm -f ~/agent-control/STOP && systemctl --user start news-digest-agent.service`.
+
 **Agent outage, Nov 10 (resolved):** from 22:13 UTC every Codex run failed with
 "The 'gpt-6.1-sol' model requires a newer version of Codex". The temporary
 `gpt-6-sol` pin is already gone from the VM's `~/.codex/config.toml` (checked
